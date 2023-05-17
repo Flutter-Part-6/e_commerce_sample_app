@@ -2,21 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/view_modules/core/view_module_factory.dart';
 import '../bloc/view_modules_bloc/view_modules_bloc.dart';
-
-//Test 용 color map
-const testColors = [
-  Colors.red,
-  Colors.orange,
-  Colors.yellow,
-  Colors.green,
-  Colors.blue,
-  Colors.indigo,
-  Colors.cyan,
-  Colors.teal,
-  Colors.lime,
-  Colors.purple,
-];
 
 class ViewModuleList extends StatelessWidget {
   const ViewModuleList({required this.tabIndex, super.key});
@@ -25,6 +12,8 @@ class ViewModuleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ViewModuleFactory viewModuleFactory = ViewModuleFactory();
+
     return BlocBuilder<ViewModulesBloc, ViewModulesState>(
       builder: (context, state) {
         final viewModules = state.viewModules;
@@ -40,17 +29,8 @@ class ViewModuleList extends StatelessWidget {
             return SingleChildScrollView(
               child: Column(
                 children: (viewModules[tabId] ?? [])
-                    .asMap()
-                    .entries
-                    .map(
-                      (e) => Container(
-                        height: 200,
-                        color: testColors[e.key],
-                        child: Center(
-                          child: Text(e.value.type),
-                        ),
-                      ),
-                    )
+                    .map((viewModuleInfo) =>
+                        viewModuleFactory.textToWidget(viewModuleInfo))
                     .toList(),
               ),
             );
