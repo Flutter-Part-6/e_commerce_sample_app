@@ -5,3 +5,5 @@ abstract class UserEvent {
 }
 
 class UserInitialized extends UserEvent {}
+
+class UserLogout extends UserEvent {}

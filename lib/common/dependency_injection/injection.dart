@@ -15,7 +15,7 @@ import 'package:sample_app/domain_layer/repository/place_holder.repository.dart'
 import 'package:sample_app/domain_layer/usecase/place_holder.usecase.dart';
 
 /// bloc
-import '../../presentation_layer/user_page_sample/bloc/user_page_sample_bloc.dart';
+import '../../presentation_layer/user_page/bloc/user_page_bloc.dart';
 
 /// display
 /// api

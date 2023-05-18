@@ -32,7 +32,7 @@ import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/co
     as _i13;
 import 'package:sample_app/presentation_layer/home_page/bloc/view_modules_bloc/view_modules_bloc.dart'
     as _i12;
-import 'package:sample_app/presentation_layer/user_page_sample/bloc/user_bloc/user_bloc.dart'
+import 'package:sample_app/presentation_layer/user_page/bloc/user_bloc/user_bloc.dart'
     as _i11;
 
 extension GetItInjectableX on _i1.GetIt {
