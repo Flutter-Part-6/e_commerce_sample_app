@@ -5,12 +5,8 @@ abstract class ViewModulesEvent {
 }
 
 class ViewModulesInitialized extends ViewModulesEvent {
-  ViewModulesInitialized({this.storeType,this.collections});
-  final StoreType? storeType;
-  final List<Collection>? collections;
-}
+  ViewModulesInitialized({required this.storeType, required this.tabId});
 
-class ViewModulesFetched extends ViewModulesEvent {
-  ViewModulesFetched({required this.tabIndex});
-  final int tabIndex;
+  final StoreType storeType;
+  final int tabId;
 }

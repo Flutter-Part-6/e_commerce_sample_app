@@ -8,6 +8,7 @@ part 'view_module.dto.g.dart';
 class ViewModuleDto with _$ViewModuleDto {
   const factory ViewModuleDto({
     @Default('') String? type,
+    @Default('') String? title,
   }) = _ViewModuleDto;
 
   factory ViewModuleDto.fromJson(Map<String, Object?> json) =>

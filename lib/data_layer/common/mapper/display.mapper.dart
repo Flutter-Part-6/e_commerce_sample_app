@@ -14,6 +14,7 @@ extension ViewModuleEx on ViewModuleDto {
   ViewModule toModel() {
     return ViewModule(
       type: type ?? '',
+      title: title ?? ''
     );
   }
 }

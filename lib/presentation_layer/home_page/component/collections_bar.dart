@@ -1,36 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/view_modules_bloc/view_modules_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_module_list.dart';
 
 import '../../../domain_layer/model/display/collection/collection.model.dart';
-import '../../../injection.dart';
-import '../bloc/collections_bloc/collections_bloc.dart';
+import '../bloc/home_page_bloc.dart';
 
-class CollectionsBar extends StatelessWidget {
+class CollectionsBar extends StatefulWidget {
   const CollectionsBar({
-    required this.storeType,
-    required this.collections,
-    Key? key,
-  }) : super(key: key);
-  final StoreType storeType;
-  final List<Collection> collections;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (_) => serviceLocator<ViewModulesBloc>()
-          ..add(ViewModulesInitialized(
-              storeType: storeType, collections: collections)),
-        child: CollectionsBarView(
-          storeType: storeType,
-          collections: collections,
-        ));
-  }
-}
-
-class CollectionsBarView extends StatefulWidget {
-  const CollectionsBarView({
     required this.storeType,
     required this.collections,
     super.key,
@@ -40,10 +15,10 @@ class CollectionsBarView extends StatefulWidget {
   final List<Collection> collections;
 
   @override
-  State<CollectionsBarView> createState() => _CollectionsBarViewState();
+  State<CollectionsBar> createState() => _CollectionsBarState();
 }
 
-class _CollectionsBarViewState extends State<CollectionsBarView>
+class _CollectionsBarState extends State<CollectionsBar>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
@@ -52,15 +27,6 @@ class _CollectionsBarViewState extends State<CollectionsBarView>
     super.initState();
     _tabController =
         TabController(length: widget.collections.length, vsync: this);
-
-    _tabController.addListener(() {
-      if (!_tabController.indexIsChanging) {
-        final tabIndex = _tabController.index;
-        context
-            .read<ViewModulesBloc>()
-            .add(ViewModulesFetched(tabIndex: tabIndex));
-      }
-    });
   }
 
   @override
@@ -83,11 +49,14 @@ class _CollectionsBarViewState extends State<CollectionsBarView>
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: widget.collections
-                .asMap()
-                .entries
-                .map((e) => ViewModuleList(tabIndex: e.key))
-                .toList(),
+            children: widget.collections.map(
+              (e) {
+                return ViewModuleList(
+                  storeType: widget.storeType,
+                  tabId: e.tabId,
+                );
+              },
+            ).toList(),
           ),
         )
       ],
