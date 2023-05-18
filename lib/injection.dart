@@ -50,8 +50,8 @@ void _dataLayer() {
   // place_holder_api
   registerSingleton<PlaceHolderApi>(PlaceHolderApi(dio));
 
-  // DisplayApi dataSource = DisplayApi(dio);
-  DisplayApi dataSource = DisplayApi.mock();
+  DisplayApi dataSource = DisplayApi(dio);
+  // DisplayApi dataSource = DisplayApi.mock();
 
   // display_api
   registerSingleton<DisplayApi>(dataSource);
