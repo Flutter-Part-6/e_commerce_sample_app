@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/injection.dart';
+import 'package:sample_app/injection_injectable.dart';
 
 import 'package:sample_app/presentation_layer/common/component/app_bar/top_app_bar.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
@@ -17,7 +17,7 @@ class MainPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (_) => serviceLocator<CollectionsBloc>()
+            create: (_) => getIt<CollectionsBloc>()
               ..add(CollectionsInitialized(storeType: StoreType.market))),
       ],
       child: const MainView(),

@@ -1,4 +1,5 @@
 /// data_source
+import 'package:injectable/injectable.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
 /// repository
@@ -8,6 +9,7 @@ import 'package:sample_app/domain_layer/repository/display.repository.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 
+@Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
   DisplayRepositoryImpl(this._displayApi);
   final DisplayApi _displayApi;

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/display/get_view_modules_by_store_type_and_tab_id.usecase.dart';
 
@@ -16,6 +17,7 @@ part 'view_modules_bloc.freezed.dart';
 
 enum ViewModulesStatus { initial, loading, success, failure }
 
+@injectable
 class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
   final DisplayUsecase _displayUsecase;
 

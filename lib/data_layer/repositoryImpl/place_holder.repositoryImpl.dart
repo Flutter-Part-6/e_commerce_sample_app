@@ -1,4 +1,6 @@
 /// API
+import 'package:injectable/injectable.dart';
+
 import '../data_source/remote/place_holder_api_sample.dart';
 
 /// Interface
@@ -8,6 +10,7 @@ import '../../domain_layer/repository/place_holder.repository.dart';
 import 'package:sample_app/data_layer/common/mapper/place_holder.mapper.dart';
 import 'package:sample_app/domain_layer/model/place_holder_sample.model.dart';
 
+@Singleton(as: PlaceHolderRepository)
 class PlaceHolderRepositoryImpl implements PlaceHolderRepository {
   PlaceHolderRepositoryImpl(this.placeHolderApi);
 

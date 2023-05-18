@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:sample_app/injection.dart';
+import 'package:sample_app/injection_injectable.dart';
 import 'package:sample_app/presentation_layer/user_page_sample/bloc/user_bloc/user_bloc.dart';
 
 class UserPage extends StatelessWidget {
@@ -11,7 +11,7 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider(
-        create: (_) => serviceLocator<UserBloc>()..add(UserInitialized()),
+        create: (_) => getIt<UserBloc>()..add(UserInitialized()),
       ),
     ], child: const UserView());
   }
@@ -29,9 +29,9 @@ class UserView extends StatelessWidget {
             return const SizedBox.shrink();
 
           case Status.loading:
-            return Stack(
+            return const Stack(
               alignment: Alignment.center,
-              children: const [
+              children: [
                 UserList(),
                 Align(
                   alignment: Alignment.center,
