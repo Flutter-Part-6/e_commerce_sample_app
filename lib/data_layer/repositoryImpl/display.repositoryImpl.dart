@@ -12,6 +12,7 @@ import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
   DisplayRepositoryImpl(this._displayApi);
+
   final DisplayApi _displayApi;
 
   @override
@@ -23,7 +24,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
         await _displayApi.getCollectionsByStoreType(storeType: storeType);
 
     final List<Collection> collections =
-        response.map((collctionDto) => collctionDto.toModel()).toList();
+        response.map((collectionDto) => collectionDto.toModel()).toList();
 
     return collections;
   }
