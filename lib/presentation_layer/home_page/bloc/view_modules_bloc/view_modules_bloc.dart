@@ -27,13 +27,14 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     ViewModulesInitialized event,
     Emitter<ViewModulesState> emit,
   ) async {
-    final storeType = event.storeType ?? StoreType.market;
+    final storeType = event.storeType;
     final tabId = event.tabId;
 
     emit(state.copyWith(status: ViewModulesStatus.loading));
 
     try {
-      final List<ViewModule> viewModules = await _fetchViewModules(storeType,tabId);
+      final List<ViewModule> viewModules =
+          await _fetchViewModules(storeType, tabId);
 
       emit(state.copyWith(
         status: ViewModulesStatus.success,
