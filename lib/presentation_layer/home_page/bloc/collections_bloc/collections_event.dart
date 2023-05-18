@@ -13,3 +13,8 @@ class ToggledStoreTypes extends CollectionsEvent{
   ToggledStoreTypes(this.tabIndex);
   final int tabIndex;
 }
+
+class ChangedTab extends CollectionsEvent{
+  ChangedTab(this.tabId);
+  final int tabId;
+}

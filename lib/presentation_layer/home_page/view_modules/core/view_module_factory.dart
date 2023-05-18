@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample_app/common/utils/extensions.dart';
 import 'package:sample_app/domain_layer/model/display/view_module/view_module.model.dart';
 import 'package:sample_app/presentation_layer/home_page/view_modules/core/view_module_widget.dart';
 import 'package:sample_app/presentation_layer/home_page/view_modules/view_module_A.dart';
@@ -23,7 +24,7 @@ class ViewModuleFactory {
     for (final module in Modules.values) {
       final name = module.name.toSnakeCase();
       if (name.contains(type)) {
-        return module.toWidget() as Widget;
+        return module.toWidget(viewModule) as Widget;
       }
     }
     return const ViewModuleNone();
@@ -31,28 +32,18 @@ class ViewModuleFactory {
 }
 
 extension ModulesEx on Modules {
-  ViewModuleWidget toWidget() {
+  ViewModuleWidget toWidget(ViewModule info) {
     switch (this) {
       case Modules.viewModuleA:
-        return const ViewModuleA();
+        return ViewModuleA(info);
       case Modules.viewModuleB:
-        return const ViewModuleB();
+        return ViewModuleB(info);
       case Modules.viewModuleC:
-        return const ViewModuleC();
+        return ViewModuleC(info);
       case Modules.viewModuleD:
-        return const ViewModuleD();
+        return ViewModuleD(info);
       case Modules.viewModuleE:
-        return const ViewModuleE();
+        return ViewModuleE(info);
     }
-  }
-}
-
-extension StringEx on String {
-  String toSnakeCase() {
-    RegExp exp = RegExp(r'(?<=[a-z])[A-Z]');
-    String result =
-        replaceAllMapped(exp, (Match m) => ('_${m.group(0)}')).toLowerCase();
-
-    return result;
   }
 }

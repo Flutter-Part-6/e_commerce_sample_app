@@ -7,6 +7,7 @@ part 'view_module.model.g.dart';
 class ViewModule with _$ViewModule {
   const factory ViewModule({
     required String type,
+    required String title,
   }) = _ViewModule;
 
   factory ViewModule.fromJson(Map<String, Object?> json) =>

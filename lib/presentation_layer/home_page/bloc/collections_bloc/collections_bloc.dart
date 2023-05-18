@@ -23,6 +23,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   CollectionsBloc(this._displayUsecase) : super(CollectionsState()) {
     on<CollectionsInitialized>(_onCollectionsInitialized);
     on<ToggledStoreTypes>(_onToggledStoreTypes);
+    on<ChangedTab>(_onChangedTab);
   }
 
   Future<void> _onCollectionsInitialized(
@@ -46,6 +47,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
       emit(
         state.copyWith(
           status: CollectionsStatus.success,
+          currentTabId: collections.first.tabId,
           collections: collections,
         ),
       );
@@ -55,14 +57,20 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     }
   }
 
+  void _onChangedTab(ChangedTab event, Emitter<CollectionsState> emit) {
+    if (!state.status.isSuccess) return;
+    final currentTabId = state.currentTabId;
+    final nextTabId = event.tabId;
+    if (nextTabId == currentTabId) return;
+    emit(state.copyWith(currentTabId: nextTabId));
+  }
+
   Future<void> _onToggledStoreTypes(
       ToggledStoreTypes event, Emitter<CollectionsState> emit) async {
     final currentStoreType = StoreType.values[event.tabIndex];
 
     if (!state.status.isSuccess) return;
-    // if (state.collections.isEmpty) {
-      emit(state.copyWith(status: CollectionsStatus.loading));
-    // }
+    emit(state.copyWith(status: CollectionsStatus.loading));
     try {
       final List<Collection> collections =
           await _fetchCollections(currentStoreType);

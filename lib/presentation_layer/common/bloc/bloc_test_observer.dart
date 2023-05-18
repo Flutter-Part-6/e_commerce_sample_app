@@ -18,14 +18,11 @@ class BlocTestObserver extends BlocObserver {
       final current = (change.currentState as CollectionsState).status;
       final next = (change.nextState as CollectionsState).status;
 
-      log('onChange -- ${bloc.runtimeType},'
-          '$current -> $next');
-    }else if(bloc.runtimeType.toString()=='ViewModulesBloc'){
+      // log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+    } else if (bloc.runtimeType.toString() == 'ViewModulesBloc') {
       final current = (change.currentState as ViewModulesState).status;
       final next = (change.nextState as ViewModulesState).status;
-
-      log('onChange -- ${bloc.runtimeType},'
-          '$current -> $next');
+      log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     }
   }
 
@@ -38,6 +35,6 @@ class BlocTestObserver extends BlocObserver {
   @override
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
-    log('onClose -- ${bloc.runtimeType}');
+    log('onClose -- ${bloc.runtimeType},###${bloc.hashCode},');
   }
 }

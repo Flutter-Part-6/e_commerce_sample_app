@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CollectionsState {
   CollectionsStatus get status => throw _privateConstructorUsedError;
   StoreType get storeType => throw _privateConstructorUsedError;
+  int get currentTabId => throw _privateConstructorUsedError;
   List<Collection> get collections => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -34,6 +35,7 @@ abstract class $CollectionsStateCopyWith<$Res> {
   $Res call(
       {CollectionsStatus status,
       StoreType storeType,
+      int currentTabId,
       List<Collection> collections});
 }
 
@@ -52,6 +54,7 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
   $Res call({
     Object? status = null,
     Object? storeType = null,
+    Object? currentTabId = null,
     Object? collections = null,
   }) {
     return _then(_value.copyWith(
@@ -63,6 +66,10 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
               as StoreType,
+      currentTabId: null == currentTabId
+          ? _value.currentTabId
+          : currentTabId // ignore: cast_nullable_to_non_nullable
+              as int,
       collections: null == collections
           ? _value.collections
           : collections // ignore: cast_nullable_to_non_nullable
@@ -82,6 +89,7 @@ abstract class _$$_CollectionsStateCopyWith<$Res>
   $Res call(
       {CollectionsStatus status,
       StoreType storeType,
+      int currentTabId,
       List<Collection> collections});
 }
 
@@ -98,6 +106,7 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? storeType = null,
+    Object? currentTabId = null,
     Object? collections = null,
   }) {
     return _then(_$_CollectionsState(
@@ -109,6 +118,10 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
               as StoreType,
+      currentTabId: null == currentTabId
+          ? _value.currentTabId
+          : currentTabId // ignore: cast_nullable_to_non_nullable
+              as int,
       collections: null == collections
           ? _value._collections
           : collections // ignore: cast_nullable_to_non_nullable
@@ -123,6 +136,7 @@ class _$_CollectionsState implements _CollectionsState {
   _$_CollectionsState(
       {this.status = CollectionsStatus.initial,
       this.storeType = StoreType.market,
+      this.currentTabId = 0,
       final List<Collection> collections = const <Collection>[]})
       : _collections = collections;
 
@@ -132,6 +146,9 @@ class _$_CollectionsState implements _CollectionsState {
   @override
   @JsonKey()
   final StoreType storeType;
+  @override
+  @JsonKey()
+  final int currentTabId;
   final List<Collection> _collections;
   @override
   @JsonKey()
@@ -143,7 +160,7 @@ class _$_CollectionsState implements _CollectionsState {
 
   @override
   String toString() {
-    return 'CollectionsState(status: $status, storeType: $storeType, collections: $collections)';
+    return 'CollectionsState(status: $status, storeType: $storeType, currentTabId: $currentTabId, collections: $collections)';
   }
 
   @override
@@ -154,12 +171,14 @@ class _$_CollectionsState implements _CollectionsState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.storeType, storeType) ||
                 other.storeType == storeType) &&
+            (identical(other.currentTabId, currentTabId) ||
+                other.currentTabId == currentTabId) &&
             const DeepCollectionEquality()
                 .equals(other._collections, _collections));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, storeType,
+  int get hashCode => Object.hash(runtimeType, status, storeType, currentTabId,
       const DeepCollectionEquality().hash(_collections));
 
   @JsonKey(ignore: true)
@@ -173,12 +192,15 @@ abstract class _CollectionsState implements CollectionsState {
   factory _CollectionsState(
       {final CollectionsStatus status,
       final StoreType storeType,
+      final int currentTabId,
       final List<Collection> collections}) = _$_CollectionsState;
 
   @override
   CollectionsStatus get status;
   @override
   StoreType get storeType;
+  @override
+  int get currentTabId;
   @override
   List<Collection> get collections;
   @override
