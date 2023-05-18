@@ -11,7 +11,7 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider(
-        create: (_) => serviceLocater<UserBloc>()..add(UserInitialized()),
+        create: (_) => serviceLocator<UserBloc>()..add(UserInitialized()),
       ),
     ], child: const UserView());
   }

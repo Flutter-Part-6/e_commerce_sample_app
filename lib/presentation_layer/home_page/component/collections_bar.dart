@@ -19,7 +19,7 @@ class CollectionsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => serviceLocater<ViewModulesBloc>()
+        create: (_) => serviceLocator<ViewModulesBloc>()
           ..add(ViewModulesInitialized(
               storeType: storeType, collections: collections)),
         child: CollectionsBarView(
