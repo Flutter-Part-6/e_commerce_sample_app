@@ -5,11 +5,10 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
 import 'package:sample_app/presentation_layer/common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 
-import 'injection_injectable.dart';
+import 'common/dependency_injection/injection_injectable.dart';
 import 'presentation_layer/main_page.dart';
 
 void main() async {
-  // initDependencyInjection();
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = BlocTestObserver();

@@ -22,11 +22,11 @@ class _DisplayApi implements DisplayApi {
 
   @override
   Future<List<CollectionDto>> getCollectionsByStoreType(
-      {required String storeType}) async {
+      {required storeType}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<CollectionDto>>(Options(
       method: 'GET',
@@ -48,13 +48,13 @@ class _DisplayApi implements DisplayApi {
 
   @override
   Future<List<ViewModuleDto>> getViewModulesByStoreTypeAndTabId({
-    required String storeType,
-    required int tabId,
+    required storeType,
+    required tabId,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<ViewModuleDto>>(Options(
       method: 'GET',

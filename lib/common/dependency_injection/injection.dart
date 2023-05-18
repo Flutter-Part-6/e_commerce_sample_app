@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
 /// dio
-import 'data_layer/common/dio/rest_client.dart';
+import '../../data_layer/common/dio/rest_client.dart';
 
 /// place_holder
 /// api
@@ -15,7 +15,7 @@ import 'package:sample_app/domain_layer/repository/place_holder.repository.dart'
 import 'package:sample_app/domain_layer/usecase/place_holder.usecase.dart';
 
 /// bloc
-import 'presentation_layer/user_page_sample/bloc/user_page_sample_bloc.dart';
+import '../../presentation_layer/user_page_sample/bloc/user_page_sample_bloc.dart';
 
 /// display
 /// api
@@ -29,7 +29,7 @@ import 'package:sample_app/data_layer/repositoryImpl/display.repositoryImpl.dart
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 
 /// bloc
-import 'presentation_layer/home_page/bloc/home_page_bloc.dart';
+import '../../presentation_layer/home_page/bloc/home_page_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 
