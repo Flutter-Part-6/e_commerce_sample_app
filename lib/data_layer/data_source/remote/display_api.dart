@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 // dto
 import 'package:sample_app/data_layer/dto/display.dto.dart';
+import '../mock/moc_api.dart';
 
 part 'display_api.g.dart';
 
@@ -12,6 +13,7 @@ const String baseUrl = 'http://127.0.0.1:8000/';
 @RestApi(baseUrl: baseUrl)
 abstract class DisplayApi {
   factory DisplayApi(Dio dio, {String? baseUrl}) = _DisplayApi;
+  factory DisplayApi.mock() = MockApi;
 
   // about collections
   @GET('/{storeType}')

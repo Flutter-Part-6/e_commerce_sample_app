@@ -49,8 +49,12 @@ void _dataLayer() {
   // data_source
   // place_holder_api
   registerSingleton<PlaceHolderApi>(PlaceHolderApi(dio));
+
+  // DisplayApi dataSource = DisplayApi(dio);
+  DisplayApi dataSource = DisplayApi.mock();
+
   // display_api
-  registerSingleton<DisplayApi>(DisplayApi(dio));
+  registerSingleton<DisplayApi>(dataSource);
 }
 
 void _domainLayer() {
