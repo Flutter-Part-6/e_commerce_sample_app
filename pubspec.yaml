@@ -52,6 +52,7 @@ dependencies:
   mocktail:
 
   kakao_flutter_sdk_user:
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_test:

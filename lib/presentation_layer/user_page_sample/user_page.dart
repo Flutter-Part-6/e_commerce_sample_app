@@ -1,19 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 import 'package:sample_app/injection_injectable.dart';
 import 'package:sample_app/presentation_layer/user_page_sample/bloc/user_bloc/user_bloc.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
-        create: (_) => getIt<UserBloc>()..add(UserInitialized()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<UserBloc>()..add(UserInitialized()),
+        ),
+      ],
+      child: const KaKaoLoginView(),
+    );
+  }
+}
+
+class KaKaoLoginView extends StatefulWidget {
+  const KaKaoLoginView({Key? key}) : super(key: key);
+
+  @override
+  State<KaKaoLoginView> createState() => _KaKaoLoginViewState();
+}
+
+class _KaKaoLoginViewState extends State<KaKaoLoginView> {
+  String username = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      OAuthToken? token =
+          await TokenManagerProvider.instance.manager.getToken();
+      var loginInfo = JwtDecoder.decode(token?.idToken ?? '');
+      if (loginInfo.isNotEmpty) {
+        setState(() {
+          username = loginInfo['nickname'];
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Text(username),
+          username.isEmpty
+              ? TextButton(
+                  onPressed: () async {
+                    if (await isKakaoTalkInstalled()) {
+                    } else {
+                      OAuthToken token =
+                          await UserApi.instance.loginWithKakaoAccount();
+                      var loginInfo = JwtDecoder.decode(token.idToken ?? '');
+                      setState(() {
+                        username = loginInfo['nickname'];
+                      });
+                    }
+                  },
+                  child: const Text('KAKAO Login'),
+                )
+              : TextButton(
+                  onPressed: () async {
+                    if (await isKakaoTalkInstalled()) {
+                    } else {
+                      await UserApi.instance.logout();
+
+                      setState(() {
+                        username = '';
+                      });
+                    }
+                  },
+                  child: const Text('Logout'),
+                ),
+        ],
       ),
-    ], child: const UserView());
+    );
   }
 }
 
