@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/injection_injectable.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/view_modules/core/view_module_factory.dart';
 
+import '../../../common/dependency_injection/injection_injectable.dart';
 import '../bloc/view_modules_bloc/view_modules_bloc.dart';
 
 class ViewModuleList extends StatelessWidget {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/injection_injectable.dart';
 
 import 'package:sample_app/presentation_layer/common/component/app_bar/top_app_bar.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/home_page.dart';
 import 'package:sample_app/presentation_layer/user_page_sample/user_page.dart';
 
+import '../common/dependency_injection/injection_injectable.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 
 class MainPage extends StatelessWidget {

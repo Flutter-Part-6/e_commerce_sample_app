@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:sample_app/injection_injectable.dart';
 import 'package:sample_app/presentation_layer/user_page_sample/bloc/user_bloc/user_bloc.dart';
+
+import '../../common/dependency_injection/injection_injectable.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});

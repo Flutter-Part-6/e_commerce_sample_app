@@ -25,7 +25,7 @@ class _PlaceHolderApi implements PlaceHolderApi {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<PostDto>>(Options(
       method: 'GET',
@@ -46,11 +46,11 @@ class _PlaceHolderApi implements PlaceHolderApi {
   }
 
   @override
-  Future<PostDto> getPostById({required String id}) async {
+  Future<PostDto> getPostById({required id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<PostDto>(Options(
       method: 'GET',
@@ -73,7 +73,7 @@ class _PlaceHolderApi implements PlaceHolderApi {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<UserDto>>(Options(
       method: 'GET',
@@ -94,11 +94,11 @@ class _PlaceHolderApi implements PlaceHolderApi {
   }
 
   @override
-  Future<UserDto> getUserById({required String id}) async {
+  Future<UserDto> getUserById({required id}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<UserDto>(Options(
       method: 'GET',
