@@ -21,6 +21,7 @@ ViewModule _$ViewModuleFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ViewModule {
   String get type => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $ViewModuleCopyWith<$Res> {
           ViewModule value, $Res Function(ViewModule) then) =
       _$ViewModuleCopyWithImpl<$Res, ViewModule>;
   @useResult
-  $Res call({String type});
+  $Res call({String type, String title});
 }
 
 /// @nodoc
@@ -51,11 +52,16 @@ class _$ViewModuleCopyWithImpl<$Res, $Val extends ViewModule>
   @override
   $Res call({
     Object? type = null,
+    Object? title = null,
   }) {
     return _then(_value.copyWith(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -69,7 +75,7 @@ abstract class _$$_ViewModuleCopyWith<$Res>
       __$$_ViewModuleCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String type});
+  $Res call({String type, String title});
 }
 
 /// @nodoc
@@ -84,11 +90,16 @@ class __$$_ViewModuleCopyWithImpl<$Res>
   @override
   $Res call({
     Object? type = null,
+    Object? title = null,
   }) {
     return _then(_$_ViewModule(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -97,17 +108,19 @@ class __$$_ViewModuleCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ViewModule implements _ViewModule {
-  const _$_ViewModule({required this.type});
+  const _$_ViewModule({required this.type, required this.title});
 
   factory _$_ViewModule.fromJson(Map<String, dynamic> json) =>
       _$$_ViewModuleFromJson(json);
 
   @override
   final String type;
+  @override
+  final String title;
 
   @override
   String toString() {
-    return 'ViewModule(type: $type)';
+    return 'ViewModule(type: $type, title: $title)';
   }
 
   @override
@@ -115,12 +128,13 @@ class _$_ViewModule implements _ViewModule {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ViewModule &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.title, title) || other.title == title));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type);
+  int get hashCode => Object.hash(runtimeType, type, title);
 
   @JsonKey(ignore: true)
   @override
@@ -137,13 +151,17 @@ class _$_ViewModule implements _ViewModule {
 }
 
 abstract class _ViewModule implements ViewModule {
-  const factory _ViewModule({required final String type}) = _$_ViewModule;
+  const factory _ViewModule(
+      {required final String type,
+      required final String title}) = _$_ViewModule;
 
   factory _ViewModule.fromJson(Map<String, dynamic> json) =
       _$_ViewModule.fromJson;
 
   @override
   String get type;
+  @override
+  String get title;
   @override
   @JsonKey(ignore: true)
   _$$_ViewModuleCopyWith<_$_ViewModule> get copyWith =>
