@@ -31,10 +31,10 @@ import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 /// bloc
 import 'presentation_layer/home_page/bloc/home_page_bloc.dart';
 
-final serviceLocater = GetIt.instance;
+final serviceLocator = GetIt.instance;
 
-Function registerSingleton = serviceLocater.registerSingleton;
-Function registerFactory = serviceLocater.registerFactory;
+Function registerSingleton = serviceLocator.registerSingleton;
+Function registerFactory = serviceLocator.registerFactory;
 
 void initDependencyInjection() {
   _dataLayer();
@@ -57,32 +57,32 @@ void _domainLayer() {
   // ------ repository ------
   // place_holder
   registerSingleton<PlaceHolderRepository>(
-      PlaceHolderRepositoryImpl(serviceLocater<PlaceHolderApi>()));
+      PlaceHolderRepositoryImpl(serviceLocator<PlaceHolderApi>()));
   // display
   registerSingleton<DisplayRepository>(
-      DisplayRepositoryImpl(serviceLocater<DisplayApi>()));
+      DisplayRepositoryImpl(serviceLocator<DisplayApi>()));
 
   // ------ usecase ------
   // place_holder
   registerSingleton<PlaceHolderUsecase>(
-    PlaceHolderUsecase(serviceLocater<PlaceHolderRepository>()),
+    PlaceHolderUsecase(serviceLocator<PlaceHolderRepository>()),
   );
   // display
   registerSingleton<DisplayUsecase>(
-      DisplayUsecase(serviceLocater<DisplayRepository>()));
+      DisplayUsecase(serviceLocator<DisplayRepository>()));
 }
 
 void _presentationLayer() {
   //bloc
   // place_holder - user
   registerFactory<UserBloc>(
-      () => UserBloc(serviceLocater<PlaceHolderUsecase>()));
+      () => UserBloc(serviceLocator<PlaceHolderUsecase>()));
 
   // display - home_page
   // collections
   registerFactory<CollectionsBloc>(
-      () => CollectionsBloc(serviceLocater<DisplayUsecase>()));
+      () => CollectionsBloc(serviceLocator<DisplayUsecase>()));
   // view_modules
   registerFactory<ViewModulesBloc>(
-      () => ViewModulesBloc(serviceLocater<DisplayUsecase>()));
+      () => ViewModulesBloc(serviceLocator<DisplayUsecase>()));
 }

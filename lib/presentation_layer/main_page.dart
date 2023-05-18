@@ -17,7 +17,7 @@ class MainPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (_) => serviceLocater<CollectionsBloc>()
+            create: (_) => serviceLocator<CollectionsBloc>()
               ..add(CollectionsInitialized(storeType: StoreType.market))),
       ],
       child: const MainView(),
