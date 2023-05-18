@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 
 import 'package:sample_app/domain_layer/model/display/collection/collection.model.dart';
@@ -17,6 +18,7 @@ enum StoreType { market, beauty }
 
 enum CollectionsStatus { initial, loading, success, failure }
 
+@injectable
 class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   final DisplayUsecase _displayUsecase;
 

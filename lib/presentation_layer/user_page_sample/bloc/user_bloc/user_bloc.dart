@@ -2,23 +2,27 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sample_app/domain_layer/usecase/place_holder.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/place_holder/get_users.usecase.dart';
 
 import '../../../../domain_layer/model/place_holder_sample/user/user.model.dart';
 
 part 'user_event.dart';
+
 part 'user_state.dart';
 
 part 'user_bloc.freezed.dart';
 
+@injectable
 class UserBloc extends Bloc<UserEvent, UserState> {
   final PlaceHolderUsecase _placeHolderUsecase;
+
   UserBloc(this._placeHolderUsecase) : super(UserState()) {
-    on<UserInitialized>(_onUserIntialized);
+    on<UserInitialized>(_onUserInitialized);
   }
 
-  Future<void> _onUserIntialized(
+  Future<void> _onUserInitialized(
     UserInitialized event,
     Emitter<UserState> emit,
   ) async {

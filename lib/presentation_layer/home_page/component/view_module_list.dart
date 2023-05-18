@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/injection.dart';
+import 'package:sample_app/injection_injectable.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/view_modules/core/view_module_factory.dart';
 
@@ -16,7 +16,7 @@ class ViewModuleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => serviceLocator<ViewModulesBloc>()
+      create: (_) => getIt<ViewModulesBloc>()
         ..add(ViewModulesInitialized(storeType: storeType, tabId: tabId)),
       child: const _BuildViewModuleList(),
     );
