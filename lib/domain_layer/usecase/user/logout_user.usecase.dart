@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 import '../../repository/place_holder.repository.dart';
@@ -14,5 +15,6 @@ class LogoutUser extends RemoteUsecase<PlaceHolderRepository> {
     /// firebase authentication 에서도 로그아웃 하는 부분 api 뚫어서 호출해주어야함
     /// LogoutUser, GetUSer 등등 각 usecase barrel로 만들기
     await UserApi.instance.logout();
+    await FirebaseAuth.instance.signOut();
   }
 }

@@ -6,6 +6,6 @@ enum Status { initial, loading, success, error }
 class UserState with _$UserState {
   factory UserState({
     @Default(Status.initial) Status status,
-    @Default(<User>[]) List<User> users,
+    User? user,
   }) = _UserState;
 }

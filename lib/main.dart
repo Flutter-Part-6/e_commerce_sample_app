@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dar
 import 'package:sample_app/presentation_layer/common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
+import 'firebase_options.dart';
 import 'presentation_layer/main_page.dart';
 
 void main() async {
@@ -25,6 +27,10 @@ void main() async {
   // 카카오 로그인 init
   KakaoSdk.init(
     nativeAppKey: '131a1167cce7a54b528d70f41dd7be0f',
+  );
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(const MyApp());
