@@ -13,40 +13,22 @@ class GetViewModulesByStoreTypeAndTabId
   GetViewModulesByStoreTypeAndTabId({
     required this.storeType,
     required this.tabId,
+    this.isRefresh = false,
     this.params,
   });
 
-  final Map<String, String>? params;
   final StoreType storeType;
   final int tabId;
+  final bool isRefresh;
+  final Map<String, String>? params;
 
   @override
   Future<List<ViewModule>> execute(DisplayRepository repository) async {
-    final displayDao = DisplayDao();
-
-    final cacheKey = '${storeType}_$tabId';
-    final List<ViewModuleEntity> cachedViewModules =
-        await displayDao.getViewModules(cacheKey);
-
-    //TODO refresh인 경우 개발해야 됌
-    if (cachedViewModules.isNotEmpty) {
-      final viewModules = cachedViewModules
-          .map((viewModuleEntity) => viewModuleEntity.toModel())
-          .toList();
-      return viewModules;
-    }
-
     final response = await repository.getViewModulesByStoreTypeAndTabId(
+      isRefresh: isRefresh,
       storeType: storeType.name,
       tabId: tabId,
     );
-
-    // delete cache
-    await displayDao.clearViewModules(cacheKey);
-
-    // insert local_storage
-    await displayDao.insertViewModules(
-        cacheKey, response.map((e) => e.toEntity()).toList());
 
     return response;
   }

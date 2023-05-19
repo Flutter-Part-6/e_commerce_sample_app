@@ -10,3 +10,7 @@ class ViewModulesInitialized extends ViewModulesEvent {
   final StoreType storeType;
   final int tabId;
 }
+
+class ViewModulesFetched extends ViewModulesEvent {
+  ViewModulesFetched();
+}

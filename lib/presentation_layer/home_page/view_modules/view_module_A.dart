@@ -17,6 +17,7 @@ class ViewModuleA extends StatelessWidget with ViewModuleWidget {
           children: [
             const Text('view_module_A'),
             Text(info.title),
+            Image.network(info.products.first.imageUrl,height: 160,width: 125,),
           ],
         ),
       ),

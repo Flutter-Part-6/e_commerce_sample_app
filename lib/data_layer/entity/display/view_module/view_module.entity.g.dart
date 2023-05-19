@@ -17,19 +17,24 @@ class ViewModuleEntityAdapter extends TypeAdapter<ViewModuleEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ViewModuleEntity(
-      type: fields[0] as String,
-      title: fields[1] as String,
+      type: fields[0] == null ? '' : fields[0] as String,
+      title: fields[1] == null ? '' : fields[1] as String,
+      products: fields[2] == null
+          ? []
+          : (fields[2] as List).cast<ProductInfoEntity>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, ViewModuleEntity obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
-      ..write(obj.title);
+      ..write(obj.title)
+      ..writeByte(2)
+      ..write(obj.products);
   }
 
   @override
