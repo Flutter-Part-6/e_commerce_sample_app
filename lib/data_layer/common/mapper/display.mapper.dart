@@ -1,6 +1,6 @@
-import 'package:sample_app/data_layer/dto/display.dto.dart';
-import 'package:sample_app/data_layer/entity/display/display.entity.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
+import '../../dto/display.dto.dart';
+import '../../../domain_layer/model/display.model.dart';
+import '../../entity/display/display.entity.dart';
 
 extension CollectionEx on CollectionDto {
   Collection toModel() {
@@ -17,6 +17,7 @@ extension ViewModuleDtoEx on ViewModuleDto {
     return ViewModule(
       type: type ?? '',
       title: title ?? '',
+      products: products?.map((dto) => dto.toModel()).toList() ?? [],
     );
   }
 }
@@ -27,6 +28,7 @@ extension ViewModuleEntityEx on ViewModuleEntity {
     return ViewModule(
       type: type ?? '',
       title: title ?? '',
+      products: products.map((entity) => entity.toModel()).toList(),
     );
   }
 }
@@ -36,6 +38,37 @@ extension ViewModuleEx on ViewModule {
   ViewModuleEntity toEntity() {
     return ViewModuleEntity(
       type: type ?? '',
+      title: title ?? '',
+      products: products.map((model) => model.toEntity()).toList(),
+    );
+  }
+}
+
+/// DTO -> MODEL
+extension ProductInfoDtoEx on ProductInfoDto {
+  ProductInfo toModel() {
+    return ProductInfo(
+      title: title ?? '',
+      imageUrl: imageUrl ?? '',
+    );
+  }
+}
+
+/// MODEL -> ENTITY
+extension ProductInfoEx on ProductInfo {
+  ProductInfoEntity toEntity() {
+    return ProductInfoEntity(
+      imageUrl: imageUrl ?? '',
+      title: title ?? '',
+    );
+  }
+}
+
+/// Entity -> MODEL
+extension ProductInfoEntityEx on ProductInfoEntity {
+  ProductInfo toModel() {
+    return ProductInfo(
+      imageUrl: imageUrl ?? '',
       title: title ?? '',
     );
   }

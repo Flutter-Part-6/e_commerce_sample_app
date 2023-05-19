@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sample_app/data_layer/dto/display/product_info/product_info.dto.dart';
 
 part 'view_module.dto.freezed.dart';
 
@@ -9,6 +10,7 @@ class ViewModuleDto with _$ViewModuleDto {
   const factory ViewModuleDto({
     @Default('') String? type,
     @Default('') String? title,
+    @Default(<ProductInfoDto>[]) List<ProductInfoDto>? products,
   }) = _ViewModuleDto;
 
   factory ViewModuleDto.fromJson(Map<String, Object?> json) =>

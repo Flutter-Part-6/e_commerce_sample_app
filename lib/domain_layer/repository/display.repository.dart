@@ -10,6 +10,7 @@ abstract class DisplayRepository extends Repository {
 
   // get viewModule list
   Future<List<ViewModule>> getViewModulesByStoreTypeAndTabId({
+    required bool isRefresh,
     required String storeType,
     required int tabId,
     Map<String, String>? queries,
