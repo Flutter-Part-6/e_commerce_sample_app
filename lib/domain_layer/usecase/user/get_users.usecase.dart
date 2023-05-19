@@ -1,15 +1,15 @@
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:sample_app/domain_layer/repository/user.repository.dart';
 
-import '../../repository/place_holder.repository.dart';
 import '../base_usecase/remote.usecase.dart';
 
-class GetUsers extends RemoteUsecase<PlaceHolderRepository> {
+class GetUsers extends RemoteUsecase<UserRepository> {
   GetUsers({this.params});
   final Map<String, String>? params;
 
   @override
-  Future<User> execute(PlaceHolderRepository repository) async {
+  Future<User> execute(UserRepository repository) async {
     // 기존 로그인 토큰 존재 유무 검사
     OAuthToken? kakaoToken =
         await TokenManagerProvider.instance.manager.getToken();
