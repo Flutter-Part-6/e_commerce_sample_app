@@ -29,6 +29,7 @@ void main() async {
     nativeAppKey: '131a1167cce7a54b528d70f41dd7be0f',
   );
 
+  // firebase initialize
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

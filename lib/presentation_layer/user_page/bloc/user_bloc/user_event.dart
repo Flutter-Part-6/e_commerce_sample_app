@@ -4,6 +4,6 @@ abstract class UserEvent {
   const UserEvent();
 }
 
-class UserInitialized extends UserEvent {}
+class UserLogin extends UserEvent {}
 
 class UserLogout extends UserEvent {}

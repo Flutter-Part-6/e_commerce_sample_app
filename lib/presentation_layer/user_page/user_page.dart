@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/user_page/bloc/user_bloc/user_bloc.dart';
 
-import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-
 import '../../common/dependency_injection/injection_injectable.dart';
 
 class UserPage extends StatelessWidget {
@@ -14,7 +12,7 @@ class UserPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => getIt<UserBloc>()..add(UserInitialized()),
+          create: (_) => getIt<UserBloc>()..add(UserLogin()),
         ),
       ],
       child: const UserView(),
@@ -34,9 +32,9 @@ class UserView extends StatelessWidget {
             return const SizedBox.shrink();
 
           case Status.loading:
-            return const Stack(
+            return Stack(
               alignment: Alignment.center,
-              children: [
+              children: const [
                 UserList(),
                 Align(
                   alignment: Alignment.center,
@@ -63,38 +61,39 @@ class UserList extends StatelessWidget {
     final user = context.watch<UserBloc>().state.user;
 
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          user == null
-              ? TextButton(
-                  onPressed: () {
-                    context.read<UserBloc>().add(UserInitialized());
-                  },
-                  child: const Text('KAKAOLOGIN'),
-                )
-              : Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                        height: 100,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: const BoxDecoration(
-                            border: Border(bottom: BorderSide())),
-                        child: Center(
-                            child: Text(
-                                user!.kakaoAccount?.profile?.nickname ?? '??')),
-                      ),
+      child: Center(
+        child: user == null
+            ? TextButton(
+                onPressed: () {
+                  context.read<UserBloc>().add(UserLogin());
+                },
+                child: const Text('KAKAOLOGIN'),
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        Image.network(
+                          user.kakaoAccount?.profile?.profileImageUrl ?? '',
+                          height: 200,
+                          width: 200,
+                        ),
+                        Text(user.kakaoAccount?.profile?.nickname.toString() ??
+                            '??'),
+                      ],
                     ),
-                    TextButton(
-                      onPressed: () async {
-                        context.read<UserBloc>().add(UserLogout());
-                      },
-                      child: const Text('LOGOUT'),
-                    )
-                  ],
-                ),
-        ],
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      context.read<UserBloc>().add(UserLogout());
+                    },
+                    child: const Text('LOGOUT'),
+                  )
+                ],
+              ),
       ),
     );
   }

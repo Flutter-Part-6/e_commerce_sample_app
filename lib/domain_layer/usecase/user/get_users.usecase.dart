@@ -6,6 +6,7 @@ import '../base_usecase/remote.usecase.dart';
 
 class GetUsers extends RemoteUsecase<UserRepository> {
   GetUsers({this.params});
+
   final Map<String, String>? params;
 
   @override
@@ -23,14 +24,16 @@ class GetUsers extends RemoteUsecase<UserRepository> {
     }
 
     User user = await UserApi.instance.me();
-    final token = 'kakao::123123123';
-    // final token = createCustomToken()
 
-    // await FirebaseAuth.instance.signInWithCustomToken(token);
+    final token = await repository.getCustomToken(
+      userId: user.id.toString(),
+      email: user.kakaoAccount?.email,
+    );
+
+    await FirebaseAuth.instance.signInWithCustomToken(token);
 
     /// TODO
     /// 서버(functions) 호출해서 id 생성 및 auth 등록 => PlaceHolderRepositoryImpl -> getUsers로 만들어야함
-    /// User 모델 수정
     /// 에러처리성
 
     return user;
