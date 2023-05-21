@@ -10,8 +10,16 @@ class ProductInfoEntity extends HiveObject {
   @HiveField(1, defaultValue: '')
   String imageUrl;
 
+  @HiveField(2, defaultValue: '')
+  String subtitle;
+
+  @HiveField(3, defaultValue: 0)
+  int price;
+
   ProductInfoEntity({
     required this.title,
     required this.imageUrl,
+    required this.price,
+    required this.subtitle,
   });
 }
