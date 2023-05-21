@@ -13,6 +13,7 @@ const String baseUrl = 'http://127.0.0.1:8000/';
 @RestApi(baseUrl: baseUrl)
 abstract class DisplayApi {
   factory DisplayApi(Dio dio, {String? baseUrl}) = _DisplayApi;
+
   factory DisplayApi.mock() = MockApi;
 
   // about collections
@@ -26,5 +27,6 @@ abstract class DisplayApi {
   Future<List<ViewModuleDto>> getViewModulesByStoreTypeAndTabId({
     @Path('storeType') required String storeType,
     @Path('tabId') required int tabId,
+    @Query('page') required int page,
   });
 }

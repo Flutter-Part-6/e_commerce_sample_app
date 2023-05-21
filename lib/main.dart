@@ -19,6 +19,7 @@ void main() async {
   // Hive 등록
   await Hive.initFlutter();
   Hive.registerAdapter(ViewModuleEntityAdapter());
+  Hive.registerAdapter(ProductInfoEntityAdapter());
 
   Bloc.observer = BlocTestObserver();
 

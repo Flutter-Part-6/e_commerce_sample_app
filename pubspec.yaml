@@ -56,6 +56,7 @@ dependencies:
 
   hive:
   hive_flutter:
+  stream_transform: ^2.1.0
 
 
 dev_dependencies:

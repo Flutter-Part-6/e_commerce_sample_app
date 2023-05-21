@@ -11,7 +11,7 @@ class MockApi implements DisplayApi {
 
   @override
   Future<List<ViewModuleDto>> getViewModulesByStoreTypeAndTabId(
-      {required String storeType, required int tabId}) {
+      {required String storeType, required int tabId, required int page}) {
     return Future(() => <ViewModuleDto>[]);
   }
 }
