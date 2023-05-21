@@ -3,11 +3,10 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sample_app/domain_layer/usecase/place_holder.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/place_holder/get_users.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/place_holder/logout_user.usecase.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:sample_app/domain_layer/usecase/user.usecase.dart';
 
-import '../../../../domain_layer/model/place_holder_sample/user/user.model.dart';
+import '../../../../domain_layer/usecase/user/user.usecase.dart';
 
 part 'user_event.dart';
 
@@ -17,24 +16,24 @@ part 'user_bloc.freezed.dart';
 
 @injectable
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final PlaceHolderUsecase _placeHolderUsecase;
+  final UserUsecase _userUsecase;
 
-  UserBloc(this._placeHolderUsecase) : super(UserState()) {
-    on<UserInitialized>(_onUserInitialized);
+  UserBloc(this._userUsecase) : super(UserState()) {
+    on<UserLogin>(_onUserLogin);
     on<UserLogout>(_onUserLogout);
   }
 
-  Future<void> _onUserInitialized(
-    UserInitialized event,
+  Future<void> _onUserLogin(
+    UserLogin event,
     Emitter<UserState> emit,
   ) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      final List<User> users = await _placeHolderUsecase.fetch(GetUsers());
+      final User user = await _userUsecase.fetch<User>(GetUsers());
       await Future.delayed(const Duration(seconds: 3));
-      emit(state.copyWith(status: Status.success, users: users));
+      emit(state.copyWith(status: Status.success, user: user));
     } catch (error) {
-      emit(state.copyWith(status: Status.initial));
+      emit(state.copyWith(status: Status.error));
       log('[error] $error');
     }
   }
@@ -45,11 +44,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      await _placeHolderUsecase.fetch(LogoutUser());
+      await _userUsecase.fetch(LogoutUser());
       await Future.delayed(const Duration(seconds: 3));
-      emit(state.copyWith(status: Status.success, users: []));
+      emit(state.copyWith(status: Status.success));
     } catch (error) {
-      emit(state.copyWith(status: Status.initial));
+      emit(state.copyWith(status: Status.error));
       log('[error] $error');
     }
   }

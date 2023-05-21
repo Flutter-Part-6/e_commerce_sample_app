@@ -52,11 +52,13 @@ dependencies:
   mocktail:
 
   kakao_flutter_sdk_user:
-  jwt_decoder: ^2.0.1
 
   hive:
   hive_flutter:
-  stream_transform: ^2.1.0
+
+  stream_transform: 
+  firebase_auth: ^4.6.1
+  firebase_core: ^2.13.0
 
 
 dev_dependencies:

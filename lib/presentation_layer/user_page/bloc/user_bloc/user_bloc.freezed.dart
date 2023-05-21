@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserState {
   Status get status => throw _privateConstructorUsedError;
-  List<User> get users => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserStateCopyWith<UserState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
-  $Res call({Status status, List<User> users});
+  $Res call({Status status, User? user});
 }
 
 /// @nodoc
@@ -46,17 +46,17 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @override
   $Res call({
     Object? status = null,
-    Object? users = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      users: null == users
-          ? _value.users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<User>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ) as $Val);
   }
 }
@@ -68,7 +68,7 @@ abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
       __$$_UserStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, List<User> users});
+  $Res call({Status status, User? user});
 }
 
 /// @nodoc
@@ -83,17 +83,17 @@ class __$$_UserStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? users = null,
+    Object? user = freezed,
   }) {
     return _then(_$_UserState(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      users: null == users
-          ? _value._users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<User>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -101,25 +101,17 @@ class __$$_UserStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserState implements _UserState {
-  _$_UserState(
-      {this.status = Status.initial, final List<User> users = const <User>[]})
-      : _users = users;
+  _$_UserState({this.status = Status.initial, this.user});
 
   @override
   @JsonKey()
   final Status status;
-  final List<User> _users;
   @override
-  @JsonKey()
-  List<User> get users {
-    if (_users is EqualUnmodifiableListView) return _users;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_users);
-  }
+  final User? user;
 
   @override
   String toString() {
-    return 'UserState(status: $status, users: $users)';
+    return 'UserState(status: $status, user: $user)';
   }
 
   @override
@@ -128,12 +120,11 @@ class _$_UserState implements _UserState {
         (other.runtimeType == runtimeType &&
             other is _$_UserState &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other._users, _users));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, status, const DeepCollectionEquality().hash(_users));
+  int get hashCode => Object.hash(runtimeType, status, user);
 
   @JsonKey(ignore: true)
   @override
@@ -143,13 +134,12 @@ class _$_UserState implements _UserState {
 }
 
 abstract class _UserState implements UserState {
-  factory _UserState({final Status status, final List<User> users}) =
-      _$_UserState;
+  factory _UserState({final Status status, final User? user}) = _$_UserState;
 
   @override
   Status get status;
   @override
-  List<User> get users;
+  User? get user;
   @override
   @JsonKey(ignore: true)
   _$$_UserStateCopyWith<_$_UserState> get copyWith =>
