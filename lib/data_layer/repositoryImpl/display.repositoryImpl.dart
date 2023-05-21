@@ -46,13 +46,13 @@ class DisplayRepositoryImpl implements DisplayRepository {
         await displayDao.getViewModules(cacheKey);
 
     //TODO refresh인 경우 개발해야 됌
-    if (cachedViewModules.isNotEmpty) {
-      final viewModules = cachedViewModules
-          .map((viewModuleEntity) => viewModuleEntity.toModel())
-          .toList();
-      print('[test] test cache');
-      return viewModules;
-    }
+    // if (cachedViewModules.isNotEmpty) {
+    //   final viewModules = cachedViewModules
+    //       .map((viewModuleEntity) => viewModuleEntity.toModel())
+    //       .toList();
+    //   print('[test] test cache');
+    //   return viewModules;
+    // }
 
     final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
       storeType: storeType,
@@ -63,12 +63,12 @@ class DisplayRepositoryImpl implements DisplayRepository {
     final List<ViewModule> viewModules =
         response.map((viewModuleDto) => viewModuleDto.toModel()).toList();
 
-    // delete cache
-    await displayDao.clearViewModules(cacheKey);
-
-    // insert local_storage
-    await displayDao.insertViewModules(
-        cacheKey, viewModules.map((e) => e.toEntity()).toList());
+    // // delete cache
+    // await displayDao.clearViewModules(cacheKey);
+    //
+    // // insert local_storage
+    // await displayDao.insertViewModules(
+    //     cacheKey, viewModules.map((e) => e.toEntity()).toList());
 
     return viewModules;
   }
