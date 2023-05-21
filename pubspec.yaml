@@ -55,6 +55,8 @@ dependencies:
 
   hive:
   hive_flutter:
+
+  stream_transform: 
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
 

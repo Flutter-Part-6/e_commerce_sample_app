@@ -24,10 +24,13 @@ class GetViewModulesByStoreTypeAndTabId
 
   @override
   Future<List<ViewModule>> execute(DisplayRepository repository) async {
+    final int page = int.parse(params?['currentpage'] ?? '1');
+    print('[test] page : $page');
     final response = await repository.getViewModulesByStoreTypeAndTabId(
       isRefresh: isRefresh,
       storeType: storeType.name,
       tabId: tabId,
+      page: page,
     );
 
     return response;

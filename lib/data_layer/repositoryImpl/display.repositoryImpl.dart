@@ -37,36 +37,38 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required bool isRefresh,
     required String storeType,
     required int tabId,
-    Map<String, String>? queries,
+    required int page,
   }) async {
     final displayDao = DisplayDao();
 
-    // final cacheKey = '${storeType}_$tabId';
-    // final List<ViewModuleEntity> cachedViewModules =
-    //     await displayDao.getViewModules(cacheKey);
-    //
-    // //TODO refresh인 경우 개발해야 됌
-    // if (cachedViewModules.isNotEmpty) {
-    //   final viewModules = cachedViewModules
-    //       .map((viewModuleEntity) => viewModuleEntity.toModel())
-    //       .toList();
-    //   return viewModules;
-    // }
+    final cacheKey = '${storeType}_${tabId}_$page';
+    final List<ViewModuleEntity> cachedViewModules =
+        await displayDao.getViewModules(cacheKey);
+
+    //TODO refresh인 경우 개발해야 됌
+    if (cachedViewModules.isNotEmpty) {
+      final viewModules = cachedViewModules
+          .map((viewModuleEntity) => viewModuleEntity.toModel())
+          .toList();
+      print('[test] test cache');
+      return viewModules;
+    }
 
     final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
       storeType: storeType,
       tabId: tabId,
+      page: page,
     );
 
     final List<ViewModule> viewModules =
         response.map((viewModuleDto) => viewModuleDto.toModel()).toList();
 
-    // // delete cache
-    // await displayDao.clearViewModules(cacheKey);
-    //
-    // // insert local_storage
-    // await displayDao.insertViewModules(
-    //     cacheKey, viewModules.map((e) => e.toEntity()).toList());
+    // delete cache
+    await displayDao.clearViewModules(cacheKey);
+
+    // insert local_storage
+    await displayDao.insertViewModules(
+        cacheKey, viewModules.map((e) => e.toEntity()).toList());
 
     return viewModules;
   }

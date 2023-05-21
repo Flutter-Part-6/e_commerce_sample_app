@@ -21,7 +21,7 @@ mixin _$ViewModulesState {
   int get tabId => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
   bool get endOfPage => throw _privateConstructorUsedError;
-  List<ViewModule> get viewModules => throw _privateConstructorUsedError;
+  List<Widget> get viewModules => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ViewModulesStateCopyWith<ViewModulesState> get copyWith =>
@@ -40,7 +40,7 @@ abstract class $ViewModulesStateCopyWith<$Res> {
       int tabId,
       int currentPage,
       bool endOfPage,
-      List<ViewModule> viewModules});
+      List<Widget> viewModules});
 }
 
 /// @nodoc
@@ -87,7 +87,7 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
       viewModules: null == viewModules
           ? _value.viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
-              as List<ViewModule>,
+              as List<Widget>,
     ) as $Val);
   }
 }
@@ -106,7 +106,7 @@ abstract class _$$_ViewModulesStateCopyWith<$Res>
       int tabId,
       int currentPage,
       bool endOfPage,
-      List<ViewModule> viewModules});
+      List<Widget> viewModules});
 }
 
 /// @nodoc
@@ -151,7 +151,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
       viewModules: null == viewModules
           ? _value._viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
-              as List<ViewModule>,
+              as List<Widget>,
     ));
   }
 }
@@ -163,9 +163,9 @@ class _$_ViewModulesState implements _ViewModulesState {
       {this.status = ViewModulesStatus.initial,
       this.storeType = StoreType.market,
       this.tabId = 0,
-      this.currentPage = 0,
+      this.currentPage = 1,
       this.endOfPage = false,
-      final List<ViewModule> viewModules = const <ViewModule>[]})
+      final List<Widget> viewModules = const <Widget>[]})
       : _viewModules = viewModules;
 
   @override
@@ -183,10 +183,10 @@ class _$_ViewModulesState implements _ViewModulesState {
   @override
   @JsonKey()
   final bool endOfPage;
-  final List<ViewModule> _viewModules;
+  final List<Widget> _viewModules;
   @override
   @JsonKey()
-  List<ViewModule> get viewModules {
+  List<Widget> get viewModules {
     if (_viewModules is EqualUnmodifiableListView) return _viewModules;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_viewModules);
@@ -238,7 +238,7 @@ abstract class _ViewModulesState implements ViewModulesState {
       final int tabId,
       final int currentPage,
       final bool endOfPage,
-      final List<ViewModule> viewModules}) = _$_ViewModulesState;
+      final List<Widget> viewModules}) = _$_ViewModulesState;
 
   @override
   ViewModulesStatus get status;
@@ -251,7 +251,7 @@ abstract class _ViewModulesState implements ViewModulesState {
   @override
   bool get endOfPage;
   @override
-  List<ViewModule> get viewModules;
+  List<Widget> get viewModules;
   @override
   @JsonKey(ignore: true)
   _$$_ViewModulesStateCopyWith<_$_ViewModulesState> get copyWith =>
