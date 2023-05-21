@@ -18,18 +18,21 @@ class ViewModuleList extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<ViewModulesBloc>()
         ..add(ViewModulesInitialized(storeType: storeType, tabId: tabId)),
-      child: const _BuildViewModuleList(),
+      child: _BuildViewModuleList('${storeType}_$tabId'),
     );
   }
 }
 
 class _BuildViewModuleList extends StatelessWidget {
-  const _BuildViewModuleList({super.key});
+  const _BuildViewModuleList(this.storeKey, {super.key});
+
+  final String storeKey;
 
   @override
   Widget build(BuildContext context) {
     ViewModuleFactory viewModuleFactory = ViewModuleFactory();
     return BlocBuilder<ViewModulesBloc, ViewModulesState>(
+      key: PageStorageKey(storeKey),
       builder: (context, state) {
         switch (state.status) {
           case ViewModulesStatus.initial:

@@ -1,15 +1,17 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-part 'product_info.entity.freezed.dart';
 part 'product_info.entity.g.dart';
 
-@freezed
-class ProductInfoEntity with _$ProductInfoEntity {
-  const factory ProductInfoEntity({
-    required String title,
-    required String imageUrl,
-  }) = _ProductInfoEntity;
+@HiveType(typeId: 1)
+class ProductInfoEntity extends HiveObject {
+  @HiveField(0, defaultValue: '')
+  String title;
 
-  factory ProductInfoEntity.fromJson(Map<String, Object?> json) =>
-      _$ProductInfoEntityFromJson(json);
+  @HiveField(1, defaultValue: '')
+  String imageUrl;
+
+  ProductInfoEntity({
+    required this.title,
+    required this.imageUrl,
+  });
 }
