@@ -29,7 +29,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      final User user = await _userUsecase.fetch<User>(GetUsers());
+      final User? user = await _userUsecase.fetch<User?>(GetUsers());
+
+      if (user == null) {
+        emit(state.copyWith(status: Status.error));
+        return;
+      }
+
       await Future.delayed(const Duration(seconds: 3));
       emit(state.copyWith(status: Status.success, user: user));
     } catch (error) {

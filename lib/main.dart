@@ -7,6 +7,7 @@ import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
 import 'package:sample_app/presentation_layer/common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+import 'package:sample_app/presentation_layer/user_page/bloc/user_bloc/user_bloc.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
 import 'firebase_options.dart';
@@ -48,8 +49,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider(
-          create: (_) => BottomNavigationCubit(), child: const MainPage()),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => getIt<UserBloc>(),
+          ),
+          BlocProvider(
+            create: (_) => BottomNavigationCubit(),
+          ),
+        ],
+        child: const MainPage(),
+      ),
     );
   }
 }

@@ -9,38 +9,22 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => getIt<UserBloc>()..add(UserLogin()),
-        ),
-      ],
-      child: const UserView(),
-    );
-  }
-}
-
-class UserView extends StatelessWidget {
-  const UserView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         switch (state.status) {
           case Status.initial:
-            return const SizedBox.shrink();
+            return Center(
+              child: TextButton(
+                onPressed: () {
+                  context.read<UserBloc>().add(UserLogin());
+                },
+                child: const Text('KAKAOLOGIN'),
+              ),
+            );
 
           case Status.loading:
-            return Stack(
-              alignment: Alignment.center,
-              children: const [
-                UserList(),
-                Align(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(),
-                )
-              ],
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           case Status.success:
             return const UserList();
