@@ -26,8 +26,8 @@ extension ViewModuleDtoEx on ViewModuleDto {
 extension ViewModuleEntityEx on ViewModuleEntity {
   ViewModule toModel() {
     return ViewModule(
-      type: type ?? '',
-      title: title ?? '',
+      type: type,
+      title: title,
       products: products.map((entity) => entity.toModel()).toList(),
     );
   }
@@ -37,8 +37,8 @@ extension ViewModuleEntityEx on ViewModuleEntity {
 extension ViewModuleEx on ViewModule {
   ViewModuleEntity toEntity() {
     return ViewModuleEntity(
-      type: type ?? '',
-      title: title ?? '',
+      type: type,
+      title: title,
       products: products.map((model) => model.toEntity()).toList(),
     );
   }
@@ -60,10 +60,10 @@ extension ProductInfoDtoEx on ProductInfoDto {
 extension ProductInfoEx on ProductInfo {
   ProductInfoEntity toEntity() {
     return ProductInfoEntity(
-      imageUrl: imageUrl ?? '',
-      title: title ?? '',
-      subtitle: subtitle ?? '',
-      price: price ?? 0,
+      imageUrl: imageUrl,
+      title: title,
+      subtitle: subtitle,
+      price: price,
     );
   }
 }
@@ -72,10 +72,23 @@ extension ProductInfoEx on ProductInfo {
 extension ProductInfoEntityEx on ProductInfoEntity {
   ProductInfo toModel() {
     return ProductInfo(
-      imageUrl: imageUrl ?? '',
-      title: title ?? '',
-      subtitle: subtitle ?? '',
-      price: price ?? 0,
+      imageUrl: imageUrl,
+      title: title,
+      subtitle: subtitle,
+      price: price,
     );
+  }
+}
+
+/// Entity -> MODEL
+extension CartEntityEx on CartEntity {
+  Cart toModel() {
+    return Cart(quantity: quantity, product: product.toModel());
+  }
+}
+
+extension CartEx on Cart {
+  CartEntity toEntity() {
+    return CartEntity(product: product.toEntity(), quantity: quantity);
   }
 }

@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
+import 'package:sample_app/domain_layer/usecase/display/add_cart.usecase.dart';
 
 import '../../../../domain_layer/model/display/product_info/product_info.model.dart';
 
@@ -61,6 +63,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       return;
     }
 
+    final cart = Cart(quantity: state.quantity, product: state.productInfo);
+    await _displayUsecase.fetch(AddCart(cart: cart));
     print('[test] 장바구니 담기 성공');
 
     emit(state.copyWith(
