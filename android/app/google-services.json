@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "654152312764",
+    "project_id": "kakao-login-sample",
+    "storage_bucket": "kakao-login-sample.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654152312764:android:0ec01b61b998d1828f2db9",
+        "android_client_info": {
+          "package_name": "com.jwCompany.sample_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654152312764-7qtn4em004r8vujtecu7no7u61v6t7c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxcKYWzrSetPDjlz4HNc8w2OB6qvYdhQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654152312764-7qtn4em004r8vujtecu7no7u61v6t7c2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "654152312764-i69mu0sbckjfpa11opvasmkk46mhr2u5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sampleApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

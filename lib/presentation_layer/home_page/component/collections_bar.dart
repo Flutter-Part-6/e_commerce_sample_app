@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_module_list.dart';
+import 'package:sample_app/presentation_layer/home_page/dialog/cart_bottom_sheet.dart';
 
 import '../../../domain_layer/model/display/collection/collection.model.dart';
 import '../bloc/home_page_bloc.dart';
@@ -46,17 +49,28 @@ class _CollectionsBarState extends State<CollectionsBar>
               controller: _tabController,
               tabs: widget.collections.map((e) => GnbTab(e.title)).toList()),
         ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: widget.collections.map(
-              (e) {
-                return ViewModuleList(
-                  storeType: widget.storeType,
-                  tabId: e.tabId,
-                );
-              },
-            ).toList(),
+        BlocListener<CartBloc, CartState>(
+          listenWhen: (previous, current) =>
+              (previous.status != current.status && current.status.isLoading),
+          listener: (context, state) async {
+            final bool canAdd = (await cartBottomSheet(context)) ?? false;
+            await Future.delayed(
+              Duration.zero,
+              () => context.read<CartBloc>().add(CartAdded(canAdd)),
+            );
+          },
+          child: Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: widget.collections.map(
+                (e) {
+                  return ViewModuleList(
+                    storeType: widget.storeType,
+                    tabId: e.tabId,
+                  );
+                },
+              ).toList(),
+            ),
           ),
         )
       ],

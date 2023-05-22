@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/common/dependency_injection/injection_injectable.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
 import 'package:sample_app/presentation_layer/home_page/component/collections_bar.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<CartBloc>()..add(CartInitialized()),
+      child: const _BuildHomePage(),
+    );
+  }
+}
+
+class _BuildHomePage extends StatelessWidget {
+  const _BuildHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

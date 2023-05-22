@@ -45,28 +45,34 @@ class _BuildViewModuleListState extends State<_BuildViewModuleList>
   Widget build(BuildContext context) {
     super.build(context);
     final state = context.watch<ViewModulesBloc>().state;
-    final status = state.status;
-    final viewModules = state.viewModules;
 
-    if (status.isFailure) {
-      return const ViewModuleListFailure();
-    }
     return RefreshIndicator(
       onRefresh: () async => context.read<ViewModulesBloc>().add(
           ViewModulesInitialized(
               storeType: state.storeType, tabId: state.tabId, isRefresh: true)),
       child: SingleChildScrollView(
         controller: _scrollController,
-        child: (status.isInitial || viewModules.isEmpty)
-            ? const ViewModuleListLoading(color: Colors.green)
-            : Column(
-                children: [
-                  ...viewModules,
-                  (status.isLoading)
-                      ? const BottomLoader()
-                      : const SizedBox.shrink()
-                ],
-              ),
+        child: BlocBuilder<ViewModulesBloc, ViewModulesState>(
+          builder: (context, state) {
+            final status = state.status;
+            final viewModules = state.viewModules;
+
+            if (status.isFailure) {
+              return const ViewModuleListFailure();
+            }
+
+            return (status.isInitial || viewModules.isEmpty)
+                ? const ViewModuleListLoading(color: Colors.green)
+                : Column(
+                    children: [
+                      ...viewModules,
+                      (status.isLoading)
+                          ? const BottomLoader()
+                          : const SizedBox.shrink()
+                    ],
+                  );
+          },
+        ),
       ),
     );
   }
