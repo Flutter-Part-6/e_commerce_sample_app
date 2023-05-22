@@ -45,3 +45,8 @@ app.*.map.json
 
 key.properties
 key.jks
+
+firebase_options.dart
+firebase_app_id_file.json
+GoogleSErvice-info.plist
+google-services.json
