@@ -1,4 +1,4 @@
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 
 part 'product_info.entity.g.dart';
 
@@ -18,8 +18,8 @@ class ProductInfoEntity extends HiveObject {
 
   ProductInfoEntity({
     required this.title,
+    required this.subtitle,
     required this.imageUrl,
     required this.price,
-    required this.subtitle,
   });
 }

@@ -72,4 +72,11 @@ class DisplayRepositoryImpl implements DisplayRepository {
 
     return viewModules;
   }
+
+  @override
+  Future<void> addCart({required Cart cart}) async{
+    final displayDao = DisplayDao();
+
+    await displayDao.insertCarts(cart.toEntity());
+  }
 }
