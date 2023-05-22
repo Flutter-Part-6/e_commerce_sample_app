@@ -9,39 +9,24 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => getIt<UserBloc>()..add(UserLogin()),
-        ),
-      ],
-      child: const UserView(),
-    );
-  }
-}
-
-class UserView extends StatelessWidget {
-  const UserView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         switch (state.status) {
           case Status.initial:
-            return const SizedBox.shrink();
+            return Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  context.read<UserBloc>().add(UserLogin());
+                },
+                child: const Text("KAKAO LOGIN"),
+              ),
+            );
 
           case Status.loading:
-            return Stack(
-              alignment: Alignment.center,
-              children: const [
-                UserList(),
-                Align(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(),
-                )
-              ],
+            return const Center(
+              child: CircularProgressIndicator(),
             );
+
           case Status.success:
             return const UserList();
 
@@ -60,41 +45,48 @@ class UserList extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.watch<UserBloc>().state.user;
 
-    return SingleChildScrollView(
-      child: Center(
-        child: user == null
-            ? TextButton(
-                onPressed: () {
-                  context.read<UserBloc>().add(UserLogin());
-                },
-                child: const Text('KAKAOLOGIN'),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        Image.network(
+    return Center(
+      child: user == null
+          ? TextButton(
+              onPressed: () {
+                context.read<UserBloc>().add(UserLogin());
+              },
+              child: const Text('KAKAOLOGIN'),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      ClipOval(
+                        child: Image.network(
                           user.kakaoAccount?.profile?.profileImageUrl ?? '',
                           height: 200,
                           width: 200,
                         ),
-                        Text(user.kakaoAccount?.profile?.nickname.toString() ??
-                            '??'),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(user.kakaoAccount?.profile?.nickname.toString() ??
+                          '??'),
+                    ],
                   ),
-                  TextButton(
-                    onPressed: () async {
-                      context.read<UserBloc>().add(UserLogout());
-                    },
-                    child: const Text('LOGOUT'),
-                  )
-                ],
-              ),
-      ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    context.read<UserBloc>().add(UserLogout());
+                  },
+                  child: const Text('LOGOUT'),
+                ),
+              ],
+            ),
     );
   }
 }
