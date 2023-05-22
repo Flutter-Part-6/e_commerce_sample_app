@@ -8,6 +8,8 @@ part 'product_info.dto.g.dart';
 class ProductInfoDto with _$ProductInfoDto {
   const factory ProductInfoDto({
     @Default('') String? title,
+    @Default('') String? subtitle,
+    @Default(0) int? price,
     @Default('') String? imageUrl,
   }) = _ProductInfoDto;
 

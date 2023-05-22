@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../domain_layer/model/display/view_module/view_module.model.dart';
-import 'core/view_module_widget.dart';
+import '../../../../../domain_layer/model/display/view_module/view_module.model.dart';
+import '../common/img_slide_sample.dart';
+import '../core/view_module_widget.dart';
 
 class ViewModuleE extends StatelessWidget with ViewModuleWidget {
   const ViewModuleE(this.info, {Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class ViewModuleE extends StatelessWidget with ViewModuleWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      padding: const EdgeInsets.symmetric(vertical: 16),
       color: Colors.blue,
       child: Center(
         child: Column(
@@ -17,6 +18,7 @@ class ViewModuleE extends StatelessWidget with ViewModuleWidget {
           children: [
             const Text('view_module_E'),
             Text(info.title),
+            ImgSlide(info.products),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'core/view_module_widget.dart';
+
+import '../core/view_module_widget.dart';
 
 class ViewModuleNone extends StatelessWidget with ViewModuleWidget {
   const ViewModuleNone({Key? key}) : super(key: key);
@@ -10,10 +11,10 @@ class ViewModuleNone extends StatelessWidget with ViewModuleWidget {
       height: 200,
       decoration:
           BoxDecoration(border: Border.all(width: 2, color: Colors.red)),
-      child: Center(
+      child: const Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(
               Icons.close,
               size: 20,

@@ -50,6 +50,8 @@ extension ProductInfoDtoEx on ProductInfoDto {
     return ProductInfo(
       title: title ?? '',
       imageUrl: imageUrl ?? '',
+      subtitle: subtitle ?? '',
+      price: price ?? 0,
     );
   }
 }
@@ -60,6 +62,8 @@ extension ProductInfoEx on ProductInfo {
     return ProductInfoEntity(
       imageUrl: imageUrl ?? '',
       title: title ?? '',
+      subtitle: subtitle ?? '',
+      price: price ?? 0,
     );
   }
 }
@@ -70,6 +74,8 @@ extension ProductInfoEntityEx on ProductInfoEntity {
     return ProductInfo(
       imageUrl: imageUrl ?? '',
       title: title ?? '',
+      subtitle: subtitle ?? '',
+      price: price ?? 0,
     );
   }
 }

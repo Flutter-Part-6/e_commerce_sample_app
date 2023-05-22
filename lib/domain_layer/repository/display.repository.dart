@@ -13,6 +13,7 @@ abstract class DisplayRepository extends Repository {
     required bool isRefresh,
     required String storeType,
     required int tabId,
-    Map<String, String>? queries,
+    required int page,
+    // Map<String, String>? queries,
   });
 }
