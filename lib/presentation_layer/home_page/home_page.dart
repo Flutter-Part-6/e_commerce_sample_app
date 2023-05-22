@@ -5,7 +5,7 @@ import 'package:sample_app/common/dependency_injection/injection_injectable.dart
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
-import 'package:sample_app/presentation_layer/home_page/component/collections_bar.dart';
+import 'package:sample_app/presentation_layer/home_page/component/collections_bar/collections_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,7 +24,6 @@ class _BuildHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('[test] ---------- home_page build ----------');
     return BlocBuilder<CollectionsBloc, CollectionsState>(
         builder: (context, state) {
       final collections = state.collections;
@@ -42,18 +41,5 @@ class _BuildHomePage extends StatelessWidget {
           return const LoadingCollectionsBar();
       }
     });
-  }
-}
-
-class LoadingCollectionsBar extends StatelessWidget {
-  const LoadingCollectionsBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 80,
-      child: const Center(child: CircularProgressIndicator()),
-    );
   }
 }

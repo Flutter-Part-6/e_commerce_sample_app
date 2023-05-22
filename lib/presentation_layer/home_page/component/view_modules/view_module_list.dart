@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_list_builder.dart';
 
-import '../../../common/dependency_injection/injection_injectable.dart';
-import '../bloc/view_modules_bloc/view_modules_bloc.dart';
+import '../../../../common/dependency_injection/injection_injectable.dart';
+import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
+import 'common/bottom_loader.dart';
 
 class ViewModuleList extends StatelessWidget {
   const ViewModuleList({required this.tabId, required this.storeType, Key? key})
@@ -17,19 +19,19 @@ class ViewModuleList extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<ViewModulesBloc>()
         ..add(ViewModulesInitialized(storeType: storeType, tabId: tabId)),
-      child: const _BuildViewModuleList(),
+      child: const _BuildViewModules(),
     );
   }
 }
 
-class _BuildViewModuleList extends StatefulWidget {
-  const _BuildViewModuleList({super.key});
+class _BuildViewModules extends StatefulWidget {
+  const _BuildViewModules({super.key});
 
   @override
-  State<_BuildViewModuleList> createState() => _BuildViewModuleListState();
+  State<_BuildViewModules> createState() => _BuildViewModulesState();
 }
 
-class _BuildViewModuleListState extends State<_BuildViewModuleList>
+class _BuildViewModulesState extends State<_BuildViewModules>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -58,11 +60,11 @@ class _BuildViewModuleListState extends State<_BuildViewModuleList>
             final viewModules = state.viewModules;
 
             if (status.isFailure) {
-              return const ViewModuleListFailure();
+              return const ViewModuleListBuilder(color: Colors.red);
             }
 
             return (status.isInitial || viewModules.isEmpty)
-                ? const ViewModuleListLoading(color: Colors.green)
+                ? const ViewModuleListBuilder(color: Colors.green)
                 : Column(
                     children: [
                       ...viewModules,
@@ -94,58 +96,5 @@ class _BuildViewModuleListState extends State<_BuildViewModuleList>
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
-  }
-}
-
-class BottomLoader extends StatelessWidget {
-  const BottomLoader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 200,
-      child: Center(
-        child: SizedBox(
-          height: 24,
-          width: 24,
-          child: CircularProgressIndicator(strokeWidth: 1.5),
-        ),
-      ),
-    );
-  }
-}
-
-class ViewModuleListLoading extends StatelessWidget {
-  const ViewModuleListLoading({
-    required this.color,
-    Key? key,
-  }) : super(key: key);
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      child: Center(
-        child: CircularProgressIndicator(color: color),
-      ),
-    );
-  }
-}
-
-class ViewModuleListFailure extends StatelessWidget {
-  const ViewModuleListFailure({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 400,
-      child: Center(
-        child: CircularProgressIndicator(color: Colors.red),
-      ),
-    );
   }
 }
