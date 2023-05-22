@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
-import '../../../domain_layer/model/display/product_info/product_info.model.dart';
+import '../../../../../domain_layer/model/display/product_info/product_info.model.dart';
 
 class ImgSlide extends StatelessWidget {
   const ImgSlide(this.products, {Key? key}) : super(key: key);

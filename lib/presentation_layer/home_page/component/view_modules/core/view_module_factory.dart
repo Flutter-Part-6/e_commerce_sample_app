@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sample_app/common/utils/extensions.dart';
 import 'package:sample_app/domain_layer/model/display/view_module/view_module.model.dart';
-import 'package:sample_app/presentation_layer/home_page/view_modules/core/view_module_widget.dart';
-import 'package:sample_app/presentation_layer/home_page/view_modules/view_module_A.dart';
-import 'package:sample_app/presentation_layer/home_page/view_modules/view_module_NONE.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/view_module_A/view_module_A.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_NONE.dart';
 
-import '../view_module_B.dart';
-import '../view_module_C.dart';
-import '../view_module_D.dart';
-import '../view_module_E.dart';
+import '../view_module_B/view_module_B.dart';
+import '../view_module_C/view_module_C.dart';
+import '../view_module_D/view_module_D.dart';
+import '../view_module_E/view_module_E.dart';
+import 'view_module_widget.dart';
 
 enum Modules {
   viewModuleA,
