@@ -20,13 +20,14 @@ class SplashPage extends StatelessWidget {
           ),
         ),
         listener: (context, state) {
+          print('========== ${state.status == Status.error}');
           // success : 로그인 성공
           // error : 로그인 실패
           // initial : 로그인 정보 없음
           if (state.status == Status.success ||
               state.status == Status.error ||
               state.status == Status.initial) {
-            context.go('/');
+            context.go('/home');
           }
         },
       ),

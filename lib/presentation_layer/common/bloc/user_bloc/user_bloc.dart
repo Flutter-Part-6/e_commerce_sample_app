@@ -62,7 +62,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(state.copyWith(status: Status.success, user: user));
       }
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      // 유저가 수동으로 로그인 재시도 하는 상태를 만들어 주기 위해 initial로 세팅
+      emit(state.copyWith(status: Status.initial));
       log('[error] $error');
     }
   }
