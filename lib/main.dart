@@ -7,6 +7,7 @@ import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
 import 'package:sample_app/presentation_layer/common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+import 'package:sample_app/presentation_layer/router.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
 import 'firebase_options.dart';
@@ -43,13 +44,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: BlocProvider(
-          create: (_) => BottomNavigationCubit(), child: const MainPage()),
-    );
+    return MaterialApp.router(routerConfig: router);
   }
 }
