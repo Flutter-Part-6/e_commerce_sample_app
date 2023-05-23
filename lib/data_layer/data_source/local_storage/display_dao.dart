@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
-const String displayDb = 'DISPLAY_DB';
+const String cartDb = 'CART_DB';
 
 class DisplayDao {
   Future<List<ViewModuleEntity>> getViewModules(String key) async {
@@ -25,5 +25,11 @@ class DisplayDao {
     final localStorage = await Hive.openBox<ViewModuleEntity>(key);
 
     await localStorage.addAll(viewModules);
+  }
+
+  /// 장바구니 담기
+  Future<void> insertCarts(CartEntity cart) async {
+    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    await localStorage.add(cart);
   }
 }

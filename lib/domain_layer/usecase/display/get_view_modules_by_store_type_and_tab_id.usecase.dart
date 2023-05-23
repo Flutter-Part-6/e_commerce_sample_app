@@ -1,8 +1,5 @@
-import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 import 'package:sample_app/domain_layer/model/display/view_module/view_module.model.dart';
 
-import '../../../data_layer/data_source/local_storage/display_dao.dart';
-import '../../../data_layer/entity/display/view_module/view_module.entity.dart';
 import '../../../presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 import '../base_usecase/remote.usecase.dart';
 
@@ -25,7 +22,6 @@ class GetViewModulesByStoreTypeAndTabId
   @override
   Future<List<ViewModule>> execute(DisplayRepository repository) async {
     final int page = int.parse(params?['currentpage'] ?? '1');
-    print('[test] page : $page');
     final response = await repository.getViewModulesByStoreTypeAndTabId(
       isRefresh: isRefresh,
       storeType: storeType.name,

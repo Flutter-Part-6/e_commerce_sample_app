@@ -16,4 +16,7 @@ abstract class DisplayRepository extends Repository {
     required int page,
     // Map<String, String>? queries,
   });
+
+  //TODO response 만들어야 함
+  Future<void> addCart({required Cart cart});
 }

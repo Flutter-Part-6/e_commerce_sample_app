@@ -22,8 +22,8 @@ void main() async {
   // Hive 등록
   await Hive.initFlutter();
   Hive.registerAdapter(ViewModuleEntityAdapter());
+  Hive.registerAdapter(CartEntityAdapter());
   Hive.registerAdapter(ProductInfoEntityAdapter());
-
   Bloc.observer = BlocTestObserver();
 
   // 카카오 로그인 init

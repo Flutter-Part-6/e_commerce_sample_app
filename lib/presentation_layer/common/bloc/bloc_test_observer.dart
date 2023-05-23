@@ -1,8 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/home_page_bloc.dart';
+
+import '../../home_page/bloc/cart_bloc/cart_bloc.dart';
 
 class BlocTestObserver extends BlocObserver {
   @override
@@ -22,6 +23,10 @@ class BlocTestObserver extends BlocObserver {
     } else if (bloc.runtimeType.toString() == 'ViewModulesBloc') {
       final current = (change.currentState as ViewModulesState).status;
       final next = (change.nextState as ViewModulesState).status;
+      log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+    } else if (bloc.runtimeType.toString() == 'CartBloc') {
+      final current = (change.currentState as CartState).status;
+      final next = (change.nextState as CartState).status;
       log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     }
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../domain_layer/model/display/view_module/view_module.model.dart';
-import '../component/img_slide_sample.dart';
-import 'core/view_module_widget.dart';
+import '../../../../../domain_layer/model/display/view_module/view_module.model.dart';
+import '../common/img_slide_sample.dart';
+import '../core/view_module_widget.dart';
 
 class ViewModuleA extends StatelessWidget with ViewModuleWidget {
   const ViewModuleA(this.info, {Key? key}) : super(key: key);

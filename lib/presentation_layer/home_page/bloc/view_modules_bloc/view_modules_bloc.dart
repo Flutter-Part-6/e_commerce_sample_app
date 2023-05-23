@@ -10,7 +10,7 @@ import 'package:sample_app/domain_layer/usecase/display/get_view_modules_by_stor
 import 'package:stream_transform/stream_transform.dart';
 
 import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
-import '../../view_modules/core/view_module_factory.dart';
+import '../../component/view_modules/core/view_module_factory.dart';
 import '../collections_bloc/collections_bloc.dart';
 
 part 'view_modules_event.dart';
