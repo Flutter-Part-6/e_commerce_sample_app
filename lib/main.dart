@@ -55,10 +55,7 @@ class MyApp extends StatelessWidget {
             create: (_) => BottomNavigationCubit(),
           ),
           BlocProvider(
-            create: (_) => getIt<UserBloc>()
-              ..add(
-                UserLogin(),
-              ),
+            create: (_) => getIt<UserBloc>(),
           ),
         ],
         child: const MainPage(),
