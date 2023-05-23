@@ -19,6 +19,7 @@ mixin _$CartState {
   CartStatus get status => throw _privateConstructorUsedError;
   ProductInfo get productInfo => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
+  int get totalPrice => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CartStateCopyWith<CartState> get copyWith =>
@@ -30,7 +31,11 @@ abstract class $CartStateCopyWith<$Res> {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) then) =
       _$CartStateCopyWithImpl<$Res, CartState>;
   @useResult
-  $Res call({CartStatus status, ProductInfo productInfo, int quantity});
+  $Res call(
+      {CartStatus status,
+      ProductInfo productInfo,
+      int quantity,
+      int totalPrice});
 
   $ProductInfoCopyWith<$Res> get productInfo;
 }
@@ -51,6 +56,7 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
     Object? status = null,
     Object? productInfo = null,
     Object? quantity = null,
+    Object? totalPrice = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -64,6 +70,10 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -85,7 +95,11 @@ abstract class _$$_ViewModulesStateCopyWith<$Res>
       __$$_ViewModulesStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CartStatus status, ProductInfo productInfo, int quantity});
+  $Res call(
+      {CartStatus status,
+      ProductInfo productInfo,
+      int quantity,
+      int totalPrice});
 
   @override
   $ProductInfoCopyWith<$Res> get productInfo;
@@ -105,6 +119,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
     Object? status = null,
     Object? productInfo = null,
     Object? quantity = null,
+    Object? totalPrice = null,
   }) {
     return _then(_$_ViewModulesState(
       status: null == status
@@ -119,6 +134,10 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -127,10 +146,11 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
 
 class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
-      {this.status = CartStatus.initial,
+      {this.status = CartStatus.close,
       this.productInfo =
           const ProductInfo(title: '', imageUrl: '', subtitle: '', price: 0),
-      this.quantity = 1});
+      this.quantity = 1,
+      this.totalPrice = 0});
 
   @override
   @JsonKey()
@@ -141,10 +161,13 @@ class _$_ViewModulesState implements _ViewModulesState {
   @override
   @JsonKey()
   final int quantity;
+  @override
+  @JsonKey()
+  final int totalPrice;
 
   @override
   String toString() {
-    return 'CartState(status: $status, productInfo: $productInfo, quantity: $quantity)';
+    return 'CartState(status: $status, productInfo: $productInfo, quantity: $quantity, totalPrice: $totalPrice)';
   }
 
   @override
@@ -156,11 +179,14 @@ class _$_ViewModulesState implements _ViewModulesState {
             (identical(other.productInfo, productInfo) ||
                 other.productInfo == productInfo) &&
             (identical(other.quantity, quantity) ||
-                other.quantity == quantity));
+                other.quantity == quantity) &&
+            (identical(other.totalPrice, totalPrice) ||
+                other.totalPrice == totalPrice));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, productInfo, quantity);
+  int get hashCode =>
+      Object.hash(runtimeType, status, productInfo, quantity, totalPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -173,7 +199,8 @@ abstract class _ViewModulesState implements CartState {
   factory _ViewModulesState(
       {final CartStatus status,
       final ProductInfo productInfo,
-      final int quantity}) = _$_ViewModulesState;
+      final int quantity,
+      final int totalPrice}) = _$_ViewModulesState;
 
   @override
   CartStatus get status;
@@ -181,6 +208,8 @@ abstract class _ViewModulesState implements CartState {
   ProductInfo get productInfo;
   @override
   int get quantity;
+  @override
+  int get totalPrice;
   @override
   @JsonKey(ignore: true)
   _$$_ViewModulesStateCopyWith<_$_ViewModulesState> get copyWith =>
