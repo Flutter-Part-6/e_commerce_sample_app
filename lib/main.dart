@@ -45,9 +45,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<UserBloc>()),
+        BlocProvider(
+            create: (_) => getIt<UserBloc>()
+              ..add(
+                UserLoginWithToken(),
+              )),
       ],
-      child: MaterialApp.router(routerConfig: router),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: router,
+      ),
     );
   }
 }

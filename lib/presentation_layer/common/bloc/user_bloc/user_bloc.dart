@@ -34,7 +34,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       final User? user = await _userUsecase.fetch<User?>(LoginUsecase());
 
       if (user == null) {
-        print('????');
         emit(state.copyWith(status: Status.initial));
       } else {
         emit(state.copyWith(status: Status.success, user: user));
