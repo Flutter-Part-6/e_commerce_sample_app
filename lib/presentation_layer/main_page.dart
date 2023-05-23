@@ -17,6 +17,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => BottomNavigationCubit()),
         BlocProvider(
           create: (_) => getIt<CollectionsBloc>()
             ..add(

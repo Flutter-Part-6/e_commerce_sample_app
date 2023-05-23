@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sample_app/presentation_layer/common/component/app_bar/widget/icon_box.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
 class HomeAppBar extends StatefulWidget {
@@ -11,6 +13,7 @@ class HomeAppBar extends StatefulWidget {
 
 class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
   late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
@@ -22,25 +25,25 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
 
   void _onChanged() {
     final tabIndex = _tabController.index;
-    if(!_tabController.indexIsChanging){
+    if (!_tabController.indexIsChanging) {
       context.read<CollectionsBloc>().add(ToggledStoreTypes(tabIndex));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      actions: const [
-        IconButton(
-          icon: Icon(Icons.rocket),
-          color: Colors.white,
+      actions: [
+        const IconBox(
+          icon: Icons.location_on_outlined,
           onPressed: null,
         ),
-        IconButton(
-          icon: Icon(Icons.cable),
-          color: Colors.white,
-          onPressed: null,
+        IconBox(
+          icon: Icons.shopping_cart_outlined,
+          onPressed: () => context.push('/cart-list'),
         ),
+        const SizedBox(width: 8),
       ],
       // backgroundColor: Colors.purple,
       leading: const Center(child: Text('TEST')),
@@ -53,7 +56,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
         height: 34,
         child: TabBar(
           padding: const EdgeInsets.all(0),
-          onTap: (tabIndex){},
+          onTap: (tabIndex) {},
           indicatorWeight: 1,
           labelStyle: const TextStyle(
             fontSize: 15,
