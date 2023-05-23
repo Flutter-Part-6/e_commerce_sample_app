@@ -4,10 +4,8 @@ import 'package:sample_app/domain_layer/repository/user.repository.dart';
 
 import '../base_usecase/remote.usecase.dart';
 
-class LogoutUser extends RemoteUsecase<UserRepository> {
-  LogoutUser({this.params});
-
-  final Map<String, String>? params;
+class LogoutUsecase extends RemoteUsecase<UserRepository> {
+  LogoutUsecase();
 
   @override
   Future<void> execute(UserRepository repository) async {

@@ -6,14 +6,11 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
-import 'package:sample_app/presentation_layer/common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 import 'package:sample_app/presentation_layer/router.dart';
-
-
 
 import 'common/dependency_injection/injection_injectable.dart';
 import 'firebase_options.dart';
-import 'presentation_layer/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +43,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: router);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<UserBloc>()),
+      ],
+      child: MaterialApp.router(routerConfig: router),
+    );
   }
 }

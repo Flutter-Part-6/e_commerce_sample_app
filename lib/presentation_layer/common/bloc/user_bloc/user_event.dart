@@ -7,3 +7,5 @@ abstract class UserEvent {
 class UserLogin extends UserEvent {}
 
 class UserLogout extends UserEvent {}
+
+class UserLoginWithToken extends UserEvent {}

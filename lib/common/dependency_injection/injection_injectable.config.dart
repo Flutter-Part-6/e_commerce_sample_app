@@ -25,14 +25,14 @@ import 'package:sample_app/domain_layer/repository/display.repository.dart'
 import 'package:sample_app/domain_layer/repository/user.repository.dart' as _i8;
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart' as _i6;
 import 'package:sample_app/domain_layer/usecase/user.usecase.dart' as _i10;
+import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart'
+    as _i14;
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart'
     as _i12;
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart'
     as _i13;
 import 'package:sample_app/presentation_layer/home_page/bloc/view_modules_bloc/view_modules_bloc.dart'
     as _i11;
-import 'package:sample_app/presentation_layer/user_page/bloc/user_bloc/user_bloc.dart'
-    as _i14;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
