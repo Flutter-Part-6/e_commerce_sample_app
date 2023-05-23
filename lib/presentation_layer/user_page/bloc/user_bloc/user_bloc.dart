@@ -29,8 +29,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      final User user = await _userUsecase.fetch<User>(GetUsers());
-      await Future.delayed(const Duration(seconds: 3));
+      final (user, error) =
+          await _userUsecase.fetch<(User, dynamic)>(GetUsers());
       emit(state.copyWith(status: Status.success, user: user));
     } catch (error) {
       emit(state.copyWith(status: Status.error));
@@ -45,8 +45,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(state.copyWith(status: Status.loading));
     try {
       await _userUsecase.fetch(LogoutUser());
-      await Future.delayed(const Duration(seconds: 3));
-      emit(state.copyWith(status: Status.success));
+      emit(state.copyWith(status: Status.initial, user: null));
     } catch (error) {
       emit(state.copyWith(status: Status.error));
       log('[error] $error');
