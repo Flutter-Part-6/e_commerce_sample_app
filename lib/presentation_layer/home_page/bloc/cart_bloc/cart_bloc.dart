@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
@@ -13,14 +16,16 @@ part 'cart_state.dart';
 
 part 'cart_bloc.freezed.dart';
 
-enum CartStatus { close, loading, open, failure }
+enum CartStatus { close, loading, success, open, failure }
 
 @injectable
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc(this._displayUsecase) : super(CartState()) {
     on<CartInitialized>(_onCartInitialized);
-    on<CartRequested>(_onCartRequested);
+    on<CartOpened>(_onCartOpened);
+    on<CartClosed>(_onCartClosed);
     on<CartAdded>(_onCartAdded);
+    on<CartResponse>(_onCartResponse);
     on<CartQuantityIncreased>(_onCartQuantityIncreased);
     on<CartQuantityDecreased>(_onCartQuantityDecreased);
   }
@@ -28,12 +33,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final DisplayUsecase _displayUsecase;
 
   Future<void> _onCartInitialized(
-      CartInitialized event, Emitter<CartState> emit) async {
-    emit(state.copyWith(status: CartStatus.close));
-  }
+      CartInitialized event, Emitter<CartState> emit) async {}
 
-  Future<void> _onCartRequested(
-      CartRequested event, Emitter<CartState> emit) async {
+  Future<void> _onCartOpened(CartOpened event, Emitter<CartState> emit) async {
     final productInfo = event.productInfo;
     final quantity = event.quantity;
     final totalPrice = productInfo.price * quantity;
@@ -44,6 +46,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         quantity: quantity,
         totalPrice: totalPrice,
       ));
+    } catch (error) {
+      log('[error] $error');
+      emit(state.copyWith(status: CartStatus.failure));
+    }
+  }
+
+  Future<void> _onCartClosed(CartClosed event, Emitter<CartState> emit) async {
+    try {
+      emit(state.copyWith(status: CartStatus.close));
     } catch (error) {
       log('[error] $error');
       emit(state.copyWith(status: CartStatus.failure));
@@ -66,17 +77,28 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onCartAdded(CartAdded event, Emitter<CartState> emit) async {
-    final canAdd = event.canAdd;
+    if (!state.status.isOpen) return;
+    emit(state.copyWith(status: CartStatus.loading));
 
-    if (!canAdd) {
+    try {
+      final cart = Cart(quantity: state.quantity, product: state.productInfo);
+      await Future.delayed(Duration(seconds: 2));
+      await _displayUsecase.fetch(AddCart(cart: cart));
+      emit(state.copyWith(status: CartStatus.success));
+    } catch (error) {
+      log('[error] $error');
+      emit(state.copyWith(status: CartStatus.failure));
+    }
+  }
+
+  Future<void> _onCartResponse(
+      CartResponse event, Emitter<CartState> emit) async {
+    final isAdded = event.isAdded ?? false;
+
+    if (!isAdded) {
       emit(state.copyWith(status: CartStatus.close));
       return;
     }
-
-    final cart = Cart(quantity: state.quantity, product: state.productInfo);
-    await Future.delayed(Duration(seconds: 2));
-    emit(state.copyWith(status: CartStatus.loading));
-    await _displayUsecase.fetch(AddCart(cart: cart));
 
     emit(state.copyWith(
       status: CartStatus.close,
@@ -95,6 +117,8 @@ extension CartStatusEx on CartStatus {
   bool get isClose => this == CartStatus.close;
 
   bool get isLoading => this == CartStatus.loading;
+
+  bool get isSuccess => this == CartStatus.success;
 
   bool get isOpen => this == CartStatus.open;
 

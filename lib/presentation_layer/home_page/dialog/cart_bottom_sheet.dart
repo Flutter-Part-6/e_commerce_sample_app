@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/presentation_layer/common/component/app_bar/widget/icon_box.dart';
 
 import '../bloc/cart_bloc/cart_bloc.dart';
 
 //TODO 왜 안에 빌더한번 더 넣었는지 알려줄수 있도록 공부해야함
-Future cartBottomSheet(BuildContext context) {
+Future<bool?> cartBottomSheet(BuildContext context) {
   final cartBloc = context.read<CartBloc>();
   final priceFormat = NumberFormat('###,###,###,###원');
 
-  return showModalBottomSheet(
+  return showModalBottomSheet<bool>(
       showDragHandle: true,
       useSafeArea: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (_) {
-        return BlocBuilder<CartBloc, CartState>(
+        return BlocConsumer<CartBloc, CartState>(
           bloc: cartBloc,
+          listenWhen: (previous, current) => current.status.isSuccess,
+          listener: (ctx, state) {
+            if (context.canPop()) {
+              if (context.canPop()) {
+                Navigator.pop(context, true);
+              }
+            }
+          },
           builder: (ctx, state) {
             final state = cartBloc.state;
             final productInfo = state.productInfo;
@@ -132,12 +141,7 @@ Future cartBottomSheet(BuildContext context) {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: GestureDetector(
-                      onTap: () {
-                        // cartBloc.add(CartAdded());
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context, true);
-                        }
-                      },
+                      onTap: () => cartBloc.add(CartAdded()),
                       child: Container(
                         alignment: Alignment.center,
                         height: 52,
@@ -146,7 +150,10 @@ Future cartBottomSheet(BuildContext context) {
                             borderRadius: BorderRadius.circular(8),
                             color: Colors.blue),
                         child: (state.status.isLoading)
-                            ? const CircularProgressIndicator()
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              )
                             : Text(
                                 '$totalPrice 장바구니 담기',
                                 style: const TextStyle(

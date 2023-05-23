@@ -24,11 +24,20 @@ class CollectionsTabBarView extends StatelessWidget {
       listenWhen: (previous, current) =>
           (previous.status.isClose && current.status.isOpen),
       listener: (context, state) async {
-        final bool canAdd = (await cartBottomSheet(context)) ?? false;
-        await Future.delayed(
-          Duration.zero,
-          () => context.read<CartBloc>().add(CartAdded(canAdd)),
-        );
+        await cartBottomSheet(context)
+            .then(
+          (isAdded) async =>
+              context.read<CartBloc>().add(CartResponse(isAdded)),
+        )
+            .whenComplete(() async {
+          if (state.status.isSuccess) {
+            await showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(height: 200, color: Colors.pink);
+                });
+          }
+        });
       },
       child: Expanded(
         child: TabBarView(

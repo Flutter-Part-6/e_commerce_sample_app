@@ -6,17 +6,25 @@ abstract class CartEvent {
 
 class CartInitialized extends CartEvent {}
 
-class CartRequested extends CartEvent {
-  CartRequested(this.productInfo, {this.quantity = 1});
+class CartOpened extends CartEvent {
+  CartOpened(this.productInfo, {this.quantity = 1});
 
   final ProductInfo productInfo;
   final int quantity;
 }
 
-class CartAdded extends CartEvent {
-  CartAdded(this.canAdd);
+class CartClosed extends CartEvent {
+  CartClosed();
+}
 
-  final bool canAdd;
+class CartAdded extends CartEvent {
+  CartAdded();
+}
+
+class CartResponse extends CartEvent {
+  CartResponse(this.isAdded);
+
+  final bool? isAdded;
 }
 
 class CartQuantityIncreased extends CartEvent {}
