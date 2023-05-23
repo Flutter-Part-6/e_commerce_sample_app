@@ -19,9 +19,7 @@ class MainPage extends StatelessWidget {
         BlocProvider(create: (_) => BottomNavigationCubit()),
         BlocProvider(
           create: (_) => getIt<CollectionsBloc>()
-            ..add(
-              CollectionsInitialized(storeType: StoreType.market),
-            ),
+            ..add(CollectionsInitialized(storeType: StoreType.market)),
         ),
       ],
       child: const MainView(),
