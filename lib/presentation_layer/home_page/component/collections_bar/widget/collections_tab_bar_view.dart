@@ -22,7 +22,7 @@ class CollectionsTabBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<CartBloc, CartState>(
       listenWhen: (previous, current) =>
-          (previous.status != current.status && current.status.isLoading),
+          (previous.status.isClose && current.status.isOpen),
       listener: (context, state) async {
         final bool canAdd = (await cartBottomSheet(context)) ?? false;
         await Future.delayed(
