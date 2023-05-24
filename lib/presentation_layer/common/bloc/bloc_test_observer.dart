@@ -25,8 +25,8 @@ class BlocTestObserver extends BlocObserver {
       final next = (change.nextState as ViewModulesState).status;
       log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     } else if (bloc.runtimeType.toString() == 'CartBloc') {
-      final current = (change.currentState as CartState);
-      final next = (change.nextState as CartState);
+      final current = (change.currentState as CartState).status;
+      final next = (change.nextState as CartState).status;
       log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     }
   }

@@ -4,7 +4,8 @@ import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/co
 
 import '../../../../../domain_layer/model/display/collection/collection.model.dart';
 import '../../../bloc/cart_bloc/cart_bloc.dart';
-import '../../../dialog/cart_bottom_sheet.dart';
+import '../../../dialog/cart_bottom_sheet/cart_bottom_sheet.dart';
+import '../../../dialog/cart_response_bottom_sheet/cart_response_bottom_sheet.dart';
 import '../../view_modules/view_module_list.dart';
 
 class CollectionsTabBarView extends StatelessWidget {
@@ -21,14 +22,21 @@ class CollectionsTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartBloc, CartState>(
-      listenWhen: (previous, current) =>
-          (previous.status.isClose && current.status.isOpen),
+      listenWhen: (pre, cur) => pre.status != cur.status,
       listener: (context, state) async {
-        final bool canAdd = (await cartBottomSheet(context)) ?? false;
-        await Future.delayed(
-          Duration.zero,
-          () => context.read<CartBloc>().add(CartAdded(canAdd)),
-        );
+        final status = state.status;
+        if (status.isOpen) {
+          await cartBottomSheet(context).then(
+            (isAdded) async =>
+                context.read<CartBloc>().add(CartResponse(isAdded)),
+          );
+        } else if (status.isSuccess) {
+          await Future.delayed(
+            const Duration(milliseconds: 200),
+            () async => cartResponseBottomSheet(context).whenComplete(
+                () => context.read<CartBloc>().add(CartResponse(false))),
+          );
+        }
       },
       child: Expanded(
         child: TabBarView(
