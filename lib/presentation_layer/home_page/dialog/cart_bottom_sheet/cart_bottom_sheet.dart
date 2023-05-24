@@ -11,35 +11,36 @@ Future<bool?> cartBottomSheet(BuildContext context) {
 
   return showModalBottomSheet<bool>(
       showDragHandle: true,
-      useSafeArea: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (_) {
-        return BlocConsumer<CartBloc, CartState>(
-          bloc: cartBloc,
-          listenWhen: (previous, current) => current.status.isSuccess,
-          listener: (ctx, state) {
-            if (context.canPop()) {
-              Navigator.pop(context, true);
-            }
-          },
-          builder: (ctx, state) {
-            return SizedBox(
-              height: 300,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CartProductInfo(cartBloc: cartBloc),
-                  const Divider(thickness: 1, color: Colors.grey),
-                  CartPriceInfo(cartBloc: cartBloc),
-                  const CartBenefit(),
-                  const SizedBox(height: 12),
-                  AddCartBtn(cartBloc: cartBloc),
-                ],
-              ),
-            );
-          },
+        return SafeArea(
+          child: BlocConsumer<CartBloc, CartState>(
+            bloc: cartBloc,
+            listenWhen: (previous, current) => current.status.isSuccess,
+            listener: (ctx, state) {
+              if (context.canPop()) {
+                Navigator.pop(context, true);
+              }
+            },
+            builder: (ctx, state) {
+              return SizedBox(
+                height: 300,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CartProductInfo(cartBloc: cartBloc),
+                    const Divider(thickness: 1, color: Colors.grey),
+                    CartPriceInfo(cartBloc: cartBloc),
+                    const CartBenefit(),
+                    const SizedBox(height: 12),
+                    AddCartBtn(cartBloc: cartBloc),
+                  ],
+                ),
+              );
+            },
+          ),
         );
       });
 }

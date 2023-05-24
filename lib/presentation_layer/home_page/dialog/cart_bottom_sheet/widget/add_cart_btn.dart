@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
 class AddCartBtn extends StatelessWidget {
@@ -25,7 +24,7 @@ class AddCartBtn extends StatelessWidget {
                   strokeWidth: 2,
                 )
               : Text(
-                  '${state.totalPrice} 장바구니 담기',
+                  '${state.totalPrice.toWon()} 장바구니 담기',
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
