@@ -8,6 +8,7 @@ import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
 import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 import 'package:sample_app/presentation_layer/router.dart';
+import 'package:sample_app/theme.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
 import 'firebase_options.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: router,
+        theme: CustomTheme.theme,
       ),
     );
   }

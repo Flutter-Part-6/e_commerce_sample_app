@@ -9,7 +9,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(95, 0, 128, 1),
+      backgroundColor: Theme.of(context).primaryColor,
       body: BlocListener<UserBloc, UserState>(
         child: Center(
           child: Text(
