@@ -32,4 +32,12 @@ class DisplayDao {
     final localStorage = await Hive.openBox<CartEntity>(cartDb);
     await localStorage.add(cart);
   }
+
+  Future<List<CartEntity>> getCartList() async {
+    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+
+    final List<CartEntity> cartList = localStorage.values.toList();
+
+    return cartList;
+  }
 }

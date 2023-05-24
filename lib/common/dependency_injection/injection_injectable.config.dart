@@ -12,7 +12,7 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:sample_app/data_layer/data_source/remote/api_module.dart'
-    as _i15;
+    as _i16;
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart'
     as _i3;
 import 'package:sample_app/data_layer/data_source/remote/user_api.dart' as _i7;
@@ -25,12 +25,14 @@ import 'package:sample_app/domain_layer/repository/display.repository.dart'
 import 'package:sample_app/domain_layer/repository/user.repository.dart' as _i8;
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart' as _i6;
 import 'package:sample_app/domain_layer/usecase/user.usecase.dart' as _i10;
+import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart'
+    as _i13;
 import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart'
-    as _i14;
+    as _i15;
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart'
     as _i12;
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart'
-    as _i13;
+    as _i14;
 import 'package:sample_app/presentation_layer/home_page/bloc/view_modules_bloc/view_modules_bloc.dart'
     as _i11;
 
@@ -57,11 +59,13 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i11.ViewModulesBloc>(
         () => _i11.ViewModulesBloc(gh<_i6.DisplayUsecase>()));
     gh.factory<_i12.CartBloc>(() => _i12.CartBloc(gh<_i6.DisplayUsecase>()));
-    gh.factory<_i13.CollectionsBloc>(
-        () => _i13.CollectionsBloc(gh<_i6.DisplayUsecase>()));
-    gh.factory<_i14.UserBloc>(() => _i14.UserBloc(gh<_i10.UserUsecase>()));
+    gh.factory<_i13.CartListBloc>(
+        () => _i13.CartListBloc(gh<_i6.DisplayUsecase>()));
+    gh.factory<_i14.CollectionsBloc>(
+        () => _i14.CollectionsBloc(gh<_i6.DisplayUsecase>()));
+    gh.factory<_i15.UserBloc>(() => _i15.UserBloc(gh<_i10.UserUsecase>()));
     return this;
   }
 }
 
-class _$ApiModule extends _i15.ApiModule {}
+class _$ApiModule extends _i16.ApiModule {}

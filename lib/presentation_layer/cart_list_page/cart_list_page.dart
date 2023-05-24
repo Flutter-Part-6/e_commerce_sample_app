@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 
 import '../common/component/app_bar/widget/icon_box.dart';
 
@@ -50,8 +52,37 @@ class CartListPage extends StatelessWidget {
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: _widgetGenerator(7, 'cart_item'),
+        child: BlocBuilder<CartListBloc, CartListState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case CartListStatus.initial:
+                return Column(
+                  children: _widgetGenerator(7, 'cart_item'),
+                );
+              case CartListStatus.success:
+                return Column(
+                    children: state.cartList
+                        .map((e) => Container(
+                              height: 60,
+                              child: Center(
+                                child: Text(e.product.title),
+                              ),
+                            ))
+                        .toList());
+              case CartListStatus.loading:
+                return const Center(child: CircularProgressIndicator());
+              case CartListStatus.failure:
+                return Container(
+                  height: 300,
+                  child: const Center(
+                    child: Text('error'),
+                  ),
+                );
+            }
+            return Column(
+              children: _widgetGenerator(7, 'cart_item'),
+            );
+          },
         ),
       ),
     );
