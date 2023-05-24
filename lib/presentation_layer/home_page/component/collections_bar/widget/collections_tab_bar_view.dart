@@ -21,6 +21,7 @@ class CollectionsTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartBloc, CartState>(
+      listenWhen: (pre, cur) => pre.status != cur.status,
       listener: (context, state) async {
         final status = state.status;
         if (status.isOpen) {

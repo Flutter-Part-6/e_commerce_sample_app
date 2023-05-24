@@ -1,11 +1,9 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/display/add_cart.usecase.dart';
@@ -110,6 +108,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       log('[error] $error');
       emit(state.copyWith(status: CartStatus.failure));
     }
+  }
+}
+
+// extensions
+
+extension IntEx on int {
+  String toWon() {
+    final priceFormat = NumberFormat('###,###,###,###원');
+    return priceFormat.format(this);
   }
 }
 
