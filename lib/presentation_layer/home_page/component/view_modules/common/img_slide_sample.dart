@@ -37,28 +37,25 @@ class ImgSlide extends StatelessWidget {
                       height: 160,
                       width: 125),
                   Positioned(
-                      right: 5,
-                      bottom: 12,
-                      child: GestureDetector(
-                        onTap: () {
-                          final title = products[index].title;
-                          context
-                              .read<CartBloc>()
-                              .add(CartRequested(productInfo));
-                          print('[test] title : $title');
-                        },
-                        child: Container(
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blue),
-                          height: 35,
-                          width: 35,
-                          child: const Icon(
-                            Icons.shopping_cart_outlined,
-                            size: 25,
-                            color: Colors.white,
+                    right: 5,
+                    bottom: 12,
+                    child: GestureDetector(
+                      onTap: () => context.read<CartBloc>().add(
+                            CartOpened(productInfo),
                           ),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.blue),
+                        height: 35,
+                        width: 35,
+                        child: const Icon(
+                          Icons.shopping_cart_outlined,
+                          size: 25,
+                          color: Colors.white,
                         ),
-                      ))
+                      ),
+                    ),
+                  )
                 ],
               ),
               Text(productInfo.title),
