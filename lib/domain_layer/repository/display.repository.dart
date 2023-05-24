@@ -19,4 +19,7 @@ abstract class DisplayRepository extends Repository {
 
   //TODO response 만들어야 함
   Future<void> addCart({required Cart cart});
+
+  // 장바구니 리스트 불러오기
+  Future<List<Cart>> getCartList();
 }
