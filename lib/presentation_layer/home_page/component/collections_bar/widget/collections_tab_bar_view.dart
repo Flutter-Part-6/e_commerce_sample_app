@@ -4,7 +4,7 @@ import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/co
 
 import '../../../../../domain_layer/model/display/collection/collection.model.dart';
 import '../../../bloc/cart_bloc/cart_bloc.dart';
-import '../../../dialog/cart_bottom_sheet.dart';
+import '../../../dialog/cart_bottom_sheet/cart_bottom_sheet.dart';
 import '../../view_modules/view_module_list.dart';
 
 class CollectionsTabBarView extends StatelessWidget {
@@ -21,23 +21,25 @@ class CollectionsTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartBloc, CartState>(
-      listenWhen: (previous, current) =>
-          (previous.status.isClose && current.status.isOpen),
       listener: (context, state) async {
-        await cartBottomSheet(context)
-            .then(
-          (isAdded) async =>
-              context.read<CartBloc>().add(CartResponse(isAdded)),
-        )
-            .whenComplete(() async {
-          if (state.status.isSuccess) {
-            await showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Container(height: 200, color: Colors.pink);
-                });
-          }
-        });
+        final status = state.status;
+        if (status.isOpen) {
+          await cartBottomSheet(context).then(
+            (isAdded) async =>
+                context.read<CartBloc>().add(CartResponse(isAdded)),
+          );
+        } else if (status.isSuccess) {
+          await Future.delayed(
+            Duration.zero,
+            () async => await showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Container(height: 200, color: Colors.pink);
+              },
+            ).whenComplete(
+                () => context.read<CartBloc>().add(CartResponse(false))),
+          );
+        }
       },
       child: Expanded(
         child: TabBarView(

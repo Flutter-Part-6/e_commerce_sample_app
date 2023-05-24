@@ -100,11 +100,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       return;
     }
 
-    emit(state.copyWith(
-      status: CartStatus.close,
-      productInfo: state.productInfo,
-      quantity: state.quantity,
-    ));
+    // emit(state.copyWith(
+    //   status: CartStatus.close,
+    //   productInfo: state.productInfo,
+    //   quantity: state.quantity,
+    // ));
 
     try {} catch (error) {
       log('[error] $error');

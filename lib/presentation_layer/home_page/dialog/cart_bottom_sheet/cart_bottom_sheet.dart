@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/presentation_layer/common/component/app_bar/widget/icon_box.dart';
 
-import '../bloc/cart_bloc/cart_bloc.dart';
+import '../../bloc/cart_bloc/cart_bloc.dart';
 
 //TODO 왜 안에 빌더한번 더 넣었는지 알려줄수 있도록 공부해야함
 Future<bool?> cartBottomSheet(BuildContext context) {
@@ -22,9 +22,7 @@ Future<bool?> cartBottomSheet(BuildContext context) {
           listenWhen: (previous, current) => current.status.isSuccess,
           listener: (ctx, state) {
             if (context.canPop()) {
-              if (context.canPop()) {
-                Navigator.pop(context, true);
-              }
+              Navigator.pop(context, true);
             }
           },
           builder: (ctx, state) {
@@ -70,7 +68,7 @@ Future<bool?> cartBottomSheet(BuildContext context) {
                       ],
                     ),
                   ),
-                  Container(height: 1, color: Colors.grey),
+                  const Divider(thickness: 1, color: Colors.grey),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
