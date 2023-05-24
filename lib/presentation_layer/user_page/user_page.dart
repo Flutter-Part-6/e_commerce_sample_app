@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/category_product.view_module.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return const CategoryProduct();
+
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         switch (state.status) {

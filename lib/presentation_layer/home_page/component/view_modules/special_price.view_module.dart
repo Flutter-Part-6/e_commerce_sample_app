@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'common/view_module_title.dart';
+
 class SpecialPriceViewModule extends StatelessWidget {
   const SpecialPriceViewModule({Key? key}) : super(key: key);
 
@@ -12,11 +14,8 @@ class SpecialPriceViewModule extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '🥳8주년 일일 특가',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+          const ViewModuleTitle(
+            title: '🥳8주년 일일 특가',
           ),
           const SizedBox(
             height: 4,
