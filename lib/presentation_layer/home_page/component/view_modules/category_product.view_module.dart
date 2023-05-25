@@ -72,34 +72,18 @@ class _CategoryProductState extends State<CategoryProduct>
           ),
         ),
         AspectRatio(
-          aspectRatio: 5 / 4,
+          aspectRatio: 7 / 6,
           child: TabBarView(
             controller: _tabController,
             children: List.generate(
               _tempData.length,
               (index) {
-                // return GridView.custom(
-                //   physics: const NeverScrollableScrollPhysics(),
-                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //     crossAxisCount: 3,
-                //     childAspectRatio: 2 / 3,
-                //   ),
-                //   childrenDelegate: SliverChildBuilderDelegate(
-                //     childCount: 6,
-                //     (context, index) {
-                //       return Container(
-                //         color: Color(Random().nextInt(0xffffffff)),
-                //         child: Text(index.toString()),
-                //       );
-                //     },
-                //   ),
-                // );
-
                 return GridView.builder(
                   itemCount: 6,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    childAspectRatio: 2 / 3,
+                    childAspectRatio: 7 / 9,
                   ),
                   itemBuilder: (context, index) {
                     return Container(
