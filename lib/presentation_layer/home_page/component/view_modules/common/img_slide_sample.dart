@@ -21,6 +21,7 @@ class ImgSlide extends StatelessWidget {
           final productInfo = products[index];
           final f = NumberFormat('###,###,###,###원');
           final price = f.format(productInfo.price);
+          final originalPrice = f.format(productInfo.originalPrice);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,7 +59,19 @@ class ImgSlide extends StatelessWidget {
                 ],
               ),
               Text(productInfo.title),
-              Text(price),
+              Row(
+                children: [
+                  Text('${productInfo.discountRate.toString()}%'),
+                  Text(price),
+                ],
+              ),
+              Text(originalPrice),
+              Row(
+                children: [
+                  const Text('후기'),
+                  Text(productInfo.reviewCount.toString()),
+                ],
+              ),
             ],
           );
         },

@@ -24,27 +24,22 @@ class _BuildHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
-      child: BlocBuilder<CollectionsBloc, CollectionsState>(
-          builder: (context, state) {
-        final collections = state.collections;
-        switch (state.status) {
-          case CollectionsStatus.initial:
-            return const LoadingCollectionsBar();
-          case CollectionsStatus.loading:
-            return const LoadingCollectionsBar();
-          case CollectionsStatus.success:
-            return CollectionsBar(
-              storeType: state.storeType,
-              collections: collections,
-            );
-          case CollectionsStatus.failure:
-            return const LoadingCollectionsBar();
-        }
-      }),
-    );
+    return BlocBuilder<CollectionsBloc, CollectionsState>(
+        builder: (context, state) {
+      final collections = state.collections;
+      switch (state.status) {
+        case CollectionsStatus.initial:
+          return const LoadingCollectionsBar();
+        case CollectionsStatus.loading:
+          return const LoadingCollectionsBar();
+        case CollectionsStatus.success:
+          return CollectionsBar(
+            storeType: state.storeType,
+            collections: collections,
+          );
+        case CollectionsStatus.failure:
+          return const LoadingCollectionsBar();
+      }
+    });
   }
 }

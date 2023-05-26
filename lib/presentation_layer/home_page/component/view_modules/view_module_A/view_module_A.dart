@@ -18,7 +18,6 @@ class ViewModuleA extends StatelessWidget with ViewModuleWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('view_module_A'),
             ViewModuleTitle(title: info.title),
             if (info.subtitle.isNotEmpty)
               ViewModuleSubtitle(subtitle: info.subtitle),
