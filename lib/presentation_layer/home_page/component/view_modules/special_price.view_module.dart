@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
 
 import 'common/view_module_title.dart';
 
@@ -20,11 +21,8 @@ class SpecialPriceViewModule extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          Text(
-            '24시간 놓칠 수 없는 가격',
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: Colors.grey,
-                ),
+          const ViewModuleSubtitle(
+            subtitle: '24시간 놓칠 수 없는 가격',
           ),
           const SizedBox(
             height: 4,

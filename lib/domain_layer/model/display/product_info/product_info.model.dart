@@ -11,6 +11,9 @@ class ProductInfo with _$ProductInfo {
     required String imageUrl,
     required String subtitle,
     required int price,
+    required int originalPrice,
+    required int discountRate,
+    required int reviewCount,
   }) = _ProductInfo;
 
   factory ProductInfo.fromJson(Map<String, Object?> json) =>

@@ -11,6 +11,7 @@ class ViewModule with _$ViewModule {
   const factory ViewModule({
     required String type,
     required String title,
+    required String subtitle,
     required List<ProductInfo> products,
   }) = _ViewModule;
 

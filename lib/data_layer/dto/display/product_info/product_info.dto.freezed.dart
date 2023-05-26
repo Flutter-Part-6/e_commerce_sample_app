@@ -23,6 +23,9 @@ mixin _$ProductInfoDto {
   String? get title => throw _privateConstructorUsedError;
   String? get subtitle => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
+  int? get originalPrice => throw _privateConstructorUsedError;
+  int? get discountRate => throw _privateConstructorUsedError;
+  int? get reviewCount => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +40,14 @@ abstract class $ProductInfoDtoCopyWith<$Res> {
           ProductInfoDto value, $Res Function(ProductInfoDto) then) =
       _$ProductInfoDtoCopyWithImpl<$Res, ProductInfoDto>;
   @useResult
-  $Res call({String? title, String? subtitle, int? price, String? imageUrl});
+  $Res call(
+      {String? title,
+      String? subtitle,
+      int? price,
+      int? originalPrice,
+      int? discountRate,
+      int? reviewCount,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -56,6 +66,9 @@ class _$ProductInfoDtoCopyWithImpl<$Res, $Val extends ProductInfoDto>
     Object? title = freezed,
     Object? subtitle = freezed,
     Object? price = freezed,
+    Object? originalPrice = freezed,
+    Object? discountRate = freezed,
+    Object? reviewCount = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -70,6 +83,18 @@ class _$ProductInfoDtoCopyWithImpl<$Res, $Val extends ProductInfoDto>
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
+              as int?,
+      originalPrice: freezed == originalPrice
+          ? _value.originalPrice
+          : originalPrice // ignore: cast_nullable_to_non_nullable
+              as int?,
+      discountRate: freezed == discountRate
+          ? _value.discountRate
+          : discountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      reviewCount: freezed == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
               as int?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
@@ -87,7 +112,14 @@ abstract class _$$_ProductInfoDtoCopyWith<$Res>
       __$$_ProductInfoDtoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? title, String? subtitle, int? price, String? imageUrl});
+  $Res call(
+      {String? title,
+      String? subtitle,
+      int? price,
+      int? originalPrice,
+      int? discountRate,
+      int? reviewCount,
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -104,6 +136,9 @@ class __$$_ProductInfoDtoCopyWithImpl<$Res>
     Object? title = freezed,
     Object? subtitle = freezed,
     Object? price = freezed,
+    Object? originalPrice = freezed,
+    Object? discountRate = freezed,
+    Object? reviewCount = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_$_ProductInfoDto(
@@ -119,6 +154,18 @@ class __$$_ProductInfoDtoCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int?,
+      originalPrice: freezed == originalPrice
+          ? _value.originalPrice
+          : originalPrice // ignore: cast_nullable_to_non_nullable
+              as int?,
+      discountRate: freezed == discountRate
+          ? _value.discountRate
+          : discountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      reviewCount: freezed == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -133,7 +180,10 @@ class _$_ProductInfoDto implements _ProductInfoDto {
   const _$_ProductInfoDto(
       {this.title = '',
       this.subtitle = '',
-      this.price = 0,
+      this.price = -1,
+      this.originalPrice = -1,
+      this.discountRate = -1,
+      this.reviewCount = -1,
       this.imageUrl = ''});
 
   factory _$_ProductInfoDto.fromJson(Map<String, dynamic> json) =>
@@ -150,11 +200,20 @@ class _$_ProductInfoDto implements _ProductInfoDto {
   final int? price;
   @override
   @JsonKey()
+  final int? originalPrice;
+  @override
+  @JsonKey()
+  final int? discountRate;
+  @override
+  @JsonKey()
+  final int? reviewCount;
+  @override
+  @JsonKey()
   final String? imageUrl;
 
   @override
   String toString() {
-    return 'ProductInfoDto(title: $title, subtitle: $subtitle, price: $price, imageUrl: $imageUrl)';
+    return 'ProductInfoDto(title: $title, subtitle: $subtitle, price: $price, originalPrice: $originalPrice, discountRate: $discountRate, reviewCount: $reviewCount, imageUrl: $imageUrl)';
   }
 
   @override
@@ -166,14 +225,20 @@ class _$_ProductInfoDto implements _ProductInfoDto {
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.originalPrice, originalPrice) ||
+                other.originalPrice == originalPrice) &&
+            (identical(other.discountRate, discountRate) ||
+                other.discountRate == discountRate) &&
+            (identical(other.reviewCount, reviewCount) ||
+                other.reviewCount == reviewCount) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, subtitle, price, imageUrl);
+  int get hashCode => Object.hash(runtimeType, title, subtitle, price,
+      originalPrice, discountRate, reviewCount, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -194,6 +259,9 @@ abstract class _ProductInfoDto implements ProductInfoDto {
       {final String? title,
       final String? subtitle,
       final int? price,
+      final int? originalPrice,
+      final int? discountRate,
+      final int? reviewCount,
       final String? imageUrl}) = _$_ProductInfoDto;
 
   factory _ProductInfoDto.fromJson(Map<String, dynamic> json) =
@@ -205,6 +273,12 @@ abstract class _ProductInfoDto implements ProductInfoDto {
   String? get subtitle;
   @override
   int? get price;
+  @override
+  int? get originalPrice;
+  @override
+  int? get discountRate;
+  @override
+  int? get reviewCount;
   @override
   String? get imageUrl;
   @override

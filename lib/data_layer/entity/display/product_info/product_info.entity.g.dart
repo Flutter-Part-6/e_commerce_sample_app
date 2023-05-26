@@ -20,14 +20,17 @@ class ProductInfoEntityAdapter extends TypeAdapter<ProductInfoEntity> {
       title: fields[0] == null ? '' : fields[0] as String,
       subtitle: fields[2] == null ? '' : fields[2] as String,
       imageUrl: fields[1] == null ? '' : fields[1] as String,
-      price: fields[3] == null ? 0 : fields[3] as int,
+      price: fields[3] == null ? -1 : fields[3] as int,
+      originalPrice: fields[4] == null ? -1 : fields[4] as int,
+      discountRate: fields[5] == null ? -1 : fields[5] as int,
+      reviewCount: fields[6] == null ? -1 : fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProductInfoEntity obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -35,7 +38,13 @@ class ProductInfoEntityAdapter extends TypeAdapter<ProductInfoEntity> {
       ..writeByte(2)
       ..write(obj.subtitle)
       ..writeByte(3)
-      ..write(obj.price);
+      ..write(obj.price)
+      ..writeByte(4)
+      ..write(obj.originalPrice)
+      ..writeByte(5)
+      ..write(obj.discountRate)
+      ..writeByte(6)
+      ..write(obj.reviewCount);
   }
 
   @override

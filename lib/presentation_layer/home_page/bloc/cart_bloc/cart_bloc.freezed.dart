@@ -147,8 +147,14 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
 class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
       {this.status = CartStatus.close,
-      this.productInfo =
-          const ProductInfo(title: '', imageUrl: '', subtitle: '', price: 0),
+      this.productInfo = const ProductInfo(
+          title: '',
+          imageUrl: '',
+          subtitle: '',
+          price: -1,
+          originalPrice: -1,
+          discountRate: -1,
+          reviewCount: -1),
       this.quantity = 1,
       this.totalPrice = 0});
 

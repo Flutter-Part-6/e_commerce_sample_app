@@ -10,6 +10,7 @@ class ViewModuleDto with _$ViewModuleDto {
   const factory ViewModuleDto({
     @Default('') String? type,
     @Default('') String? title,
+    @Default('') String? subtitle,
     @Default(<ProductInfoDto>[]) List<ProductInfoDto>? products,
   }) = _ViewModuleDto;
 

@@ -24,6 +24,9 @@ mixin _$ProductInfo {
   String get imageUrl => throw _privateConstructorUsedError;
   String get subtitle => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
+  int get originalPrice => throw _privateConstructorUsedError;
+  int get discountRate => throw _privateConstructorUsedError;
+  int get reviewCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +40,14 @@ abstract class $ProductInfoCopyWith<$Res> {
           ProductInfo value, $Res Function(ProductInfo) then) =
       _$ProductInfoCopyWithImpl<$Res, ProductInfo>;
   @useResult
-  $Res call({String title, String imageUrl, String subtitle, int price});
+  $Res call(
+      {String title,
+      String imageUrl,
+      String subtitle,
+      int price,
+      int originalPrice,
+      int discountRate,
+      int reviewCount});
 }
 
 /// @nodoc
@@ -57,6 +67,9 @@ class _$ProductInfoCopyWithImpl<$Res, $Val extends ProductInfo>
     Object? imageUrl = null,
     Object? subtitle = null,
     Object? price = null,
+    Object? originalPrice = null,
+    Object? discountRate = null,
+    Object? reviewCount = null,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -75,6 +88,18 @@ class _$ProductInfoCopyWithImpl<$Res, $Val extends ProductInfo>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
+      originalPrice: null == originalPrice
+          ? _value.originalPrice
+          : originalPrice // ignore: cast_nullable_to_non_nullable
+              as int,
+      discountRate: null == discountRate
+          ? _value.discountRate
+          : discountRate // ignore: cast_nullable_to_non_nullable
+              as int,
+      reviewCount: null == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -87,7 +112,14 @@ abstract class _$$_ProductInfoCopyWith<$Res>
       __$$_ProductInfoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String imageUrl, String subtitle, int price});
+  $Res call(
+      {String title,
+      String imageUrl,
+      String subtitle,
+      int price,
+      int originalPrice,
+      int discountRate,
+      int reviewCount});
 }
 
 /// @nodoc
@@ -105,6 +137,9 @@ class __$$_ProductInfoCopyWithImpl<$Res>
     Object? imageUrl = null,
     Object? subtitle = null,
     Object? price = null,
+    Object? originalPrice = null,
+    Object? discountRate = null,
+    Object? reviewCount = null,
   }) {
     return _then(_$_ProductInfo(
       title: null == title
@@ -123,6 +158,18 @@ class __$$_ProductInfoCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
+      originalPrice: null == originalPrice
+          ? _value.originalPrice
+          : originalPrice // ignore: cast_nullable_to_non_nullable
+              as int,
+      discountRate: null == discountRate
+          ? _value.discountRate
+          : discountRate // ignore: cast_nullable_to_non_nullable
+              as int,
+      reviewCount: null == reviewCount
+          ? _value.reviewCount
+          : reviewCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -134,7 +181,10 @@ class _$_ProductInfo implements _ProductInfo {
       {required this.title,
       required this.imageUrl,
       required this.subtitle,
-      required this.price});
+      required this.price,
+      required this.originalPrice,
+      required this.discountRate,
+      required this.reviewCount});
 
   factory _$_ProductInfo.fromJson(Map<String, dynamic> json) =>
       _$$_ProductInfoFromJson(json);
@@ -147,10 +197,16 @@ class _$_ProductInfo implements _ProductInfo {
   final String subtitle;
   @override
   final int price;
+  @override
+  final int originalPrice;
+  @override
+  final int discountRate;
+  @override
+  final int reviewCount;
 
   @override
   String toString() {
-    return 'ProductInfo(title: $title, imageUrl: $imageUrl, subtitle: $subtitle, price: $price)';
+    return 'ProductInfo(title: $title, imageUrl: $imageUrl, subtitle: $subtitle, price: $price, originalPrice: $originalPrice, discountRate: $discountRate, reviewCount: $reviewCount)';
   }
 
   @override
@@ -163,13 +219,19 @@ class _$_ProductInfo implements _ProductInfo {
                 other.imageUrl == imageUrl) &&
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
-            (identical(other.price, price) || other.price == price));
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.originalPrice, originalPrice) ||
+                other.originalPrice == originalPrice) &&
+            (identical(other.discountRate, discountRate) ||
+                other.discountRate == discountRate) &&
+            (identical(other.reviewCount, reviewCount) ||
+                other.reviewCount == reviewCount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, imageUrl, subtitle, price);
+  int get hashCode => Object.hash(runtimeType, title, imageUrl, subtitle, price,
+      originalPrice, discountRate, reviewCount);
 
   @JsonKey(ignore: true)
   @override
@@ -190,7 +252,10 @@ abstract class _ProductInfo implements ProductInfo {
       {required final String title,
       required final String imageUrl,
       required final String subtitle,
-      required final int price}) = _$_ProductInfo;
+      required final int price,
+      required final int originalPrice,
+      required final int discountRate,
+      required final int reviewCount}) = _$_ProductInfo;
 
   factory _ProductInfo.fromJson(Map<String, dynamic> json) =
       _$_ProductInfo.fromJson;
@@ -203,6 +268,12 @@ abstract class _ProductInfo implements ProductInfo {
   String get subtitle;
   @override
   int get price;
+  @override
+  int get originalPrice;
+  @override
+  int get discountRate;
+  @override
+  int get reviewCount;
   @override
   @JsonKey(ignore: true)
   _$$_ProductInfoCopyWith<_$_ProductInfo> get copyWith =>

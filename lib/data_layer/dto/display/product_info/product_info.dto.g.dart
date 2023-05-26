@@ -10,7 +10,10 @@ _$_ProductInfoDto _$$_ProductInfoDtoFromJson(Map<String, dynamic> json) =>
     _$_ProductInfoDto(
       title: json['title'] as String? ?? '',
       subtitle: json['subtitle'] as String? ?? '',
-      price: json['price'] as int? ?? 0,
+      price: json['price'] as int? ?? -1,
+      originalPrice: json['originalPrice'] as int? ?? -1,
+      discountRate: json['discountRate'] as int? ?? -1,
+      reviewCount: json['reviewCount'] as int? ?? -1,
       imageUrl: json['imageUrl'] as String? ?? '',
     );
 
@@ -19,5 +22,8 @@ Map<String, dynamic> _$$_ProductInfoDtoToJson(_$_ProductInfoDto instance) =>
       'title': instance.title,
       'subtitle': instance.subtitle,
       'price': instance.price,
+      'originalPrice': instance.originalPrice,
+      'discountRate': instance.discountRate,
+      'reviewCount': instance.reviewCount,
       'imageUrl': instance.imageUrl,
     };

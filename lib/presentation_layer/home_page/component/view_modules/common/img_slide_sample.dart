@@ -14,10 +14,9 @@ class ImgSlide extends StatelessWidget {
     return SizedBox(
       height: 240,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
-        separatorBuilder: (_, index) => const SizedBox(width: 16),
+        separatorBuilder: (_, index) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           final productInfo = products[index];
           final f = NumberFormat('###,###,###,###원');

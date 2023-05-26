@@ -9,7 +9,10 @@ class ProductInfoDto with _$ProductInfoDto {
   const factory ProductInfoDto({
     @Default('') String? title,
     @Default('') String? subtitle,
-    @Default(0) int? price,
+    @Default(-1) int? price,
+    @Default(-1) int? originalPrice,
+    @Default(-1) int? discountRate,
+    @Default(-1) int? reviewCount,
     @Default('') String? imageUrl,
   }) = _ProductInfoDto;
 

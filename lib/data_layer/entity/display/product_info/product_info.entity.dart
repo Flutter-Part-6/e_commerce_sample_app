@@ -13,13 +13,25 @@ class ProductInfoEntity extends HiveObject {
   @HiveField(2, defaultValue: '')
   String subtitle;
 
-  @HiveField(3, defaultValue: 0)
+  @HiveField(3, defaultValue: -1)
   int price;
+
+  @HiveField(4, defaultValue: -1)
+  int originalPrice;
+
+  @HiveField(5, defaultValue: -1)
+  int discountRate;
+
+  @HiveField(6, defaultValue: -1)
+  int reviewCount;
 
   ProductInfoEntity({
     required this.title,
     required this.subtitle,
     required this.imageUrl,
     required this.price,
+    required this.originalPrice,
+    required this.discountRate,
+    required this.reviewCount,
   });
 }
