@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sample_app/domain_layer/model/display.model.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
 
@@ -16,6 +18,7 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(info.time);
     return ViewModulePadding(
       child: SingleChildScrollView(
         child: Column(
@@ -51,7 +54,9 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
                   width: 4,
                 ),
                 TimerWidget(
-                  endTime: DateTime(2023, 5, 24, 13, 31),
+                  endTime: DateTime.fromMillisecondsSinceEpoch(
+                    info.time,
+                  ),
                 ),
               ],
             ),
@@ -62,15 +67,8 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return const SpecialPriceProduct(
-                  image:
-                      'https://images.unsplash.com/photo-1480796927426-f609979314bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-                  subtitle: '집에서 만나는 메밀 명가',
-                  title: '[광화문 미진] 메밀국수 (2인분)',
-                  discountRate: '30%',
-                  discountPrice: '6,930원',
-                  originPrice: '9,900원',
-                  review: 1000000,
+                return SpecialPriceProduct(
+                  productInfo: info.products[index],
                 );
               },
               separatorBuilder: (_, __) {
@@ -78,7 +76,7 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
                   height: 24,
                 );
               },
-              itemCount: 3,
+              itemCount: info.products.length,
             ),
           ],
         ),
@@ -106,6 +104,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   void initState() {
     super.initState();
+    print(widget.endTime.toString());
 
     remainTime = widget.endTime.difference(DateTime.now());
 
@@ -154,24 +153,13 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 }
 
+// TODO 상품카드
 class SpecialPriceProduct extends StatelessWidget {
-  final String image;
-  final String subtitle;
-  final String title;
-  final String originPrice;
-  final String discountRate;
-  final String discountPrice;
-  final int review;
+  final ProductInfo productInfo;
 
   const SpecialPriceProduct({
     Key? key,
-    required this.image,
-    required this.subtitle,
-    required this.title,
-    required this.originPrice,
-    required this.discountRate,
-    required this.discountPrice,
-    required this.review,
+    required this.productInfo,
   }) : super(key: key);
 
   @override
@@ -184,7 +172,7 @@ class SpecialPriceProduct extends StatelessWidget {
         AspectRatio(
           aspectRatio: 2 / 1,
           child: Image.network(
-            image,
+            productInfo.imageUrl,
             fit: BoxFit.cover,
           ),
         ),
@@ -192,7 +180,7 @@ class SpecialPriceProduct extends StatelessWidget {
           height: 4,
         ),
         Text(
-          subtitle,
+          productInfo.subtitle,
           style: textTheme.labelMedium?.copyWith(
             color: Colors.grey,
           ),
@@ -201,7 +189,7 @@ class SpecialPriceProduct extends StatelessWidget {
           height: 4,
         ),
         Text(
-          title,
+          productInfo.title,
           style: textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.w300,
           ),
@@ -212,7 +200,7 @@ class SpecialPriceProduct extends StatelessWidget {
         Row(
           children: [
             Text(
-              discountRate,
+              productInfo.discountRate.toString() + '%',
               style: textTheme.titleMedium?.copyWith(
                 color: Colors.deepOrange,
                 fontWeight: FontWeight.bold,
@@ -222,7 +210,7 @@ class SpecialPriceProduct extends StatelessWidget {
               width: 4,
             ),
             Text(
-              discountPrice,
+              productInfo.price.toWon(),
               style: textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -231,7 +219,7 @@ class SpecialPriceProduct extends StatelessWidget {
               width: 4,
             ),
             Text(
-              originPrice,
+              productInfo.originalPrice.toWon(),
               style: textTheme.labelMedium?.copyWith(
                 fontWeight: FontWeight.w300,
                 color: Colors.grey,
@@ -254,7 +242,7 @@ class SpecialPriceProduct extends StatelessWidget {
               width: 4,
             ),
             Text(
-              '후기 ${review.toString()}+',
+              '후기 ${productInfo.reviewCount.toReview()}',
               style: textTheme.labelMedium?.copyWith(
                 color: Colors.grey,
               ),

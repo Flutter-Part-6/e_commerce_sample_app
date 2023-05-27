@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_title.dart';
 
 import '../../../../common/constants.dart';
@@ -89,7 +89,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
         Padding(
           padding: Constants.horizontalPadding,
           child: AspectRatio(
-            aspectRatio: 7 / 6,
+            aspectRatio: 390 / 490,
             child: TabBarView(
               controller: _tabController,
               children: List.generate(
@@ -101,13 +101,11 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 7 / 9,
+                      childAspectRatio: (390 / 3) / (490 / 2),
                     ),
                     itemBuilder: (context, index) {
-                      return Container(
-                        color: Color(Random().nextInt(0xffffffff)),
-                        child: Text(index.toString()),
-                      );
+                      final productInfo = widget.info.products[index];
+                      return ProductCardComponent(productInfo: productInfo);
                     },
                   );
                 },
@@ -118,7 +116,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
         Padding(
           padding: Constants.horizontalPadding,
           child: Container(
-            height: 60,
+            height: 50,
             decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(10),

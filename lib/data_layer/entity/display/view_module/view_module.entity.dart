@@ -17,10 +17,14 @@ class ViewModuleEntity extends HiveObject {
   @HiveField(3, defaultValue: [])
   List<ProductInfoEntity> products;
 
+  @HiveField(4, defaultValue: -1)
+  int time;
+
   ViewModuleEntity({
     required this.type,
     required this.title,
     required this.subtitlt,
     required this.products,
+    required this.time,
   });
 }
