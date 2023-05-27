@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
+import '../../../../../common/constants.dart';
 import '../../../../../domain_layer/model/display/product_info/product_info.model.dart';
 
 class ImgSlide extends StatelessWidget {
@@ -14,6 +15,7 @@ class ImgSlide extends StatelessWidget {
     return SizedBox(
       height: 240,
       child: ListView.separated(
+        padding: Constants.horizontalPadding,
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         separatorBuilder: (_, index) => const SizedBox(width: 10),

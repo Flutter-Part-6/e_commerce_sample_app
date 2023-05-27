@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample_app/common/constants.dart';
 
 class ViewModulePadding extends StatelessWidget {
   final Widget child;
@@ -11,7 +12,7 @@ class ViewModulePadding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: Constants.horizontalPadding.add(Constants.verticalPadding),
       child: child,
     );
   }

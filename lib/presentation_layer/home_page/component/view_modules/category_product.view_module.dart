@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_title.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
 import 'core/view_module_widget.dart';
 
@@ -56,34 +57,38 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
 
   @override
   Widget build(BuildContext context) {
-    return ViewModulePadding(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const ViewModuleTitle(title: '8주년 FLEX 특가'),
-          TabBar(
-            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
-            isScrollable: true,
-            controller: _tabController,
-            tabs: List.generate(
-              _tempData.length,
-              (index) {
-                return Tab(
-                  text: _tempData[index]['title'] ?? '',
-                  // child: Text(
-                  //   _tempData[index]['title'] ?? '',
-                  //   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  //         color: Theme.of(context).primaryColor,
-                  //       ),
-                  // ),
-                );
-              },
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: Constants.horizontalPadding.add(Constants.verticalPadding),
+          child: const ViewModuleTitle(title: '8주년 FLEX 특가'),
+        ),
+        TabBar(
+          indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+          isScrollable: true,
+          controller: _tabController,
+          tabs: List.generate(
+            _tempData.length,
+            (index) {
+              return Tab(
+                text: _tempData[index]['title'] ?? '',
+                // child: Text(
+                //   _tempData[index]['title'] ?? '',
+                //   style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                //         color: Theme.of(context).primaryColor,
+                //       ),
+                // ),
+              );
+            },
           ),
-          const SizedBox(
-            height: 15,
-          ),
-          AspectRatio(
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: Constants.horizontalPadding,
+          child: AspectRatio(
             aspectRatio: 7 / 6,
             child: TabBarView(
               controller: _tabController,
@@ -109,7 +114,10 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
               ),
             ),
           ),
-          Container(
+        ),
+        Padding(
+          padding: Constants.horizontalPadding,
+          child: Container(
             height: 60,
             decoration: BoxDecoration(
               color: Colors.grey[300],
@@ -121,8 +129,8 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
