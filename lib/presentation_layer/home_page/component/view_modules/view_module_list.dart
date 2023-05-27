@@ -46,7 +46,7 @@ class _BuildViewModulesState extends State<_BuildViewModules>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final state = context.watch<ViewModulesBloc>().state;
+    final state = context.read<ViewModulesBloc>().state;
 
     return RefreshIndicator(
       onRefresh: () async => context.read<ViewModulesBloc>().add(
