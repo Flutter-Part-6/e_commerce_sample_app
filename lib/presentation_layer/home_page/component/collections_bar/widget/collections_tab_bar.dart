@@ -13,9 +13,15 @@ class CollectionsTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey[300]!),
+        ),
+      ),
+      height: 50,
       child: TabBar(
+        indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
         onTap: (index) {},
         controller: tabController,
         tabs: collections.map((e) => GnbTab(e.title)).toList(),
@@ -32,14 +38,15 @@ class GnbTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tab(
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-      ),
+      text: text,
+      // child: Text(
+      //   text,
+      //   style: const TextStyle(
+      //     fontSize: 18,
+      //     fontWeight: FontWeight.bold,
+      //     color: Colors.black,
+      //   ),
+      // ),
     );
   }
 }

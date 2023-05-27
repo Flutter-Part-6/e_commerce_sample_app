@@ -10,7 +10,6 @@ import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 
 import '../data_source/local_storage/display_dao.dart';
-import '../entity/display/view_module/view_module.entity.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
@@ -39,11 +38,11 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required int tabId,
     required int page,
   }) async {
-    final displayDao = DisplayDao();
+    // final displayDao = DisplayDao();
 
-    final cacheKey = '${storeType}_${tabId}_$page';
-    final List<ViewModuleEntity> cachedViewModules =
-        await displayDao.getViewModules(cacheKey);
+    // final cacheKey = '${storeType}_${tabId}_$page';
+    // final List<ViewModuleEntity> cachedViewModules =
+    //     await displayDao.getViewModules(cacheKey);
 
     //TODO refresh인 경우 개발해야 됌
     // if (cachedViewModules.isNotEmpty) {

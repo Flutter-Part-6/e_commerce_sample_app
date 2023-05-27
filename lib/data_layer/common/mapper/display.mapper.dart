@@ -70,9 +70,9 @@ extension ProductInfoEx on ProductInfo {
       title: title,
       subtitle: subtitle,
       price: price,
-      originalPrice: originalPrice ?? -1,
-      discountRate: discountRate ?? -1,
-      reviewCount: reviewCount ?? -1,
+      originalPrice: originalPrice,
+      discountRate: discountRate,
+      reviewCount: reviewCount,
     );
   }
 }
@@ -85,9 +85,9 @@ extension ProductInfoEntityEx on ProductInfoEntity {
       title: title,
       subtitle: subtitle,
       price: price,
-      originalPrice: originalPrice ?? -1,
-      discountRate: discountRate ?? -1,
-      reviewCount: reviewCount ?? -1,
+      originalPrice: originalPrice,
+      discountRate: discountRate,
+      reviewCount: reviewCount,
     );
   }
 }
