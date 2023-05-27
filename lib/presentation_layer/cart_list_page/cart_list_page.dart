@@ -79,9 +79,9 @@ class CartListPage extends StatelessWidget {
                   ),
                 );
             }
-            return Column(
-              children: _widgetGenerator(7, 'cart_item'),
-            );
+            // return Column(
+            //   children: _widgetGenerator(7, 'cart_item'),
+            // );
           },
         ),
       ),

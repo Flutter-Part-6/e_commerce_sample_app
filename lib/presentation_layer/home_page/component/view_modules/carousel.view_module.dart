@@ -1,14 +1,15 @@
+import 'dart:async';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sample_app/domain_layer/model/display.model.dart';
 
-List<String> images = [
-  'https://images.unsplash.com/photo-1589010588553-46e8e7c21788?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=960&q=80',
-  'https://images.unsplash.com/photo-1613892735667-5bfb98d16ba8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-  'https://images.unsplash.com/photo-1582138079379-4d3f79f61269?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80',
-  'https://images.unsplash.com/photo-1577161618325-2663fcfb4636?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1029&q=80',
-];
+import 'core/view_module_widget.dart';
 
-class CarouselViewModule extends StatefulWidget {
-  const CarouselViewModule({Key? key}) : super(key: key);
+class CarouselViewModule extends StatefulWidget with ViewModuleWidget {
+  const CarouselViewModule(this.info, {Key? key, required}) : super(key: key);
+
+  final ViewModule info;
 
   @override
   State<CarouselViewModule> createState() => _CarouselViewModuleState();
@@ -16,41 +17,116 @@ class CarouselViewModule extends StatefulWidget {
 
 class _CarouselViewModuleState extends State<CarouselViewModule> {
   int currentPage = 1;
+  late PageController pageController;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+
+    _timer = periodicTimer();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _timer.cancel();
+    pageController.dispose();
+  }
+
+  Timer periodicTimer() {
+    return Timer.periodic(
+      const Duration(seconds: 4),
+      (timer) {
+        pageController.nextPage(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 4 / 3,
-      child: Stack(
-        children: [
-          PageView.builder(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              String src = images[index % images.length];
-              return Image.network(
-                src,
-                fit: BoxFit.cover,
-              );
-            },
-            onPageChanged: (page) {
-              setState(() {
-                currentPage = page % images.length + 1;
-              });
-            },
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: PageCountWidget(
-                currentPage: currentPage,
-                totalPage: 10,
-              ),
+    List<ProductInfo> products = widget.info.products;
+
+    return RawGestureDetector(
+      gestures: {
+        CustomizedGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<CustomizedGestureRecognizer>(
+          () => CustomizedGestureRecognizer(),
+          (CustomizedGestureRecognizer instance) {
+            instance.onDown = (_) {
+              if (_timer.isActive) {
+                _timer.cancel();
+              }
+            };
+
+            instance.onCancel = () {
+              if (!_timer.isActive) {
+                _timer = periodicTimer();
+              }
+            };
+
+            instance.onEnd = (_) {
+              if (!_timer.isActive) {
+                _timer = periodicTimer();
+              }
+            };
+          },
+        )
+      },
+      child: AspectRatio(
+        aspectRatio: 4 / 3,
+        child: Stack(
+          children: [
+            PageView.builder(
+              // physics: NeverScrollableScrollPhysics(),
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                String src = products[index % products.length].imageUrl;
+                return Image.network(
+                  src,
+                  fit: BoxFit.cover,
+                );
+              },
+              onPageChanged: (page) {
+                setState(() {
+                  currentPage = page % products.length + 1;
+                });
+              },
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: PageCountWidget(
+                  currentPage: currentPage,
+                  totalPage: products.length,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+}
+
+class CustomizedGestureRecognizer extends HorizontalDragGestureRecognizer {
+  @override
+  void rejectGesture(int pointer) {
+    acceptGesture(pointer);
+  }
+}
+
+class AllowMultipleGestureRecognizer2 extends TapGestureRecognizer {
+  @override
+  void rejectGesture(int pointer) {
+    acceptGesture(pointer);
   }
 }
 
@@ -66,6 +142,24 @@ class PageCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('$currentPage / $totalPage');
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.black.withOpacity(0.3),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 4,
+        ),
+        child: Text(
+          '$currentPage / $totalPage',
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+    // return Text('$currentPage / $totalPage');
   }
 }

@@ -1,7 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_title.dart';
+
+import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
+import 'core/view_module_widget.dart';
 
 var _tempData = [
   {
@@ -18,14 +22,17 @@ var _tempData = [
   }
 ];
 
-class CategoryProduct extends StatefulWidget {
-  const CategoryProduct({Key? key}) : super(key: key);
+class CategoryProductViewModule extends StatefulWidget with ViewModuleWidget {
+  const CategoryProductViewModule(this.info, {Key? key}) : super(key: key);
+
+  final ViewModule info;
 
   @override
-  State<CategoryProduct> createState() => _CategoryProductState();
+  State<CategoryProductViewModule> createState() =>
+      _CategoryProductViewModuleState();
 }
 
-class _CategoryProductState extends State<CategoryProduct>
+class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
@@ -49,66 +56,73 @@ class _CategoryProductState extends State<CategoryProduct>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const ViewModuleTitle(title: '8주년 FLEX 특가'),
-        TabBar(
-          isScrollable: true,
-          indicatorColor: Theme.of(context).highlightColor,
-          controller: _tabController,
-          tabs: List.generate(
-            _tempData.length,
-            (index) {
-              return Tab(
-                child: Text(
-                  _tempData[index]['title'] ?? '',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                ),
-              );
-            },
-          ),
-        ),
-        AspectRatio(
-          aspectRatio: 7 / 6,
-          child: TabBarView(
+    return ViewModulePadding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const ViewModuleTitle(title: '8주년 FLEX 특가'),
+          TabBar(
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+            isScrollable: true,
             controller: _tabController,
-            children: List.generate(
+            tabs: List.generate(
               _tempData.length,
               (index) {
-                return GridView.builder(
-                  itemCount: 6,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 7 / 9,
-                  ),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      color: Color(Random().nextInt(0xffffffff)),
-                      child: Text(index.toString()),
-                    );
-                  },
+                return Tab(
+                  text: _tempData[index]['title'] ?? '',
+                  // child: Text(
+                  //   _tempData[index]['title'] ?? '',
+                  //   style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  //         color: Theme.of(context).primaryColor,
+                  //       ),
+                  // ),
                 );
               },
             ),
           ),
-        ),
-        Container(
-          height: 60,
-          decoration: BoxDecoration(
-            color: Colors.grey[300],
-            borderRadius: BorderRadius.circular(10),
+          const SizedBox(
+            height: 15,
           ),
-          child: Center(
-            child: Text(
-              '${_tempData[_tabController.index]['title']} 전체보기',
+          AspectRatio(
+            aspectRatio: 7 / 6,
+            child: TabBarView(
+              controller: _tabController,
+              children: List.generate(
+                _tempData.length,
+                (index) {
+                  return GridView.builder(
+                    itemCount: 6,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 7 / 9,
+                    ),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        color: Color(Random().nextInt(0xffffffff)),
+                        child: Text(index.toString()),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      ],
+          Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Center(
+              child: Text(
+                '${_tempData[_tabController.index]['title']} 전체보기',
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
