@@ -11,6 +11,7 @@ class ViewModuleDto with _$ViewModuleDto {
     @Default('') String? type,
     @Default('') String? title,
     @Default('') String? subtitle,
+    @Default(-1) int? time,
     @Default(<ProductInfoDto>[]) List<ProductInfoDto>? products,
   }) = _ViewModuleDto;
 

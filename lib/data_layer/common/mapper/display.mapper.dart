@@ -19,6 +19,7 @@ extension ViewModuleDtoEx on ViewModuleDto {
       title: title ?? '',
       subtitle: subtitle ?? '',
       products: products?.map((dto) => dto.toModel()).toList() ?? [],
+      time: time ?? -1,
     );
   }
 }
@@ -31,6 +32,7 @@ extension ViewModuleEntityEx on ViewModuleEntity {
       title: title,
       subtitle: subtitlt,
       products: products.map((entity) => entity.toModel()).toList(),
+      time: time ?? -1,
     );
   }
 }
@@ -43,6 +45,7 @@ extension ViewModuleEx on ViewModule {
       title: title,
       subtitlt: subtitle,
       products: products.map((model) => model.toEntity()).toList(),
+      time: time,
     );
   }
 }

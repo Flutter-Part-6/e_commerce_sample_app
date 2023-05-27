@@ -23,6 +23,7 @@ mixin _$ViewModuleDto {
   String? get type => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get subtitle => throw _privateConstructorUsedError;
+  int? get time => throw _privateConstructorUsedError;
   List<ProductInfoDto>? get products => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $ViewModuleDtoCopyWith<$Res> {
       {String? type,
       String? title,
       String? subtitle,
+      int? time,
       List<ProductInfoDto>? products});
 }
 
@@ -60,6 +62,7 @@ class _$ViewModuleDtoCopyWithImpl<$Res, $Val extends ViewModuleDto>
     Object? type = freezed,
     Object? title = freezed,
     Object? subtitle = freezed,
+    Object? time = freezed,
     Object? products = freezed,
   }) {
     return _then(_value.copyWith(
@@ -75,6 +78,10 @@ class _$ViewModuleDtoCopyWithImpl<$Res, $Val extends ViewModuleDto>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
       products: freezed == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -95,6 +102,7 @@ abstract class _$$_ViewModuleDtoCopyWith<$Res>
       {String? type,
       String? title,
       String? subtitle,
+      int? time,
       List<ProductInfoDto>? products});
 }
 
@@ -112,6 +120,7 @@ class __$$_ViewModuleDtoCopyWithImpl<$Res>
     Object? type = freezed,
     Object? title = freezed,
     Object? subtitle = freezed,
+    Object? time = freezed,
     Object? products = freezed,
   }) {
     return _then(_$_ViewModuleDto(
@@ -127,6 +136,10 @@ class __$$_ViewModuleDtoCopyWithImpl<$Res>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as String?,
+      time: freezed == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int?,
       products: freezed == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -142,6 +155,7 @@ class _$_ViewModuleDto implements _ViewModuleDto {
       {this.type = '',
       this.title = '',
       this.subtitle = '',
+      this.time = -1,
       final List<ProductInfoDto>? products = const <ProductInfoDto>[]})
       : _products = products;
 
@@ -157,6 +171,9 @@ class _$_ViewModuleDto implements _ViewModuleDto {
   @override
   @JsonKey()
   final String? subtitle;
+  @override
+  @JsonKey()
+  final int? time;
   final List<ProductInfoDto>? _products;
   @override
   @JsonKey()
@@ -170,7 +187,7 @@ class _$_ViewModuleDto implements _ViewModuleDto {
 
   @override
   String toString() {
-    return 'ViewModuleDto(type: $type, title: $title, subtitle: $subtitle, products: $products)';
+    return 'ViewModuleDto(type: $type, title: $title, subtitle: $subtitle, time: $time, products: $products)';
   }
 
   @override
@@ -182,12 +199,13 @@ class _$_ViewModuleDto implements _ViewModuleDto {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
+            (identical(other.time, time) || other.time == time) &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, title, subtitle,
+  int get hashCode => Object.hash(runtimeType, type, title, subtitle, time,
       const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
@@ -209,6 +227,7 @@ abstract class _ViewModuleDto implements ViewModuleDto {
       {final String? type,
       final String? title,
       final String? subtitle,
+      final int? time,
       final List<ProductInfoDto>? products}) = _$_ViewModuleDto;
 
   factory _ViewModuleDto.fromJson(Map<String, dynamic> json) =
@@ -220,6 +239,8 @@ abstract class _ViewModuleDto implements ViewModuleDto {
   String? get title;
   @override
   String? get subtitle;
+  @override
+  int? get time;
   @override
   List<ProductInfoDto>? get products;
   @override

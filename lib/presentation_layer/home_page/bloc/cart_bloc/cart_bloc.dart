@@ -118,6 +118,14 @@ extension IntEx on int {
     final priceFormat = NumberFormat('###,###,###,###원');
     return priceFormat.format(this);
   }
+
+  String toReview() {
+    if (this > 9999) {
+      return '9999+';
+    } else {
+      return toString();
+    }
+  }
 }
 
 extension CartStatusEx on CartStatus {

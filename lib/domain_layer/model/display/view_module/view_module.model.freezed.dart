@@ -23,6 +23,7 @@ mixin _$ViewModule {
   String get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get subtitle => throw _privateConstructorUsedError;
+  int get time => throw _privateConstructorUsedError;
   List<ProductInfo> get products => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,7 +39,11 @@ abstract class $ViewModuleCopyWith<$Res> {
       _$ViewModuleCopyWithImpl<$Res, ViewModule>;
   @useResult
   $Res call(
-      {String type, String title, String subtitle, List<ProductInfo> products});
+      {String type,
+      String title,
+      String subtitle,
+      int time,
+      List<ProductInfo> products});
 }
 
 /// @nodoc
@@ -57,6 +62,7 @@ class _$ViewModuleCopyWithImpl<$Res, $Val extends ViewModule>
     Object? type = null,
     Object? title = null,
     Object? subtitle = null,
+    Object? time = null,
     Object? products = null,
   }) {
     return _then(_value.copyWith(
@@ -72,6 +78,10 @@ class _$ViewModuleCopyWithImpl<$Res, $Val extends ViewModule>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as String,
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
@@ -89,7 +99,11 @@ abstract class _$$_ViewModuleCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String type, String title, String subtitle, List<ProductInfo> products});
+      {String type,
+      String title,
+      String subtitle,
+      int time,
+      List<ProductInfo> products});
 }
 
 /// @nodoc
@@ -106,6 +120,7 @@ class __$$_ViewModuleCopyWithImpl<$Res>
     Object? type = null,
     Object? title = null,
     Object? subtitle = null,
+    Object? time = null,
     Object? products = null,
   }) {
     return _then(_$_ViewModule(
@@ -121,6 +136,10 @@ class __$$_ViewModuleCopyWithImpl<$Res>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as String,
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int,
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
@@ -136,6 +155,7 @@ class _$_ViewModule implements _ViewModule {
       {required this.type,
       required this.title,
       required this.subtitle,
+      required this.time,
       required final List<ProductInfo> products})
       : _products = products;
 
@@ -148,6 +168,8 @@ class _$_ViewModule implements _ViewModule {
   final String title;
   @override
   final String subtitle;
+  @override
+  final int time;
   final List<ProductInfo> _products;
   @override
   List<ProductInfo> get products {
@@ -158,7 +180,7 @@ class _$_ViewModule implements _ViewModule {
 
   @override
   String toString() {
-    return 'ViewModule(type: $type, title: $title, subtitle: $subtitle, products: $products)';
+    return 'ViewModule(type: $type, title: $title, subtitle: $subtitle, time: $time, products: $products)';
   }
 
   @override
@@ -170,12 +192,13 @@ class _$_ViewModule implements _ViewModule {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
+            (identical(other.time, time) || other.time == time) &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, title, subtitle,
+  int get hashCode => Object.hash(runtimeType, type, title, subtitle, time,
       const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
@@ -197,6 +220,7 @@ abstract class _ViewModule implements ViewModule {
       {required final String type,
       required final String title,
       required final String subtitle,
+      required final int time,
       required final List<ProductInfo> products}) = _$_ViewModule;
 
   factory _ViewModule.fromJson(Map<String, dynamic> json) =
@@ -208,6 +232,8 @@ abstract class _ViewModule implements ViewModule {
   String get title;
   @override
   String get subtitle;
+  @override
+  int get time;
   @override
   List<ProductInfo> get products;
   @override
