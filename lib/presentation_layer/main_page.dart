@@ -54,21 +54,26 @@ class MainView extends StatelessWidget {
         onTap: context.read<BottomNavigationCubit>().changeBottomType,
         currentIndex: context.watch<BottomNavigationCubit>().state.index,
         type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        iconSize: 36,
+        selectedFontSize: 0,
+        unselectedFontSize: 0,
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.home),
             label: BottomNavigation.A.name,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.call),
+            icon: const Icon(Icons.menu_outlined),
             label: BottomNavigation.B.name,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.camera_alt_outlined),
+            icon: const Icon(Icons.search_outlined),
             label: BottomNavigation.C.name,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.account_circle),
+            icon: const Icon(Icons.person_outline_outlined),
             label: BottomNavigation.user.name,
           )
         ],

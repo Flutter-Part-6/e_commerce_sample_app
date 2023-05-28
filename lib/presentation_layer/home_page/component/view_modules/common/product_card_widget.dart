@@ -4,6 +4,8 @@ import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
+import 'add_cart_button.dart';
+
 class ProductCardWidget extends StatelessWidget {
   final ProductInfo productInfo;
   final double imageAspect;
@@ -38,28 +40,9 @@ class ProductCardWidget extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Positioned(
-              right: 5,
-              bottom: 12,
-              child: GestureDetector(
-                onTap: () => context.read<CartBloc>().add(
-                      CartOpened(productInfo),
-                    ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(context).primaryColor.withOpacity(0.6),
-                  ),
-                  height: 35,
-                  width: 35,
-                  child: const Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            )
+            AddCartButton(
+              productInfo: productInfo,
+            ),
           ],
         ),
         const SizedBox(
@@ -77,6 +60,9 @@ class ProductCardWidget extends StatelessWidget {
             Text(
               '${productInfo.discountRate.toString()}%',
               style: priceStyle?.discountRageCopyWith(),
+            ),
+            const SizedBox(
+              width: 4,
             ),
             Text(
               productInfo.price.toWon(),

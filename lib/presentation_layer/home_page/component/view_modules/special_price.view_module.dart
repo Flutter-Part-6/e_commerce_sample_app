@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:sample_app/presentation_layer/home_page/component/view_modules/c
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
 
+import 'common/add_cart_button.dart';
 import 'common/view_module_title.dart';
 import 'core/view_module_widget.dart';
 
@@ -18,27 +20,29 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(info.time);
     return ViewModulePadding(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ViewModuleTitle(
-              title: '🥳8주년 일일 특가',
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: ViewModuleTitle(
+                title: info.title,
+              ),
             ),
             const SizedBox(
               height: 4,
             ),
-            const ViewModuleSubtitle(
-              subtitle: '24시간 놓칠 수 없는 가격',
+            ViewModuleSubtitle(
+              subtitle: info.subtitle,
             ),
             const SizedBox(
-              height: 4,
+              height: 8,
             ),
             if (info.time > 0)
               Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(bottom: 16.0),
                 child: Row(
                   children: [
                     Lottie.network(
@@ -105,7 +109,6 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   void initState() {
     super.initState();
-    print(widget.endTime.toString());
 
     remainTime = widget.endTime.difference(DateTime.now());
 
@@ -168,12 +171,19 @@ class SpecialPriceProduct extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AspectRatio(
-          aspectRatio: 2 / 1,
-          child: Image.network(
-            productInfo.imageUrl,
-            fit: BoxFit.cover,
-          ),
+        Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: 2 / 1,
+              child: Image.network(
+                productInfo.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+            AddCartButton(
+              productInfo: productInfo,
+            ),
+          ],
         ),
         const SizedBox(
           height: 4,

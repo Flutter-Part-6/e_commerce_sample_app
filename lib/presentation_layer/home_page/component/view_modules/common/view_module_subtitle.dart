@@ -12,7 +12,7 @@ class ViewModuleSubtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       subtitle,
-      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+      style: Theme.of(context).textTheme.labelLarge?.copyWith(
             color: Colors.grey,
           ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_title.dart';
 
@@ -20,17 +21,13 @@ class ScrollViewModule extends StatelessWidget with ViewModuleWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: Constants.horizontalPadding,
+            ViewModulePadding(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ViewModuleTitle(title: info.title),
                   if (info.subtitle.isNotEmpty)
                     ViewModuleSubtitle(subtitle: info.subtitle),
-                  const SizedBox(
-                    height: 15,
-                  ),
                 ],
               ),
             ),

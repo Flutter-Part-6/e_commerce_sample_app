@@ -20,8 +20,11 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ViewModuleTitle(
-            title: info.title,
+          Padding(
+            padding: Constants.verticalPadding,
+            child: ViewModuleTitle(
+              title: info.title,
+            ),
           ),
           if (info.imageUrl.isNotEmpty)
             Padding(
@@ -111,9 +114,15 @@ class BrandProductItem extends StatelessWidget {
                     '${productInfo.discountRate}%',
                     style: textStyle.titleMedium?.discountRageCopyWith(),
                   ),
+                  const SizedBox(
+                    width: 4,
+                  ),
                   Text(
                     productInfo.price.toWon(),
                     style: textStyle.titleMedium?.priceCopyWith(),
+                  ),
+                  const SizedBox(
+                    width: 4,
                   ),
                   Text(
                     productInfo.originalPrice.toWon(),
