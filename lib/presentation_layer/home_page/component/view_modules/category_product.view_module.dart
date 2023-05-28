@@ -73,12 +73,6 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
             (index) {
               return Tab(
                 text: _tempData[index]['title'] ?? '',
-                // child: Text(
-                //   _tempData[index]['title'] ?? '',
-                //   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                //         color: Theme.of(context).primaryColor,
-                //       ),
-                // ),
               );
             },
           ),
@@ -102,10 +96,15 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       childAspectRatio: (390 / 3) / (490 / 2),
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 8,
                     ),
                     itemBuilder: (context, index) {
                       final productInfo = widget.info.products[index];
-                      return ProductCardComponent(productInfo: productInfo);
+                      return SmallProductCard(
+                        context: context,
+                        productInfo: productInfo,
+                      );
                     },
                   );
                 },
