@@ -14,16 +14,20 @@ class ViewModuleEntity extends HiveObject {
   @HiveField(2, defaultValue: '')
   String subtitlt;
 
-  @HiveField(3, defaultValue: [])
+  @HiveField(3, defaultValue: '')
+  String imageUrl;
+
+  @HiveField(4, defaultValue: [])
   List<ProductInfoEntity> products;
 
-  @HiveField(4, defaultValue: -1)
+  @HiveField(5, defaultValue: -1)
   int time;
 
   ViewModuleEntity({
     required this.type,
     required this.title,
     required this.subtitlt,
+    required this.imageUrl,
     required this.products,
     required this.time,
   });

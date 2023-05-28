@@ -23,6 +23,7 @@ mixin _$ViewModule {
   String get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get subtitle => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   int get time => throw _privateConstructorUsedError;
   List<ProductInfo> get products => throw _privateConstructorUsedError;
 
@@ -42,6 +43,7 @@ abstract class $ViewModuleCopyWith<$Res> {
       {String type,
       String title,
       String subtitle,
+      String imageUrl,
       int time,
       List<ProductInfo> products});
 }
@@ -62,6 +64,7 @@ class _$ViewModuleCopyWithImpl<$Res, $Val extends ViewModule>
     Object? type = null,
     Object? title = null,
     Object? subtitle = null,
+    Object? imageUrl = null,
     Object? time = null,
     Object? products = null,
   }) {
@@ -77,6 +80,10 @@ class _$ViewModuleCopyWithImpl<$Res, $Val extends ViewModule>
       subtitle: null == subtitle
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       time: null == time
           ? _value.time
@@ -102,6 +109,7 @@ abstract class _$$_ViewModuleCopyWith<$Res>
       {String type,
       String title,
       String subtitle,
+      String imageUrl,
       int time,
       List<ProductInfo> products});
 }
@@ -120,6 +128,7 @@ class __$$_ViewModuleCopyWithImpl<$Res>
     Object? type = null,
     Object? title = null,
     Object? subtitle = null,
+    Object? imageUrl = null,
     Object? time = null,
     Object? products = null,
   }) {
@@ -135,6 +144,10 @@ class __$$_ViewModuleCopyWithImpl<$Res>
       subtitle: null == subtitle
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       time: null == time
           ? _value.time
@@ -155,6 +168,7 @@ class _$_ViewModule implements _ViewModule {
       {required this.type,
       required this.title,
       required this.subtitle,
+      required this.imageUrl,
       required this.time,
       required final List<ProductInfo> products})
       : _products = products;
@@ -169,6 +183,8 @@ class _$_ViewModule implements _ViewModule {
   @override
   final String subtitle;
   @override
+  final String imageUrl;
+  @override
   final int time;
   final List<ProductInfo> _products;
   @override
@@ -180,7 +196,7 @@ class _$_ViewModule implements _ViewModule {
 
   @override
   String toString() {
-    return 'ViewModule(type: $type, title: $title, subtitle: $subtitle, time: $time, products: $products)';
+    return 'ViewModule(type: $type, title: $title, subtitle: $subtitle, imageUrl: $imageUrl, time: $time, products: $products)';
   }
 
   @override
@@ -192,14 +208,16 @@ class _$_ViewModule implements _ViewModule {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.time, time) || other.time == time) &&
             const DeepCollectionEquality().equals(other._products, _products));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, title, subtitle, time,
-      const DeepCollectionEquality().hash(_products));
+  int get hashCode => Object.hash(runtimeType, type, title, subtitle, imageUrl,
+      time, const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
   @override
@@ -220,6 +238,7 @@ abstract class _ViewModule implements ViewModule {
       {required final String type,
       required final String title,
       required final String subtitle,
+      required final String imageUrl,
       required final int time,
       required final List<ProductInfo> products}) = _$_ViewModule;
 
@@ -232,6 +251,8 @@ abstract class _ViewModule implements ViewModule {
   String get title;
   @override
   String get subtitle;
+  @override
+  String get imageUrl;
   @override
   int get time;
   @override

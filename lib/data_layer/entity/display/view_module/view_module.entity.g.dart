@@ -20,17 +20,18 @@ class ViewModuleEntityAdapter extends TypeAdapter<ViewModuleEntity> {
       type: fields[0] == null ? '' : fields[0] as String,
       title: fields[1] == null ? '' : fields[1] as String,
       subtitlt: fields[2] == null ? '' : fields[2] as String,
-      products: fields[3] == null
+      imageUrl: fields[3] == null ? '' : fields[3] as String,
+      products: fields[4] == null
           ? []
-          : (fields[3] as List).cast<ProductInfoEntity>(),
-      time: fields[4] == null ? -1 : fields[4] as int,
+          : (fields[4] as List).cast<ProductInfoEntity>(),
+      time: fields[5] == null ? -1 : fields[5] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ViewModuleEntity obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
@@ -38,8 +39,10 @@ class ViewModuleEntityAdapter extends TypeAdapter<ViewModuleEntity> {
       ..writeByte(2)
       ..write(obj.subtitlt)
       ..writeByte(3)
-      ..write(obj.products)
+      ..write(obj.imageUrl)
       ..writeByte(4)
+      ..write(obj.products)
+      ..writeByte(5)
       ..write(obj.time);
   }
 
