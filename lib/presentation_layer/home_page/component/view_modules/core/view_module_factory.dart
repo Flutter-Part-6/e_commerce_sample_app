@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sample_app/common/utils/extensions.dart';
 import 'package:sample_app/domain_layer/model/display/view_module/view_module.model.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/banner.view_module.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/brand_product.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/carousel.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/category_product.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/special_price.view_module.dart';
@@ -19,6 +20,7 @@ enum Modules {
   specialPriceViewModule,
   categoryProductViewModule,
   bannerViewModule,
+  brandProductViewModule,
   viewModuleA,
   viewModuleB,
   viewModuleC,
@@ -50,6 +52,8 @@ extension ModulesEx on Modules {
         return SpecialPriceViewModule(info);
       case Modules.bannerViewModule:
         return BannerViewModule(info);
+      case Modules.brandProductViewModule:
+        return BrandProductViewModule(info);
       case Modules.viewModuleA:
         return ViewModuleA(info);
       case Modules.viewModuleB:

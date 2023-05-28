@@ -7,7 +7,6 @@ import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
 
-import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
 import 'common/view_module_title.dart';
 import 'core/view_module_widget.dart';
 
@@ -36,33 +35,34 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
             const SizedBox(
               height: 4,
             ),
-            Row(
-              children: [
-                Lottie.network(
-                  'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
-                  width: 20,
-                  delegates: LottieDelegates(
-                    values: [
-                      ValueDelegate.color(
-                        const ['Oval', 'Oval', 'Fill 1'],
-                        value: Theme.of(context).highlightColor,
+            if (info.time > 0)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  children: [
+                    Lottie.network(
+                      'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
+                      width: 20,
+                      delegates: LottieDelegates(
+                        values: [
+                          ValueDelegate.color(
+                            const ['Oval', 'Oval', 'Fill 1'],
+                            value: Theme.of(context).highlightColor,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    TimerWidget(
+                      endTime: DateTime.fromMillisecondsSinceEpoch(
+                        info.time,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 4,
-                ),
-                TimerWidget(
-                  endTime: DateTime.fromMillisecondsSinceEpoch(
-                    info.time,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
+              ),
             ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
