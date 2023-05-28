@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
 
@@ -112,7 +113,6 @@ class _TimerWidgetState extends State<TimerWidget> {
       _timer = Timer.periodic(
         const Duration(seconds: 1),
         (timer) {
-          print('----');
           remainTime = widget.endTime.difference(DateTime.now());
 
           if (remainTime <= Duration.zero) {
@@ -153,7 +153,6 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 }
 
-// TODO 상품카드
 class SpecialPriceProduct extends StatelessWidget {
   final ProductInfo productInfo;
 
@@ -181,7 +180,7 @@ class SpecialPriceProduct extends StatelessWidget {
         ),
         Text(
           productInfo.subtitle,
-          style: textTheme.labelMedium?.copyWith(
+          style: textTheme.labelLarge?.copyWith(
             color: Colors.grey,
           ),
         ),
@@ -190,9 +189,7 @@ class SpecialPriceProduct extends StatelessWidget {
         ),
         Text(
           productInfo.title,
-          style: textTheme.titleSmall?.copyWith(
-            fontWeight: FontWeight.w300,
-          ),
+          style: textTheme.headlineSmall?.titleCopyWith(),
         ),
         const SizedBox(
           height: 4,
@@ -200,31 +197,22 @@ class SpecialPriceProduct extends StatelessWidget {
         Row(
           children: [
             Text(
-              productInfo.discountRate.toString() + '%',
-              style: textTheme.titleMedium?.copyWith(
-                color: Colors.deepOrange,
-                fontWeight: FontWeight.bold,
-              ),
+              '${productInfo.discountRate}%',
+              style: textTheme.titleLarge?.discountRageCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.price.toWon(),
-              style: textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: textTheme.titleLarge?.priceCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.originalPrice.toWon(),
-              style: textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.w300,
-                color: Colors.grey,
-                decoration: TextDecoration.lineThrough,
-              ),
+              style: textTheme.labelLarge?.originalPriceCopyWith(),
             ),
           ],
         ),
@@ -243,9 +231,7 @@ class SpecialPriceProduct extends StatelessWidget {
             ),
             Text(
               '후기 ${productInfo.reviewCount.toReview()}',
-              style: textTheme.labelMedium?.copyWith(
-                color: Colors.grey,
-              ),
+              style: textTheme.labelLarge?.reviewCountCopyWith(),
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:sample_app/presentation_layer/home_page/component/view_modules/b
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/brand_product.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/carousel.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/category_product.view_module.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/scroll.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/special_price.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/view_module_A/view_module_A.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_NONE.dart';
@@ -21,6 +22,7 @@ enum Modules {
   categoryProductViewModule,
   bannerViewModule,
   brandProductViewModule,
+  scrollViewModule,
   viewModuleA,
   viewModuleB,
   viewModuleC,
@@ -54,6 +56,8 @@ extension ModulesEx on Modules {
         return BannerViewModule(info);
       case Modules.brandProductViewModule:
         return BrandProductViewModule(info);
+      case Modules.scrollViewModule:
+        return ScrollViewModule(info);
       case Modules.viewModuleA:
         return ViewModuleA(info);
       case Modules.viewModuleB:

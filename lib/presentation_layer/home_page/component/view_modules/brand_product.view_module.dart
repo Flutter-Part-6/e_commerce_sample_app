@@ -6,7 +6,7 @@ import 'package:sample_app/presentation_layer/home_page/component/view_modules/c
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_title.dart';
 
 import '../../../../common/constants.dart';
-import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
+import 'common/product_card.component.dart';
 import 'core/view_module_widget.dart';
 
 class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
@@ -36,14 +36,22 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
             ),
           if (info.subtitle.isNotEmpty)
             Padding(
-              padding: Constants.verticalPadding,
-              child: Text(info.subtitle),
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+              ),
+              child: Text(
+                info.subtitle,
+                style: Theme.of(context).textTheme.titleLarge?.titleCopyWith(),
+              ),
             ),
           const Divider(
             thickness: 1,
           ),
+          const SizedBox(
+            height: 8,
+          ),
           ListView.separated(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (_, index) {
                 return BrandProductItem(
@@ -52,7 +60,7 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
               },
               separatorBuilder: (_, __) {
                 return const SizedBox(
-                  height: 12,
+                  height: 16,
                 );
               },
               itemCount: info.products.length),
@@ -70,15 +78,20 @@ class BrandProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textStyle = Theme.of(context).textTheme;
+
     return SizedBox(
       height: 60,
       child: Row(
         children: [
           AspectRatio(
             aspectRatio: 1,
-            child: Image.network(
-              productInfo.imageUrl,
-              fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.network(
+                productInfo.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(
@@ -88,12 +101,24 @@ class BrandProductItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(productInfo.title),
+              Text(
+                productInfo.title,
+                style: textStyle.titleLarge?.titleCopyWith(),
+              ),
               Row(
                 children: [
-                  Text('${productInfo.discountRate}%'),
-                  Text(productInfo.price.toWon()),
-                  Text(productInfo.originalPrice.toWon()),
+                  Text(
+                    '${productInfo.discountRate}%',
+                    style: textStyle.titleMedium?.discountRageCopyWith(),
+                  ),
+                  Text(
+                    productInfo.price.toWon(),
+                    style: textStyle.titleMedium?.priceCopyWith(),
+                  ),
+                  Text(
+                    productInfo.originalPrice.toWon(),
+                    style: textStyle.labelMedium?.originalPriceCopyWith(),
+                  ),
                 ],
               ),
             ],
