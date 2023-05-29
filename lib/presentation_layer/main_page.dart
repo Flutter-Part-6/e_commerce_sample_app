@@ -6,6 +6,7 @@ import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/co
 import 'package:sample_app/presentation_layer/home_page/home_page.dart';
 
 import '../common/dependency_injection/injection_injectable.dart';
+import 'cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 import 'user_page/user_page.dart';
 

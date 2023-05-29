@@ -25,7 +25,11 @@ class ProductInfoEntity extends HiveObject {
   @HiveField(6, defaultValue: -1)
   int reviewCount;
 
+  @HiveField(7, defaultValue: '')
+  String productId;
+
   ProductInfoEntity({
+    required this.productId,
     required this.title,
     required this.subtitle,
     required this.imageUrl,

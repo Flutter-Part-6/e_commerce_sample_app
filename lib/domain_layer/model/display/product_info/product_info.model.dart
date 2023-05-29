@@ -7,6 +7,7 @@ part 'product_info.model.g.dart';
 @freezed
 class ProductInfo with _$ProductInfo {
   const factory ProductInfo({
+    required String productId,
     required String title,
     required String imageUrl,
     required String subtitle,

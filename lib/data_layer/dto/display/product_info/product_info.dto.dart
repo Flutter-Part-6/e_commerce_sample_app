@@ -7,6 +7,7 @@ part 'product_info.dto.g.dart';
 @freezed
 class ProductInfoDto with _$ProductInfoDto {
   const factory ProductInfoDto({
+    @Default('') String? productId,
     @Default('') String? title,
     @Default('') String? subtitle,
     @Default(-1) int? price,

@@ -89,4 +89,25 @@ class DisplayRepositoryImpl implements DisplayRepository {
 
     return cartList;
   }
+
+  @override
+  Future<void> clearCartList() async {
+    final displayDao = DisplayDao();
+
+    await displayDao.clearCarts();
+  }
+
+  @override
+  Future<void> deleteCart(String productId) async {
+    final displayDao = DisplayDao();
+
+    await displayDao.deleteCart(productId);
+  }
+
+  @override
+  Future<void> changeCartQuantity(
+      {required String productId, required int qty}) async {
+    final displayDao = DisplayDao();
+    await displayDao.changeQtyCart(productId, qty);
+  }
 }

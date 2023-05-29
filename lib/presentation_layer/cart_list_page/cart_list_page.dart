@@ -2,35 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
+import 'package:sample_app/presentation_layer/cart_list_page/component/cart_product_card/cart_product_card.dart';
 
 import '../common/component/app_bar/widget/icon_box.dart';
-
-const List<Color> colorList = [
-  Colors.red,
-  Colors.orange,
-  Colors.yellow,
-  Colors.green,
-  Colors.blue,
-  Colors.indigo,
-  Colors.purple
-];
-
-List<Widget> _widgetGenerator(int len, String prefix) {
-  List<Widget> widgets = [];
-  for (int i = 0; i < len; i++) {
-    final widget = Container(
-      height: 150,
-      color: colorList[i],
-      child: Center(
-          child: Text(
-        style: const TextStyle(color: Colors.black, fontSize: 20),
-        '${prefix}_$i',
-      )),
-    );
-    widgets.add(widget);
-  }
-  return widgets;
-}
+import 'component/cart_total_price/cart_total_price.dart';
 
 class CartListPage extends StatelessWidget {
   const CartListPage({Key? key}) : super(key: key);
@@ -39,6 +14,7 @@ class CartListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconBox(
           icon: Icons.close,
           onPressed: () {
@@ -52,37 +28,89 @@ class CartListPage extends StatelessWidget {
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       body: SingleChildScrollView(
-        child: BlocBuilder<CartListBloc, CartListState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case CartListStatus.initial:
-                return Column(
-                  children: _widgetGenerator(7, 'cart_item'),
-                );
-              case CartListStatus.success:
-                return Column(
-                    children: state.cartList
-                        .map((e) => Container(
-                              height: 60,
-                              child: Center(
-                                child: Text(e.product.title),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BlocBuilder<CartListBloc, CartListState>(
+                      builder: (context, state) {
+                    final selectedProducts = state.selectedProduct;
+                    final cartList = state.cartList;
+
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => context.read<CartListBloc>().add(
+                                CartListSelectedAll(),
                               ),
-                            ))
-                        .toList());
-              case CartListStatus.loading:
-                return const Center(child: CircularProgressIndicator());
-              case CartListStatus.failure:
-                return Container(
-                  height: 300,
-                  child: const Center(
-                    child: Text('error'),
+                          child: Icon(
+                            (selectedProducts.length == cartList.length)
+                                ? Icons.check_circle
+                                : Icons.check_circle_outline_rounded,
+                            size: 20,
+                            color: (selectedProducts.length == cartList.length)
+                                ? Colors.purple
+                                : Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          '전체 선택 (${selectedProducts.length}/${cartList.length})',
+                        )
+                      ],
+                    );
+                  }),
+                  GestureDetector(
+                    onTap: () =>
+                        context.read<CartListBloc>().add(CartListCleared()),
+                    child: Container(
+                      // padding: const EdgeInsets.symmetric(horizontal: 16),
+                      alignment: Alignment.centerLeft,
+                      height: 40,
+                      child: Text('전체 삭제'),
+                    ),
                   ),
-                );
-            }
-            // return Column(
-            //   children: _widgetGenerator(7, 'cart_item'),
-            // );
-          },
+                ],
+              ),
+            ),
+            const Divider(thickness: 10),
+            BlocBuilder<CartListBloc, CartListState>(
+              builder: (context, state) {
+                switch (state.status) {
+                  case CartListStatus.initial:
+                    return Container(
+                      height: 300,
+                      child: const Center(
+                        child: Text('init'),
+                      ),
+                    );
+                  case CartListStatus.success:
+                    return Column(
+                      children: [
+                        ...state.cartList
+                            .map((cart) => CartProductCard(cart: cart))
+                            .toList(),
+                        const CartTotalPrice()
+                      ],
+                    );
+                  case CartListStatus.loading:
+                    return const Center(child: CircularProgressIndicator());
+                  case CartListStatus.failure:
+                    return Container(
+                      height: 300,
+                      child: const Center(
+                        child: Text('error'),
+                      ),
+                    );
+                }
+              },
+            ),
+          ],
         ),
       ),
     );

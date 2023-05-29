@@ -20,6 +20,7 @@ ProductInfoDto _$ProductInfoDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProductInfoDto {
+  String? get productId => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get subtitle => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
@@ -41,7 +42,8 @@ abstract class $ProductInfoDtoCopyWith<$Res> {
       _$ProductInfoDtoCopyWithImpl<$Res, ProductInfoDto>;
   @useResult
   $Res call(
-      {String? title,
+      {String? productId,
+      String? title,
       String? subtitle,
       int? price,
       int? originalPrice,
@@ -63,6 +65,7 @@ class _$ProductInfoDtoCopyWithImpl<$Res, $Val extends ProductInfoDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? productId = freezed,
     Object? title = freezed,
     Object? subtitle = freezed,
     Object? price = freezed,
@@ -72,6 +75,10 @@ class _$ProductInfoDtoCopyWithImpl<$Res, $Val extends ProductInfoDto>
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
+      productId: freezed == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -113,7 +120,8 @@ abstract class _$$_ProductInfoDtoCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? title,
+      {String? productId,
+      String? title,
       String? subtitle,
       int? price,
       int? originalPrice,
@@ -133,6 +141,7 @@ class __$$_ProductInfoDtoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? productId = freezed,
     Object? title = freezed,
     Object? subtitle = freezed,
     Object? price = freezed,
@@ -142,6 +151,10 @@ class __$$_ProductInfoDtoCopyWithImpl<$Res>
     Object? imageUrl = freezed,
   }) {
     return _then(_$_ProductInfoDto(
+      productId: freezed == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -178,7 +191,8 @@ class __$$_ProductInfoDtoCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProductInfoDto implements _ProductInfoDto {
   const _$_ProductInfoDto(
-      {this.title = '',
+      {this.productId = '',
+      this.title = '',
       this.subtitle = '',
       this.price = -1,
       this.originalPrice = -1,
@@ -189,6 +203,9 @@ class _$_ProductInfoDto implements _ProductInfoDto {
   factory _$_ProductInfoDto.fromJson(Map<String, dynamic> json) =>
       _$$_ProductInfoDtoFromJson(json);
 
+  @override
+  @JsonKey()
+  final String? productId;
   @override
   @JsonKey()
   final String? title;
@@ -213,7 +230,7 @@ class _$_ProductInfoDto implements _ProductInfoDto {
 
   @override
   String toString() {
-    return 'ProductInfoDto(title: $title, subtitle: $subtitle, price: $price, originalPrice: $originalPrice, discountRate: $discountRate, reviewCount: $reviewCount, imageUrl: $imageUrl)';
+    return 'ProductInfoDto(productId: $productId, title: $title, subtitle: $subtitle, price: $price, originalPrice: $originalPrice, discountRate: $discountRate, reviewCount: $reviewCount, imageUrl: $imageUrl)';
   }
 
   @override
@@ -221,6 +238,8 @@ class _$_ProductInfoDto implements _ProductInfoDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProductInfoDto &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
@@ -237,8 +256,8 @@ class _$_ProductInfoDto implements _ProductInfoDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, subtitle, price,
-      originalPrice, discountRate, reviewCount, imageUrl);
+  int get hashCode => Object.hash(runtimeType, productId, title, subtitle,
+      price, originalPrice, discountRate, reviewCount, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -256,7 +275,8 @@ class _$_ProductInfoDto implements _ProductInfoDto {
 
 abstract class _ProductInfoDto implements ProductInfoDto {
   const factory _ProductInfoDto(
-      {final String? title,
+      {final String? productId,
+      final String? title,
       final String? subtitle,
       final int? price,
       final int? originalPrice,
@@ -267,6 +287,8 @@ abstract class _ProductInfoDto implements ProductInfoDto {
   factory _ProductInfoDto.fromJson(Map<String, dynamic> json) =
       _$_ProductInfoDto.fromJson;
 
+  @override
+  String? get productId;
   @override
   String? get title;
   @override
