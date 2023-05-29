@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
 
-import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
+import 'common/add_cart_button.dart';
 import 'common/view_module_title.dart';
 import 'core/view_module_widget.dart';
 
@@ -18,51 +20,54 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(info.time);
     return ViewModulePadding(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ViewModuleTitle(
-              title: '🥳8주년 일일 특가',
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: ViewModuleTitle(
+                title: info.title,
+              ),
             ),
             const SizedBox(
               height: 4,
             ),
-            const ViewModuleSubtitle(
-              subtitle: '24시간 놓칠 수 없는 가격',
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Row(
-              children: [
-                Lottie.network(
-                  'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
-                  width: 20,
-                  delegates: LottieDelegates(
-                    values: [
-                      ValueDelegate.color(
-                        const ['Oval', 'Oval', 'Fill 1'],
-                        value: Theme.of(context).highlightColor,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                TimerWidget(
-                  endTime: DateTime.fromMillisecondsSinceEpoch(
-                    info.time,
-                  ),
-                ),
-              ],
+            ViewModuleSubtitle(
+              subtitle: info.subtitle,
             ),
             const SizedBox(
               height: 8,
             ),
+            if (info.time > 0)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Row(
+                  children: [
+                    Lottie.network(
+                      'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
+                      width: 20,
+                      delegates: LottieDelegates(
+                        values: [
+                          ValueDelegate.color(
+                            const ['Oval', 'Oval', 'Fill 1'],
+                            value: Theme.of(context).highlightColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    TimerWidget(
+                      endTime: DateTime.fromMillisecondsSinceEpoch(
+                        info.time,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -104,7 +109,6 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   void initState() {
     super.initState();
-    print(widget.endTime.toString());
 
     remainTime = widget.endTime.difference(DateTime.now());
 
@@ -112,7 +116,6 @@ class _TimerWidgetState extends State<TimerWidget> {
       _timer = Timer.periodic(
         const Duration(seconds: 1),
         (timer) {
-          // print('----');
           remainTime = widget.endTime.difference(DateTime.now());
 
           if (remainTime <= Duration.zero) {
@@ -153,7 +156,6 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 }
 
-// TODO 상품카드
 class SpecialPriceProduct extends StatelessWidget {
   final ProductInfo productInfo;
 
@@ -169,19 +171,26 @@ class SpecialPriceProduct extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AspectRatio(
-          aspectRatio: 2 / 1,
-          child: Image.network(
-            productInfo.imageUrl,
-            fit: BoxFit.cover,
-          ),
+        Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: 2 / 1,
+              child: Image.network(
+                productInfo.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+            AddCartButton(
+              productInfo: productInfo,
+            ),
+          ],
         ),
         const SizedBox(
           height: 4,
         ),
         Text(
           productInfo.subtitle,
-          style: textTheme.labelMedium?.copyWith(
+          style: textTheme.labelLarge?.copyWith(
             color: Colors.grey,
           ),
         ),
@@ -190,9 +199,7 @@ class SpecialPriceProduct extends StatelessWidget {
         ),
         Text(
           productInfo.title,
-          style: textTheme.titleSmall?.copyWith(
-            fontWeight: FontWeight.w300,
-          ),
+          style: textTheme.headlineSmall?.titleCopyWith(),
         ),
         const SizedBox(
           height: 4,
@@ -200,31 +207,22 @@ class SpecialPriceProduct extends StatelessWidget {
         Row(
           children: [
             Text(
-              productInfo.discountRate.toString() + '%',
-              style: textTheme.titleMedium?.copyWith(
-                color: Colors.deepOrange,
-                fontWeight: FontWeight.bold,
-              ),
+              '${productInfo.discountRate}%',
+              style: textTheme.titleLarge?.discountRageCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.price.toWon(),
-              style: textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: textTheme.titleLarge?.priceCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.originalPrice.toWon(),
-              style: textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.w300,
-                color: Colors.grey,
-                decoration: TextDecoration.lineThrough,
-              ),
+              style: textTheme.labelLarge?.originalPriceCopyWith(),
             ),
           ],
         ),
@@ -243,9 +241,7 @@ class SpecialPriceProduct extends StatelessWidget {
             ),
             Text(
               '후기 ${productInfo.reviewCount.toReview()}',
-              style: textTheme.labelMedium?.copyWith(
-                color: Colors.grey,
-              ),
+              style: textTheme.labelLarge?.reviewCountCopyWith(),
             ),
           ],
         ),

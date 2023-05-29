@@ -20,5 +20,8 @@ class CustomTheme {
           unselectedLabelColor: Colors.grey[600],
           indicatorSize: TabBarIndicatorSize.tab,
         ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: _primary,
+        ),
       );
 }

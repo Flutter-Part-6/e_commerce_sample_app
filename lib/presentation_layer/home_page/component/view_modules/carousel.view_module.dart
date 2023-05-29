@@ -79,7 +79,7 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
         )
       },
       child: AspectRatio(
-        aspectRatio: 4 / 3,
+        aspectRatio: 390 / 354,
         child: Stack(
           children: [
             PageView.builder(

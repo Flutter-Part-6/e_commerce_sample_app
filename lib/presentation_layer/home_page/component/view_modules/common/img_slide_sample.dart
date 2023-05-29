@@ -13,8 +13,8 @@ class ImgSlide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 240,
+    return AspectRatio(
+      aspectRatio: 390 / 307,
       child: ListView.separated(
         padding: Constants.horizontalPadding,
         scrollDirection: Axis.horizontal,
@@ -22,7 +22,13 @@ class ImgSlide extends StatelessWidget {
         separatorBuilder: (_, index) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           final productInfo = products[index];
-          return ProductCardComponent(productInfo: productInfo);
+          return AspectRatio(
+            aspectRatio: 172 / 307,
+            child: LargeProductCard(
+              context: context,
+              productInfo: productInfo,
+            ),
+          );
         },
       ),
     );
