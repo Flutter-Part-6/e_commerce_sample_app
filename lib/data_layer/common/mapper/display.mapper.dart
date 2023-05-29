@@ -54,6 +54,7 @@ extension ViewModuleEx on ViewModule {
 extension ProductInfoDtoEx on ProductInfoDto {
   ProductInfo toModel() {
     return ProductInfo(
+      productId: productId ?? '',
       title: title ?? '',
       imageUrl: imageUrl ?? '',
       subtitle: subtitle ?? '',
@@ -69,6 +70,7 @@ extension ProductInfoDtoEx on ProductInfoDto {
 extension ProductInfoEx on ProductInfo {
   ProductInfoEntity toEntity() {
     return ProductInfoEntity(
+      productId: productId,
       imageUrl: imageUrl,
       title: title,
       subtitle: subtitle,
@@ -84,6 +86,7 @@ extension ProductInfoEx on ProductInfo {
 extension ProductInfoEntityEx on ProductInfoEntity {
   ProductInfo toModel() {
     return ProductInfo(
+      productId: productId,
       imageUrl: imageUrl,
       title: title,
       subtitle: subtitle,

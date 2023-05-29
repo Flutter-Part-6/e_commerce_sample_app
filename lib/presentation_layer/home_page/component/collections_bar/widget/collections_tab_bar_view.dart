@@ -22,21 +22,16 @@ class CollectionsTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartBloc, CartState>(
-      listenWhen: (pre, cur) => pre.status != cur.status,
+      listenWhen: (pre, cur) => pre.status.isClose && cur.status.isOpen,
       listener: (context, state) async {
-        final status = state.status;
-        if (status.isOpen) {
-          await cartBottomSheet(context).then(
-            (isAdded) async =>
-                context.read<CartBloc>().add(CartResponse(isAdded)),
-          );
-        } else if (status.isSuccess) {
-          await Future.delayed(
-            const Duration(milliseconds: 200),
-            () async => cartResponseBottomSheet(context).whenComplete(
-                () => context.read<CartBloc>().add(CartResponse(false))),
-          );
-        }
+        await cartBottomSheet(context).then(
+          (value) async {
+            final isSuccess = value ?? false;
+            if (isSuccess) {
+              await cartResponseBottomSheet(context);
+            }
+          },
+        ).whenComplete(() => context.read<CartBloc>().add(CartClosed()));
       },
       child: Expanded(
         child: TabBarView(

@@ -148,6 +148,7 @@ class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
       {this.status = CartStatus.close,
       this.productInfo = const ProductInfo(
+          productId: '',
           title: '',
           imageUrl: '',
           subtitle: '',

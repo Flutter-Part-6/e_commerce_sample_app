@@ -3,9 +3,9 @@ part of 'cart_bloc.dart';
 @freezed
 class CartState with _$CartState {
   factory CartState({
-    @Default(CartStatus.close)
-        CartStatus status,
+    @Default(CartStatus.close) CartStatus status,
     @Default(ProductInfo(
+      productId: '',
       title: '',
       imageUrl: '',
       subtitle: '',
@@ -14,10 +14,8 @@ class CartState with _$CartState {
       discountRate: -1,
       reviewCount: -1,
     ))
-        ProductInfo productInfo,
-    @Default(1)
-        int quantity,
-    @Default(0)
-        int totalPrice,
+    ProductInfo productInfo,
+    @Default(1) int quantity,
+    @Default(0) int totalPrice,
   }) = _ViewModulesState;
 }

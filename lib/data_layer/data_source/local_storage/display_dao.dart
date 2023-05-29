@@ -30,7 +30,32 @@ class DisplayDao {
   /// 장바구니 담기
   Future<void> insertCarts(CartEntity cart) async {
     final localStorage = await Hive.openBox<CartEntity>(cartDb);
-    await localStorage.add(cart);
+    final productId = cart.product.productId;
+    if (localStorage.get(productId) != null) {
+      print('쨔스');
+      return;
+    }
+
+    await localStorage.put(productId, cart);
+  }
+
+  Future<void> changeQtyCart(String productId, int qty) async {
+    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    final curCart = localStorage.get(productId);
+    if (curCart == null) return;
+    final nextCart = CartEntity(product: curCart.product, quantity: qty);
+    await localStorage.put(productId, nextCart);
+  }
+
+  // 장바구니에 담긴 상품 삭제 by productId
+  Future<void> deleteCart(String productId) async {
+    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    await localStorage.delete(productId);
+  }
+
+  Future<void> clearCarts() async {
+    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    await localStorage.clear();
   }
 
   Future<List<CartEntity>> getCartList() async {

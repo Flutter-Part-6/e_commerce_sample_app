@@ -8,6 +8,7 @@ part of 'product_info.model.dart';
 
 _$_ProductInfo _$$_ProductInfoFromJson(Map<String, dynamic> json) =>
     _$_ProductInfo(
+      productId: json['productId'] as String,
       title: json['title'] as String,
       imageUrl: json['imageUrl'] as String,
       subtitle: json['subtitle'] as String,
@@ -19,6 +20,7 @@ _$_ProductInfo _$$_ProductInfoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ProductInfoToJson(_$_ProductInfo instance) =>
     <String, dynamic>{
+      'productId': instance.productId,
       'title': instance.title,
       'imageUrl': instance.imageUrl,
       'subtitle': instance.subtitle,

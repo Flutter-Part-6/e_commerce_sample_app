@@ -17,6 +17,7 @@ class ProductInfoEntityAdapter extends TypeAdapter<ProductInfoEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ProductInfoEntity(
+      productId: fields[7] == null ? '' : fields[7] as String,
       title: fields[0] == null ? '' : fields[0] as String,
       subtitle: fields[2] == null ? '' : fields[2] as String,
       imageUrl: fields[1] == null ? '' : fields[1] as String,
@@ -30,7 +31,7 @@ class ProductInfoEntityAdapter extends TypeAdapter<ProductInfoEntity> {
   @override
   void write(BinaryWriter writer, ProductInfoEntity obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class ProductInfoEntityAdapter extends TypeAdapter<ProductInfoEntity> {
       ..writeByte(5)
       ..write(obj.discountRate)
       ..writeByte(6)
-      ..write(obj.reviewCount);
+      ..write(obj.reviewCount)
+      ..writeByte(7)
+      ..write(obj.productId);
   }
 
   @override

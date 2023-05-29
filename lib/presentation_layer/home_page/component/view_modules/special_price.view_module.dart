@@ -112,7 +112,7 @@ class _TimerWidgetState extends State<TimerWidget> {
       _timer = Timer.periodic(
         const Duration(seconds: 1),
         (timer) {
-          print('----');
+          // print('----');
           remainTime = widget.endTime.difference(DateTime.now());
 
           if (remainTime <= Duration.zero) {

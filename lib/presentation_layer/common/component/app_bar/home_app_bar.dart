@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'package:sample_app/presentation_layer/common/component/app_bar/widget/icon_box.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
@@ -32,6 +33,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final cartCount = context.watch<CartListBloc>().state.cartList.length;
     return AppBar(
       elevation: 0,
       actions: [
@@ -39,9 +41,35 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           icon: Icons.location_on_outlined,
           onPressed: null,
         ),
-        IconBox(
-          icon: Icons.shopping_cart_outlined,
-          onPressed: () => context.push('/cart-list'),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            IconBox(
+              icon: Icons.shopping_cart_outlined,
+              onPressed: () => context.push('/cart-list'),
+            ),
+            Positioned(
+              right: 4,
+              top: 10,
+              child: Container(
+                height: 16,
+                width: 16,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+                child: Center(
+                  child: Text(
+                    '$cartCount',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 9,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
         const SizedBox(width: 8),
       ],
