@@ -3,11 +3,11 @@ part of 'payment_bloc.dart';
 abstract class PaymentEvent {}
 
 class PayMoney extends PaymentEvent {
-  final ProductInfo productInfo;
+  final List<ProductInfo> productInfoList;
   final BuildContext context;
 
   PayMoney({
-    required this.productInfo,
+    required this.productInfoList,
     required this.context,
   });
 }

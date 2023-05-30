@@ -60,9 +60,6 @@ class MyApp extends StatelessWidget {
               CartListInitialized(),
             ),
         ),
-        BlocProvider(
-          create: (_) => getIt<PaymentBloc>(),
-        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

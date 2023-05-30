@@ -1,10 +1,8 @@
 part of 'payment_bloc.dart';
 
-enum Status { initial, loading, success, error }
-
 @freezed
 class PaymentState with _$PaymentState {
   factory PaymentState({
-    @Default(Status.initial) Status status,
+    @Default(PaymentStatus.initial) PaymentStatus status,
   }) = _PaymentState;
 }

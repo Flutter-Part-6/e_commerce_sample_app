@@ -16,6 +16,8 @@ part 'payment_state.dart';
 
 part 'payment_bloc.freezed.dart';
 
+enum PaymentStatus { initial, loading, success, error }
+
 @injectable
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   PaymentBloc() : super(PaymentState()) {
@@ -26,11 +28,18 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     PayMoney event,
     Emitter<PaymentState> emit,
   ) async {
-    bootpayTest(event.context);
+    emit(state.copyWith(status: PaymentStatus.loading));
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        // TODO 로직 정리, bloc 사용 고민
+        bootPay(event.context);
+      },
+    );
   }
 }
 
-void bootpayTest(BuildContext context) {
+void bootPay(context) {
   Payload payload = getPayload();
   if (kIsWeb) {
     payload.extra?.openType = "iframe";
@@ -48,8 +57,8 @@ void bootpayTest(BuildContext context) {
       print('------- onError: $data');
     },
     onClose: () {
-      print('------- onClose');
       Bootpay().dismiss(context); //명시적으로 부트페이 뷰 종료 호출
+
       //TODO - 원하시는 라우터로 페이지 이동
     },
     onIssued: (String data) {
