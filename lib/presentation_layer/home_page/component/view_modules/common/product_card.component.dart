@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card_widget.dart';
 
-import '../../../bloc/cart_bloc/cart_bloc.dart';
-
 class SmallProductCard extends ProductCardWidget {
   final BuildContext context;
 
