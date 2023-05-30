@@ -7,6 +7,7 @@ import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
+import 'package:sample_app/presentation_layer/common/bloc/payment_bloc/payment_bloc.dart';
 import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 import 'package:sample_app/presentation_layer/router.dart';
 import 'package:sample_app/theme.dart';
@@ -48,15 +49,20 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (_) => getIt<UserBloc>()
-              ..add(
-                UserLoginWithToken(),
-              )),
+          create: (_) => getIt<UserBloc>()
+            ..add(
+              UserLoginWithToken(),
+            ),
+        ),
         BlocProvider(
-            create: (_) => getIt<CartListBloc>()
-              ..add(
-                CartListInitialized(),
-              )),
+          create: (_) => getIt<CartListBloc>()
+            ..add(
+              CartListInitialized(),
+            ),
+        ),
+        BlocProvider(
+          create: (_) => getIt<PaymentBloc>(),
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
