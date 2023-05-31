@@ -123,17 +123,27 @@ class CartListPage extends StatelessWidget {
         bottomNavigationBar: SafeArea(
           child: BlocBuilder<CartListBloc, CartListState>(
             builder: (context, state) {
-              if (state.status == CartListStatus.success) {
-                List<ProductInfo> prdList = state.cartList.fold(
-                  [],
-                  (previousValue, cart) {
-                    return [...previousValue, cart.product];
-                  },
-                );
+              List<Cart> selectedCartList = state.cartList.fold(
+                [],
+                (previousValue, cart) {
+                  var currentValue = [...previousValue];
 
-                return PaymentButton(productInfoList: prdList);
+                  if (state.selectedProduct.contains(cart.product.productId)) {
+                    currentValue.add(cart);
+                  }
+
+                  return currentValue;
+                },
+              );
+
+              if (state.status == CartListStatus.success) {
+                return PaymentButton(
+                  selectedCartList: selectedCartList,
+                  totalPrice: state.totalPrice,
+                );
+              } else {
+                return const SizedBox.shrink();
               }
-              return Container();
             },
           ),
         ),
