@@ -75,6 +75,7 @@ Future<(bool, String?)> bootPay(BuildContext context, Payload payload) async {
       response = (false, data);
     },
     onError: (String data) {
+      Bootpay().dismiss(context);
       response = (false, data);
     },
     onClose: () {
