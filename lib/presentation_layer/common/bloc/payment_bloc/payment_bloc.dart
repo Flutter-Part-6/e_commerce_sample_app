@@ -13,8 +13,6 @@ import 'package:bootpay/model/extra.dart';
 import 'package:bootpay/model/item.dart';
 import 'package:bootpay/model/payload.dart';
 import 'package:bootpay/model/user.dart' as payUser;
-import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
 import '../user_bloc/user_bloc.dart';
 
@@ -24,7 +22,7 @@ part 'payment_state.dart';
 
 part 'payment_bloc.freezed.dart';
 
-enum PaymentStatus { initial, success, error }
+enum PaymentStatus { initial, success, error, notAuthorized }
 
 @injectable
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
@@ -39,6 +37,14 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     emit(state.copyWith(status: PaymentStatus.initial));
 
     final user = event.context.read<UserBloc>().state.user;
+    if (user == null) {
+      emit(
+        state.copyWith(
+          status: PaymentStatus.notAuthorized,
+        ),
+      );
+      return;
+    }
 
     Payload payload = getPayload(event.cartList, user);
 

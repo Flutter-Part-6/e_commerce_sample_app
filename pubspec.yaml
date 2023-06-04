@@ -1,7 +1,7 @@
 name: sample_app
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -30,7 +30,7 @@ dependencies:
   
   # injectable 2.1.1
   injectable:
- 
+
   # ----- dependency injection ----all-
 
   # get_it 7.2.0
@@ -58,7 +58,7 @@ dependencies:
   hive:
   hive_flutter:
 
-  stream_transform: 
+  stream_transform:
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
   lottie: ^2.3.2
@@ -87,5 +87,7 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  assets:
+    - assets/
 
  

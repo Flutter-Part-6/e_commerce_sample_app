@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sample_app/common/constants.dart';
 import 'package:sample_app/presentation_layer/common/bloc/payment_bloc/payment_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
@@ -57,6 +58,7 @@ class PaymentButton extends StatelessWidget {
                     ),
               ),
               listener: (context, state) {
+                print(state);
                 if (state.status == PaymentStatus.success) {
                   context.read<CartListBloc>().add(
                         CartListDeleted(
@@ -71,14 +73,20 @@ class PaymentButton extends StatelessWidget {
                       content: Text('결제가 성공적으로 진행됐습니다.'),
                     ),
                   );
-
-                  // TODO 결제 완료화면 라우팅
                 } else if (state.status == PaymentStatus.error) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Theme.of(context).highlightColor,
                       behavior: SnackBarBehavior.floating,
                       content: Text(state.message ?? ''),
+                    ),
+                  );
+                } else if (state.status == PaymentStatus.notAuthorized) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).highlightColor,
+                      behavior: SnackBarBehavior.floating,
+                      content: const Text('로그인이 필요합니다.'),
                     ),
                   );
                 }

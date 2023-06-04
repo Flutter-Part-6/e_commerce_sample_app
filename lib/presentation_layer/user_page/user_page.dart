@@ -12,11 +12,19 @@ class UserPage extends StatelessWidget {
         switch (state.status) {
           case Status.initial:
             return Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  context.read<UserBloc>().add(UserLogin());
-                },
-                child: const Text("KAKAO LOGIN"),
+              child: SizedBox(
+                width: 300,
+                child: TextButton(
+                  style: const ButtonStyle(
+                    padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(
+                      EdgeInsets.zero,
+                    ),
+                  ),
+                  onPressed: () {
+                    context.read<UserBloc>().add(UserLogin());
+                  },
+                  child: Image.asset('assets/kakao_login_large_narrow.png'),
+                ),
               ),
             );
 
@@ -59,15 +67,32 @@ class UserProfile extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Text(user?.kakaoAccount?.profile?.nickname.toString() ?? '무명의 사용자'),
-            const SizedBox(
-              height: 20,
+            Text(
+              user?.kakaoAccount?.profile?.nickname.toString() ?? '무명의 사용자',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                context.read<UserBloc>().add(UserLogout());
-              },
-              child: const Text('LOGOUT'),
+            const SizedBox(
+              height: 36,
+            ),
+            Container(
+              width: 250,
+              height: 60,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll<Color>(
+                    Theme.of(context).primaryColor,
+                  ),
+                ),
+                onPressed: () async {
+                  context.read<UserBloc>().add(UserLogout());
+                },
+                child: Text(
+                  'Logout',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                ),
+              ),
             )
           ],
         ),
