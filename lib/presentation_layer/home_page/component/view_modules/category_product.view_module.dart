@@ -94,7 +94,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
                   _tempData.length,
                   (index) {
                     return GridView.builder(
-                      itemCount: 6,
+                      itemCount: widget.info.products.length,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(

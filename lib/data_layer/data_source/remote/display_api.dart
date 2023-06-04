@@ -14,8 +14,6 @@ const String _baseUrl = 'http://localhost:8080/';
 abstract class DisplayApi {
   factory DisplayApi(Dio dio, {String? baseUrl}) = _DisplayApi;
 
-  factory DisplayApi.mock() = MockApi;
-
   // about collections
   @GET('/stores/{storeType}')
   Future<List<CollectionDto>> getCollectionsByStoreType({

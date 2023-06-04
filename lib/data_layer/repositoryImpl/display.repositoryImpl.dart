@@ -1,6 +1,7 @@
 /// data_source
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sample_app/data_layer/data_source/mock/moc_api.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
 /// repository
@@ -17,6 +18,8 @@ class DisplayRepositoryImpl implements DisplayRepository {
   DisplayRepositoryImpl(this._displayApi);
 
   final DisplayApi _displayApi;
+
+  // final MockApi _displayApi;
 
   @override
   Future<List<Collection>> getCollectionsByStoreType({
