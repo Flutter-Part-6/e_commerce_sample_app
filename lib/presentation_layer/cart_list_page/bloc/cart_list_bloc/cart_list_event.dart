@@ -16,9 +16,9 @@ class CartListAdded extends CartListEvent {
 }
 
 class CartListDeleted extends CartListEvent {
-  final String productId;
+  final List<String> productIds;
 
-  CartListDeleted({required this.productId});
+  CartListDeleted({required this.productIds});
 }
 
 class CartListCleared extends CartListEvent {

@@ -20,6 +20,6 @@ final GoRouter router = GoRouter(
       path: '/cart-list',
       name: 'cart-list',
       builder: (context, state) => const CartListPage(),
-    )
+    ),
   ],
 );

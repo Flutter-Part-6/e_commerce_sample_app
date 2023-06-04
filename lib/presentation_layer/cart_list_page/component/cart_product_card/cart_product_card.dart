@@ -40,9 +40,13 @@ class CartProductCard extends StatelessWidget {
                 ],
               ),
               GestureDetector(
-                onTap: () => context
-                    .read<CartListBloc>()
-                    .add(CartListDeleted(productId: cart.product.productId)),
+                onTap: () => context.read<CartListBloc>().add(
+                      CartListDeleted(
+                        productIds: [
+                          cart.product.productId,
+                        ],
+                      ),
+                    ),
                 child: const Icon(Icons.close, size: 20),
               ),
             ],

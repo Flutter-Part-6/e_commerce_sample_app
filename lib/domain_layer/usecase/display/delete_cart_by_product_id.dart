@@ -4,12 +4,12 @@ import '../../repository/display.repository.dart';
 import '../base_usecase/remote.usecase.dart';
 
 class DeleteCartByProductId extends RemoteUsecase<DisplayRepository> {
-  DeleteCartByProductId({required this.productId});
+  DeleteCartByProductId({required this.productIds});
 
-  final String productId;
+  final List<String> productIds;
 
   @override
   Future<void> execute(DisplayRepository repository) async {
-    await repository.deleteCart(productId);
+    await repository.deleteCart(productIds);
   }
 }

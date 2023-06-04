@@ -139,7 +139,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       CartListDeleted event, Emitter<CartListState> emit) async {
     try {
       await _displayUsecase
-          .fetch(DeleteCartByProductId(productId: event.productId));
+          .fetch(DeleteCartByProductId(productIds: event.productIds));
 
       final List<Cart> cartList = await _displayUsecase.fetch(GetCartList());
       final selectedProducts =

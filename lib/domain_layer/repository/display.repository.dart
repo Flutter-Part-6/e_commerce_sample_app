@@ -21,7 +21,7 @@ abstract class DisplayRepository extends Repository {
   Future<void> addCart({required Cart cart});
 
   //TODO response 만들어야 함
-  Future<void> deleteCart(String productId);
+  Future<void> deleteCart(List<String> productIds);
 
   //TODO response 만들어야 함
   Future<void> clearCartList();

@@ -13,6 +13,8 @@ import 'package:bootpay/model/extra.dart';
 import 'package:bootpay/model/item.dart';
 import 'package:bootpay/model/payload.dart';
 import 'package:bootpay/model/user.dart' as payUser;
+import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
 import '../user_bloc/user_bloc.dart';
 
@@ -46,7 +48,13 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     );
 
     if (response.$1) {
-      emit(state.copyWith(status: PaymentStatus.success));
+      emit(
+        state.copyWith(
+          status: PaymentStatus.success,
+          productIds:
+              event.cartList.map((cart) => cart.product.productId).toList(),
+        ),
+      );
     } else {
       var message = '결제가 실패했습니다. 잠시후 다시 시도해주세요';
       if (response.$2 != null) {
@@ -122,7 +130,7 @@ Payload getPayload(List<Cart> cartList, User? loginUser) {
 
   payload.items = itemList; // 상품정보 배열
 
-  payUser.User user = payUser.User(); // 구매자 정보
+  payUser.User user = payUser.User();
   user.id = loginUser?.id.toString();
   user.username = loginUser?.kakaoAccount?.profile?.nickname;
   user.email = loginUser?.kakaoAccount?.email;

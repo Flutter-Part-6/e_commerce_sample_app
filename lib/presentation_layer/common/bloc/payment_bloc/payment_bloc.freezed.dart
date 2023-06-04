@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PaymentState {
   PaymentStatus get status => throw _privateConstructorUsedError;
+  List<String>? get productIds => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $PaymentStateCopyWith<$Res> {
           PaymentState value, $Res Function(PaymentState) then) =
       _$PaymentStateCopyWithImpl<$Res, PaymentState>;
   @useResult
-  $Res call({PaymentStatus status, String? message});
+  $Res call({PaymentStatus status, List<String>? productIds, String? message});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
   @override
   $Res call({
     Object? status = null,
+    Object? productIds = freezed,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +56,10 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as PaymentStatus,
+      productIds: freezed == productIds
+          ? _value.productIds
+          : productIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$_PaymentStateCopyWith<$Res>
       __$$_PaymentStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PaymentStatus status, String? message});
+  $Res call({PaymentStatus status, List<String>? productIds, String? message});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$_PaymentStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? productIds = freezed,
     Object? message = freezed,
   }) {
     return _then(_$_PaymentState(
@@ -92,6 +99,10 @@ class __$$_PaymentStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as PaymentStatus,
+      productIds: freezed == productIds
+          ? _value._productIds
+          : productIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -103,17 +114,31 @@ class __$$_PaymentStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PaymentState with DiagnosticableTreeMixin implements _PaymentState {
-  _$_PaymentState({this.status = PaymentStatus.initial, this.message});
+  _$_PaymentState(
+      {this.status = PaymentStatus.initial,
+      final List<String>? productIds,
+      this.message})
+      : _productIds = productIds;
 
   @override
   @JsonKey()
   final PaymentStatus status;
+  final List<String>? _productIds;
+  @override
+  List<String>? get productIds {
+    final value = _productIds;
+    if (value == null) return null;
+    if (_productIds is EqualUnmodifiableListView) return _productIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? message;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PaymentState(status: $status, message: $message)';
+    return 'PaymentState(status: $status, productIds: $productIds, message: $message)';
   }
 
   @override
@@ -122,6 +147,7 @@ class _$_PaymentState with DiagnosticableTreeMixin implements _PaymentState {
     properties
       ..add(DiagnosticsProperty('type', 'PaymentState'))
       ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('productIds', productIds))
       ..add(DiagnosticsProperty('message', message));
   }
 
@@ -131,11 +157,14 @@ class _$_PaymentState with DiagnosticableTreeMixin implements _PaymentState {
         (other.runtimeType == runtimeType &&
             other is _$_PaymentState &&
             (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality()
+                .equals(other._productIds, _productIds) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, message);
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(_productIds), message);
 
   @JsonKey(ignore: true)
   @override
@@ -145,11 +174,15 @@ class _$_PaymentState with DiagnosticableTreeMixin implements _PaymentState {
 }
 
 abstract class _PaymentState implements PaymentState {
-  factory _PaymentState({final PaymentStatus status, final String? message}) =
-      _$_PaymentState;
+  factory _PaymentState(
+      {final PaymentStatus status,
+      final List<String>? productIds,
+      final String? message}) = _$_PaymentState;
 
   @override
   PaymentStatus get status;
+  @override
+  List<String>? get productIds;
   @override
   String? get message;
   @override

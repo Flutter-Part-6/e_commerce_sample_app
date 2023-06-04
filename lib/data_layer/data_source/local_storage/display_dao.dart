@@ -48,9 +48,9 @@ class DisplayDao {
   }
 
   // 장바구니에 담긴 상품 삭제 by productId
-  Future<void> deleteCart(String productId) async {
+  Future<void> deleteCart(List<String> productIds) async {
     final localStorage = await Hive.openBox<CartEntity>(cartDb);
-    await localStorage.delete(productId);
+    await localStorage.deleteAll(productIds);
   }
 
   Future<void> clearCarts() async {

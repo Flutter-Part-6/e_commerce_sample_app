@@ -99,10 +99,10 @@ class DisplayRepositoryImpl implements DisplayRepository {
   }
 
   @override
-  Future<void> deleteCart(String productId) async {
+  Future<void> deleteCart(List<String> productIds) async {
     final displayDao = DisplayDao();
 
-    await displayDao.deleteCart(productId);
+    await displayDao.deleteCart(productIds);
   }
 
   @override

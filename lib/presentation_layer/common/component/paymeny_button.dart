@@ -5,6 +5,7 @@ import 'package:sample_app/presentation_layer/common/bloc/payment_bloc/payment_b
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
 import '../../../domain_layer/model/display/cart/cart.model.dart';
+import '../../cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 
 class PaymentButton extends StatelessWidget {
   final List<Cart> selectedCartList;
@@ -57,9 +58,21 @@ class PaymentButton extends StatelessWidget {
               ),
               listener: (context, state) {
                 if (state.status == PaymentStatus.success) {
+                  context.read<CartListBloc>().add(
+                        CartListDeleted(
+                          productIds: state.productIds ?? [],
+                        ),
+                      );
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.lightGreen,
+                      behavior: SnackBarBehavior.floating,
+                      content: Text('결제가 성공적으로 진행됐습니다.'),
+                    ),
+                  );
+
                   // TODO 결제 완료화면 라우팅
-                  // TODO 결제 완료 상품 삭제 -> CartListDeleted 이벤트 상품 리스트 받도록 수정하자, localStorate.removeAll([id1,id2...]
-                  // TODO 이것 도 되서 그냥 새로만들지 말고 CartListDeleted이걸 수정하는게 나아보인다
                 } else if (state.status == PaymentStatus.error) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
