@@ -1,4 +1,5 @@
 /// data_source
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
