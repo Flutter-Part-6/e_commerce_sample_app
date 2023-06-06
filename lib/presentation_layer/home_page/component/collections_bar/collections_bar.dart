@@ -4,6 +4,7 @@ import 'package:sample_app/presentation_layer/home_page/component/collections_ba
 
 import '../../../../domain_layer/model/display/collection/collection.model.dart';
 import '../../bloc/home_page_bloc.dart';
+import '../footer/footer.dart';
 
 class CollectionsBar extends StatefulWidget {
   const CollectionsBar({

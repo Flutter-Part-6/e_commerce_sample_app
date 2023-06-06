@@ -5,6 +5,7 @@ import 'package:sample_app/presentation_layer/home_page/component/view_modules/c
 
 import '../../../../common/dependency_injection/injection_injectable.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
+import '../footer/footer.dart';
 import 'common/bottom_loader.dart';
 
 class ViewModuleList extends StatelessWidget {
@@ -40,7 +41,7 @@ class _BuildViewModulesState extends State<_BuildViewModules>
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
+    // _scrollController.addListener(_onScroll);
   }
 
   @override
@@ -70,7 +71,8 @@ class _BuildViewModulesState extends State<_BuildViewModules>
                       ...viewModules,
                       (status.isLoading)
                           ? const BottomLoader()
-                          : const SizedBox.shrink()
+                          : const SizedBox.shrink(),
+                      const HomeFooter(),
                     ],
                   );
           },
