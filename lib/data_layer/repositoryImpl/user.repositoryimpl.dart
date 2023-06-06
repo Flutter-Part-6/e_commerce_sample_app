@@ -5,9 +5,9 @@ import 'package:sample_app/domain_layer/repository/user.repository.dart';
 
 @Singleton(as: UserRepository)
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl(this._userApi);
-
   final UserApi _userApi;
+
+  UserRepositoryImpl(this._userApi);
 
   @override
   Future<String> getCustomToken({
@@ -15,12 +15,11 @@ class UserRepositoryImpl implements UserRepository {
     String? email,
   }) async {
     try {
-      final token = await _userApi.getCustomToken(
-        params: {'userId': userId, 'email': email},
-      );
-      return token;
+      return await _userApi
+          .getCustomToken(params: {'userId': userId, 'email': email});
     } catch (error) {
       print(error);
+
       return '';
     }
   }

@@ -13,9 +13,9 @@ import '../data_source/local_storage/display_dao.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  DisplayRepositoryImpl(this._displayApi);
-
   final DisplayApi _displayApi;
+
+  DisplayRepositoryImpl(this._displayApi);
 
   // final MockApi _displayApi;
 
@@ -27,10 +27,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
     final response =
         await _displayApi.getCollectionsByStoreType(storeType: storeType);
 
-    final List<Collection> collections =
-        response.map((collectionDto) => collectionDto.toModel()).toList();
-
-    return collections;
+    return response.map((collectionDto) => collectionDto.toModel()).toList();
   }
 
   @override

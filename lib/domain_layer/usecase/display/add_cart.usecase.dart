@@ -4,9 +4,9 @@ import '../../repository/display.repository.dart';
 import '../base_usecase/remote.usecase.dart';
 
 class AddCart extends RemoteUsecase<DisplayRepository> {
-  AddCart({required this.cart});
-
   final Cart cart;
+
+  AddCart({required this.cart});
 
   @override
   Future<void> execute(DisplayRepository repository) async {

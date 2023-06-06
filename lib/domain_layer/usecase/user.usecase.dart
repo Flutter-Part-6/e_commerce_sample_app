@@ -5,8 +5,9 @@ import 'base_usecase/remote.usecase.dart';
 
 @singleton
 class UserUsecase {
-  UserUsecase(this._userRepository);
   final UserRepository _userRepository;
+
+  UserUsecase(this._userRepository);
 
   Future<T> fetch<T>(RemoteUsecase remoteUsecase) async {
     return await remoteUsecase.execute(_userRepository);
