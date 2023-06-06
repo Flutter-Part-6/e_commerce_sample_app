@@ -9,28 +9,26 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
       body: BlocListener<UserBloc, UserState>(
-        child: Center(
-          child: Text(
-            'Kerly',
-            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  color: Colors.white,
-                ),
-          ),
-        ),
         listener: (context, state) {
           print('========== ${state.status == Status.error}');
-          // success : 로그인 성공
-          // error : 로그인 실패
-          // initial : 로그인 정보 없음
           if (state.status == Status.success ||
               state.status == Status.error ||
               state.status == Status.initial) {
             context.go('/home');
           }
         },
+        child: Center(
+          child: Text(
+            'Kerly',
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium
+                ?.copyWith(color: Colors.white),
+          ),
+        ),
       ),
+      backgroundColor: Theme.of(context).primaryColor,
     );
   }
 }

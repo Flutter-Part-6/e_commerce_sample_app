@@ -20,7 +20,6 @@ class CartListPage extends StatelessWidget {
       create: (_) => getIt<PaymentBloc>(),
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0,
           leading: IconBox(
             icon: Icons.close,
             onPressed: () {
@@ -30,8 +29,12 @@ class CartListPage extends StatelessWidget {
             },
           ),
           title: const Text('장바구니'),
+          elevation: 0,
           titleTextStyle: const TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -43,44 +46,44 @@ class CartListPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     BlocBuilder<CartListBloc, CartListState>(
-                        builder: (context, state) {
-                      final selectedProducts = state.selectedProduct;
-                      final cartList = state.cartList;
+                      builder: (context, state) {
+                        final selectedProducts = state.selectedProduct;
+                        final cartList = state.cartList;
 
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () => context.read<CartListBloc>().add(
-                                  CartListSelectedAll(),
-                                ),
-                            child: Icon(
-                              (selectedProducts.length == cartList.length)
-                                  ? Icons.check_circle
-                                  : Icons.check_circle_outline_rounded,
-                              size: 20,
-                              color:
-                                  (selectedProducts.length == cartList.length)
-                                      ? Colors.purple
-                                      : Colors.grey,
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              child: Icon(
+                                (selectedProducts.length == cartList.length)
+                                    ? Icons.check_circle
+                                    : Icons.check_circle_outline_rounded,
+                                size: 20,
+                                color:
+                                    (selectedProducts.length == cartList.length)
+                                        ? Colors.purple
+                                        : Colors.grey,
+                              ),
+                              onTap: () => context
+                                  .read<CartListBloc>()
+                                  .add(CartListSelectedAll()),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            '전체 선택 (${selectedProducts.length}/${cartList.length})',
-                          )
-                        ],
-                      );
-                    }),
+                            const SizedBox(width: 10),
+                            Text(
+                              '전체 선택 (${selectedProducts.length}/${cartList.length})',
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                     GestureDetector(
-                      onTap: () =>
-                          context.read<CartListBloc>().add(CartListCleared()),
                       child: Container(
-                        // padding: const EdgeInsets.symmetric(horizontal: 16),
                         alignment: Alignment.centerLeft,
                         height: 40,
                         child: Text('전체 삭제'),
                       ),
+                      onTap: () =>
+                          context.read<CartListBloc>().add(CartListCleared()),
                     ),
                   ],
                 ),
@@ -102,7 +105,7 @@ class CartListPage extends StatelessWidget {
                           ...state.cartList
                               .map((cart) => CartProductCard(cart: cart))
                               .toList(),
-                          const CartTotalPrice()
+                          const CartTotalPrice(),
                         ],
                       );
                     case CartListStatus.loading:
@@ -136,14 +139,12 @@ class CartListPage extends StatelessWidget {
                 },
               );
 
-              if (state.status == CartListStatus.success) {
-                return PaymentButton(
-                  selectedCartList: selectedCartList,
-                  totalPrice: state.totalPrice,
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
+              return state.status == CartListStatus.success
+                  ? PaymentButton(
+                      selectedCartList: selectedCartList,
+                      totalPrice: state.totalPrice,
+                    )
+                  : const SizedBox.shrink();
             },
           ),
         ),

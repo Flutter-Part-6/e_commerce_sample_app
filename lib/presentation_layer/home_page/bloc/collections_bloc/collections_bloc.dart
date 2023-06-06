@@ -35,7 +35,9 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     final initializedStoreType = event.storeType ?? StoreType.market;
 
     emit(state.copyWith(
-        status: CollectionsStatus.loading, storeType: initializedStoreType));
+      status: CollectionsStatus.loading,
+      storeType: initializedStoreType,
+    ));
 
     try {
       final List<Collection> collections =
@@ -43,6 +45,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
 
       if (collections.isEmpty) {
         emit(state.copyWith(status: CollectionsStatus.failure));
+
         return;
       }
 
@@ -68,7 +71,9 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   }
 
   Future<void> _onToggledStoreTypes(
-      ToggledStoreTypes event, Emitter<CollectionsState> emit) async {
+    ToggledStoreTypes event,
+    Emitter<CollectionsState> emit,
+  ) async {
     final currentStoreType = StoreType.values[event.tabIndex];
 
     if (!state.status.isSuccess) return;
@@ -79,6 +84,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
 
       if (collections.isEmpty) {
         emit(state.copyWith(status: CollectionsStatus.failure));
+
         return;
       }
 
@@ -96,10 +102,8 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   }
 
   Future<List<Collection>> _fetchCollections(StoreType storeType) async {
-    final response = await _displayUsecase
+    return await _displayUsecase
         .fetch(GetCollectionsByStoreType(storeType: storeType));
-
-    return response;
   }
 }
 

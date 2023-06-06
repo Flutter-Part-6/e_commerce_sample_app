@@ -51,8 +51,8 @@ class ProductCardWidget extends StatelessWidget {
         Text(
           productInfo.title,
           style: titleStyle?.titleCopyWith(),
-          maxLines: 2,
           overflow: TextOverflow.ellipsis,
+          maxLines: 2,
         ),
         const SizedBox(
           height: 4,
@@ -83,8 +83,8 @@ class ProductCardWidget extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.comment_outlined,
-                  color: Colors.grey,
                   size: 15,
+                  color: Colors.grey,
                 ),
                 const SizedBox(
                   width: 4,

@@ -8,12 +8,9 @@ Future cartResponseBottomSheet(BuildContext context) async {
   final cartBloc = context.read<CartBloc>();
 
   return await showModalBottomSheet(
-    showDragHandle: true,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     context: context,
     builder: (context) {
       return BlocBuilder<CartBloc, CartState>(
-        bloc: cartBloc,
         builder: (ctx, state) {
           return SafeArea(
             child: Container(
@@ -21,8 +18,8 @@ Future cartResponseBottomSheet(BuildContext context) async {
               height: 300,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
                   vertical: 10,
+                  horizontal: 20,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +34,14 @@ Future cartResponseBottomSheet(BuildContext context) async {
             ),
           );
         },
+        bloc: cartBloc,
       );
     },
+    shape: RoundedRectangleBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(12.0),
+      ),
+    ),
+    showDragHandle: true,
   );
 }

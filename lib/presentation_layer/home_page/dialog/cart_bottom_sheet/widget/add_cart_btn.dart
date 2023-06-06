@@ -19,15 +19,14 @@ class AddCartBtn extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GestureDetector(
-            // onTap: () => cartBloc.add(CartAdded()),
-            onTap: () => context.read<CartListBloc>().add(
-                CartListAdded(quantity: quantity, productInfo: productInfo)),
             child: Container(
               alignment: Alignment.center,
-              height: 52,
-              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8), color: Colors.blue),
+                color: Colors.blue,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
+              width: MediaQuery.of(context).size.width,
+              height: 52,
               child: (state.status == CartListStatus.loading)
                   ? const CircularProgressIndicator(
                       color: Colors.white,
@@ -37,11 +36,14 @@ class AddCartBtn extends StatelessWidget {
                       '${totalPrice.toWon()} 장바구니 담기',
                       style: const TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
                         fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
             ),
+            onTap: () => context.read<CartListBloc>().add(
+                  CartListAdded(quantity: quantity, productInfo: productInfo),
+                ),
           ),
         );
       },

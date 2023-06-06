@@ -30,19 +30,19 @@ class CartListSelectedAll extends CartListEvent {
 }
 
 class CartListSelected extends CartListEvent {
-  CartListSelected({required this.cart});
-
   final Cart cart;
+
+  CartListSelected({required this.cart});
 }
 
 class CartListQtyDecreased extends CartListEvent {
-  CartListQtyDecreased({required this.cart});
-
   final Cart cart;
+
+  CartListQtyDecreased({required this.cart});
 }
 
 class CartListQtyIncreased extends CartListEvent {
-  CartListQtyIncreased({required this.cart});
-
   final Cart cart;
+
+  CartListQtyIncreased({required this.cart});
 }

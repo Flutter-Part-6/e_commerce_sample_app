@@ -127,6 +127,18 @@ class _TimerWidgetState extends State<TimerWidget> {
     }
   }
 
+  String _printDuration(Duration duration) {
+    if (duration <= Duration.zero) {
+      return 'TIME OUT';
+    }
+
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -140,18 +152,6 @@ class _TimerWidgetState extends State<TimerWidget> {
       _printDuration(remainTime),
       style: Theme.of(context).textTheme.titleLarge,
     );
-  }
-
-  String _printDuration(Duration duration) {
-    if (duration <= Duration.zero) {
-      return 'TIME OUT';
-    }
-
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 }
 
@@ -199,8 +199,8 @@ class SpecialPriceProduct extends StatelessWidget {
         Text(
           productInfo.title,
           style: textTheme.titleMedium?.titleCopyWith(),
-          maxLines: 1,
           overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
         const SizedBox(
           height: 4,
@@ -234,8 +234,8 @@ class SpecialPriceProduct extends StatelessWidget {
           children: [
             const Icon(
               Icons.comment_outlined,
-              color: Colors.grey,
               size: 15,
+              color: Colors.grey,
             ),
             const SizedBox(
               width: 4,

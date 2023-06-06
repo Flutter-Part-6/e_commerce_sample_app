@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:sample_app/data_layer/dto/display.dto.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
-import 'package:sample_app/presentation_layer/common/bloc/payment_bloc/payment_bloc.dart';
 import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 import 'package:sample_app/presentation_layer/router.dart';
 import 'package:sample_app/theme.dart';
@@ -63,9 +61,9 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
         routerConfig: router,
         theme: CustomTheme.theme,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

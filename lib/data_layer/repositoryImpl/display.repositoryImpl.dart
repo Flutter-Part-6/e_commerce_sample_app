@@ -1,7 +1,5 @@
 /// data_source
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sample_app/data_layer/data_source/mock/moc_api.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
 /// repository
@@ -109,8 +107,10 @@ class DisplayRepositoryImpl implements DisplayRepository {
   }
 
   @override
-  Future<void> changeCartQuantity(
-      {required String productId, required int qty}) async {
+  Future<void> changeCartQuantity({
+    required String productId,
+    required int qty,
+  }) async {
     final displayDao = DisplayDao();
     await displayDao.changeQtyCart(productId, qty);
   }

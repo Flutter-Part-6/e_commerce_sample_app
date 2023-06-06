@@ -27,8 +27,10 @@ abstract class DisplayRepository extends Repository {
   Future<void> clearCartList();
 
   //TODO response 만들어야 함
-  Future<void> changeCartQuantity(
-      {required String productId, required int qty});
+  Future<void> changeCartQuantity({
+    required String productId,
+    required int qty,
+  });
 
   // 장바구니 리스트 불러오기
   Future<List<Cart>> getCartList();

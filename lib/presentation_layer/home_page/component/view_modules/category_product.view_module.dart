@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_title.dart';
@@ -20,7 +18,7 @@ var _tempData = [
   },
   {
     "title": "프리미엄 식품 특가",
-  }
+  },
 ];
 
 class CategoryProductViewModule extends StatefulWidget with ViewModuleWidget {
@@ -69,17 +67,12 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
             ),
           ),
           TabBar(
-            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
-            isScrollable: true,
+            tabs: List.generate(_tempData.length, (index) {
+              return Tab(text: _tempData[index]['title'] ?? '');
+            }),
             controller: _tabController,
-            tabs: List.generate(
-              _tempData.length,
-              (index) {
-                return Tab(
-                  text: _tempData[index]['title'] ?? '',
-                );
-              },
-            ),
+            isScrollable: true,
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
           ),
           const SizedBox(
             height: 15,
@@ -89,46 +82,45 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
             child: AspectRatio(
               aspectRatio: 390 / 490,
               child: TabBarView(
-                controller: _tabController,
                 children: List.generate(
                   _tempData.length,
                   (index) {
                     return GridView.builder(
-                      itemCount: widget.info.products.length,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio: (390 / 3) / (490 / 2),
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 8,
+                        childAspectRatio: (390 / 3) / (490 / 2),
                       ),
                       itemBuilder: (context, index) {
                         final productInfo = widget.info.products[index];
+
                         return SmallProductCard(
                           context: context,
                           productInfo: productInfo,
                         );
                       },
+                      itemCount: widget.info.products.length,
                     );
                   },
                 ),
+                controller: _tabController,
               ),
             ),
           ),
-          Padding(
-            padding: Constants.horizontalPadding,
-            child: Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
               ),
-              child: Center(
-                child: Text(
-                  '${_tempData[_tabController.index]['title']} 전체보기',
-                ),
-              ),
+            ),
+            height: 50,
+            margin: Constants.horizontalPadding,
+            child: Center(
+              child: Text('${_tempData[_tabController.index]['title']} 전체보기'),
             ),
           ),
         ],

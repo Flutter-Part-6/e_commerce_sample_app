@@ -5,13 +5,14 @@ class CartBenefit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      alignment: Alignment.centerRight,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        alignment: Alignment.centerRight,
-        child: const Text(
-          '로그인 후, 할인 및 적립 혜택 적용',
-          style: TextStyle(fontSize: 12, color: Colors.grey),
+      child: const Text(
+        '로그인 후, 할인 및 적립 혜택 적용',
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 12,
         ),
       ),
     );

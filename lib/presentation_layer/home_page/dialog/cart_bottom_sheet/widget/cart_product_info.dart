@@ -11,16 +11,13 @@ class CartProductInfo extends StatelessWidget {
     final productInfo = cartBloc.state.productInfo;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
+      padding: const EdgeInsets.all(20),
       child: Row(
         children: [
           Image.network(
             productInfo.imageUrl,
-            height: 40,
             width: 40,
+            height: 40,
           ),
           const SizedBox(width: 10),
           Column(
@@ -36,7 +33,7 @@ class CartProductInfo extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

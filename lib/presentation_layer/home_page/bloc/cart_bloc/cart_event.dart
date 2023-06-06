@@ -7,10 +7,10 @@ abstract class CartEvent {
 class CartInitialized extends CartEvent {}
 
 class CartOpened extends CartEvent {
-  CartOpened(this.productInfo, {this.quantity = 1});
-
   final ProductInfo productInfo;
   final int quantity;
+
+  CartOpened(this.productInfo, {this.quantity = 1});
 }
 
 class CartClosed extends CartEvent {
@@ -22,9 +22,9 @@ class CartAdded extends CartEvent {
 }
 
 class CartResponse extends CartEvent {
-  CartResponse(this.isAdded);
-
   final bool? isAdded;
+
+  CartResponse(this.isAdded);
 }
 
 class CartQuantityIncreased extends CartEvent {}

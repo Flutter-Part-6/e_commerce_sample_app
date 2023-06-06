@@ -17,6 +17,8 @@ enum CartStatus { close, open, failure }
 
 @injectable
 class CartBloc extends Bloc<CartEvent, CartState> {
+  final DisplayUsecase _displayUsecase;
+
   CartBloc(this._displayUsecase) : super(CartState()) {
     on<CartInitialized>(_onCartInitialized);
     on<CartOpened>(_onCartOpened);
@@ -25,10 +27,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartQuantityDecreased>(_onCartQuantityDecreased);
   }
 
-  final DisplayUsecase _displayUsecase;
-
   Future<void> _onCartInitialized(
-      CartInitialized event, Emitter<CartState> emit) async {}
+    CartInitialized event,
+    Emitter<CartState> emit,
+  ) async {}
 
   Future<void> _onCartOpened(CartOpened event, Emitter<CartState> emit) async {
     final productInfo = event.productInfo;
@@ -58,14 +60,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Future<void> _onCartQuantityIncreased(
-      CartQuantityIncreased event, Emitter<CartState> emit) async {
+    CartQuantityIncreased event,
+    Emitter<CartState> emit,
+  ) async {
     final quantity = state.quantity + 1;
     final totalPrice = state.productInfo.price * quantity;
     emit(state.copyWith(quantity: quantity, totalPrice: totalPrice));
   }
 
   Future<void> _onCartQuantityDecreased(
-      CartQuantityDecreased event, Emitter<CartState> emit) async {
+    CartQuantityDecreased event,
+    Emitter<CartState> emit,
+  ) async {
     final quantity = state.quantity - 1;
     if (quantity <= 0) return;
     final totalPrice = state.productInfo.price * quantity;
@@ -77,15 +83,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 extension IntEx on int {
   String toWon() {
     final priceFormat = NumberFormat('###,###,###,###원');
+
     return priceFormat.format(this);
   }
 
   String toReview() {
-    if (this > 9999) {
-      return '9999+';
-    } else {
-      return toString();
-    }
+    return this > 9999 ? '9999+' : toString();
   }
 }
 

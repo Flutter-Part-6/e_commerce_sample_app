@@ -18,22 +18,20 @@ class AddCartButton extends StatelessWidget {
       right: 5,
       bottom: 12,
       child: GestureDetector(
-        onTap: () => context.read<CartBloc>().add(
-              CartOpened(productInfo),
-            ),
         child: Container(
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
             color: Theme.of(context).primaryColor.withOpacity(0.6),
+            shape: BoxShape.circle,
           ),
-          height: 35,
           width: 35,
+          height: 35,
           child: const Icon(
             Icons.shopping_cart_outlined,
             size: 18,
             color: Colors.white,
           ),
         ),
+        onTap: () => context.read<CartBloc>().add(CartOpened(productInfo)),
       ),
     );
   }

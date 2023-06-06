@@ -5,12 +5,15 @@ abstract class ViewModulesEvent {
 }
 
 class ViewModulesInitialized extends ViewModulesEvent {
-  ViewModulesInitialized(
-      {required this.storeType, required this.tabId, this.isRefresh = false});
-
   final StoreType storeType;
   final int tabId;
   final bool isRefresh;
+
+  ViewModulesInitialized({
+    required this.storeType,
+    required this.tabId,
+    this.isRefresh = false,
+  });
 }
 
 class ViewModulesFetched extends ViewModulesEvent {

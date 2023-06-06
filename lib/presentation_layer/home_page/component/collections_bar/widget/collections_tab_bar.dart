@@ -21,10 +21,10 @@ class CollectionsTabBar extends StatelessWidget {
       ),
       height: 50,
       child: TabBar(
+        tabs: collections.map((e) => GnbTab(e.title)).toList(),
+        controller: tabController,
         indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
         onTap: (index) {},
-        controller: tabController,
-        tabs: collections.map((e) => GnbTab(e.title)).toList(),
       ),
     );
   }

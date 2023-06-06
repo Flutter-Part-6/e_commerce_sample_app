@@ -9,12 +9,12 @@ import '../../../dialog/cart_response_bottom_sheet/cart_response_bottom_sheet.da
 import '../../view_modules/view_module_list.dart';
 
 class CollectionsTabBarView extends StatelessWidget {
-  const CollectionsTabBarView(
-      {required this.tabController,
-      required this.storeType,
-      required this.collections,
-      Key? key})
-      : super(key: key);
+  const CollectionsTabBarView({
+    required this.tabController,
+    required this.storeType,
+    required this.collections,
+    Key? key,
+  }) : super(key: key);
   final TabController tabController;
   final StoreType storeType;
   final List<Collection> collections;
@@ -22,23 +22,21 @@ class CollectionsTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartBloc, CartState>(
-      listenWhen: (pre, cur) => pre.status.isClose && cur.status.isOpen,
       listener: (context, state) async {
-        await cartBottomSheet(context).then(
-          (value) async {
-            final isSuccess = value ?? false;
-            if (isSuccess) {
-              await cartResponseBottomSheet(context);
-            }
-          },
-        ).whenComplete(() => context.read<CartBloc>().add(CartClosed()));
+        await cartBottomSheet(context).then((value) async {
+          final isSuccess = value ?? false;
+          if (isSuccess) {
+            await cartResponseBottomSheet(context);
+          }
+        }).whenComplete(() => context.read<CartBloc>().add(CartClosed()));
       },
+      listenWhen: (pre, cur) => pre.status.isClose && cur.status.isOpen,
       child: Expanded(
         child: TabBarView(
-          controller: tabController,
           children: collections
-              .map((e) => ViewModuleList(storeType: storeType, tabId: e.tabId))
+              .map((e) => ViewModuleList(tabId: e.tabId, storeType: storeType))
               .toList(),
+          controller: tabController,
         ),
       ),
     );

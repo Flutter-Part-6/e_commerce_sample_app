@@ -33,6 +33,7 @@ class DisplayDao {
     final productId = cart.product.productId;
     if (localStorage.get(productId) != null) {
       print('쨔스');
+
       return;
     }
 
@@ -61,8 +62,6 @@ class DisplayDao {
   Future<List<CartEntity>> getCartList() async {
     final localStorage = await Hive.openBox<CartEntity>(cartDb);
 
-    final List<CartEntity> cartList = localStorage.values.toList();
-
-    return cartList;
+    return localStorage.values.toList();
   }
 }

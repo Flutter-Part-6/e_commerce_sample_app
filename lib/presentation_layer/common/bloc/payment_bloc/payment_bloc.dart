@@ -43,6 +43,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           status: PaymentStatus.notAuthorized,
         ),
       );
+
       return;
     }
 
@@ -119,6 +120,7 @@ Payload getPayload(List<Cart> cartList, User? loginUser) {
     item.price = cart.product.price.toDouble();
 
     totalPrice += (cart.product.price * cart.quantity).toDouble();
+
     return item;
   }).toList();
 

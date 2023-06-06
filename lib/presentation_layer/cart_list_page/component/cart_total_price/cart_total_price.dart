@@ -18,6 +18,7 @@ class CartTotalPrice extends StatelessWidget {
             ),
           );
         }
+
         return Column(
           children: [
             const Divider(height: 10),
@@ -41,7 +42,7 @@ class CartTotalPrice extends StatelessWidget {
                   SizedBox(height: 6),
                   Text(
                     '로그인 후 할인 금액 적용',
-                    style: TextStyle(fontSize: 10, color: Colors.grey),
+                    style: TextStyle(color: Colors.grey, fontSize: 10),
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -58,7 +59,7 @@ class CartTotalPrice extends StatelessWidget {
                   SizedBox(height: 6),
                   Text(
                     '쿠폰/적립금은 주문서에서 사용 가능합니다',
-                    style: TextStyle(fontSize: 10, color: Colors.grey),
+                    style: TextStyle(color: Colors.grey, fontSize: 10),
                   ),
                 ],
               ),

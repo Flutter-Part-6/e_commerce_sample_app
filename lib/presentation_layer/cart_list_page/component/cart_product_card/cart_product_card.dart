@@ -14,6 +14,7 @@ class CartProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedList = context.watch<CartListBloc>().state.selectedProduct;
     final bool isSelected = selectedList.contains(cart.product.productId);
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -24,9 +25,6 @@ class CartProductCard extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => context
-                        .read<CartListBloc>()
-                        .add(CartListSelected(cart: cart)),
                     child: Icon(
                       (isSelected)
                           ? Icons.check_circle
@@ -34,20 +32,19 @@ class CartProductCard extends StatelessWidget {
                       size: 20,
                       color: (isSelected) ? Colors.purple : Colors.grey,
                     ),
+                    onTap: () => context
+                        .read<CartListBloc>()
+                        .add(CartListSelected(cart: cart)),
                   ),
                   const SizedBox(width: 10),
                   Text(cart.product.title),
                 ],
               ),
               GestureDetector(
-                onTap: () => context.read<CartListBloc>().add(
-                      CartListDeleted(
-                        productIds: [
-                          cart.product.productId,
-                        ],
-                      ),
-                    ),
                 child: const Icon(Icons.close, size: 20),
+                onTap: () => context
+                    .read<CartListBloc>()
+                    .add(CartListDeleted(productIds: [cart.product.productId])),
               ),
             ],
           ),
@@ -63,13 +60,13 @@ class CartProductCard extends StatelessWidget {
                     children: [
                       Image.network(
                         cart.product.imageUrl,
-                        height: 75,
                         width: 50,
+                        height: 75,
                       ),
                       const SizedBox(width: 10),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             cart.product.price.toWon(),
@@ -79,35 +76,38 @@ class CartProductCard extends StatelessWidget {
                             ),
                           ),
                           Container(
+                            decoration: BoxDecoration(
+                              border: const Border.fromBorderSide(
+                                BorderSide(color: Colors.grey),
+                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(6)),
+                            ),
                             width: 100,
                             height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 IconBox(
                                   icon: Icons.remove,
-                                  color: Colors.black,
                                   onPressed: () => context
                                       .read<CartListBloc>()
                                       .add(CartListQtyDecreased(cart: cart)),
+                                  color: Colors.black,
                                 ),
                                 Text(cart.quantity.toString()),
                                 IconBox(
                                   icon: Icons.add,
-                                  color: Colors.black,
                                   onPressed: () => context
                                       .read<CartListBloc>()
                                       .add(CartListQtyIncreased(cart: cart)),
+                                  color: Colors.black,
                                 ),
                               ],
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),

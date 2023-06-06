@@ -19,8 +19,8 @@ extension ViewModuleDtoEx on ViewModuleDto {
       title: title ?? '',
       subtitle: subtitle ?? '',
       imageUrl: imageUrl ?? '',
-      products: products?.map((dto) => dto.toModel()).toList() ?? [],
       time: time ?? -1,
+      products: products?.map((dto) => dto.toModel()).toList() ?? [],
     );
   }
 }
@@ -33,8 +33,8 @@ extension ViewModuleEntityEx on ViewModuleEntity {
       title: title,
       subtitle: subtitlt,
       imageUrl: imageUrl,
+      time: time,
       products: products.map((entity) => entity.toModel()).toList(),
-      time: time ?? -1,
     );
   }
 }
@@ -74,9 +74,9 @@ extension ProductInfoEx on ProductInfo {
   ProductInfoEntity toEntity() {
     return ProductInfoEntity(
       productId: productId,
-      imageUrl: imageUrl,
       title: title,
       subtitle: subtitle,
+      imageUrl: imageUrl,
       price: price,
       originalPrice: originalPrice,
       discountRate: discountRate,
@@ -90,8 +90,8 @@ extension ProductInfoEntityEx on ProductInfoEntity {
   ProductInfo toModel() {
     return ProductInfo(
       productId: productId,
-      imageUrl: imageUrl,
       title: title,
+      imageUrl: imageUrl,
       subtitle: subtitle,
       price: price,
       originalPrice: originalPrice,

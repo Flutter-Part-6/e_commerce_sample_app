@@ -35,7 +35,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
   }
 
   Future<void> _onCartListInitialized(
-      CartListInitialized event, Emitter<CartListState> emit) async {
+    CartListInitialized event,
+    Emitter<CartListState> emit,
+  ) async {
     emit(state.copyWith(status: CartListStatus.loading));
 
     try {
@@ -59,7 +61,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
   }
 
   Future<void> _onCartSelectedAll(
-      CartListSelectedAll event, Emitter<CartListState> emit) async {
+    CartListSelectedAll event,
+    Emitter<CartListState> emit,
+  ) async {
     try {
       // 이미 전체 선택이 되어있는 경우 -> 모두 지움
       if (state.selectedProduct.length == state.cartList.length) {
@@ -74,14 +78,18 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       final totalPrice = _calTotalPrice(selectedProducts, state.cartList);
 
       emit(state.copyWith(
-          selectedProduct: selectedProducts, totalPrice: totalPrice));
+        selectedProduct: selectedProducts,
+        totalPrice: totalPrice,
+      ));
     } catch (error) {
       emit(state.copyWith(status: CartListStatus.failure));
     }
   }
 
   Future<void> _onCartSelected(
-      CartListSelected event, Emitter<CartListState> emit) async {
+    CartListSelected event,
+    Emitter<CartListState> emit,
+  ) async {
     try {
       final String productId = event.cart.product.productId;
       final selectedProducts = [...state.selectedProduct];
@@ -96,19 +104,24 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       final totalPrice = _calTotalPrice(selectedProducts, state.cartList);
 
       emit(state.copyWith(
-          selectedProduct: selectedProducts, totalPrice: totalPrice));
+        selectedProduct: selectedProducts,
+        totalPrice: totalPrice,
+      ));
     } catch (error) {
       emit(state.copyWith(status: CartListStatus.failure));
     }
   }
 
   Future<void> _onCartQtyIncreased(
-      CartListQtyIncreased event, Emitter<CartListState> emit) async {
+    CartListQtyIncreased event,
+    Emitter<CartListState> emit,
+  ) async {
     try {
       final productId = event.cart.product.productId;
       final qty = event.cart.quantity + 1;
       await _displayUsecase.fetch(
-          ChangeCartQtyByProductIdAndQty(productId: productId, qty: qty));
+        ChangeCartQtyByProductIdAndQty(productId: productId, qty: qty),
+      );
       final List<Cart> cartList = await _displayUsecase.fetch(GetCartList());
       final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
 
@@ -119,13 +132,16 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
   }
 
   Future<void> _onCartQtyDecreased(
-      CartListQtyDecreased event, Emitter<CartListState> emit) async {
+    CartListQtyDecreased event,
+    Emitter<CartListState> emit,
+  ) async {
     try {
       final productId = event.cart.product.productId;
       final qty = event.cart.quantity - 1;
       if (qty < 1) return;
       await _displayUsecase.fetch(
-          ChangeCartQtyByProductIdAndQty(productId: productId, qty: qty));
+        ChangeCartQtyByProductIdAndQty(productId: productId, qty: qty),
+      );
       final List<Cart> cartList = await _displayUsecase.fetch(GetCartList());
       final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
 
@@ -136,7 +152,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
   }
 
   Future<void> _onCartDeleted(
-      CartListDeleted event, Emitter<CartListState> emit) async {
+    CartListDeleted event,
+    Emitter<CartListState> emit,
+  ) async {
     try {
       await _displayUsecase
           .fetch(DeleteCartByProductId(productIds: event.productIds));
@@ -157,7 +175,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
   }
 
   Future<void> _onCartListCleared(
-      CartListCleared event, Emitter<CartListState> emit) async {
+    CartListCleared event,
+    Emitter<CartListState> emit,
+  ) async {
     emit(state.copyWith(status: CartListStatus.loading));
 
     try {
@@ -191,7 +211,9 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
   }
 
   Future<void> _onCartListAdded(
-      CartListAdded event, Emitter<CartListState> emit) async {
+    CartListAdded event,
+    Emitter<CartListState> emit,
+  ) async {
     emit(state.copyWith(status: CartListStatus.loading));
 
     try {

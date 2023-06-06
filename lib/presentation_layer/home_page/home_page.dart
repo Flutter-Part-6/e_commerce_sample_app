@@ -20,26 +20,27 @@ class HomePage extends StatelessWidget {
 }
 
 class _BuildHomePage extends StatelessWidget {
-  const _BuildHomePage({super.key});
+  const _BuildHomePage();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CollectionsBloc, CollectionsState>(
-        builder: (context, state) {
-      final collections = state.collections;
-      switch (state.status) {
-        case CollectionsStatus.initial:
-          return const LoadingCollectionsBar();
-        case CollectionsStatus.loading:
-          return const LoadingCollectionsBar();
-        case CollectionsStatus.success:
-          return CollectionsBar(
-            storeType: state.storeType,
-            collections: collections,
-          );
-        case CollectionsStatus.failure:
-          return const LoadingCollectionsBar();
-      }
-    });
+      builder: (context, state) {
+        final collections = state.collections;
+        switch (state.status) {
+          case CollectionsStatus.initial:
+            return const LoadingCollectionsBar();
+          case CollectionsStatus.loading:
+            return const LoadingCollectionsBar();
+          case CollectionsStatus.success:
+            return CollectionsBar(
+              storeType: state.storeType,
+              collections: collections,
+            );
+          case CollectionsStatus.failure:
+            return const LoadingCollectionsBar();
+        }
+      },
+    );
   }
 }

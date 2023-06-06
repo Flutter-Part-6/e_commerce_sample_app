@@ -11,21 +11,21 @@ class DefaultAppBar extends StatelessWidget {
     final type = context.watch<BottomNavigationCubit>().state.name;
 
     return AppBar(
-      elevation: 0,
+      title: Text(type),
       actions: const [
         IconButton(
-          icon: Icon(Icons.hub),
           color: Colors.white,
           onPressed: null,
+          icon: Icon(Icons.hub),
         ),
         IconButton(
-          icon: Icon(Icons.search),
           color: Colors.white,
           onPressed: null,
+          icon: Icon(Icons.search),
         ),
       ],
+      elevation: 0,
       centerTitle: true,
-      title: Text(type),
     );
   }
 }

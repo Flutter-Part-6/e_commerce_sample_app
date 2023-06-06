@@ -53,6 +53,35 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
     List<ProductInfo> products = widget.info.products;
 
     return RawGestureDetector(
+      child: AspectRatio(
+        aspectRatio: 390 / 354,
+        child: Stack(children: [
+          PageView.builder(
+            scrollDirection: Axis.horizontal,
+            controller: pageController,
+            onPageChanged: (page) {
+              setState(() {
+                currentPage = page % products.length + 1;
+              });
+            },
+            itemBuilder: (context, index) {
+              String src = products[index % products.length].imageUrl;
+
+              return Image.network(src, fit: BoxFit.cover);
+            },
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: PageCountWidget(
+                currentPage: currentPage,
+                totalPage: products.length,
+              ),
+            ),
+          ),
+        ]),
+      ),
       gestures: {
         CustomizedGestureRecognizer:
             GestureRecognizerFactoryWithHandlers<CustomizedGestureRecognizer>(
@@ -63,55 +92,19 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
                 _timer.cancel();
               }
             };
-
             instance.onCancel = () {
               if (!_timer.isActive) {
                 _timer = periodicTimer();
               }
             };
-
             instance.onEnd = (_) {
               if (!_timer.isActive) {
                 _timer = periodicTimer();
               }
             };
           },
-        )
-      },
-      child: AspectRatio(
-        aspectRatio: 390 / 354,
-        child: Stack(
-          children: [
-            PageView.builder(
-              // physics: NeverScrollableScrollPhysics(),
-              controller: pageController,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                String src = products[index % products.length].imageUrl;
-                return Image.network(
-                  src,
-                  fit: BoxFit.cover,
-                );
-              },
-              onPageChanged: (page) {
-                setState(() {
-                  currentPage = page % products.length + 1;
-                });
-              },
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: PageCountWidget(
-                  currentPage: currentPage,
-                  totalPage: products.length,
-                ),
-              ),
-            )
-          ],
         ),
-      ),
+      },
     );
   }
 }
@@ -144,14 +137,11 @@ class PageCountWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
         color: Colors.black.withOpacity(0.3),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 4,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
         child: Text(
           '$currentPage / $totalPage',
           style: const TextStyle(

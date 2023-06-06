@@ -26,7 +26,7 @@ class ViewModuleList extends StatelessWidget {
 }
 
 class _BuildViewModules extends StatefulWidget {
-  const _BuildViewModules({super.key});
+  const _BuildViewModules();
 
   @override
   State<_BuildViewModules> createState() => _BuildViewModulesState();
@@ -44,41 +44,8 @@ class _BuildViewModulesState extends State<_BuildViewModules>
     _scrollController.addListener(_onScroll);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    final state = context.read<ViewModulesBloc>().state;
-
-    return RefreshIndicator(
-      onRefresh: () async => context.read<ViewModulesBloc>().add(
-          ViewModulesInitialized(
-              storeType: state.storeType, tabId: state.tabId, isRefresh: true)),
-      child: SingleChildScrollView(
-        controller: _scrollController,
-        child: BlocBuilder<ViewModulesBloc, ViewModulesState>(
-          builder: (context, state) {
-            final status = state.status;
-            final viewModules = state.viewModules;
-
-            if (status.isFailure) {
-              return const ViewModuleListBuilder(color: Colors.red);
-            }
-
-            return (status.isInitial || viewModules.isEmpty)
-                ? const ViewModuleListBuilder(color: Colors.green)
-                : Column(
-                    children: [
-                      ...viewModules,
-                      (status.isLoading)
-                          ? const BottomLoader()
-                          : const SizedBox.shrink(),
-                      const HomeFooter(),
-                    ],
-                  );
-          },
-        ),
-      ),
-    );
+  void _onScroll() {
+    if (_isBottom) context.read<ViewModulesBloc>().add(ViewModulesFetched());
   }
 
   @override
@@ -89,14 +56,50 @@ class _BuildViewModulesState extends State<_BuildViewModules>
     super.dispose();
   }
 
-  void _onScroll() {
-    if (_isBottom) context.read<ViewModulesBloc>().add(ViewModulesFetched());
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    final state = context.read<ViewModulesBloc>().state;
+
+    return RefreshIndicator(
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        child: BlocBuilder<ViewModulesBloc, ViewModulesState>(
+          builder: (context, state) {
+            final status = state.status;
+            final viewModules = state.viewModules;
+            if (status.isFailure) {
+              return const ViewModuleListBuilder(color: Colors.red);
+            }
+
+            return (status.isInitial || viewModules.isEmpty)
+                ? const ViewModuleListBuilder(color: Colors.green)
+                : Column(
+                    children: [
+                      ...viewModules,
+                      if (status.isLoading) const BottomLoader(),
+                      const HomeFooter(),
+                    ],
+                  );
+          },
+        ),
+      ),
+      onRefresh: () async => context.read<ViewModulesBloc>().add(
+            ViewModulesInitialized(
+              storeType: state.storeType,
+              tabId: state.tabId,
+              isRefresh: true,
+            ),
+          ),
+    );
   }
 
   bool get _isBottom {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
+
     return currentScroll >= (maxScroll * 0.9);
   }
 }

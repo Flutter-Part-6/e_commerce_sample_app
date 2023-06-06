@@ -3,8 +3,9 @@ import 'package:sample_app/data_layer/dto/display.dto.dart';
 
 class MockApi implements DisplayApi {
   @override
-  Future<List<CollectionDto>> getCollectionsByStoreType(
-      {required String storeType}) {
+  Future<List<CollectionDto>> getCollectionsByStoreType({
+    required String storeType,
+  }) {
     return Future(
       () => <CollectionDto>[
         const CollectionDto(tabId: 10001, title: "컬리추천"),
@@ -52,13 +53,14 @@ class MockApi implements DisplayApi {
           ],
         ),
         ViewModuleDto(
-            type: 'scroll_view_module',
-            title: '최고 인기 상품 모음',
-            subtitle: '최근 2주간 판매량이 가장 많았어요',
-            products: [
-              sampleProduct,
-              sampleProduct,
-            ]),
+          type: 'scroll_view_module',
+          title: '최고 인기 상품 모음',
+          subtitle: '최근 2주간 판매량이 가장 많았어요',
+          products: [
+            sampleProduct,
+            sampleProduct,
+          ],
+        ),
         ViewModuleDto(
           type: 'category_product_view_module',
           title: 'MD의 추천',

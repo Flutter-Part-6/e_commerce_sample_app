@@ -16,8 +16,8 @@ class ViewModuleA extends StatelessWidget with ViewModuleWidget {
       padding: Constants.verticalPadding,
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: Constants.horizontalPadding,
@@ -27,14 +27,11 @@ class ViewModuleA extends StatelessWidget with ViewModuleWidget {
                   ViewModuleTitle(title: info.title),
                   if (info.subtitle.isNotEmpty)
                     ViewModuleSubtitle(subtitle: info.subtitle),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                 ],
               ),
             ),
             ImgSlide(info.products),
-            // Image.network(info.products.first.imageUrl,height: 160,width: 125,),
           ],
         ),
       ),

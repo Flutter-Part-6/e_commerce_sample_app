@@ -6,9 +6,9 @@ import 'package:sample_app/domain_layer/repository/user.repository.dart';
 import '../base_usecase/remote.usecase.dart';
 
 class LoginUsecase extends RemoteUsecase<UserRepository> {
-  LoginUsecase({this.params});
-
   final Map<String, String>? params;
+
+  LoginUsecase({this.params});
 
   @override
   Future<User?> execute(UserRepository repository) async {

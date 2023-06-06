@@ -15,14 +15,14 @@ class UserPage extends StatelessWidget {
               child: SizedBox(
                 width: 300,
                 child: TextButton(
+                  onPressed: () {
+                    context.read<UserBloc>().add(UserLogin());
+                  },
                   style: const ButtonStyle(
                     padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(
                       EdgeInsets.zero,
                     ),
                   ),
-                  onPressed: () {
-                    context.read<UserBloc>().add(UserLogin());
-                  },
                   child: Image.asset('assets/kakao_login_large_narrow.png'),
                 ),
               ),
@@ -60,8 +60,8 @@ class UserProfile extends StatelessWidget {
             ClipOval(
               child: Image.network(
                 user?.kakaoAccount?.profile?.profileImageUrl ?? '',
-                height: 200,
                 width: 200,
+                height: 200,
               ),
             ),
             const SizedBox(
@@ -78,22 +78,25 @@ class UserProfile extends StatelessWidget {
               width: 250,
               height: 60,
               child: ElevatedButton(
+                onPressed: () async {
+                  context.read<UserBloc>().add(
+                        UserLogout(),
+                      );
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll<Color>(
                     Theme.of(context).primaryColor,
                   ),
                 ),
-                onPressed: () async {
-                  context.read<UserBloc>().add(UserLogout());
-                },
                 child: Text(
                   'Logout',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                      ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(color: Colors.white),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

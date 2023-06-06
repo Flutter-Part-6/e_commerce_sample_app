@@ -37,8 +37,10 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
 
   ViewModulesBloc(this._displayUsecase) : super(ViewModulesState()) {
     on<ViewModulesInitialized>(_onViewModulesInitialized);
-    on<ViewModulesFetched>(_onViewModulesFetched,
-        transformer: throttleDroppable(throttleDuration));
+    on<ViewModulesFetched>(
+      _onViewModulesFetched,
+      transformer: throttleDroppable(throttleDuration),
+    );
   }
 
   Future<void> _onViewModulesInitialized(
@@ -75,7 +77,9 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
   }
 
   Future<void> _onViewModulesFetched(
-      ViewModulesFetched event, Emitter<ViewModulesState> emit) async {
+    ViewModulesFetched event,
+    Emitter<ViewModulesState> emit,
+  ) async {
     final storeType = state.storeType;
     final tabId = state.tabId;
     final currentPage = state.currentPage;
@@ -97,7 +101,8 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       // 다음 페이지를 호출했을 때 empty라면 endOfPage -> true
       final List<Widget> viewModules = [...state.viewModules];
       viewModules.addAll(
-          response.map((e) => viewModuleFactory.textToWidget(e)).toList());
+        response.map((e) => viewModuleFactory.textToWidget(e)).toList(),
+      );
 
       if (response.isEmpty) {
         emit(state.copyWith(
@@ -106,6 +111,7 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
           currentPage: nextPage,
           endOfPage: true,
         ));
+
         return;
       }
 
@@ -120,10 +126,16 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     }
   }
 
-  Future<List<ViewModule>> _fetch(StoreType storeType, int tabId,
-      {Map<String, String>? queryParams}) async {
+  Future<List<ViewModule>> _fetch(
+    StoreType storeType,
+    int tabId, {
+    Map<String, String>? queryParams,
+  }) async {
     final response = _displayUsecase.fetch(GetViewModulesByStoreTypeAndTabId(
-        storeType: storeType, tabId: tabId, params: queryParams));
+      storeType: storeType,
+      tabId: tabId,
+      params: queryParams,
+    ));
 
     return await response;
   }

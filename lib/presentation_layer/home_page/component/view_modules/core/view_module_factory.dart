@@ -39,6 +39,7 @@ class ViewModuleFactory {
         return module.toWidget(viewModule) as Widget;
       }
     }
+
     return const ViewModuleNone();
   }
 }

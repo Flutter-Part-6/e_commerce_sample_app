@@ -11,40 +11,45 @@ Future<bool?> cartBottomSheet(BuildContext context) {
   final cartBloc = context.read<CartBloc>();
 
   return showModalBottomSheet<bool>(
-      showDragHandle: true,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      context: context,
-      builder: (_) {
-        return SafeArea(
-          child: BlocListener<CartListBloc, CartListState>(
-            listenWhen: (prev, cur) =>
-                prev.status.isLoading && cur.status.isSuccess,
-            listener: (listCxt, state) {
-              if (context.canPop()) {
-                Navigator.pop(context, true);
-              }
+    context: context,
+    builder: (_) {
+      return SafeArea(
+        child: BlocListener<CartListBloc, CartListState>(
+          listener: (listCxt, state) {
+            if (context.canPop()) {
+              Navigator.pop(context, true);
+            }
+          },
+          listenWhen: (prev, cur) =>
+              prev.status.isLoading && cur.status.isSuccess,
+          child: BlocBuilder<CartBloc, CartState>(
+            builder: (ctx, state) {
+              return SizedBox(
+                height: 300,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CartProductInfo(cartBloc: cartBloc),
+                    const Divider(thickness: 1, color: Colors.grey),
+                    CartPriceInfo(cartBloc: cartBloc),
+                    const CartBenefit(),
+                    const SizedBox(height: 12),
+                    AddCartBtn(cartBloc: cartBloc),
+                  ],
+                ),
+              );
             },
-            child: BlocBuilder<CartBloc, CartState>(
-              bloc: cartBloc,
-              builder: (ctx, state) {
-                return SizedBox(
-                  height: 300,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CartProductInfo(cartBloc: cartBloc),
-                      const Divider(thickness: 1, color: Colors.grey),
-                      CartPriceInfo(cartBloc: cartBloc),
-                      const CartBenefit(),
-                      const SizedBox(height: 12),
-                      AddCartBtn(cartBloc: cartBloc),
-                    ],
-                  ),
-                );
-              },
-            ),
+            bloc: cartBloc,
           ),
-        );
-      });
+        ),
+      );
+    },
+    shape: RoundedRectangleBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(12.0),
+      ),
+    ),
+    showDragHandle: true,
+  );
 }

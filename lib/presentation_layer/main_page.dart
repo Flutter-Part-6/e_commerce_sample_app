@@ -6,7 +6,6 @@ import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/co
 import 'package:sample_app/presentation_layer/home_page/home_page.dart';
 
 import '../common/dependency_injection/injection_injectable.dart';
-import 'cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 import 'user_page/user_page.dart';
 
@@ -52,14 +51,6 @@ class MainView extends StatelessWidget {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: context.read<BottomNavigationCubit>().changeBottomType,
-        currentIndex: context.watch<BottomNavigationCubit>().state.index,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        iconSize: 36,
-        selectedFontSize: 0,
-        unselectedFontSize: 0,
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.home),
@@ -76,8 +67,16 @@ class MainView extends StatelessWidget {
           BottomNavigationBarItem(
             icon: const Icon(Icons.person_outline_outlined),
             label: BottomNavigation.user.name,
-          )
+          ),
         ],
+        onTap: context.read<BottomNavigationCubit>().changeBottomType,
+        currentIndex: context.watch<BottomNavigationCubit>().state.index,
+        type: BottomNavigationBarType.fixed,
+        iconSize: 36,
+        selectedFontSize: 0,
+        unselectedFontSize: 0,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
       ),
     );
   }
@@ -92,20 +91,25 @@ class PageSample extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<BottomNavigationCubit>().state;
     final storeType = context.watch<CollectionsBloc>().state.storeType;
+
     return Center(
       child: Column(
         children: [
           Container(
             color: color,
-            height: 200,
             width: 200,
-            child: Center(child: Text(storeType.name)),
+            height: 200,
+            child: Center(
+              child: Text(storeType.name),
+            ),
           ),
           Container(
             color: Colors.blue,
-            height: 200,
             width: 200,
-            child: Center(child: Text(state.name)),
+            height: 200,
+            child: Center(
+              child: Text(state.name),
+            ),
           ),
         ],
       ),

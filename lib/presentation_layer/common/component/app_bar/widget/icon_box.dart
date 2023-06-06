@@ -17,12 +17,12 @@ class IconBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
       child: SizedBox(
-        height: 40,
         width: 40,
-        child: Icon(icon, color: color, size: size),
+        height: 40,
+        child: Icon(icon, size: size, color: color),
       ),
+      onTap: onPressed,
     );
   }
 }

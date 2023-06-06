@@ -18,8 +18,8 @@ class ScrollViewModule extends StatelessWidget with ViewModuleWidget {
       padding: Constants.verticalPadding,
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ViewModulePadding(
               child: Column(
@@ -32,7 +32,6 @@ class ScrollViewModule extends StatelessWidget with ViewModuleWidget {
               ),
             ),
             ImgSlide(info.products),
-            // Image.network(info.products.first.imageUrl,height: 160,width: 125,),
           ],
         ),
       ),

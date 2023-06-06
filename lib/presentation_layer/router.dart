@@ -4,7 +4,6 @@ import 'package:sample_app/presentation_layer/main_page.dart';
 import 'package:sample_app/presentation_layer/splash_page/splash_page.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -22,4 +21,5 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const CartListPage(),
     ),
   ],
+  initialLocation: '/',
 );

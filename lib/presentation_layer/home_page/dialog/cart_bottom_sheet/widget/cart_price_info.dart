@@ -14,8 +14,8 @@ class CartPriceInfo extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
         vertical: 16,
+        horizontal: 20,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,33 +34,40 @@ class CartPriceInfo extends StatelessWidget {
                 ],
               ),
               Container(
+                decoration: BoxDecoration(
+                  border: const Border.fromBorderSide(
+                    BorderSide(color: Colors.grey),
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(6)),
+                ),
                 width: 100,
                 height: 30,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(6),
-                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconBox(
                       icon: Icons.remove,
-                      color: Colors.black,
                       onPressed: () => cartBloc.add(CartQuantityDecreased()),
+                      color: Colors.black,
                     ),
                     Text(quantity.toString()),
                     IconBox(
                       icon: Icons.add,
+                      onPressed: () => cartBloc.add(
+                        CartQuantityIncreased(),
+                      ),
                       color: Colors.black,
-                      onPressed: () => cartBloc.add(CartQuantityIncreased()),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 12),
-          Container(height: 1, color: Colors.grey),
+          Container(
+            color: Colors.grey,
+            height: 1,
+          ),
         ],
       ),
     );

@@ -14,8 +14,8 @@ class CartResponseInfo extends StatelessWidget {
       children: [
         Image.network(
           productInfo.imageUrl,
-          height: 60,
           width: 60,
+          height: 60,
         ),
         const SizedBox(width: 10),
         const Text(

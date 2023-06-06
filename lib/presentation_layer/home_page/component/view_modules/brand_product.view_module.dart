@@ -54,19 +54,20 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
             height: 8,
           ),
           ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (_, index) {
-                return BrandProductItem(
-                  productInfo: info.products[index],
-                );
-              },
-              separatorBuilder: (_, __) {
-                return const SizedBox(
-                  height: 16,
-                );
-              },
-              itemCount: info.products.length),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (_, index) {
+              return BrandProductItem(
+                productInfo: info.products[index],
+              );
+            },
+            separatorBuilder: (_, __) {
+              return const SizedBox(
+                height: 16,
+              );
+            },
+            itemCount: info.products.length,
+          ),
         ],
       ),
     );
@@ -90,7 +91,7 @@ class BrandProductItem extends StatelessWidget {
           AspectRatio(
             aspectRatio: 1,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
               child: Image.network(
                 productInfo.imageUrl,
                 fit: BoxFit.cover,
@@ -102,14 +103,14 @@ class BrandProductItem extends StatelessWidget {
           ),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   productInfo.title,
                   style: textStyle.titleSmall?.titleCopyWith(),
-                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
                 Row(
                   children: [
@@ -117,16 +118,12 @@ class BrandProductItem extends StatelessWidget {
                       '${productInfo.discountRate}%',
                       style: textStyle.titleSmall?.discountRageCopyWith(),
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
+                    const SizedBox(width: 4),
                     Text(
                       productInfo.price.toWon(),
                       style: textStyle.titleSmall?.priceCopyWith(),
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
+                    const SizedBox(width: 4),
                     Text(
                       productInfo.originalPrice.toWon(),
                       style: textStyle.labelMedium?.originalPriceCopyWith(),
@@ -140,43 +137,32 @@ class BrandProductItem extends StatelessWidget {
             width: 12,
           ),
           TextButton(
+            onPressed: () {
+              context.read<CartBloc>().add(CartOpened(productInfo));
+            },
             style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
                   side: BorderSide(
-                    color: Colors.grey[400]!,
+                    color: Colors.grey[400] ?? Colors.grey,
                   ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 ),
               ),
             ),
-            onPressed: () {
-              context.read<CartBloc>().add(
-                    CartOpened(productInfo),
-                  );
-            },
             child: const Padding(
               padding: EdgeInsets.all(4),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.shopping_cart_outlined,
-                    color: Colors.black,
-                    size: 18,
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    '담기',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  )
-                ],
-              ),
+              child: Row(children: [
+                Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 18,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 8),
+                Text('담기', style: TextStyle(color: Colors.black)),
+              ]),
             ),
-          )
+          ),
         ],
       ),
     );
