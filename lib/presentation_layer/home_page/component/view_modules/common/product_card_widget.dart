@@ -46,14 +46,16 @@ class ProductCardWidget extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 6,
+          height: 8,
         ),
         Text(
           productInfo.title,
           style: titleStyle?.titleCopyWith(),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(
-          height: 6,
+          height: 4,
         ),
         Row(
           children: [
@@ -70,16 +72,13 @@ class ProductCardWidget extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(
-          height: 2,
-        ),
         Text(
           productInfo.originalPrice.toWon(),
           style: additionalStyle?.originalPriceCopyWith(),
         ),
         if (needShowReviewCount)
           Padding(
-            padding: const EdgeInsets.only(top: 4.0),
+            padding: const EdgeInsets.only(top: 6.0),
             child: Row(
               children: [
                 const Icon(

@@ -44,7 +44,7 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
               ),
               child: Text(
                 info.subtitle,
-                style: Theme.of(context).textTheme.titleLarge?.titleCopyWith(),
+                style: Theme.of(context).textTheme.titleMedium?.titleCopyWith(),
               ),
             ),
           const Divider(
@@ -100,39 +100,45 @@ class BrandProductItem extends StatelessWidget {
           const SizedBox(
             width: 12,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                productInfo.title,
-                style: textStyle.titleLarge?.titleCopyWith(),
-              ),
-              Row(
-                children: [
-                  Text(
-                    '${productInfo.discountRate}%',
-                    style: textStyle.titleMedium?.discountRageCopyWith(),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Text(
-                    productInfo.price.toWon(),
-                    style: textStyle.titleMedium?.priceCopyWith(),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Text(
-                    productInfo.originalPrice.toWon(),
-                    style: textStyle.labelMedium?.originalPriceCopyWith(),
-                  ),
-                ],
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  productInfo.title,
+                  style: textStyle.titleSmall?.titleCopyWith(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '${productInfo.discountRate}%',
+                      style: textStyle.titleSmall?.discountRageCopyWith(),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      productInfo.price.toWon(),
+                      style: textStyle.titleSmall?.priceCopyWith(),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      productInfo.originalPrice.toWon(),
+                      style: textStyle.labelMedium?.originalPriceCopyWith(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          const Spacer(),
+          const SizedBox(
+            width: 12,
+          ),
           TextButton(
             style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(

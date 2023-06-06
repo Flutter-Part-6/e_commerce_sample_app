@@ -24,7 +24,7 @@ class ImgSlide extends StatelessWidget {
         itemBuilder: (context, index) {
           final productInfo = products[index];
           return AspectRatio(
-            aspectRatio: 172 / 307,
+            aspectRatio: 156 / 307,
             child: LargeProductCard(
               context: context,
               productInfo: productInfo,

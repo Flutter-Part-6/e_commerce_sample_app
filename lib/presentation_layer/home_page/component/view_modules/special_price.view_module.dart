@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
@@ -199,7 +198,9 @@ class SpecialPriceProduct extends StatelessWidget {
         ),
         Text(
           productInfo.title,
-          style: textTheme.headlineSmall?.titleCopyWith(),
+          style: textTheme.titleMedium?.titleCopyWith(),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(
           height: 4,
@@ -208,21 +209,21 @@ class SpecialPriceProduct extends StatelessWidget {
           children: [
             Text(
               '${productInfo.discountRate}%',
-              style: textTheme.titleLarge?.discountRageCopyWith(),
+              style: textTheme.titleMedium?.discountRageCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.price.toWon(),
-              style: textTheme.titleLarge?.priceCopyWith(),
+              style: textTheme.titleMedium?.priceCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.originalPrice.toWon(),
-              style: textTheme.labelLarge?.originalPriceCopyWith(),
+              style: textTheme.titleMedium?.originalPriceCopyWith(),
             ),
           ],
         ),
@@ -241,7 +242,7 @@ class SpecialPriceProduct extends StatelessWidget {
             ),
             Text(
               '후기 ${productInfo.reviewCount.toReview()}',
-              style: textTheme.labelLarge?.reviewCountCopyWith(),
+              style: textTheme.labelMedium?.reviewCountCopyWith(),
             ),
           ],
         ),

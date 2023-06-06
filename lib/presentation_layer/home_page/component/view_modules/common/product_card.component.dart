@@ -12,8 +12,8 @@ class SmallProductCard extends ProductCardWidget {
   }) : super(
           imageAspect: 114 / 152,
           needShowReviewCount: false,
-          titleStyle: Theme.of(context).textTheme.titleMedium,
-          priceStyle: Theme.of(context).textTheme.titleSmall,
+          titleStyle: Theme.of(context).textTheme.labelMedium,
+          priceStyle: Theme.of(context).textTheme.labelMedium,
           additionalStyle: Theme.of(context).textTheme.labelSmall,
         );
 }
@@ -27,21 +27,13 @@ class LargeProductCard extends ProductCardWidget {
     required super.productInfo,
     // required super.imageAspect,
   }) : super(
-          imageAspect: 156 / 202,
+          imageAspect: 156 / 203,
           needShowReviewCount: true,
-          titleStyle: Theme.of(context).textTheme.titleLarge,
-          priceStyle: Theme.of(context).textTheme.titleMedium,
+          titleStyle: Theme.of(context).textTheme.titleSmall,
+          priceStyle: Theme.of(context).textTheme.titleSmall,
           additionalStyle: Theme.of(context).textTheme.labelMedium,
         );
 }
-
-// class ProductCustomTextStyle {
-//   static TextStyle test() {
-//     return const TextStyle(
-//       color: Colors.grey,
-//     );
-//   }
-// }
 
 extension TextStyleEx on TextStyle {
   TextStyle titleCopyWith() {
