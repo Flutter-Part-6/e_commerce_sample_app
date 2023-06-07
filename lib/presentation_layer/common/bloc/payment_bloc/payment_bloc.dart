@@ -47,9 +47,9 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       return;
     }
 
-    Payload payload = getPayload(event.cartList, user);
+    Payload payload = _getPayload(event.cartList, user);
 
-    (bool, String?) response = await bootPay(
+    (bool, String?) response = await _bootPay(
       event.context,
       payload,
     );
@@ -73,7 +73,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   }
 }
 
-Future<(bool, String?)> bootPay(BuildContext context, Payload payload) async {
+Future<(bool, String?)> _bootPay(BuildContext context, Payload payload) async {
   final Completer<(bool, String?)> completer = Completer();
 
   if (kIsWeb) {
@@ -108,7 +108,7 @@ Future<(bool, String?)> bootPay(BuildContext context, Payload payload) async {
   return completer.future;
 }
 
-Payload getPayload(List<Cart> cartList, User? loginUser) {
+Payload _getPayload(List<Cart> cartList, User? loginUser) {
   Payload payload = Payload();
   var totalPrice = 0.0;
 

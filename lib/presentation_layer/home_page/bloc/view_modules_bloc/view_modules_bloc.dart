@@ -19,9 +19,9 @@ part 'view_modules_state.dart';
 
 part 'view_modules_bloc.freezed.dart';
 
-const throttleDuration = Duration(milliseconds: 300);
+const _throttleDuration = Duration(milliseconds: 300);
 
-EventTransformer<E> throttleDroppable<E>(Duration duration) {
+EventTransformer<E> _throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
     return droppable<E>().call(events.throttle(duration), mapper);
   };
@@ -39,7 +39,7 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     on<ViewModulesInitialized>(_onViewModulesInitialized);
     on<ViewModulesFetched>(
       _onViewModulesFetched,
-      transformer: throttleDroppable(throttleDuration),
+      transformer: _throttleDroppable(_throttleDuration),
     );
   }
 

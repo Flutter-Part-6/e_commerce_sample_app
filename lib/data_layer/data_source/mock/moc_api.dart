@@ -2,6 +2,20 @@ import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 import 'package:sample_app/data_layer/dto/display.dto.dart';
 
 class MockApi implements DisplayApi {
+  ProductInfoDto get sampleProduct => ProductInfoDto(
+        productId: DateTime.now().microsecondsSinceEpoch.toString(),
+        title:
+            'FastCampus 플러터 강의 샘플 상품의 타이틀 입니다. 긴 문자를 노출했을 시 화면에서는 오버플로우가 발생할 수 있어 반드시 체크를 해야합니다.',
+        subtitle:
+            'This is sample product info. it has a long long subtitle text. plz check this!',
+        price: 8000,
+        originalPrice: 10000,
+        discountRate: 20,
+        reviewCount: 10000000,
+        imageUrl:
+            'https://images.unsplash.com/photo-1661956603025-8310b2e3036d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+      );
+
   @override
   Future<List<CollectionDto>> getCollectionsByStoreType({
     required String storeType,
@@ -106,18 +120,4 @@ class MockApi implements DisplayApi {
       ],
     );
   }
-
-  ProductInfoDto get sampleProduct => ProductInfoDto(
-        productId: DateTime.now().microsecondsSinceEpoch.toString(),
-        title:
-            'FastCampus 플러터 강의 샘플 상품의 타이틀 입니다. 긴 문자를 노출했을 시 화면에서는 오버플로우가 발생할 수 있어 반드시 체크를 해야합니다.',
-        subtitle:
-            'This is sample product info. it has a long long subtitle text. plz check this!',
-        price: 8000,
-        originalPrice: 10000,
-        discountRate: 20,
-        reviewCount: 10000000,
-        imageUrl:
-            'https://images.unsplash.com/photo-1661956603025-8310b2e3036d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-      );
 }

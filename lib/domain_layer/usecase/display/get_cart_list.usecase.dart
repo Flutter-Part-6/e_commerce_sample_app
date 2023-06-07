@@ -8,8 +8,6 @@ class GetCartList extends RemoteUsecase<DisplayRepository> {
 
   @override
   Future<List<Cart>> execute(DisplayRepository repository) async {
-    final response = repository.getCartList();
-
-    return response;
+    return repository.getCartList();
   }
 }

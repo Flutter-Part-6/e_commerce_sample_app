@@ -1,15 +1,13 @@
 import 'package:hive/hive.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
-const String cartDb = 'CART_DB';
+const String _cartDb = 'CART_DB';
 
 class DisplayDao {
   Future<List<ViewModuleEntity>> getViewModules(String key) async {
     final localStorage = await Hive.openBox<ViewModuleEntity>(key);
 
-    final List<ViewModuleEntity> viewModules = localStorage.values.toList();
-
-    return viewModules;
+    return localStorage.values.toList();
   }
 
   Future<void> clearViewModules(String key) async {
@@ -29,7 +27,7 @@ class DisplayDao {
 
   /// 장바구니 담기
   Future<void> insertCarts(CartEntity cart) async {
-    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
     final productId = cart.product.productId;
     if (localStorage.get(productId) != null) {
       print('쨔스');
@@ -41,7 +39,7 @@ class DisplayDao {
   }
 
   Future<void> changeQtyCart(String productId, int qty) async {
-    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
     final curCart = localStorage.get(productId);
     if (curCart == null) return;
     final nextCart = CartEntity(product: curCart.product, quantity: qty);
@@ -50,17 +48,17 @@ class DisplayDao {
 
   // 장바구니에 담긴 상품 삭제 by productId
   Future<void> deleteCart(List<String> productIds) async {
-    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
     await localStorage.deleteAll(productIds);
   }
 
   Future<void> clearCarts() async {
-    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
     await localStorage.clear();
   }
 
   Future<List<CartEntity>> getCartList() async {
-    final localStorage = await Hive.openBox<CartEntity>(cartDb);
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
 
     return localStorage.values.toList();
   }

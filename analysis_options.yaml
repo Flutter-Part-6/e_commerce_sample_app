@@ -6,9 +6,11 @@ dart_code_metrics:
   extends:
     - package:dart_code_metrics_presets/all.yaml
   rules-exclude:
-    - injection_injectable.config.dart
+    - lib/**/injection_injectable.config.dart
     - lib/*.g.dart
+    - lib/*.freezed.dart
     - lib/firebase_options.dart
+    - test/**
   rules:
     - prefer-match-file-name: false
     - avoid-non-ascii-symbols: false
@@ -20,3 +22,10 @@ dart_code_metrics:
     - format-comment: false
     - avoid-shrink-wrap-in-lists: false
     - prefer-extracting-callbacks: false
+    - prefer-static-class:
+        ignore-private: true
+        ignore-names:
+          - router
+          - getIt
+          - (.*)configure(.*)
+          - (.*)BottomSheet

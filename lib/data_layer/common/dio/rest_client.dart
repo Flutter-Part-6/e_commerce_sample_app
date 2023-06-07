@@ -5,6 +5,8 @@ class RestClient {
 
   static final RestClient _instance = RestClient._internal();
 
+  Dio get getDio => _dio;
+
   factory RestClient() => _instance;
 
   RestClient._internal();
@@ -23,6 +25,4 @@ class RestClient {
   //     },
   //   ));
   // }
-
-  Dio get getDio => _dio;
 }

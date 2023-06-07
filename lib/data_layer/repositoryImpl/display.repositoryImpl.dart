@@ -84,9 +84,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
 
     final response = await displayDao.getCartList();
 
-    List<Cart> cartList = response.map((e) => e.toModel()).toList();
-
-    return cartList;
+    return response.map((e) => e.toModel()).toList();
   }
 
   @override
