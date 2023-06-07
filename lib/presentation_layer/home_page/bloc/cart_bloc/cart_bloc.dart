@@ -27,12 +27,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartQuantityDecreased>(_onCartQuantityDecreased);
   }
 
-  Future<void> _onCartInitialized(
+  void _onCartInitialized(
     CartInitialized event,
     Emitter<CartState> emit,
-  ) async {}
+  ) {}
 
-  Future<void> _onCartOpened(CartOpened event, Emitter<CartState> emit) async {
+  void _onCartOpened(CartOpened event, Emitter<CartState> emit) {
     final productInfo = event.productInfo;
     final quantity = event.quantity;
     final totalPrice = productInfo.price * quantity;
@@ -50,7 +50,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onCartClosed(CartClosed event, Emitter<CartState> emit) async {
+  void _onCartClosed(CartClosed event, Emitter<CartState> emit) {
     try {
       emit(state.copyWith(status: CartStatus.close));
     } catch (error) {
@@ -59,10 +59,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onCartQuantityIncreased(
+  void _onCartQuantityIncreased(
     CartQuantityIncreased event,
     Emitter<CartState> emit,
-  ) async {
+  ) {
     final quantity = state.quantity + 1;
     final totalPrice = state.productInfo.price * quantity;
     emit(state.copyWith(quantity: quantity, totalPrice: totalPrice));

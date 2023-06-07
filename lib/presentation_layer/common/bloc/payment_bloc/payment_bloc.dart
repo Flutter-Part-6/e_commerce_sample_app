@@ -65,7 +65,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     } else {
       var message = '결제가 실패했습니다. 잠시후 다시 시도해주세요';
       if (response.$2 != null) {
-        var decoded = jsonDecode(response.$2!);
+        var decoded = jsonDecode(response.$2 ?? '');
         message = decoded['message'] ?? message;
       }
       emit(state.copyWith(status: PaymentStatus.error, message: message));
@@ -80,7 +80,7 @@ Future<(bool, String?)> _bootPay(BuildContext context, Payload payload) async {
     payload.extra?.openType = "iframe";
   }
 
-  late (bool, String?) response;
+  (bool, String?) response = (false, '');
 
   Bootpay().requestPayment(
     context: context,

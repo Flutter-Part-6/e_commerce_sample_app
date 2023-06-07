@@ -86,10 +86,10 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     }
   }
 
-  Future<void> _onCartSelected(
+  void _onCartSelected(
     CartListSelected event,
     Emitter<CartListState> emit,
-  ) async {
+  ) {
     try {
       final String productId = event.cart.product.productId;
       final selectedProducts = [...state.selectedProduct];

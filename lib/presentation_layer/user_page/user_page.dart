@@ -78,7 +78,7 @@ class UserProfile extends StatelessWidget {
               width: 250,
               height: 60,
               child: ElevatedButton(
-                onPressed: () async {
+                onPressed: () {
                   context.read<UserBloc>().add(
                         UserLogout(),
                       );

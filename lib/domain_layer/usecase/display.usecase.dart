@@ -9,7 +9,7 @@ class DisplayUsecase {
 
   DisplayUsecase(this._displayRepository);
 
-  Future<dynamic> fetch(RemoteUsecase remoteUsecase) async {
+  Future fetch(RemoteUsecase remoteUsecase) async {
     return await remoteUsecase.execute(_displayRepository);
   }
 }

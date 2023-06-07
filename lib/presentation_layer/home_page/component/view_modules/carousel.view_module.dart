@@ -17,13 +17,13 @@ class CarouselViewModule extends StatefulWidget with ViewModuleWidget {
 
 class _CarouselViewModuleState extends State<CarouselViewModule> {
   int currentPage = 1;
-  late PageController pageController;
+  PageController pageController = PageController();
+
   late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController();
 
     _timer = periodicTimer();
   }
