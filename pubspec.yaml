@@ -65,6 +65,7 @@ dependencies:
 
   # 결제
   bootpay:
+  shimmer:
 
 dev_dependencies:
   flutter_test:

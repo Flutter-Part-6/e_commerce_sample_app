@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
 import '../../../../domain_layer/model/display/cart/cart.model.dart';
 import '../../../common/component/app_bar/widget/icon_box.dart';
@@ -14,6 +15,7 @@ class CartProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedList = context.watch<CartListBloc>().state.selectedProduct;
     final bool isSelected = selectedList.contains(cart.product.productId);
+    var textStyle = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -22,24 +24,34 @@ class CartProductCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    child: Icon(
-                      (isSelected)
-                          ? Icons.check_circle
-                          : Icons.check_circle_outline_rounded,
-                      size: 20,
-                      color: (isSelected) ? Colors.purple : Colors.grey,
+              Expanded(
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      child: Icon(
+                        (isSelected)
+                            ? Icons.check_circle
+                            : Icons.check_circle_outline_rounded,
+                        size: 20,
+                        color: (isSelected) ? Colors.purple : Colors.grey,
+                      ),
+                      onTap: () => context
+                          .read<CartListBloc>()
+                          .add(CartListSelected(cart: cart)),
                     ),
-                    onTap: () => context
-                        .read<CartListBloc>()
-                        .add(CartListSelected(cart: cart)),
-                  ),
-                  const SizedBox(width: 10),
-                  Text(cart.product.title),
-                ],
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        cart.product.title,
+                        style: textStyle.titleSmall?.titleCopyWith(),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 20),
               GestureDetector(
                 child: const Icon(Icons.close, size: 20),
                 onTap: () => context
@@ -62,6 +74,7 @@ class CartProductCard extends StatelessWidget {
                         cart.product.imageUrl,
                         width: 50,
                         height: 75,
+                        fit: BoxFit.cover,
                       ),
                       const SizedBox(width: 10),
                       Column(
@@ -70,10 +83,7 @@ class CartProductCard extends StatelessWidget {
                         children: [
                           Text(
                             cart.product.price.toWon(),
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: textStyle.titleSmall?.priceCopyWith(),
                           ),
                           Container(
                             decoration: BoxDecoration(

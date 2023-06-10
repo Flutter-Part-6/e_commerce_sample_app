@@ -67,7 +67,10 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
             itemBuilder: (context, index) {
               String src = products[index % products.length].imageUrl;
 
-              return Image.network(src, fit: BoxFit.cover);
+              return Image.network(
+                src,
+                fit: BoxFit.cover,
+              );
             },
           ),
           Align(
