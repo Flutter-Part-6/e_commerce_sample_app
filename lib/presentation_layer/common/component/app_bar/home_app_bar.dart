@@ -38,8 +38,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
     final primaryColor = Theme.of(context).primaryColor;
 
     return AnimatedContainer(
-      duration: Duration(milliseconds: 500),
-      color:storeType.isMarket ? primaryColor : Colors.white ,
+      color: storeType.isMarket ? primaryColor : Colors.white,
       child: AppBar(
         leading: Center(
           child: Text(
@@ -49,7 +48,8 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
             ),
           ),
         ),
-        title: Container(
+        title: AnimatedContainer(
+          duration: Duration(milliseconds: 350),
           decoration: BoxDecoration(
             color: (storeType.isMarket)
                 ? Color.fromRGBO(111, 26, 140, 1)
@@ -94,7 +94,8 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           Stack(alignment: Alignment.center, children: [
             IconBox(
               icon: Icons.shopping_cart_outlined,
-              onPressed: () => context.push('/cart-list').whenComplete(() => context.read<CartListBloc>().add(CartListSelectedAll())),
+              onPressed: () => context.push('/cart-list').whenComplete(() =>
+                  context.read<CartListBloc>().add(CartListSelectedAll())),
               color: storeType.isMarket ? Colors.white : primaryColor,
             ),
             Positioned(
@@ -123,9 +124,9 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
         ],
         elevation: 0,
         backgroundColor: Colors.transparent,
-        // backgroundColor: (storeType.isMarket) ? null : Colors.white,
         centerTitle: true,
       ),
+      duration: Duration(milliseconds: 400),
     );
   }
 }
