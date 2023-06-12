@@ -14,8 +14,8 @@ import '../data_source/mock/moc_api.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  final DisplayApi _displayApi;
-  // final MockApi _displayApi;
+  // final DisplayApi _displayApi;
+  final MockApi _displayApi;
 
   DisplayRepositoryImpl(this._displayApi);
 

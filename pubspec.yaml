@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+6
 
 environment:
   sdk: '>= 3.0.0'
@@ -60,7 +60,7 @@ dependencies:
 
   stream_transform:
   firebase_auth: ^4.6.1
-  firebase_core: ^2.13.0
+  firebase_core: ^2.13.1
   lottie: ^2.3.2
 
   # 결제

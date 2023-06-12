@@ -29,7 +29,7 @@ void main() async {
 
   // 카카오 로그인 init
   KakaoSdk.init(
-    nativeAppKey: '131a1167cce7a54b528d70f41dd7be0f',
+    nativeAppKey: 'aee609c5d69eea0d7ca44f09c467b87c',
   );
 
   // firebase initialize

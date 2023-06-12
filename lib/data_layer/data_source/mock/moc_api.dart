@@ -37,117 +37,120 @@ class MockApi implements DisplayApi {
     required int tabId,
     required int page,
   }) {
-    return Future(
-      () => <ViewModuleDto>[
-        ViewModuleDto(
-          type: 'carousel_view_module',
-          title: '이 상품 어때요?',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'scroll_view_module',
-          title: '이 상품 어때요?',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'special_price_view_module',
-          title: '24시간 특가',
-          subtitle: '24시간 동안만 만날 수 있는 특별한 가격!',
-          time: DateTime.now().add(Duration(hours: 1)).millisecondsSinceEpoch,
-          products: [
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'scroll_view_module',
-          title: '놓치면 후회할 가격',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'banner_view_module',
-          imageUrl: sampleProduct.imageUrl,
-        ),
-        ViewModuleDto(
-          type: 'scroll_view_module',
-          title: '최고 인기 상품 모음',
-          subtitle: '최근 2주간 판매량이 가장 많았어요',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'category_product_view_module',
-          title: 'MD의 추천',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'brand_product_view_module',
-          title: '알뜰 상품 모음전',
-          subtitle: r'비싸고 좋은 상품을 찾기는 쉽습니다. '
-              r'하지만 값싸고 좋은 상품을 찾기란 하늘의 별따기 만큼 어렵죠. '
-              r'여기까지 찾아온 여러분의 노력이 헛되이지 않게 가성비, '
-              r'가심비를 모두 잡을 수 있는 상품을 준비했습니다.',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'scroll_view_module',
-          title: '지금 가장 핫한 상품',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-        ViewModuleDto(
-          type: 'scroll_view_module',
-          title: '가성비 최고의 상품들',
-          subtitle: '100g 당 가격으로 환산해보면 진짜 저렴해요!',
-          products: [
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-            sampleProduct,
-          ],
-        ),
-      ],
+    return Future.delayed(
+      Duration(seconds: 2),
+      () {
+        return <ViewModuleDto>[
+          ViewModuleDto(
+            type: 'carousel_view_module',
+            title: '이 상품 어때요?',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'scroll_view_module',
+            title: '이 상품 어때요?',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'special_price_view_module',
+            title: '24시간 특가',
+            subtitle: '24시간 동안만 만날 수 있는 특별한 가격!',
+            time: DateTime.now().add(Duration(hours: 1)).millisecondsSinceEpoch,
+            products: [
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'scroll_view_module',
+            title: '놓치면 후회할 가격',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'banner_view_module',
+            imageUrl: sampleProduct.imageUrl,
+          ),
+          ViewModuleDto(
+            type: 'scroll_view_module',
+            title: '최고 인기 상품 모음',
+            subtitle: '최근 2주간 판매량이 가장 많았어요',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'category_product_view_module',
+            title: 'MD의 추천',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'brand_product_view_module',
+            title: '알뜰 상품 모음전',
+            subtitle: r'비싸고 좋은 상품을 찾기는 쉽습니다. '
+                r'하지만 값싸고 좋은 상품을 찾기란 하늘의 별따기 만큼 어렵죠. '
+                r'여기까지 찾아온 여러분의 노력이 헛되이지 않게 가성비, '
+                r'가심비를 모두 잡을 수 있는 상품을 준비했습니다.',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'scroll_view_module',
+            title: '지금 가장 핫한 상품',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+          ViewModuleDto(
+            type: 'scroll_view_module',
+            title: '가성비 최고의 상품들',
+            subtitle: '100g 당 가격으로 환산해보면 진짜 저렴해요!',
+            products: [
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+              sampleProduct,
+            ],
+          ),
+        ];
+      },
     );
   }
 }
