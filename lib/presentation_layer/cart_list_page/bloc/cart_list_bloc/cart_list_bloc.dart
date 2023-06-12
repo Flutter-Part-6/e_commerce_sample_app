@@ -221,16 +221,19 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       await Future.delayed(const Duration(milliseconds: 400));
       await _displayUsecase.fetch(AddCart(cart: cart));
       final List<Cart> cartList = await _displayUsecase.fetch(GetCartList());
-      final selectedProduct = [...state.selectedProduct];
+      final selectedProducts = [...state.selectedProduct];
       final productId = event.productInfo.productId;
-      if (selectedProduct.indexWhere((element) => element == productId) == -1) {
-        selectedProduct.add(productId);
+      if (selectedProducts.indexWhere((e) => e == productId) == -1) {
+        selectedProducts.add(productId);
       }
+      final totalPrice = _calTotalPrice(selectedProducts, cartList);
+
       emit(
         state.copyWith(
           status: CartListStatus.success,
           cartList: cartList,
-          selectedProduct: selectedProduct,
+          selectedProduct: selectedProducts,
+          totalPrice: totalPrice,
         ),
       );
     } catch (error) {
