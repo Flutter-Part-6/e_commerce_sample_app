@@ -16,7 +16,7 @@ class CollectionsTabBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.grey[300]!),
+          bottom: BorderSide(color: Colors.grey[300] ?? Colors.grey),
         ),
       ),
       height: 50,

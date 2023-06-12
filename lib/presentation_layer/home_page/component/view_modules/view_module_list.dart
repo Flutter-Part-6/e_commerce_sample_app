@@ -70,11 +70,11 @@ class _BuildViewModulesState extends State<_BuildViewModules>
             final status = state.status;
             final viewModules = state.viewModules;
             if (status.isFailure) {
-              return const ViewModuleListBuilder(color: Colors.red);
+              return const ViewModuleListBuilder();
             }
 
             return (status.isInitial || viewModules.isEmpty)
-                ? const ViewModuleListBuilder(color: Colors.green)
+                ? const ViewModuleListBuilder()
                 : Column(
                     children: [
                       ...viewModules,

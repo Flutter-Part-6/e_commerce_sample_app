@@ -22,6 +22,7 @@ dart_code_metrics:
     - format-comment: false
     - avoid-shrink-wrap-in-lists: false
     - prefer-extracting-callbacks: false
+    - no-equal-arguments: false
     - prefer-static-class:
         ignore-private: true
         ignore-names:
@@ -29,3 +30,4 @@ dart_code_metrics:
           - getIt
           - (.*)configure(.*)
           - (.*)BottomSheet
+    - avoid-late-keyword: false
