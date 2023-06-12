@@ -16,6 +16,21 @@ part 'collections_bloc.freezed.dart';
 
 enum StoreType { market, beauty }
 
+extension StoreTypeEx on StoreType {
+  String get toName {
+    switch (this) {
+      case StoreType.market:
+        return '마켓컬리';
+      case StoreType.beauty:
+        return '뷰티컬리';
+    }
+  }
+
+  get isMarket => this == StoreType.market;
+
+  get isBeauty => this == StoreType.beauty;
+}
+
 enum CollectionsStatus { initial, loading, success, failure }
 
 @injectable
