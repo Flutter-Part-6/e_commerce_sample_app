@@ -34,66 +34,105 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final cartCount = context.watch<CartListBloc>().state.cartList.length;
+    final storeType = context.watch<CollectionsBloc>().state.storeType;
+    final primaryColor = Theme.of(context).primaryColor;
 
-    return AppBar(
-      leading: const Center(child: Text('TEST')),
-      title: Container(
-        decoration: BoxDecoration(
-          color: Colors.blueGrey,
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
-        ),
-        height: 34,
-        child: TabBar(
-          tabs: [
-            Tab(text: StoreType.values.first.index.toString()),
-            Tab(text: StoreType.values[1].index.toString()),
-          ],
-          controller: _tabController,
-          isScrollable: true,
-          padding: const EdgeInsets.all(0),
-          indicatorWeight: 1,
-          indicator: BoxDecoration(
-            color: Colors.green,
-            borderRadius: const BorderRadius.all(Radius.circular(16)),
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: AnimatedContainer(
+            key: ValueKey<bool>(storeType.isMarket),
+            color: storeType.isMarket ? primaryColor : Colors.white,
+            duration: Duration(milliseconds: 2500),
           ),
-          labelStyle:
-              const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          unselectedLabelColor: Colors.white,
-          unselectedLabelStyle:
-              const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          onTap: (tabIndex) {},
         ),
-      ),
-      actions: [
-        const IconBox(icon: Icons.location_on_outlined, onPressed: null),
-        Stack(alignment: Alignment.center, children: [
-          IconBox(
-            icon: Icons.shopping_cart_outlined,
-            onPressed: () => context.push('/cart-list'),
-          ),
-          Positioned(
-            top: 10,
-            right: 4,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              width: 16,
-              height: 16,
-              child: Center(
-                child: Text(
-                  '$cartCount',
-                  style: const TextStyle(color: Colors.black, fontSize: 9),
-                ),
+        AppBar(
+          leading: Center(
+            child: Text(
+              'TEST',
+              style: TextStyle(
+                color: storeType.isMarket ? Colors.white : primaryColor,
               ),
             ),
           ),
-        ]),
-        const SizedBox(width: 8),
+          title: Container(
+            decoration: BoxDecoration(
+              color: (storeType.isMarket)
+                  ? Color.fromRGBO(111, 26, 140, 1)
+                  : Color.fromRGBO(242, 242, 242, 1),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(16),
+              ),
+            ),
+            height: 26,
+            child: TabBar(
+              tabs: [
+                Tab(text: StoreType.market.toName),
+                Tab(text: StoreType.beauty.toName),
+              ],
+              controller: _tabController,
+              isScrollable: true,
+              padding: const EdgeInsets.all(0),
+              indicatorWeight: 1,
+              indicatorPadding: EdgeInsets.all(0),
+              indicator: BoxDecoration(
+                color: storeType.isMarket ? Colors.white : primaryColor,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(16),
+                ),
+              ),
+              labelColor: (storeType.isMarket) ? primaryColor : Colors.white,
+              labelStyle:
+                  const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              labelPadding: EdgeInsets.symmetric(horizontal: 11),
+              unselectedLabelColor: (storeType.isMarket)
+                  ? Colors.white
+                  : Color.fromRGBO(128, 128, 128, 1),
+              onTap: (tabIndex) {},
+            ),
+          ),
+          actions: [
+            IconBox(
+              icon: Icons.location_on_outlined,
+              onPressed: null,
+              color: storeType.isMarket ? Colors.white : primaryColor,
+            ),
+            Stack(alignment: Alignment.center, children: [
+              IconBox(
+                icon: Icons.shopping_cart_outlined,
+                onPressed: () => context.push('/cart-list'),
+                color: storeType.isMarket ? Colors.white : primaryColor,
+              ),
+              Positioned(
+                top: 10,
+                right: 4,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: storeType.isMarket ? Colors.white : primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  width: 16,
+                  height: 16,
+                  child: Center(
+                    child: Text(
+                      '$cartCount',
+                      style: TextStyle(
+                        color: storeType.isMarket ? primaryColor : Colors.white,
+                        fontSize: 9,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+            const SizedBox(width: 8),
+          ],
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          // backgroundColor: (storeType.isMarket) ? null : Colors.white,
+          centerTitle: true,
+        ),
       ],
-      elevation: 0,
-      centerTitle: true,
     );
   }
 }
