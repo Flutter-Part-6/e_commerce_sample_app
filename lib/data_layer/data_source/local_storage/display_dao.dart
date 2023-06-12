@@ -30,7 +30,7 @@ class DisplayDao {
     final localStorage = await Hive.openBox<CartEntity>(_cartDb);
     final productId = cart.product.productId;
     if (localStorage.get(productId) != null) {
-      print('쨔스');
+      print('[test] 이미 존재하는 상품입니다. ::: ${cart.product.title}');
 
       return;
     }
