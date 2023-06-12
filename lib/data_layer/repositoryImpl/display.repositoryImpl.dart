@@ -10,14 +10,14 @@ import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 
 import '../data_source/local_storage/display_dao.dart';
+import '../data_source/mock/moc_api.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
   final DisplayApi _displayApi;
+  // final MockApi _displayApi;
 
   DisplayRepositoryImpl(this._displayApi);
-
-  // final MockApi _displayApi;
 
   @override
   Future<List<Collection>> getCollectionsByStoreType({
