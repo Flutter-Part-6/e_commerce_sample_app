@@ -22,7 +22,7 @@ class MockApi implements DisplayApi {
   }) {
     return Future(
       () => <CollectionDto>[
-        const CollectionDto(tabId: 10001, title: "컬리추천"),
+        const CollectionDto(tabId: 10001, title: "다트추천"),
         const CollectionDto(tabId: 10002, title: "신상품"),
         const CollectionDto(tabId: 10003, title: "베스트"),
         const CollectionDto(tabId: 10004, title: "알뜰쇼핑"),

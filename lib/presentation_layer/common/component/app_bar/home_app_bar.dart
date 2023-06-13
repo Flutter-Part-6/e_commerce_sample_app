@@ -42,7 +42,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
       child: AppBar(
         leading: Center(
           child: Text(
-            'TEST',
+            'Flutter',
             style: TextStyle(
               color: storeType.isMarket ? Colors.white : primaryColor,
             ),
