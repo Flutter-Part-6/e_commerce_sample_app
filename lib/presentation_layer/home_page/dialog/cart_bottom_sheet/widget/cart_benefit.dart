@@ -8,12 +8,11 @@ class CartBenefit extends StatelessWidget {
     return Container(
       alignment: Alignment.centerRight,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: const Text(
+      child: Text(
         '로그인 후, 할인 및 적립 혜택 적용',
-        style: TextStyle(
-          color: Colors.grey,
-          fontSize: 12,
-        ),
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: Colors.grey,
+            ),
       ),
     );
   }

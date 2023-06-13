@@ -29,6 +29,7 @@ class CollectionsTabBar extends StatelessWidget {
           TabBar(
             tabs: collections.map((e) => GnbTab(e.title)).toList(),
             controller: tabController,
+            isScrollable: true,
             indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
             onTap: (index) {},
           ),

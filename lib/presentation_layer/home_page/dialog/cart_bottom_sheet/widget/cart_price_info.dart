@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
 import '../../../../common/component/app_bar/widget/icon_box.dart';
 
@@ -20,7 +21,12 @@ class CartPriceInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(productInfo.title),
+          Text(
+            productInfo.title,
+            style: Theme.of(context).textTheme.titleSmall,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+          ),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,7 +35,8 @@ class CartPriceInfo extends StatelessWidget {
                 children: [
                   Text(
                     productInfo.price.toWon(),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style:
+                        Theme.of(context).textTheme.titleSmall?.priceCopyWith(),
                   ),
                 ],
               ),
