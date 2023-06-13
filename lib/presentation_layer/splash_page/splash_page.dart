@@ -20,7 +20,7 @@ class SplashPage extends StatelessWidget {
         },
         child: Center(
           child: Text(
-            'Kerly',
+            'FLUTTER',
             style: Theme.of(context)
                 .textTheme
                 .displayMedium
