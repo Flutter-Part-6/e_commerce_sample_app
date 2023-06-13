@@ -24,14 +24,14 @@ class MockApi implements DisplayApi {
     print('[test] storeType : $storeType');
     return storeType == StoreType.market.name
         ? Future(() => <CollectionDto>[
-              const CollectionDto(tabId: 10001, title: "컬리추천"),
+              const CollectionDto(tabId: 10001, title: "다트추천"),
               const CollectionDto(tabId: 10002, title: "신상품"),
               const CollectionDto(tabId: 10003, title: "베스트"),
               const CollectionDto(tabId: 10004, title: "알뜰쇼핑"),
               const CollectionDto(tabId: 10005, title: "특가/혜택"),
             ])
         : Future(() => <CollectionDto>[
-              const CollectionDto(tabId: 20001, title: "컬리추천"),
+              const CollectionDto(tabId: 20001, title: "다트추천"),
               const CollectionDto(tabId: 20002, title: "LUXURY"),
               const CollectionDto(tabId: 20003, title: "신상품"),
               const CollectionDto(tabId: 20004, title: "베스트"),
