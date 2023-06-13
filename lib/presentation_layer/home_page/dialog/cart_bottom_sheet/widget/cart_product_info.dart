@@ -20,19 +20,22 @@ class CartProductInfo extends StatelessWidget {
             height: 40,
           ),
           const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(productInfo.title),
-              const SizedBox(height: 4),
-              Text(
-                productInfo.subtitle,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  productInfo.title,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+                const SizedBox(height: 4),
+                Text(
+                  productInfo.subtitle,
+                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),
