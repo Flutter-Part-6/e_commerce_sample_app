@@ -13,43 +13,39 @@ Future<bool?> cartBottomSheet(BuildContext context) {
   return showModalBottomSheet<bool>(
     context: context,
     builder: (_) {
-      return SafeArea(
-        child: BlocListener<CartListBloc, CartListState>(
-          listener: (listCxt, state) {
-            if (context.canPop()) {
-              Navigator.pop(context, true);
-            }
+      return BlocListener<CartListBloc, CartListState>(
+        listener: (listCxt, state) {
+          if (context.canPop()) {
+            Navigator.pop(context, true);
+          }
+        },
+        listenWhen: (prev, cur) =>
+            prev.status.isLoading && cur.status.isSuccess,
+        child: BlocBuilder<CartBloc, CartState>(
+          builder: (ctx, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CartProductInfo(cartBloc: cartBloc),
+                const Divider(thickness: 1, color: Colors.grey),
+                CartPriceInfo(cartBloc: cartBloc),
+                const CartBenefit(),
+                const SizedBox(height: 12),
+                AddCartBtn(cartBloc: cartBloc),
+              ],
+            );
           },
-          listenWhen: (prev, cur) =>
-              prev.status.isLoading && cur.status.isSuccess,
-          child: BlocBuilder<CartBloc, CartState>(
-            builder: (ctx, state) {
-              return SizedBox(
-                height: 300,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CartProductInfo(cartBloc: cartBloc),
-                    const Divider(thickness: 1, color: Colors.grey),
-                    CartPriceInfo(cartBloc: cartBloc),
-                    const CartBenefit(),
-                    const SizedBox(height: 12),
-                    AddCartBtn(cartBloc: cartBloc),
-                  ],
-                ),
-              );
-            },
-            bloc: cartBloc,
-          ),
+          bloc: cartBloc,
         ),
       );
     },
     shape: RoundedRectangleBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(12.0),
+      borderRadius: const BorderRadius.vertical(
+        top: Radius.circular(12.0),
       ),
     ),
     showDragHandle: true,
+    useSafeArea: true,
   );
 }

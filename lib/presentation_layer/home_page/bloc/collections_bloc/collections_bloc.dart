@@ -93,6 +93,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
 
     if (!state.status.isSuccess) return;
     emit(state.copyWith(status: CollectionsStatus.loading));
+    // await Future.delayed(Duration(seconds: 3));
     try {
       final List<Collection> collections =
           await _fetchCollections(currentStoreType);

@@ -43,19 +43,19 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    signingConfigs {
-       release {
-           keyAlias keystoreProperties['keyAlias']
-           keyPassword keystoreProperties['keyPassword']
-           storePassword keystoreProperties['storePassword']
-           storeFile file(keystoreProperties['storeFile'])
-       }
-   }
-   buildTypes {
-       release {
-           signingConfig signingConfigs.release
-       }
-   }
+//    signingConfigs {
+//       release {
+//           keyAlias keystoreProperties['keyAlias']
+//           keyPassword keystoreProperties['keyPassword']
+//           storePassword keystoreProperties['storePassword']
+//           storeFile file(keystoreProperties['storeFile'])
+//       }
+//   }
+//   buildTypes {
+//       release {
+//           signingConfig signingConfigs.release
+//       }
+//   }
 
     kotlinOptions {
         jvmTarget = '1.8'
@@ -70,7 +70,8 @@ android {
         applicationId "com.jwCompany.sample_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+//        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

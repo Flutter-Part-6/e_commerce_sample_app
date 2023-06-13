@@ -49,7 +49,6 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           ),
         ),
         title: AnimatedContainer(
-          duration: Duration(milliseconds: 350),
           decoration: BoxDecoration(
             color: (storeType.isMarket)
                 ? Color.fromRGBO(111, 26, 140, 1)
@@ -83,6 +82,10 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
                 ? Colors.white
                 : Color.fromRGBO(128, 128, 128, 1),
             onTap: (tabIndex) {},
+            splashBorderRadius: const BorderRadius.all(Radius.circular(16)),
+          ),
+          duration: Duration(
+            milliseconds: 300,
           ),
         ),
         actions: [
