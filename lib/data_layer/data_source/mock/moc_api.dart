@@ -40,6 +40,10 @@ class MockApi implements DisplayApi {
     return Future.delayed(
       Duration(seconds: 2),
       () {
+        if (page >= 3) {
+          return [];
+        }
+
         return <ViewModuleDto>[
           ViewModuleDto(
             type: 'carousel_view_module',
