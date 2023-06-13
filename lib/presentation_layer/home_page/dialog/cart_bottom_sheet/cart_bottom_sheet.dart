@@ -13,30 +13,34 @@ Future<bool?> cartBottomSheet(BuildContext context) {
   return showModalBottomSheet<bool>(
     context: context,
     builder: (_) {
-      return BlocListener<CartListBloc, CartListState>(
-        listener: (listCxt, state) {
-          if (context.canPop()) {
-            Navigator.pop(context, true);
-          }
-        },
-        listenWhen: (prev, cur) =>
-            prev.status.isLoading && cur.status.isSuccess,
-        child: BlocBuilder<CartBloc, CartState>(
-          builder: (ctx, state) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CartProductInfo(cartBloc: cartBloc),
-                const Divider(thickness: 1, color: Colors.grey),
-                CartPriceInfo(cartBloc: cartBloc),
-                const CartBenefit(),
-                const SizedBox(height: 12),
-                AddCartBtn(cartBloc: cartBloc),
-              ],
-            );
+      return SafeArea(
+        child: BlocListener<CartListBloc, CartListState>(
+          listener: (listCxt, state) {
+            if (context.canPop()) {
+              Navigator.pop(context, true);
+            }
           },
-          bloc: cartBloc,
+          listenWhen: (prev, cur) =>
+              prev.status.isLoading && cur.status.isSuccess,
+          child: BlocBuilder<CartBloc, CartState>(
+            builder: (ctx, state) {
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CartProductInfo(cartBloc: cartBloc),
+                    const Divider(thickness: 1, color: Colors.grey),
+                    CartPriceInfo(cartBloc: cartBloc),
+                    const CartBenefit(),
+                    const SizedBox(height: 12),
+                    AddCartBtn(cartBloc: cartBloc),
+                  ],
+                ),
+              );
+            },
+            bloc: cartBloc,
+          ),
         ),
       );
     },
@@ -45,6 +49,7 @@ Future<bool?> cartBottomSheet(BuildContext context) {
         top: Radius.circular(12.0),
       ),
     ),
+    isScrollControlled: true,
     showDragHandle: true,
     useSafeArea: true,
   );
