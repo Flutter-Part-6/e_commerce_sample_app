@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/presentation_layer/common/component/home_place_holder.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_list_builder.dart';
 
 import '../../../../common/dependency_injection/injection_injectable.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
@@ -70,11 +70,11 @@ class _BuildViewModulesState extends State<_BuildViewModules>
             final status = state.status;
             final viewModules = state.viewModules;
             if (status.isFailure) {
-              return const ViewModuleListBuilder();
+              return const HomePlaceholder();
             }
 
             return (status.isInitial || viewModules.isEmpty)
-                ? const ViewModuleListBuilder()
+                ? const HomePlaceholder()
                 : Column(
                     children: [
                       ...viewModules,

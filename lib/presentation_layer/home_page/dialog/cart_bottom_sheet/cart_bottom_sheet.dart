@@ -24,8 +24,7 @@ Future<bool?> cartBottomSheet(BuildContext context) {
               prev.status.isLoading && cur.status.isSuccess,
           child: BlocBuilder<CartBloc, CartState>(
             builder: (ctx, state) {
-              return SizedBox(
-                height: 300,
+              return SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,10 +45,12 @@ Future<bool?> cartBottomSheet(BuildContext context) {
       );
     },
     shape: RoundedRectangleBorder(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(12.0),
+      borderRadius: const BorderRadius.vertical(
+        top: Radius.circular(12.0),
       ),
     ),
+    isScrollControlled: true,
     showDragHandle: true,
+    useSafeArea: true,
   );
 }

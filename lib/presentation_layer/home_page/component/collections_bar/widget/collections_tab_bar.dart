@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/home_page_bloc.dart';
 
 import '../../../../../domain_layer/model/display/collection/collection.model.dart';
 
@@ -13,6 +15,8 @@ class CollectionsTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentStatus = context.watch<CollectionsBloc>().state.status;
+
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -20,11 +24,26 @@ class CollectionsTabBar extends StatelessWidget {
         ),
       ),
       height: 50,
-      child: TabBar(
-        tabs: collections.map((e) => GnbTab(e.title)).toList(),
-        controller: tabController,
-        indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
-        onTap: (index) {},
+      child: Stack(
+        children: [
+          TabBar(
+            tabs: collections.map((e) => GnbTab(e.title)).toList(),
+            controller: tabController,
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+            onTap: (index) {},
+          ),
+          if (currentStatus.isLoading)
+            Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                  strokeWidth: 1.5,
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

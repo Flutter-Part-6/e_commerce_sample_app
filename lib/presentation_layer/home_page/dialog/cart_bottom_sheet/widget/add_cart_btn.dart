@@ -22,7 +22,7 @@ class AddCartBtn extends StatelessWidget {
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
               width: MediaQuery.of(context).size.width,
