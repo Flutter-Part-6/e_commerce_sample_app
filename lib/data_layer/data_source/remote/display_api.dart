@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
 
 // dto
 import 'package:sample_app/data_layer/dto/display.dto.dart';
@@ -15,13 +16,14 @@ abstract class DisplayApi {
 
   // about collections
   @GET('/stores/{storeType}')
-  Future<List<CollectionDto>> getCollectionsByStoreType({
+  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByStoreType({
     @Path('storeType') required String storeType,
   });
 
   // about view_modules
   @GET('/view_modules/{storeType}/{tabId}')
-  Future<List<ViewModuleDto>> getViewModulesByStoreTypeAndTabId({
+  Future<ResponseWrapper<List<ViewModuleDto>>>
+      getViewModulesByStoreTypeAndTabId({
     @Path('storeType') required String storeType,
     @Path('tabId') required int tabId,
     @Query('page') required int page,

@@ -40,7 +40,7 @@ dependencies:
   # ----- network -----
 
   #dio 5.1.0
-  dio:
+  dio: 5.2.0
 
   # ----- bloc -----
 

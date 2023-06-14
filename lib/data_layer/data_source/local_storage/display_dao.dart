@@ -4,10 +4,16 @@ import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 const String _cartDb = 'CART_DB';
 
 class DisplayDao {
-  Future<List<ViewModuleEntity>> getViewModules(String key) async {
-    final localStorage = await Hive.openBox<ViewModuleEntity>(key);
+  Future<List<ViewModuleEntity>> getViewModules(String key, int page) async {
+    final localStorage = await Hive.openBox(key);
+    // localStorage.clear();
+    // print('[test] localstorage : ${localStorage.values.toList()}');
+    final viewModules = localStorage.get(page);
+    // print('[test] ViewModuleEntity : $viewModules');
 
-    return localStorage.values.toList();
+    if (viewModules == null) return [];
+
+    return viewModules;
   }
 
   Future<void> clearViewModules(String key) async {
@@ -18,11 +24,11 @@ class DisplayDao {
 
   Future<void> insertViewModules(
     String key,
+    int page,
     List<ViewModuleEntity> viewModules,
   ) async {
-    final localStorage = await Hive.openBox<ViewModuleEntity>(key);
-
-    await localStorage.addAll(viewModules);
+    final localStorage = await Hive.openBox(key);
+    await localStorage.put(page, viewModules);
   }
 
   /// 장바구니 담기

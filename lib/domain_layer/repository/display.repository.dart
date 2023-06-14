@@ -1,9 +1,11 @@
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/domain_layer/repository/repository.dart';
 
+import '../../common/utils/result/result.dart';
+
 abstract class DisplayRepository extends Repository {
   // get collection list
-  Future<List<Collection>> getCollectionsByStoreType({
+  Future<Result<List<Collection>>> getCollectionsByStoreType({
     required String storeType,
     Map<String, String>? queries,
   });

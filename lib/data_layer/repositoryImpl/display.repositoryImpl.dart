@@ -1,5 +1,6 @@
 /// data_source
 import 'package:injectable/injectable.dart';
+import 'package:sample_app/common/utils/extensions.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
 /// repository
@@ -9,25 +10,53 @@ import 'package:sample_app/domain_layer/repository/display.repository.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 
+import '../../common/utils/result/result.dart';
 import '../data_source/local_storage/display_dao.dart';
 import '../data_source/mock/moc_api.dart';
+import '../entity/display/view_module/view_module.entity.dart';
+
+import 'package:dio/dio.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  // final DisplayApi _displayApi;
-  final MockApi _displayApi;
+  final DisplayApi _displayApi;
+
+  // final MockApi _displayApi;
 
   DisplayRepositoryImpl(this._displayApi);
 
   @override
-  Future<List<Collection>> getCollectionsByStoreType({
+  Future<Result<List<Collection>>> getCollectionsByStoreType({
     required String storeType,
     Map<String, String>? queries,
   }) async {
-    final response =
-        await _displayApi.getCollectionsByStoreType(storeType: storeType);
+    // try {
+      final response =
+          await _displayApi.getCollectionsByStoreType(storeType: storeType);
+      final status = response.status;
+      final code = response.code;
+      final msg = response.message;
+      final data = response.data;
 
-    return response.map((collectionDto) => collectionDto.toModel()).toList();
+      if (status.isSuccess) {
+        final List<Collection> collections =
+            data?.map((collectionDto) => collectionDto.toModel()).toList() ??
+                [];
+
+        return Result.success(collections);
+      } else {
+        return Result.error(Exception(), 'hi');
+      }
+    // } on DioException catch (error) {
+    //   print('[error] $error');
+    // }
+
+    // print('[test] response : $response');
+    //
+    // return response.data
+    //     ?.map((collectionDto) => collectionDto.toModel())
+    //     .toList() ??
+    //     [];
   }
 
   @override
@@ -38,17 +67,19 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required int page,
   }) async {
     // final displayDao = DisplayDao();
-
-    // final cacheKey = '${storeType}_${tabId}_$page';
+    //
+    // final cacheKey = '${storeType}_${tabId}';
     // final List<ViewModuleEntity> cachedViewModules =
-    //     await displayDao.getViewModules(cacheKey);
+    //     await displayDao.getViewModules(cacheKey, page);
 
-    //TODO refresh인 경우 개발해야 됌
+    // print('[test] cachedViewModules : $cachedViewModules');
+    // //TODO refresh인 경우 개발해야 됌
     // if (cachedViewModules.isNotEmpty) {
     //   final viewModules = cachedViewModules
     //       .map((viewModuleEntity) => viewModuleEntity.toModel())
     //       .toList();
     //   print('[test] test cache');
+    //
     //   return viewModules;
     // }
 
@@ -58,17 +89,12 @@ class DisplayRepositoryImpl implements DisplayRepository {
       page: page,
     );
 
-    final List<ViewModule> viewModules =
-        response.map((viewModuleDto) => viewModuleDto.toModel()).toList();
+    print('[test] response : $response');
 
-    // // delete cache
-    // await displayDao.clearViewModules(cacheKey);
-    //
-    // // insert local_storage
-    // await displayDao.insertViewModules(
-    //     cacheKey, viewModules.map((e) => e.toEntity()).toList());
-
-    return viewModules;
+    return response.data
+            ?.map((viewModuleDto) => viewModuleDto.toModel())
+            .toList() ??
+        [];
   }
 
   @override

@@ -27,6 +27,7 @@ class CollectionsTabBar extends StatelessWidget {
       child: Stack(
         children: [
           TabBar(
+            isScrollable: true,
             tabs: collections.map((e) => GnbTab(e.title)).toList(),
             controller: tabController,
             indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),

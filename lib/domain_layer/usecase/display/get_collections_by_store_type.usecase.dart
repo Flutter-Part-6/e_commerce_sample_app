@@ -12,8 +12,13 @@ class GetCollectionsByStoreType extends RemoteUsecase<DisplayRepository> {
 
   @override
   Future<List<Collection>> execute(DisplayRepository repository) async {
-    return await repository.getCollectionsByStoreType(
+    final result = await repository.getCollectionsByStoreType(
       storeType: storeType.name,
+    );
+
+    return result.when(
+      success: (result) => result,
+      error: (error, msg) => throw error,
     );
   }
 }

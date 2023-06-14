@@ -1,13 +1,19 @@
+import 'package:sample_app/common/utils/exceptions/data_mapping_exception.dart';
+
 import '../../dto/display.dto.dart';
 import '../../../domain_layer/model/display.model.dart';
 import '../../entity/display/display.entity.dart';
 
 extension CollectionEx on CollectionDto {
   Collection toModel() {
-    return Collection(
-      tabId: tabId ?? 0,
-      title: title ?? '',
-    );
+    // try {
+      return Collection(
+        tabId: tabId ?? 0,
+        title: title ?? '',
+      );
+    // } catch (error) {
+    //   // throw DataMappingException(error);
+    // }
   }
 }
 

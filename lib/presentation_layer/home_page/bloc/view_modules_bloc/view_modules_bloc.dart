@@ -58,7 +58,7 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     }
     emit(state.copyWith(status: ViewModulesStatus.loading));
 
-    try {
+    // try {
       ViewModuleFactory viewModuleFactory = ViewModuleFactory();
 
       final List<ViewModule> response = await _fetch(storeType, tabId);
@@ -70,10 +70,10 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
         tabId: tabId,
         viewModules: viewModules,
       ));
-    } catch (error) {
-      emit(state.copyWith(status: ViewModulesStatus.failure));
-      log('[error] $error');
-    }
+    // } catch (error) {
+    //   emit(state.copyWith(status: ViewModulesStatus.failure));
+    //   log('[error] $error');
+    // }
   }
 
   Future<void> _onViewModulesFetched(
