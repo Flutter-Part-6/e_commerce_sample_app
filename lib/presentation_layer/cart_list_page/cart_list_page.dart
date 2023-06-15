@@ -59,10 +59,11 @@ class CartListPage extends StatelessWidget {
                                     ? Icons.check_circle
                                     : Icons.check_circle_outline_rounded,
                                 size: 20,
-                                color:
-                                    (selectedProducts.length == cartList.length && cartList.length!=0)
-                                        ? Colors.purple
-                                        : Colors.grey,
+                                color: (selectedProducts.length ==
+                                            cartList.length &&
+                                        cartList.length != 0)
+                                    ? Theme.of(context).primaryColor
+                                    : Colors.grey,
                               ),
                               onTap: () => context
                                   .read<CartListBloc>()
