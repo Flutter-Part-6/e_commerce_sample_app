@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.0+12
+version: 1.0.0+13
 
 environment:
   sdk: '>= 3.0.0'
@@ -67,6 +67,7 @@ dependencies:
   bootpay:
   shimmer:
   firebase_crashlytics: ^3.3.3
+  volume_controller: ^2.0.7
 
 dev_dependencies:
   flutter_test:

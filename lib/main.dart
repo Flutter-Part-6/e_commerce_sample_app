@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:sample_app/data_layer/entity/display/data_source/data_source.entity.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 
@@ -13,20 +14,20 @@ import 'package:sample_app/presentation_layer/router.dart';
 import 'package:sample_app/theme.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // dependency set up
-  configureDependencies();
-
   // Hive 등록
   await Hive.initFlutter();
+  Hive.registerAdapter(DataSourceEntityAdapter());
   Hive.registerAdapter(ViewModuleEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());
   Hive.registerAdapter(ProductInfoEntityAdapter());
   Bloc.observer = BlocTestObserver();
+
+  // dependency set up
+  configureDependencies();
 
   // 카카오 로그인 init
   KakaoSdk.init(

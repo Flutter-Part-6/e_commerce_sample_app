@@ -57,8 +57,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i6.UserApi>(apiModule.userApi);
     gh.singleton<_i7.UserRepository>(_i8.UserRepositoryImpl(gh<_i6.UserApi>()));
     gh.singleton<_i9.UserUsecase>(_i9.UserUsecase(gh<_i7.UserRepository>()));
-    gh.singleton<_i10.DisplayRepository>(
-        _i11.DisplayRepositoryImpl(gh<_i4.MockApi>()));
+    gh.singleton<_i10.DisplayRepository>(_i11.DisplayRepositoryImpl(
+      gh<_i3.DisplayApi>(),
+      gh<_i4.MockApi>(),
+    ));
     gh.singleton<_i12.DisplayUsecase>(
         _i12.DisplayUsecase(gh<_i10.DisplayRepository>()));
     gh.factory<_i13.UserBloc>(() => _i13.UserBloc(gh<_i9.UserUsecase>()));

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:sample_app/data_layer/entity/display/data_source/data_source.entity.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
 const String _cartDb = 'CART_DB';
@@ -61,5 +62,16 @@ class DisplayDao {
     final localStorage = await Hive.openBox<CartEntity>(_cartDb);
 
     return localStorage.values.toList();
+  }
+
+  Future<void> setDataSource(DataSourceEntity source) async {
+    final localStorage = await Hive.openBox<DataSourceEntity>('DATASOURCE');
+    localStorage.put('DATASOURCE', source);
+  }
+
+  Future<DataSourceEntity?> getDataSource() async {
+    final localStorage = await Hive.openBox<DataSourceEntity>('DATASOURCE');
+
+    return localStorage.get('DATASOURCE');
   }
 }
