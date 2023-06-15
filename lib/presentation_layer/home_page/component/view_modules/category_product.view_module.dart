@@ -80,7 +80,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
           Padding(
             padding: Constants.horizontalPadding,
             child: AspectRatio(
-              aspectRatio: 390 / 490,
+              aspectRatio: 368 / 477,
               child: TabBarView(
                 children: List.generate(
                   _tempData.length,
@@ -92,7 +92,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
                         crossAxisCount: 3,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 8,
-                        childAspectRatio: (390 / 3) / (490 / 2),
+                        childAspectRatio: (348 / 3) / (459 / 2),
                       ),
                       itemBuilder: (context, index) {
                         final productInfo = widget.info.products[index];

@@ -39,6 +39,7 @@ extension TextStyleEx on TextStyle {
   TextStyle titleCopyWith() {
     return copyWith(
       fontWeight: FontWeight.w300,
+      height: 1.35,
     );
   }
 
@@ -46,12 +47,14 @@ extension TextStyleEx on TextStyle {
     return copyWith(
       color: Colors.deepOrange,
       fontWeight: FontWeight.bold,
+      height: 1.15,
     );
   }
 
   TextStyle priceCopyWith() {
     return copyWith(
       fontWeight: FontWeight.bold,
+      height: 1.25,
     );
   }
 
@@ -60,6 +63,7 @@ extension TextStyleEx on TextStyle {
       fontWeight: FontWeight.w300,
       color: Colors.grey,
       decoration: TextDecoration.lineThrough,
+      height: 1.15,
     );
   }
 
@@ -67,6 +71,7 @@ extension TextStyleEx on TextStyle {
     return copyWith(
       color: Colors.grey,
       fontWeight: FontWeight.w600,
+      height: 1.15,
     );
   }
 }
