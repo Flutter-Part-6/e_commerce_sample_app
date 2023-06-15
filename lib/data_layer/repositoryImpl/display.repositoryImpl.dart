@@ -1,6 +1,10 @@
 /// data_source
+import 'dart:io';
+
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/dio.dart';
+import 'package:sample_app/common/utils/exceptions/data_mapping_exception.dart';
+import 'package:sample_app/common/utils/exceptions/network_exception.dart';
 import 'package:sample_app/common/utils/extensions.dart';
 import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
@@ -21,9 +25,9 @@ import 'package:dio/dio.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  // final DisplayApi _displayApi;
+  final DisplayApi _displayApi;
 
-  final MockApi _displayApi;
+  // final MockApi _displayApi;
 
   DisplayRepositoryImpl(this._displayApi);
 
@@ -32,39 +36,33 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required String storeType,
     Map<String, String>? queries,
   }) async {
-    // try {
-    final response =
-        await _displayApi.getCollectionsByStoreType(storeType: storeType);
-    final status = response.status;
+    try {
+      final response =
+          await _displayApi.getCollectionsByStoreType(storeType: storeType);
+      final status = response.status;
+      final code = response.code;
+      final message = response.message;
+      if (status.isSuccess) {
+        final List<Collection> collections = response.data
+                ?.map((collectionDto) => collectionDto.toModel())
+                .toList() ??
+            [];
+        CustomLogger.logger.d(collections);
 
-    if (status.isSuccess) {
-      final List<Collection> collections = response.data
-              ?.map((collectionDto) => collectionDto.toModel())
-              .toList() ??
-          [];
-      CustomLogger.logger.d(collections);
-
-      return Result.success(collections);
-    } else {
-      return Result.error(Exception(response.code), response.message);
+        return Result.success(collections);
+      } else {
+        return Result.error(Exception('service error'), 'serviceError');
+      }
+    } on DioError catch (error) {
+      throw NetworkException(error);
+    } on SocketException catch (error) {
+      throw NetworkException(error);
+    } catch (error) {
+      return Result.error(
+        Exception(),
+        error.toString(),
+      );
     }
-    // }
-    // on Exception catch (error) {
-    //   throw Exception('알려지지 않은 에러 $error');
-    // }
-    // } on DioError {
-    //   // print('[error] $error');
-    //   // CustomLogger.logger.e(error);
-    //   throw
-    //   // throw DioError.connectionTimeout(timeout: 2, requestOptions: requestOptions);
-    // }
-
-    // print('[test] response : $response');
-    //
-    // return response.data
-    //     ?.map((collectionDto) => collectionDto.toModel())
-    //     .toList() ??
-    //     [];
   }
 
   @override

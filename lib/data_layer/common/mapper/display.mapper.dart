@@ -6,14 +6,12 @@ import '../../entity/display/display.entity.dart';
 
 extension CollectionEx on CollectionDto {
   Collection toModel() {
-    // try {
+
       return Collection(
         tabId: tabId ?? 0,
         title: title ?? '',
       );
-    // } catch (error) {
-    //   // throw DataMappingException(error);
-    // }
+
   }
 }
 

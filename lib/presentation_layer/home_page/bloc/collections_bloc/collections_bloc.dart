@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sample_app/common/utils/exceptions/data_mapping_exception.dart';
+import 'package:sample_app/common/utils/exceptions/network_exception.dart';
+import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 
 import 'package:sample_app/domain_layer/model/display/collection/collection.model.dart';
@@ -71,10 +74,10 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
           collections: collections,
         ),
       );
-    } catch (error) {
+    } on NetworkException catch (error) {
+      CustomLogger.logger.e(error.toString());
       emit(state.copyWith(status: CollectionsStatus.failure));
-      log('[error] $error');
-    }
+    } catch (error) {}
   }
 
   void _onChangedTab(ChangedTab event, Emitter<CollectionsState> emit) {

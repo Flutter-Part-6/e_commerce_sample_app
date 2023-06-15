@@ -7,7 +7,7 @@ import 'package:sample_app/data_layer/dto/display.dto.dart';
 
 part 'display_api.g.dart';
 
-const String _baseUrl = 'http://localhost:8080/';
+const String _baseUrl = 'http://127.0.0.1:8000/';
 // const String _baseUrl = 'https://f8a5f7112741bd.lhr.life';
 
 @RestApi(baseUrl: _baseUrl)
