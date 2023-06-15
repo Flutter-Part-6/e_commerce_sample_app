@@ -66,6 +66,7 @@ dependencies:
   # 결제
   bootpay:
   shimmer:
+  firebase_crashlytics: ^3.3.3
 
 dev_dependencies:
   flutter_test:
