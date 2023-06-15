@@ -32,31 +32,32 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required String storeType,
     Map<String, String>? queries,
   }) async {
-    try {
-      final response =
-          await _displayApi.getCollectionsByStoreType(storeType: storeType);
-      final status = response.status;
+    // try {
+    final response =
+        await _displayApi.getCollectionsByStoreType(storeType: storeType);
+    final status = response.status;
 
-      if (status.isSuccess) {
-        final List<Collection> collections = response.data
-                ?.map((collectionDto) => collectionDto.toModel())
-                .toList() ??
-            [];
+    if (status.isSuccess) {
+      final List<Collection> collections = response.data
+              ?.map((collectionDto) => collectionDto.toModel())
+              .toList() ??
+          [];
+      CustomLogger.logger.d(collections);
 
-        return Result.success(collections);
-      } else {
-        return Result.error(Exception(response.code), response.message);
-      }
-    } on DioError {
-      // print('[error] $error');
-      // CustomLogger.logger.e(error);
-      throw
-      // throw DioError.connectionTimeout(timeout: 2, requestOptions: requestOptions);
+      return Result.success(collections);
+    } else {
+      return Result.error(Exception(response.), response.message);
     }
-    on Exception catch (error) {
-
-      throw Exception('알려지지 않은 에러 $error');
-    }
+    // }
+    // on Exception catch (error) {
+    //   throw Exception('알려지지 않은 에러 $error');
+    // }
+    // } on DioError {
+    //   // print('[error] $error');
+    //   // CustomLogger.logger.e(error);
+    //   throw
+    //   // throw DioError.connectionTimeout(timeout: 2, requestOptions: requestOptions);
+    // }
 
     // print('[test] response : $response');
     //

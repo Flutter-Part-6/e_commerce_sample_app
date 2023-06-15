@@ -16,7 +16,7 @@ import '../view_module_D/view_module_D.dart';
 import '../view_module_E/view_module_E.dart';
 import 'view_module_widget.dart';
 
-ResponseWrapper Modules {
+enum Modules {
   carouselViewModule,
   specialPriceViewModule,
   categoryProductViewModule,
