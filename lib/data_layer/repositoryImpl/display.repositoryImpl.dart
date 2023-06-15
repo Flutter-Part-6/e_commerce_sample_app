@@ -46,7 +46,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
 
       return Result.success(collections);
     } else {
-      return Result.error(Exception(response.), response.message);
+      return Result.error(Exception(response.code), response.message);
     }
     // }
     // on Exception catch (error) {
