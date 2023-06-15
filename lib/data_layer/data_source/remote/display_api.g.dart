@@ -22,11 +22,11 @@ class _DisplayApi implements DisplayApi {
 
   @override
   Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByStoreType(
-      {required storeType}) async {
+      {required String storeType}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseWrapper<List<CollectionDto>>>(Options(
       method: 'GET',
@@ -42,10 +42,12 @@ class _DisplayApi implements DisplayApi {
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ResponseWrapper<List<CollectionDto>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<CollectionDto>(
-              (i) => CollectionDto.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<CollectionDto>(
+                  (i) => CollectionDto.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
@@ -53,14 +55,14 @@ class _DisplayApi implements DisplayApi {
   @override
   Future<ResponseWrapper<List<ViewModuleDto>>>
       getViewModulesByStoreTypeAndTabId({
-    required storeType,
-    required tabId,
-    required page,
+    required String storeType,
+    required int tabId,
+    required int page,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseWrapper<List<ViewModuleDto>>>(Options(
       method: 'GET',
@@ -76,10 +78,12 @@ class _DisplayApi implements DisplayApi {
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ResponseWrapper<List<ViewModuleDto>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<ViewModuleDto>(
-              (i) => ViewModuleDto.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<ViewModuleDto>(
+                  (i) => ViewModuleDto.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }

@@ -40,7 +40,7 @@ dependencies:
   # ----- network -----
 
   #dio 5.1.0
-  dio: 5.2.0
+  dio: 5.1.0
 
   # ----- bloc -----
 
@@ -66,6 +66,7 @@ dependencies:
   # 결제
   bootpay:
   shimmer:
+  logger: ^1.4.0
 
 dev_dependencies:
   flutter_test:

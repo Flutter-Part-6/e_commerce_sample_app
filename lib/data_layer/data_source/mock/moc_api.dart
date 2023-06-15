@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
 import 'package:sample_app/data_layer/dto/display.dto.dart';
@@ -23,6 +26,7 @@ class MockApi implements DisplayApi {
     required String storeType,
   }) {
     print('[test] storeType : $storeType');
+    throw SocketException('no internet');
     return storeType == StoreType.market.name
         ? Future(() => ResponseWrapper(data: <CollectionDto>[
               const CollectionDto(tabId: 10001, title: "컬리추천"),

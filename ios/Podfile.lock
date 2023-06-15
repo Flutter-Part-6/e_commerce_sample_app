@@ -46,7 +46,7 @@ PODS:
   - GoogleUtilities/Reachability (7.11.1):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (3.1.1)
-  - kakao_flutter_sdk_common (1.4.2):
+  - kakao_flutter_sdk_common (1.4.3):
     - Flutter
   - package_info (0.0.1):
     - Flutter
@@ -115,7 +115,7 @@ SPEC CHECKSUMS:
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
-  kakao_flutter_sdk_common: fc550ec16c85451e874d5304d2e1c540a221f5cb
+  kakao_flutter_sdk_common: 31d55af8ed73538126d26d42bf9e8049a2f76da4
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef

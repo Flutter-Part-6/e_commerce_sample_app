@@ -1,6 +1,8 @@
 /// data_source
 import 'package:injectable/injectable.dart';
+import 'package:retrofit/dio.dart';
 import 'package:sample_app/common/utils/extensions.dart';
+import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
 /// repository
@@ -19,9 +21,9 @@ import 'package:dio/dio.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  final DisplayApi _displayApi;
+  // final DisplayApi _displayApi;
 
-  // final MockApi _displayApi;
+  final MockApi _displayApi;
 
   DisplayRepositoryImpl(this._displayApi);
 
@@ -30,26 +32,31 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required String storeType,
     Map<String, String>? queries,
   }) async {
-    // try {
+    try {
       final response =
           await _displayApi.getCollectionsByStoreType(storeType: storeType);
       final status = response.status;
-      final code = response.code;
-      final msg = response.message;
-      final data = response.data;
 
       if (status.isSuccess) {
-        final List<Collection> collections =
-            data?.map((collectionDto) => collectionDto.toModel()).toList() ??
-                [];
+        final List<Collection> collections = response.data
+                ?.map((collectionDto) => collectionDto.toModel())
+                .toList() ??
+            [];
 
         return Result.success(collections);
       } else {
-        return Result.error(Exception(), 'hi');
+        return Result.error(Exception(response.code), response.message);
       }
-    // } on DioException catch (error) {
-    //   print('[error] $error');
-    // }
+    } on DioError {
+      // print('[error] $error');
+      // CustomLogger.logger.e(error);
+      throw
+      // throw DioError.connectionTimeout(timeout: 2, requestOptions: requestOptions);
+    }
+    on Exception catch (error) {
+
+      throw Exception('알려지지 않은 에러 $error');
+    }
 
     // print('[test] response : $response');
     //
