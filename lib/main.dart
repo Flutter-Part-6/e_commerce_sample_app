@@ -20,6 +20,8 @@ void main() async {
 
   // Hive 등록
   await Hive.initFlutter();
+  await Hive.openBox('settings');
+
   Hive.registerAdapter(DataSourceEntityAdapter());
   Hive.registerAdapter(ViewModuleEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());

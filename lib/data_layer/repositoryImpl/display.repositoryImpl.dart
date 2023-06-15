@@ -1,4 +1,5 @@
 /// data_source
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
@@ -20,9 +21,10 @@ class DisplayRepositoryImpl implements DisplayRepository {
 
   DisplayRepositoryImpl(this._remoteApi, this._mockApi) {
     () async {
-      var dataSource = (await DisplayDao().getDataSource())?.dataSource ?? 0;
-      print(dataSource);
-      _displayApi = dataSource == 1 ? _mockApi : _remoteApi;
+      // var dataSource = (await DisplayDao().getDataSource())?.dataSource ?? 0;
+      var source = Hive.box('settings').get('source');
+      print(source);
+      _displayApi = source == 0 ? _remoteApi : _mockApi;
     }();
   }
 

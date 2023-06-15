@@ -63,15 +63,4 @@ class DisplayDao {
 
     return localStorage.values.toList();
   }
-
-  Future<void> setDataSource(DataSourceEntity source) async {
-    final localStorage = await Hive.openBox<DataSourceEntity>('DATASOURCE');
-    localStorage.put('DATASOURCE', source);
-  }
-
-  Future<DataSourceEntity?> getDataSource() async {
-    final localStorage = await Hive.openBox<DataSourceEntity>('DATASOURCE');
-
-    return localStorage.get('DATASOURCE');
-  }
 }
