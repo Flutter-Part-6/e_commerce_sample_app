@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:sample_app/data_layer/entity/display/data_source/data_source.entity.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
 const String _cartDb = 'CART_DB';

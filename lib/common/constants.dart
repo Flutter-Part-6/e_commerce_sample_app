@@ -7,3 +7,8 @@ class Constants {
   static EdgeInsets get verticalPadding =>
       const EdgeInsets.symmetric(vertical: 16);
 }
+
+enum DataSource {
+  REMOTE,
+  MOCK,
+}

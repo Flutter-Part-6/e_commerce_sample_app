@@ -1,4 +1,5 @@
 /// data_source
+import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
@@ -10,6 +11,7 @@ import 'package:sample_app/domain_layer/repository/display.repository.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 
+import '../../common/constants.dart';
 import '../data_source/local_storage/display_dao.dart';
 import '../data_source/mock/moc_api.dart';
 
@@ -20,12 +22,10 @@ class DisplayRepositoryImpl implements DisplayRepository {
   late DisplayApi _displayApi;
 
   DisplayRepositoryImpl(this._remoteApi, this._mockApi) {
-    () async {
-      // var dataSource = (await DisplayDao().getDataSource())?.dataSource ?? 0;
-      var source = Hive.box('settings').get('source');
-      print(source);
-      _displayApi = source == 0 ? _remoteApi : _mockApi;
-    }();
+    // DataSource source = Hive.box('settings').get('source') ?? DataSource.REMOTE;
+    // _displayApi = source == DataSource.REMOTE ? _remoteApi : _mockApi;
+    int? source = Hive.box('settings').get('dataSource') ?? 0;
+    _displayApi = source == 0 ? _remoteApi : _mockApi;
   }
 
   @override
