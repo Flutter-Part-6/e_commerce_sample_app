@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: router,
         theme: CustomTheme.theme,
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: dotenv.env['FLAVOR'] == 'dev',
       ),
     );
   }
