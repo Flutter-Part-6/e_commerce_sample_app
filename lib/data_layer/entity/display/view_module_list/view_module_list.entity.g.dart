@@ -1,35 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart.entity.dart';
+part of 'view_module_list.entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CartEntityAdapter extends TypeAdapter<CartEntity> {
+class ViewModuleListEntityAdapter extends TypeAdapter<ViewModuleListEntity> {
   @override
-  final int typeId = 3;
+  final int typeId = 1;
 
   @override
-  CartEntity read(BinaryReader reader) {
+  ViewModuleListEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return CartEntity(
-      product: fields[0] as ProductInfoEntity,
-      quantity: fields[1] == null ? 1 : fields[1] as int,
+    return ViewModuleListEntity(
+      viewModules:
+          fields[0] == null ? [] : (fields[0] as List).cast<ViewModuleEntity>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, CartEntity obj) {
+  void write(BinaryWriter writer, ViewModuleListEntity obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.product)
       ..writeByte(1)
-      ..write(obj.quantity);
+      ..writeByte(0)
+      ..write(obj.viewModules);
   }
 
   @override
@@ -38,7 +36,7 @@ class CartEntityAdapter extends TypeAdapter<CartEntity> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CartEntityAdapter &&
+      other is ViewModuleListEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

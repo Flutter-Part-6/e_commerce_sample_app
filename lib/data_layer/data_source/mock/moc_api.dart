@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
 import 'package:sample_app/data_layer/dto/display.dto.dart';
@@ -28,29 +29,35 @@ class MockApi implements DisplayApi {
     print('[test] storeType : $storeType');
     // throw SocketException('no internet');
     return storeType == StoreType.market.name
-        ? Future(() => ResponseWrapper(
-                code: '0000',
-                status: 'SUCCESS',
-                message: '성공입니다.',
-                data: <CollectionDto>[
-                  const CollectionDto(tabId: 10001, title: "컬리추천"),
-                  const CollectionDto(tabId: 10002, title: "신상품"),
-                  const CollectionDto(tabId: 10003, title: "베스트"),
-                  const CollectionDto(tabId: 10004, title: "알뜰쇼핑"),
-                  const CollectionDto(tabId: 10005, title: "특가/혜택")
-                ]))
-        : Future(() => ResponseWrapper(
-                code: '0000',
-                status: 'SUCCESS',
-                message: '성공입니다.',
-                data: <CollectionDto>[
-                  const CollectionDto(tabId: 20001, title: "컬리추천"),
-                  const CollectionDto(tabId: 20002, title: "LUXURY"),
-                  const CollectionDto(tabId: 20003, title: "신상품"),
-                  const CollectionDto(tabId: 20004, title: "베스트"),
-                  const CollectionDto(tabId: 20005, title: "특가/혜택"),
-                  const CollectionDto(tabId: 20005, title: "브랜드")
-                ]));
+        ? Future(
+            () => ResponseWrapper(
+              status: 'SUCCESS',
+              code: '7777',
+              message: '갱신에 실패했습니다.',
+              data: <CollectionDto>[
+                const CollectionDto(tabId: 10001, title: "컬리추천"),
+                const CollectionDto(tabId: 10002, title: "신상품"),
+                const CollectionDto(tabId: 10003, title: "베스트"),
+                const CollectionDto(tabId: 10004, title: "알뜰쇼핑"),
+                const CollectionDto(tabId: 10005, title: "특가/혜택")
+              ],
+            ),
+          )
+        : Future(
+            () => ResponseWrapper(
+              code: '0000',
+              status: 'SUCCESS',
+              message: '성공입니다.',
+              data: <CollectionDto>[
+                const CollectionDto(tabId: 20001, title: "컬리추천"),
+                const CollectionDto(tabId: 20002, title: "LUXURY"),
+                const CollectionDto(tabId: 20003, title: "신상품"),
+                const CollectionDto(tabId: 20004, title: "베스트"),
+                const CollectionDto(tabId: 20005, title: "특가/혜택"),
+                const CollectionDto(tabId: 20005, title: "브랜드")
+              ],
+            ),
+          );
   }
 
   @override
@@ -60,6 +67,7 @@ class MockApi implements DisplayApi {
     required int tabId,
     required int page,
   }) {
+    CustomLogger.logger.d('API 호춣!!!');
     return storeType == StoreType.market.name
         ? Future.delayed(
             Duration(seconds: 2),

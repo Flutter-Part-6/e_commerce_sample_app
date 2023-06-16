@@ -1,34 +1,43 @@
 import 'package:hive/hive.dart';
+import 'package:sample_app/common/utils/logger.dart';
+import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
+import 'package:sample_app/domain_layer/model/display.model.dart';
 
 const String _cartDb = 'CART_DB';
 
 class DisplayDao {
-  Future<List<ViewModuleEntity>> getViewModules(String key, int page) async {
-    final localStorage = await Hive.openBox(key);
-    // localStorage.clear();
-    // print('[test] localstorage : ${localStorage.values.toList()}');
-    final viewModules = localStorage.get(page);
-    // print('[test] ViewModuleEntity : $viewModules');
+  Future<List<ViewModule>> getViewModules(String key, int page) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
 
-    if (viewModules == null) return [];
+    final ViewModuleListEntity? result = await localStorage.get(page);
+    if (result == null) return [];
 
-    return viewModules;
-  }
-
-  Future<void> clearViewModules(String key) async {
-    final localStorage = await Hive.openBox<ViewModuleEntity>(key);
-
-    await localStorage.clear();
+    return result.viewModules.map((e) => e.toModel()).toList();
   }
 
   Future<void> insertViewModules(
     String key,
     int page,
-    List<ViewModuleEntity> viewModules,
+    ViewModuleListEntity viewModules,
   ) async {
-    final localStorage = await Hive.openBox(key);
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
     await localStorage.put(page, viewModules);
+    CustomLogger.logger.d('data insert');
+  }
+
+  Future<void> clearViewModules(String key) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+
+    await localStorage.clear();
+    CustomLogger.logger.d('data clear');
+  }
+
+  Future<void> deleteViewModules(String key, int page) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+
+    await localStorage.delete(page);
+    CustomLogger.logger.d('delete before data');
   }
 
   /// 장바구니 담기

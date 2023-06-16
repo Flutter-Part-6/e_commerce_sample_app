@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/presentation_layer/common/component/home_place_holder.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
@@ -85,13 +86,16 @@ class _BuildViewModulesState extends State<_BuildViewModules>
           },
         ),
       ),
-      onRefresh: () async => context.read<ViewModulesBloc>().add(
-            ViewModulesInitialized(
-              storeType: state.storeType,
-              tabId: state.tabId,
-              isRefresh: true,
-            ),
-          ),
+      onRefresh: () async {
+        CustomLogger.logger.d('리프레쉬!');
+        context.read<ViewModulesBloc>().add(
+              ViewModulesInitialized(
+                storeType: state.storeType,
+                tabId: state.tabId,
+                isRefresh: true,
+              ),
+            );
+      },
     );
   }
 

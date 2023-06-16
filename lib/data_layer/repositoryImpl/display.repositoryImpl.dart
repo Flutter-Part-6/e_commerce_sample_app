@@ -1,13 +1,10 @@
 /// data_source
-import 'dart:io';
 
 import 'package:injectable/injectable.dart';
-import 'package:retrofit/dio.dart';
-import 'package:sample_app/common/utils/exceptions/data_mapping_exception.dart';
-import 'package:sample_app/common/utils/exceptions/network_exception.dart';
+import 'package:sample_app/common/utils/exceptions/base_exception.dart';
+import 'package:sample_app/common/utils/exceptions/service_exception.dart';
 import 'package:sample_app/common/utils/extensions.dart';
-import 'package:sample_app/common/utils/logger.dart';
-import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
+import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 
 /// repository
 import 'package:sample_app/domain_layer/repository/display.repository.dart';
@@ -19,15 +16,14 @@ import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 import '../../common/utils/result/result.dart';
 import '../data_source/local_storage/display_dao.dart';
 import '../data_source/mock/moc_api.dart';
-import '../entity/display/view_module/view_module.entity.dart';
 
 import 'package:dio/dio.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  final DisplayApi _displayApi;
+  // final DisplayApi _displayApi;
 
-  // final MockApi _displayApi;
+  final MockApi _displayApi;
 
   DisplayRepositoryImpl(this._displayApi);
 
@@ -39,29 +35,20 @@ class DisplayRepositoryImpl implements DisplayRepository {
     try {
       final response =
           await _displayApi.getCollectionsByStoreType(storeType: storeType);
-      final status = response.status;
-      final code = response.code;
-      final message = response.message;
-      if (status.isSuccess) {
-        final List<Collection> collections = response.data
-                ?.map((collectionDto) => collectionDto.toModel())
-                .toList() ??
-            [];
-        CustomLogger.logger.d(collections);
+
+      if (response.status.isSuccess) {
+        final List<Collection> collections =
+            response.data?.map((dto) => dto.toModel()).toList() ?? [];
 
         return Result.success(collections);
       } else {
-        return Result.error(Exception('service error'), 'serviceError');
+        return Result.error(
+          ServiceException(code: response.code, message: response.message),
+          response.message,
+        );
       }
-    } on DioError catch (error) {
-      throw NetworkException(error);
-    } on SocketException catch (error) {
-      throw NetworkException(error);
     } catch (error) {
-      return Result.error(
-        Exception(),
-        error.toString(),
-      );
+      throw BaseException.setException(error);
     }
   }
 
@@ -72,35 +59,47 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required int tabId,
     required int page,
   }) async {
-    // final displayDao = DisplayDao();
-    //
-    // final cacheKey = '${storeType}_${tabId}';
-    // final List<ViewModuleEntity> cachedViewModules =
-    //     await displayDao.getViewModules(cacheKey, page);
+    try {
+      final displayDao = DisplayDao();
+      final cacheKey = '${storeType}_${tabId}';
 
-    // print('[test] cachedViewModules : $cachedViewModules');
-    // //TODO refresh인 경우 개발해야 됌
-    // if (cachedViewModules.isNotEmpty) {
-    //   final viewModules = cachedViewModules
-    //       .map((viewModuleEntity) => viewModuleEntity.toModel())
-    //       .toList();
-    //   print('[test] test cache');
-    //
-    //   return viewModules;
-    // }
+      if (isRefresh) {
+        // delete cache
+        await displayDao.clearViewModules(cacheKey);
+      }
 
-    final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
-      storeType: storeType,
-      tabId: tabId,
-      page: page,
-    );
+      final List<ViewModule> cachedViewModules =
+          await displayDao.getViewModules(cacheKey, page);
 
-    print('[test] response : $response');
+      if (cachedViewModules.isNotEmpty) {
+        return cachedViewModules;
+      }
 
-    return response.data
-            ?.map((viewModuleDto) => viewModuleDto.toModel())
-            .toList() ??
-        [];
+      final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
+        storeType: storeType,
+        tabId: tabId,
+        page: page,
+      );
+
+      final List<ViewModule> viewModules =
+          response.data?.map((dto) => dto.toModel()).toList() ?? [];
+
+      // delete before data
+      await displayDao.deleteViewModules(cacheKey, page);
+
+      // insert data
+      await displayDao.insertViewModules(
+        cacheKey,
+        page,
+        ViewModuleListEntity(
+          viewModules: viewModules.map((e) => e.toEntity()).toList(),
+        ),
+      );
+
+      return viewModules;
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 
   @override

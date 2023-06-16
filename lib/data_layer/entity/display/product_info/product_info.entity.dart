@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'product_info.entity.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class ProductInfoEntity extends HiveObject {
   @HiveField(0, defaultValue: '')
   String title;

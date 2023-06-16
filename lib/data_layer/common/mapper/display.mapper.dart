@@ -1,17 +1,14 @@
-import 'package:sample_app/common/utils/exceptions/data_mapping_exception.dart';
-
 import '../../dto/display.dto.dart';
 import '../../../domain_layer/model/display.model.dart';
 import '../../entity/display/display.entity.dart';
+import '../../entity/display/view_module/view_module.entity.dart';
 
 extension CollectionEx on CollectionDto {
   Collection toModel() {
-
-      return Collection(
-        tabId: tabId ?? 0,
-        title: title ?? '',
-      );
-
+    return Collection(
+      tabId: tabId ?? 0,
+      title: title ?? '',
+    );
   }
 }
 
@@ -35,7 +32,7 @@ extension ViewModuleEntityEx on ViewModuleEntity {
     return ViewModule(
       type: type,
       title: title,
-      subtitle: subtitlt,
+      subtitle: subtitle,
       imageUrl: imageUrl,
       time: time,
       products: products.map((entity) => entity.toModel()).toList(),
@@ -49,7 +46,7 @@ extension ViewModuleEx on ViewModule {
     return ViewModuleEntity(
       type: type,
       title: title,
-      subtitlt: subtitle,
+      subtitle: subtitle,
       imageUrl: imageUrl,
       products: products.map((model) => model.toEntity()).toList(),
       time: time,

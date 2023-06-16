@@ -4,7 +4,7 @@ import '../product_info/product_info.entity.dart';
 
 part 'cart.entity.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 3)
 class CartEntity extends HiveObject {
   @HiveField(0)
   ProductInfoEntity product;

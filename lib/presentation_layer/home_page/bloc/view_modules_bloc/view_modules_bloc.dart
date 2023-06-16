@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/display/get_view_modules_by_store_type_and_tab_id.usecase.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -47,19 +48,22 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     ViewModulesInitialized event,
     Emitter<ViewModulesState> emit,
   ) async {
-    final storeType = event.storeType;
-    final tabId = event.tabId;
-    if (event.isRefresh) {
-      emit(state.copyWith(
-        status: ViewModulesStatus.initial,
-        currentPage: 1,
-        endOfPage: false,
-      ));
-    }
-    emit(state.copyWith(status: ViewModulesStatus.loading));
-
-    // try {
+    try {
+      final storeType = event.storeType;
+      final tabId = event.tabId;
       ViewModuleFactory viewModuleFactory = ViewModuleFactory();
+
+      emit(state.copyWith(status: ViewModulesStatus.loading));
+
+      if (event.isRefresh) {
+        emit(state.copyWith(
+          status: ViewModulesStatus.initial,
+          currentPage: 1,
+          endOfPage: false,
+          viewModules: [],
+        ));
+      }
+
 
       final List<ViewModule> response = await _fetch(storeType, tabId);
       final List<Widget> viewModules =
@@ -70,10 +74,10 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
         tabId: tabId,
         viewModules: viewModules,
       ));
-    // } catch (error) {
-    //   emit(state.copyWith(status: ViewModulesStatus.failure));
-    //   log('[error] $error');
-    // }
+    } catch (error) {
+      emit(state.copyWith(status: ViewModulesStatus.failure));
+      log('[error] $error');
+    }
   }
 
   Future<void> _onViewModulesFetched(
@@ -129,15 +133,23 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
   Future<List<ViewModule>> _fetch(
     StoreType storeType,
     int tabId, {
+    bool isRefresh = false,
     Map<String, String>? queryParams,
   }) async {
+    // try {
     final response = _displayUsecase.fetch(GetViewModulesByStoreTypeAndTabId(
       storeType: storeType,
       tabId: tabId,
+      isRefresh: isRefresh,
       params: queryParams,
     ));
 
     return await response;
+    // } catch (error) {
+    //   print('[test] 쨔스!!!!!!!!!!!!!!!');
+    //   CustomLogger.logger.e(error);
+    //   rethrow;
+    // }
   }
 }
 
