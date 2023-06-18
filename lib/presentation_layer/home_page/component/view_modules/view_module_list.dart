@@ -36,25 +36,6 @@ class _BuildViewModulesState extends State<_BuildViewModules>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-  }
-
-  void _onScroll() {
-    if (_isBottom) context.read<ViewModulesBloc>().add(ViewModulesFetched());
-  }
-
-  @override
-  void dispose() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,27 +44,36 @@ class _BuildViewModulesState extends State<_BuildViewModules>
     final state = context.read<ViewModulesBloc>().state;
 
     return RefreshIndicator(
-      child: SingleChildScrollView(
-        controller: _scrollController,
-        child: BlocBuilder<ViewModulesBloc, ViewModulesState>(
-          builder: (context, state) {
-            final status = state.status;
-            final viewModules = state.viewModules;
-            if (status.isFailure) {
-              return const HomePlaceholder();
-            }
+      child: NotificationListener(
+        child: SingleChildScrollView(
+          child: BlocBuilder<ViewModulesBloc, ViewModulesState>(
+            builder: (context, state) {
+              final status = state.status;
+              final viewModules = state.viewModules;
+              if (status.isFailure) {
+                return const HomePlaceholder();
+              }
 
-            return (status.isInitial || viewModules.isEmpty)
-                ? const HomePlaceholder()
-                : Column(
-                    children: [
+              return (status.isInitial || viewModules.isEmpty)
+                  ? const HomePlaceholder()
+                  : Column(children: [
                       ...viewModules,
                       if (status.isLoading) const BottomLoader(),
                       const HomeFooter(),
-                    ],
-                  );
-          },
+                    ]);
+            },
+          ),
         ),
+        onNotification: (ScrollNotification scrollNotification) {
+          final maxScroll = scrollNotification.metrics.maxScrollExtent;
+          final currentScroll = scrollNotification.metrics.pixels;
+
+          if (currentScroll >= (maxScroll * 0.9)) {
+            context.read<ViewModulesBloc>().add(ViewModulesFetched());
+          }
+
+          return false;
+        },
       ),
       onRefresh: () async => context.read<ViewModulesBloc>().add(
             ViewModulesInitialized(
@@ -93,13 +83,5 @@ class _BuildViewModulesState extends State<_BuildViewModules>
             ),
           ),
     );
-  }
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-
-    return currentScroll >= (maxScroll * 0.9);
   }
 }
