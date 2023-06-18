@@ -34,10 +34,7 @@ class _BuildViewModules extends StatefulWidget {
   State<_BuildViewModules> createState() => _BuildViewModulesState();
 }
 
-class _BuildViewModulesState extends State<_BuildViewModules>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _BuildViewModulesState extends State<_BuildViewModules> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -60,8 +57,6 @@ class _BuildViewModulesState extends State<_BuildViewModules>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     final state = context.read<ViewModulesBloc>().state;
 
     return RefreshIndicator(
