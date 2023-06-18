@@ -9,7 +9,12 @@ class AddCart extends RemoteUsecase<DisplayRepository> {
   AddCart({required this.cart});
 
   @override
-  Future<void> execute(DisplayRepository repository) async {
-    await repository.addCart(cart: cart);
+  Future<bool> execute(DisplayRepository repository) async {
+    final result = await repository.addCart(cart: cart);
+
+    return result.when(
+      success: (result) => result,
+      error: (error, msg) => throw error,
+    );
   }
 }

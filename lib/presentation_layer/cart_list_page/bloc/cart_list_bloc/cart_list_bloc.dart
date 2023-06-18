@@ -7,6 +7,8 @@ import 'package:sample_app/domain_layer/usecase/display/cart/clear_cart_list.use
 import 'package:sample_app/domain_layer/usecase/display/cart/delete_cart_by_product_id.dart';
 import 'package:sample_app/domain_layer/usecase/display/cart/get_cart_list.usecase.dart';
 
+import '../../../../common/utils/exceptions/service_exception.dart';
+import '../../../../common/utils/logger.dart';
 import '../../../../domain_layer/model/display/cart/cart.model.dart';
 import '../../../../domain_layer/model/display/product_info/product_info.model.dart';
 import '../../../../domain_layer/usecase/display/cart/add_cart.usecase.dart';
@@ -54,8 +56,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
           totalPrice: totalPrice,
         ),
       );
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -80,8 +88,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         selectedProduct: selectedProducts,
         totalPrice: totalPrice,
       ));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -107,7 +121,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         totalPrice: totalPrice,
       ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -125,8 +139,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
 
       emit(state.copyWith(cartList: cartList, totalPrice: totalPrice));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -145,8 +165,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
 
       emit(state.copyWith(cartList: cartList, totalPrice: totalPrice));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -168,8 +194,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         selectedProduct: selectedProducts,
         totalPrice: totalPrice,
       ));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -191,8 +223,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         selectedProduct: selectedProducts,
         totalPrice: 0,
       ));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -218,7 +256,8 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     try {
       final cart = Cart(quantity: event.quantity, product: event.productInfo);
       await Future.delayed(const Duration(milliseconds: 400));
-      await _displayUsecase.fetch(AddCart(cart: cart));
+      final bool result = await _displayUsecase.fetch(AddCart(cart: cart));
+      CustomLogger.logger.d(result);
       final List<Cart> cartList = await _displayUsecase.fetch(GetCartList());
       final selectedProducts = [...state.selectedProduct];
       final productId = event.productInfo.productId;
@@ -235,8 +274,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
           totalPrice: totalPrice,
         ),
       );
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 }

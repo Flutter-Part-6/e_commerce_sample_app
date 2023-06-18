@@ -17,12 +17,25 @@ Future<bool?> cartBottomSheet(BuildContext context) {
       return SafeArea(
         child: BlocListener<CartListBloc, CartListState>(
           listener: (listCxt, state) {
-            if (context.canPop()) {
-              Navigator.pop(context, true);
+            if (state.status.isError) {
+              ScaffoldMessenger.of(listCxt).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMsg),
+                  behavior: SnackBarBehavior.floating,
+                  duration: Duration(seconds: 2),
+                ),
+              );
+              if (context.canPop()) {
+                Navigator.pop(context, false);
+              }
+            } else {
+              if (context.canPop()) {
+                Navigator.pop(context, true);
+              }
             }
           },
           listenWhen: (prev, cur) =>
-              prev.status.isLoading && cur.status.isSuccess,
+              (prev.status != cur.status) && !cur.status.isLoading,
           child: BlocBuilder<CartBloc, CartState>(
             builder: (ctx, state) {
               return SingleChildScrollView(

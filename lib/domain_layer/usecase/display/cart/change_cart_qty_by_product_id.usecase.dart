@@ -8,7 +8,13 @@ class ChangeCartQtyByProductIdAndQty extends RemoteUsecase<DisplayRepository> {
   ChangeCartQtyByProductIdAndQty({required this.productId, required this.qty});
 
   @override
-  Future<void> execute(DisplayRepository repository) async {
-    await repository.changeCartQuantity(productId: productId, qty: qty);
+  Future<bool> execute(DisplayRepository repository) async {
+    final result =
+        await repository.changeCartQuantity(productId: productId, qty: qty);
+
+    return result.when(
+      success: (result) => result,
+      error: (error, msg) => throw error,
+    );
   }
 }

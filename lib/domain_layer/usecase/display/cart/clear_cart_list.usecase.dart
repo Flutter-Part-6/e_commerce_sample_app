@@ -5,7 +5,12 @@ class ClearCartList extends RemoteUsecase<DisplayRepository> {
   ClearCartList();
 
   @override
-  Future<void> execute(DisplayRepository repository) async {
-    await repository.clearCartList();
+  Future<bool> execute(DisplayRepository repository) async {
+    final result = await repository.clearCartList();
+
+    return result.when(
+      success: (result) => result,
+      error: (error, msg) => throw error,
+    );
   }
 }

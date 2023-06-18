@@ -119,50 +119,105 @@ class DisplayRepositoryImpl implements DisplayRepository {
   }
 
   @override
-  Future<void> addCart({required Cart cart}) async {
+  Future<Result<bool>> addCart({required Cart cart}) async {
     try {
-      await _displayDao.insertCarts(cart.toEntity());
+      final response = await _displayDao.insertCarts(cart.toEntity());
+
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
     } catch (error) {
       throw BaseException.setException(error);
     }
   }
 
   @override
-  Future<List<Cart>> getCartList() async {
+  Future<Result<List<Cart>>> getCartList() async {
     try {
       final response = await _displayDao.getCartList();
 
-      return response.map((e) => e.toModel()).toList();
+      return response.status.isSuccess
+          ? Result.success(
+              response.data?.map((e) => e.toModel()).toList() ?? [],
+            )
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
     } catch (error) {
       throw BaseException.setException(error);
     }
   }
 
   @override
-  Future<void> clearCartList() async {
+  Future<Result<bool>> clearCartList() async {
     try {
-      await _displayDao.clearCarts();
+      final response = await _displayDao.clearCarts();
+
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
     } catch (error) {
       throw BaseException.setException(error);
     }
   }
 
   @override
-  Future<void> deleteCart(List<String> productIds) async {
+  Future<Result<bool>> deleteCart(List<String> productIds) async {
     try {
-      await _displayDao.deleteCart(productIds);
+      final response = await _displayDao.deleteCart(productIds);
+
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
     } catch (error) {
       throw BaseException.setException(error);
     }
   }
 
   @override
-  Future<void> changeCartQuantity({
+  Future<Result<bool>> changeCartQuantity({
     required String productId,
     required int qty,
   }) async {
     try {
-      await _displayDao.changeQtyCart(productId, qty);
+      final response = await _displayDao.changeQtyCart(productId, qty);
+
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
     } catch (error) {
       throw BaseException.setException(error);
     }

@@ -45,11 +45,6 @@ class CartTotalPrice extends StatelessWidget {
                     style: TextStyle(color: Colors.grey, fontSize: 10),
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('상품 금액'), Text(state.totalPrice.toWon())],
-                  ),
-                  SizedBox(height: 10),
                   Divider(thickness: 1),
                   SizedBox(height: 10),
                   Row(

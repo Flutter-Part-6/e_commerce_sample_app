@@ -7,7 +7,12 @@ class DeleteCartByProductId extends RemoteUsecase<DisplayRepository> {
   DeleteCartByProductId({required this.productIds});
 
   @override
-  Future<void> execute(DisplayRepository repository) async {
-    await repository.deleteCart(productIds);
+  Future<bool> execute(DisplayRepository repository) async {
+    final result = await repository.deleteCart(productIds);
+
+    return result.when(
+      success: (result) => result,
+      error: (error, msg) => throw error,
+    );
   }
 }
