@@ -20,70 +20,68 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModulePadding(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: ViewModuleTitle(
+              title: info.title,
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          ViewModuleSubtitle(
+            subtitle: info.subtitle,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          if (info.time > 0)
             Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: ViewModuleTitle(
-                title: info.title,
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                children: [
+                  Lottie.network(
+                    'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
+                    width: 20,
+                    delegates: LottieDelegates(
+                      values: [
+                        ValueDelegate.color(
+                          const ['Oval', 'Oval', 'Fill 1'],
+                          value: Theme.of(context).highlightColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  TimerWidget(
+                    endTime: DateTime.fromMillisecondsSinceEpoch(
+                      info.time,
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            ViewModuleSubtitle(
-              subtitle: info.subtitle,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            if (info.time > 0)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: Row(
-                  children: [
-                    Lottie.network(
-                      'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
-                      width: 20,
-                      delegates: LottieDelegates(
-                        values: [
-                          ValueDelegate.color(
-                            const ['Oval', 'Oval', 'Fill 1'],
-                            value: Theme.of(context).highlightColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    TimerWidget(
-                      endTime: DateTime.fromMillisecondsSinceEpoch(
-                        info.time,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return SpecialPriceProduct(
-                  productInfo: info.products[index],
-                );
-              },
-              separatorBuilder: (_, __) {
-                return const SizedBox(
-                  height: 24,
-                );
-              },
-              itemCount: info.products.length,
-            ),
-          ],
-        ),
+          ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return SpecialPriceProduct(
+                productInfo: info.products[index],
+              );
+            },
+            separatorBuilder: (_, __) {
+              return const SizedBox(
+                height: 24,
+              );
+            },
+            itemCount: info.products.length,
+          ),
+        ],
       ),
     );
   }
