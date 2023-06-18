@@ -7,17 +7,16 @@ import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 
 import 'package:sample_app/domain_layer/model/display/collection/collection.model.dart';
-import 'package:sample_app/domain_layer/usecase/display/get_collections_by_store_type.usecase.dart';
+import 'package:sample_app/domain_layer/usecase/display/collections/get_collections_by_store_type.usecase.dart';
+
+import '../../../../common/constants.dart';
+import '../common/constant.dart';
 
 part 'collections_event.dart';
 
 part 'collections_state.dart';
 
 part 'collections_bloc.freezed.dart';
-
-enum StoreType { market, beauty }
-
-enum CollectionsStatus { initial, loading, success, failure }
 
 @injectable
 class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
@@ -36,30 +35,30 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     final storeType = event.storeType ?? StoreType.market;
 
     emit(state.copyWith(
-      status: CollectionsStatus.loading,
+      status: Status.loading,
       storeType: storeType,
     ));
 
     try {
-      final List<Collection> collections = await _fetchCollections(storeType);
+      final List<Collection> collections = await _fetch(storeType: storeType);
       final int currentTabId = collections.first.tabId;
 
       _validateCollections(collections);
 
       emit(
         state.copyWith(
-          status: CollectionsStatus.success,
+          status: Status.success,
           currentTabId: currentTabId,
           collections: collections,
         ),
       );
     } on NetworkException catch (error) {
       CustomLogger.logger.e(error);
-      emit(state.copyWith(status: CollectionsStatus.failure));
+      emit(state.copyWith(status: Status.error));
     } on ServiceException catch (error) {
       CustomLogger.logger.e(error);
       emit(state.copyWith(
-        status: CollectionsStatus.failure,
+        status: Status.error,
         errorMsg: error.message,
       ));
     } catch (error) {
@@ -73,30 +72,30 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   ) async {
     if (!state.status.isSuccess) return;
 
-    emit(state.copyWith(status: CollectionsStatus.loading));
+    emit(state.copyWith(status: Status.loading));
 
     //입력 받은 storeType
     final storeType = StoreType.values[event.tabIndex];
 
     try {
-      final List<Collection> collections = await _fetchCollections(storeType);
+      final List<Collection> collections = await _fetch(storeType: storeType);
 
       _validateCollections(collections);
 
       emit(
         state.copyWith(
-          status: CollectionsStatus.success,
+          status: Status.success,
           storeType: storeType,
           collections: collections,
         ),
       );
     } on NetworkException catch (error) {
       CustomLogger.logger.e(error);
-      emit(state.copyWith(status: CollectionsStatus.failure));
+      emit(state.copyWith(status: Status.error));
     } on ServiceException catch (error) {
       CustomLogger.logger.e(error);
       emit(state.copyWith(
-        status: CollectionsStatus.failure,
+        status: Status.error,
         errorMsg: error.message,
       ));
     } catch (error) {
@@ -104,7 +103,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     }
   }
 
-  Future<List<Collection>> _fetchCollections(StoreType storeType) async {
+  Future<List<Collection>> _fetch({required StoreType storeType}) async {
     return await _displayUsecase
         .fetch(GetCollectionsByStoreType(storeType: storeType));
   }
@@ -119,29 +118,4 @@ void _validateCollections(List<Collection> collections) {
 
     throw ServiceException(code: code, status: status, message: message);
   }
-}
-
-extension StoreTypeEx on StoreType {
-  String get toName {
-    switch (this) {
-      case StoreType.market:
-        return '마켓다트';
-      case StoreType.beauty:
-        return '뷰티다트';
-    }
-  }
-
-  get isMarket => this == StoreType.market;
-
-  get isBeauty => this == StoreType.beauty;
-}
-
-extension CollectionsStatusEx on CollectionsStatus {
-  bool get isInitial => this == CollectionsStatus.initial;
-
-  bool get isLoading => this == CollectionsStatus.loading;
-
-  bool get isSuccess => this == CollectionsStatus.success;
-
-  bool get isFailure => this == CollectionsStatus.failure;
 }

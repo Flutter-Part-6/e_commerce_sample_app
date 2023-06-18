@@ -1,20 +1,25 @@
-import 'dart:developer';
-
-import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
-import 'package:sample_app/common/utils/exceptions/network_exception.dart';
-import 'package:sample_app/common/utils/exceptions/service_exception.dart';
-import 'package:sample_app/common/utils/logger.dart';
+//usecase
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/display/get_view_modules_by_store_type_and_tab_id.usecase.dart';
-import 'package:stream_transform/stream_transform.dart';
+import '../../../../domain_layer/usecase/display/view_modules/view_modules.usecase.dart';
 
+//model
 import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
 import '../../component/view_modules/core/view_module_factory.dart';
-import '../collections_bloc/collections_bloc.dart';
+
+// utils
+import '../../../../common/constants.dart';
+import '../common/constant.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stream_transform/stream_transform.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sample_app/common/utils/logger.dart';
+
+// exceptions
+import 'package:sample_app/common/utils/exceptions/network_exception.dart';
+import 'package:sample_app/common/utils/exceptions/service_exception.dart';
 
 part 'view_modules_event.dart';
 
@@ -57,14 +62,14 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
 
       if (isRefresh) {
         emit(state.copyWith(
-          status: ViewModulesStatus.initial,
+          status: Status.initial,
           currentPage: 1,
           endOfPage: false,
           viewModules: [],
         ));
       }
 
-      emit(state.copyWith(status: ViewModulesStatus.loading));
+      emit(state.copyWith(status: Status.loading));
 
       final List<ViewModule> response =
           await _fetch(storeType, tabId, isRefresh: isRefresh);
@@ -77,17 +82,17 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       viewModules.add(Divider(thickness: 10));
 
       emit(state.copyWith(
-        status: ViewModulesStatus.success,
+        status: Status.success,
         storeType: storeType,
         tabId: tabId,
         viewModules: viewModules,
       ));
     } on NetworkException catch (error) {
       CustomLogger.logger.e(error);
-      emit(state.copyWith(status: ViewModulesStatus.failure));
+      emit(state.copyWith(status: Status.error));
     } on ServiceException catch (error) {
       CustomLogger.logger.e(error);
-      emit(state.copyWith(status: ViewModulesStatus.failure));
+      emit(state.copyWith(status: Status.error, errorMsg: error.message));
     } catch (error) {
       CustomLogger.logger.e(error.toString());
     }
@@ -97,23 +102,20 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     ViewModulesFetched event,
     Emitter<ViewModulesState> emit,
   ) async {
-    final storeType = state.storeType;
-    final tabId = state.tabId;
-    final currentPage = state.currentPage;
-    final endOfPage = state.endOfPage;
-
     // 끝 page 에 도달한 경우 return
-    if (endOfPage) return;
+    if (state.endOfPage) return;
 
-    final nextPage = currentPage + 1;
-    final Map<String, String> queryParams = {_currentPage: '$nextPage'};
-    emit(state.copyWith(status: ViewModulesStatus.loading));
+    emit(state.copyWith(status: Status.loading));
 
     try {
       ViewModuleFactory viewModuleFactory = ViewModuleFactory();
 
-      final List<ViewModule> response =
-          await _fetch(storeType, tabId, queryParams: queryParams);
+      final nextPage = state.currentPage + 1;
+      final List<ViewModule> response = await _fetch(
+        state.storeType,
+        state.tabId,
+        params: {_currentPage: '$nextPage'},
+      );
 
       // 다음 페이지를 호출했을 때 empty라면 endOfPage -> true
       final List<Widget> viewModules = [...state.viewModules];
@@ -124,9 +126,10 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       //TODO 디바이더 삭제해야됌 테스트용
       viewModules.add(Divider(thickness: 10));
 
+      // 다음 페이지가 비어있는 경우 endOfPage
       if (response.isEmpty) {
         emit(state.copyWith(
-          status: ViewModulesStatus.success,
+          status: Status.success,
           viewModules: viewModules,
           currentPage: nextPage,
           endOfPage: true,
@@ -136,13 +139,18 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       }
 
       emit(state.copyWith(
-        status: ViewModulesStatus.success,
+        status: Status.success,
         viewModules: viewModules,
         currentPage: nextPage,
       ));
+    } on NetworkException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(status: Status.error));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(status: Status.error, errorMsg: error.message));
     } catch (error) {
-      emit(state.copyWith(status: ViewModulesStatus.failure));
-      log('[error] $error');
+      CustomLogger.logger.e(error.toString());
     }
   }
 
@@ -150,27 +158,17 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     StoreType storeType,
     int tabId, {
     bool isRefresh = false,
-    Map<String, String>? queryParams,
+    Map<String, String>? params,
   }) async {
     final response = _displayUsecase.fetch(
       GetViewModulesByStoreTypeAndTabId(
         storeType: storeType,
         tabId: tabId,
         isRefresh: isRefresh,
-        params: queryParams,
+        params: params,
       ),
     );
 
     return await response;
   }
-}
-
-extension ViewModulesStatusEx on ViewModulesStatus {
-  bool get isInitial => this == ViewModulesStatus.initial;
-
-  bool get isLoading => this == ViewModulesStatus.loading;
-
-  bool get isSuccess => this == ViewModulesStatus.success;
-
-  bool get isFailure => this == ViewModulesStatus.failure;
 }

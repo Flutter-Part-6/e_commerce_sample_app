@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CollectionsState {
-  CollectionsStatus get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
   String get errorMsg => throw _privateConstructorUsedError;
   StoreType get storeType => throw _privateConstructorUsedError;
   int get currentTabId => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ abstract class $CollectionsStateCopyWith<$Res> {
       _$CollectionsStateCopyWithImpl<$Res, CollectionsState>;
   @useResult
   $Res call(
-      {CollectionsStatus status,
+      {Status status,
       String errorMsg,
       StoreType storeType,
       int currentTabId,
@@ -64,7 +64,7 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as CollectionsStatus,
+              as Status,
       errorMsg: null == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
@@ -94,7 +94,7 @@ abstract class _$$_CollectionsStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {CollectionsStatus status,
+      {Status status,
       String errorMsg,
       StoreType storeType,
       int currentTabId,
@@ -122,7 +122,7 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as CollectionsStatus,
+              as Status,
       errorMsg: null == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
@@ -147,7 +147,7 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
 
 class _$_CollectionsState implements _CollectionsState {
   _$_CollectionsState(
-      {this.status = CollectionsStatus.initial,
+      {this.status = Status.initial,
       this.errorMsg = '',
       this.storeType = StoreType.market,
       this.currentTabId = 0,
@@ -156,7 +156,7 @@ class _$_CollectionsState implements _CollectionsState {
 
   @override
   @JsonKey()
-  final CollectionsStatus status;
+  final Status status;
   @override
   @JsonKey()
   final String errorMsg;
@@ -209,14 +209,14 @@ class _$_CollectionsState implements _CollectionsState {
 
 abstract class _CollectionsState implements CollectionsState {
   factory _CollectionsState(
-      {final CollectionsStatus status,
+      {final Status status,
       final String errorMsg,
       final StoreType storeType,
       final int currentTabId,
       final List<Collection> collections}) = _$_CollectionsState;
 
   @override
-  CollectionsStatus get status;
+  Status get status;
   @override
   String get errorMsg;
   @override

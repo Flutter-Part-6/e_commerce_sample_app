@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
 import 'package:sample_app/data_layer/dto/display.dto.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
+
+import '../../../common/constants.dart';
 
 class MockApi implements DisplayApi {
   ProductInfoDto get sampleProduct => ProductInfoDto(

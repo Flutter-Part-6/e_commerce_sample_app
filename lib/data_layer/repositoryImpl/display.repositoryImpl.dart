@@ -19,7 +19,6 @@ import 'package:sample_app/common/utils/exceptions/service_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_app/common/utils/extensions.dart';
-import 'package:sample_app/common/utils/logger.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
@@ -46,7 +45,11 @@ class DisplayRepositoryImpl implements DisplayRepository {
         return Result.success(collections);
       } else {
         return Result.error(
-          ServiceException(code: response.code, message: response.message),
+          ServiceException(
+            code: response.code,
+            status: response.status,
+            message: response.message,
+          ),
           response.message,
         );
       }
@@ -73,7 +76,6 @@ class DisplayRepositoryImpl implements DisplayRepository {
       final List<ViewModule> cachedViewModules =
           await _displayDao.getViewModules(cacheKey, page);
 
-      CustomLogger.logger.d(cachedViewModules);
       if (cachedViewModules.isNotEmpty) {
         return cachedViewModules;
       }

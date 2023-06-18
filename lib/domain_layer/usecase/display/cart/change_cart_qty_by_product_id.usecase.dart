@@ -1,5 +1,5 @@
-import '../../repository/display.repository.dart';
-import '../base_usecase/remote.usecase.dart';
+import '../../../repository/display.repository.dart';
+import '../../base_usecase/remote.usecase.dart';
 
 class ChangeCartQtyByProductIdAndQty extends RemoteUsecase<DisplayRepository> {
   final String productId;

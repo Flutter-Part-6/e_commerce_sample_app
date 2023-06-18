@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/presentation_layer/common/component/home_place_holder.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../common/dependency_injection/injection_injectable.dart';
+import '../../bloc/common/constant.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';
 import 'common/bottom_loader.dart';
@@ -68,9 +69,9 @@ class _BuildViewModulesState extends State<_BuildViewModules>
         controller: _scrollController,
         child: BlocBuilder<ViewModulesBloc, ViewModulesState>(
           builder: (context, state) {
-            final status = state.status;
-            final viewModules = state.viewModules;
-            if (status.isFailure) {
+            final Status status = state.status;
+            final List<Widget> viewModules = state.viewModules;
+            if (status.isInitial) {
               return const HomePlaceholder();
             }
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sample_app/presentation_layer/home_page/component/collections_bar/widget/collections_tab_bar.dart';
 import 'package:sample_app/presentation_layer/home_page/component/collections_bar/widget/collections_tab_bar_view.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../domain_layer/model/display/collection/collection.model.dart';
-import '../../bloc/home_page_bloc.dart';
 
 class CollectionsBar extends StatefulWidget {
   const CollectionsBar({
