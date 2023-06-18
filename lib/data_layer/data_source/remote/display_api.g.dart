@@ -19,14 +19,14 @@ class _DisplayApi implements DisplayApi {
   String? baseUrl;
 
   @override
-  Future<List<CollectionDto>> getCollectionsByStoreType(
-      {required storeType}) async {
+  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByStoreType(
+      {required String storeType}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<CollectionDto>>(Options(
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseWrapper<List<CollectionDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -38,24 +38,31 @@ class _DisplayApi implements DisplayApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => CollectionDto.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = ResponseWrapper<List<CollectionDto>>.fromJson(
+      _result.data!,
+      (json) => json is List<dynamic>
+          ? json
+              .map<CollectionDto>(
+                  (i) => CollectionDto.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
+    );
     return value;
   }
 
   @override
-  Future<List<ViewModuleDto>> getViewModulesByStoreTypeAndTabId({
-    required storeType,
-    required tabId,
-    required page,
+  Future<ResponseWrapper<List<ViewModuleDto>>>
+      getViewModulesByStoreTypeAndTabId({
+    required String storeType,
+    required int tabId,
+    required int page,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<ViewModuleDto>>(Options(
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseWrapper<List<ViewModuleDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -67,9 +74,15 @@ class _DisplayApi implements DisplayApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => ViewModuleDto.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = ResponseWrapper<List<ViewModuleDto>>.fromJson(
+      _result.data!,
+      (json) => json is List<dynamic>
+          ? json
+              .map<ViewModuleDto>(
+                  (i) => ViewModuleDto.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
+    );
     return value;
   }
 

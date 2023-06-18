@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CartState {
   CartStatus get status => throw _privateConstructorUsedError;
+  String get errorMsg => throw _privateConstructorUsedError;
   ProductInfo get productInfo => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   int get totalPrice => throw _privateConstructorUsedError;
@@ -33,6 +34,7 @@ abstract class $CartStateCopyWith<$Res> {
   @useResult
   $Res call(
       {CartStatus status,
+      String errorMsg,
       ProductInfo productInfo,
       int quantity,
       int totalPrice});
@@ -54,6 +56,7 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? productInfo = null,
     Object? quantity = null,
     Object? totalPrice = null,
@@ -63,6 +66,10 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as CartStatus,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       productInfo: null == productInfo
           ? _value.productInfo
           : productInfo // ignore: cast_nullable_to_non_nullable
@@ -97,6 +104,7 @@ abstract class _$$_ViewModulesStateCopyWith<$Res>
   @useResult
   $Res call(
       {CartStatus status,
+      String errorMsg,
       ProductInfo productInfo,
       int quantity,
       int totalPrice});
@@ -117,6 +125,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? productInfo = null,
     Object? quantity = null,
     Object? totalPrice = null,
@@ -126,6 +135,10 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as CartStatus,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       productInfo: null == productInfo
           ? _value.productInfo
           : productInfo // ignore: cast_nullable_to_non_nullable
@@ -147,6 +160,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
 class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
       {this.status = CartStatus.close,
+      this.errorMsg = '',
       this.productInfo = const ProductInfo(
           productId: '',
           title: '',
@@ -164,6 +178,9 @@ class _$_ViewModulesState implements _ViewModulesState {
   final CartStatus status;
   @override
   @JsonKey()
+  final String errorMsg;
+  @override
+  @JsonKey()
   final ProductInfo productInfo;
   @override
   @JsonKey()
@@ -174,7 +191,7 @@ class _$_ViewModulesState implements _ViewModulesState {
 
   @override
   String toString() {
-    return 'CartState(status: $status, productInfo: $productInfo, quantity: $quantity, totalPrice: $totalPrice)';
+    return 'CartState(status: $status, errorMsg: $errorMsg, productInfo: $productInfo, quantity: $quantity, totalPrice: $totalPrice)';
   }
 
   @override
@@ -183,6 +200,8 @@ class _$_ViewModulesState implements _ViewModulesState {
         (other.runtimeType == runtimeType &&
             other is _$_ViewModulesState &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg) &&
             (identical(other.productInfo, productInfo) ||
                 other.productInfo == productInfo) &&
             (identical(other.quantity, quantity) ||
@@ -192,8 +211,8 @@ class _$_ViewModulesState implements _ViewModulesState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, status, productInfo, quantity, totalPrice);
+  int get hashCode => Object.hash(
+      runtimeType, status, errorMsg, productInfo, quantity, totalPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -205,12 +224,15 @@ class _$_ViewModulesState implements _ViewModulesState {
 abstract class _ViewModulesState implements CartState {
   factory _ViewModulesState(
       {final CartStatus status,
+      final String errorMsg,
       final ProductInfo productInfo,
       final int quantity,
       final int totalPrice}) = _$_ViewModulesState;
 
   @override
   CartStatus get status;
+  @override
+  String get errorMsg;
   @override
   ProductInfo get productInfo;
   @override

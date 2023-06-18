@@ -23,6 +23,7 @@ void main(name, options) async {
   await Hive.openBox('settings');
 
   Hive.registerAdapter(ViewModuleEntityAdapter());
+  Hive.registerAdapter(ViewModuleListEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());
   Hive.registerAdapter(ProductInfoEntityAdapter());
   Bloc.observer = BlocTestObserver();

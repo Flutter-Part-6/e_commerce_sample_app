@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CollectionsState {
-  CollectionsStatus get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
+  String get errorMsg => throw _privateConstructorUsedError;
   StoreType get storeType => throw _privateConstructorUsedError;
   int get currentTabId => throw _privateConstructorUsedError;
   List<Collection> get collections => throw _privateConstructorUsedError;
@@ -33,7 +34,8 @@ abstract class $CollectionsStateCopyWith<$Res> {
       _$CollectionsStateCopyWithImpl<$Res, CollectionsState>;
   @useResult
   $Res call(
-      {CollectionsStatus status,
+      {Status status,
+      String errorMsg,
       StoreType storeType,
       int currentTabId,
       List<Collection> collections});
@@ -53,6 +55,7 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? storeType = null,
     Object? currentTabId = null,
     Object? collections = null,
@@ -61,7 +64,11 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as CollectionsStatus,
+              as Status,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       storeType: null == storeType
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
@@ -87,7 +94,8 @@ abstract class _$$_CollectionsStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {CollectionsStatus status,
+      {Status status,
+      String errorMsg,
       StoreType storeType,
       int currentTabId,
       List<Collection> collections});
@@ -105,6 +113,7 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? storeType = null,
     Object? currentTabId = null,
     Object? collections = null,
@@ -113,7 +122,11 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as CollectionsStatus,
+              as Status,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       storeType: null == storeType
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
@@ -134,7 +147,8 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
 
 class _$_CollectionsState implements _CollectionsState {
   _$_CollectionsState(
-      {this.status = CollectionsStatus.initial,
+      {this.status = Status.initial,
+      this.errorMsg = '',
       this.storeType = StoreType.market,
       this.currentTabId = 0,
       final List<Collection> collections = const <Collection>[]})
@@ -142,7 +156,10 @@ class _$_CollectionsState implements _CollectionsState {
 
   @override
   @JsonKey()
-  final CollectionsStatus status;
+  final Status status;
+  @override
+  @JsonKey()
+  final String errorMsg;
   @override
   @JsonKey()
   final StoreType storeType;
@@ -160,7 +177,7 @@ class _$_CollectionsState implements _CollectionsState {
 
   @override
   String toString() {
-    return 'CollectionsState(status: $status, storeType: $storeType, currentTabId: $currentTabId, collections: $collections)';
+    return 'CollectionsState(status: $status, errorMsg: $errorMsg, storeType: $storeType, currentTabId: $currentTabId, collections: $collections)';
   }
 
   @override
@@ -169,6 +186,8 @@ class _$_CollectionsState implements _CollectionsState {
         (other.runtimeType == runtimeType &&
             other is _$_CollectionsState &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg) &&
             (identical(other.storeType, storeType) ||
                 other.storeType == storeType) &&
             (identical(other.currentTabId, currentTabId) ||
@@ -178,8 +197,8 @@ class _$_CollectionsState implements _CollectionsState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, storeType, currentTabId,
-      const DeepCollectionEquality().hash(_collections));
+  int get hashCode => Object.hash(runtimeType, status, errorMsg, storeType,
+      currentTabId, const DeepCollectionEquality().hash(_collections));
 
   @JsonKey(ignore: true)
   @override
@@ -190,13 +209,16 @@ class _$_CollectionsState implements _CollectionsState {
 
 abstract class _CollectionsState implements CollectionsState {
   factory _CollectionsState(
-      {final CollectionsStatus status,
+      {final Status status,
+      final String errorMsg,
       final StoreType storeType,
       final int currentTabId,
       final List<Collection> collections}) = _$_CollectionsState;
 
   @override
-  CollectionsStatus get status;
+  Status get status;
+  @override
+  String get errorMsg;
   @override
   StoreType get storeType;
   @override

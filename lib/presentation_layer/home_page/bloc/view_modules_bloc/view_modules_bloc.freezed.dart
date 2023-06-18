@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ViewModulesState {
-  ViewModulesStatus get status => throw _privateConstructorUsedError;
+  Status get status => throw _privateConstructorUsedError;
+  String get errorMsg => throw _privateConstructorUsedError;
   StoreType get storeType => throw _privateConstructorUsedError;
   int get tabId => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
@@ -35,7 +36,8 @@ abstract class $ViewModulesStateCopyWith<$Res> {
       _$ViewModulesStateCopyWithImpl<$Res, ViewModulesState>;
   @useResult
   $Res call(
-      {ViewModulesStatus status,
+      {Status status,
+      String errorMsg,
       StoreType storeType,
       int tabId,
       int currentPage,
@@ -57,6 +59,7 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? storeType = null,
     Object? tabId = null,
     Object? currentPage = null,
@@ -67,7 +70,11 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ViewModulesStatus,
+              as Status,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       storeType: null == storeType
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
@@ -101,7 +108,8 @@ abstract class _$$_ViewModulesStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ViewModulesStatus status,
+      {Status status,
+      String errorMsg,
       StoreType storeType,
       int tabId,
       int currentPage,
@@ -121,6 +129,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? storeType = null,
     Object? tabId = null,
     Object? currentPage = null,
@@ -131,7 +140,11 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as ViewModulesStatus,
+              as Status,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       storeType: null == storeType
           ? _value.storeType
           : storeType // ignore: cast_nullable_to_non_nullable
@@ -160,7 +173,8 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
 
 class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
-      {this.status = ViewModulesStatus.initial,
+      {this.status = Status.initial,
+      this.errorMsg = '',
       this.storeType = StoreType.market,
       this.tabId = 0,
       this.currentPage = 1,
@@ -170,7 +184,10 @@ class _$_ViewModulesState implements _ViewModulesState {
 
   @override
   @JsonKey()
-  final ViewModulesStatus status;
+  final Status status;
+  @override
+  @JsonKey()
+  final String errorMsg;
   @override
   @JsonKey()
   final StoreType storeType;
@@ -194,7 +211,7 @@ class _$_ViewModulesState implements _ViewModulesState {
 
   @override
   String toString() {
-    return 'ViewModulesState(status: $status, storeType: $storeType, tabId: $tabId, currentPage: $currentPage, endOfPage: $endOfPage, viewModules: $viewModules)';
+    return 'ViewModulesState(status: $status, errorMsg: $errorMsg, storeType: $storeType, tabId: $tabId, currentPage: $currentPage, endOfPage: $endOfPage, viewModules: $viewModules)';
   }
 
   @override
@@ -203,6 +220,8 @@ class _$_ViewModulesState implements _ViewModulesState {
         (other.runtimeType == runtimeType &&
             other is _$_ViewModulesState &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg) &&
             (identical(other.storeType, storeType) ||
                 other.storeType == storeType) &&
             (identical(other.tabId, tabId) || other.tabId == tabId) &&
@@ -218,6 +237,7 @@ class _$_ViewModulesState implements _ViewModulesState {
   int get hashCode => Object.hash(
       runtimeType,
       status,
+      errorMsg,
       storeType,
       tabId,
       currentPage,
@@ -233,7 +253,8 @@ class _$_ViewModulesState implements _ViewModulesState {
 
 abstract class _ViewModulesState implements ViewModulesState {
   factory _ViewModulesState(
-      {final ViewModulesStatus status,
+      {final Status status,
+      final String errorMsg,
       final StoreType storeType,
       final int tabId,
       final int currentPage,
@@ -241,7 +262,9 @@ abstract class _ViewModulesState implements ViewModulesState {
       final List<Widget> viewModules}) = _$_ViewModulesState;
 
   @override
-  ViewModulesStatus get status;
+  Status get status;
+  @override
+  String get errorMsg;
   @override
   StoreType get storeType;
   @override

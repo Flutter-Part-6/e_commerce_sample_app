@@ -1,65 +1,124 @@
 import 'package:hive/hive.dart';
+import 'package:sample_app/common/utils/logger.dart';
+import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
+import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
+import 'package:sample_app/domain_layer/model/display.model.dart';
 
 const String _cartDb = 'CART_DB';
 
 class DisplayDao {
-  Future<List<ViewModuleEntity>> getViewModules(String key) async {
-    final localStorage = await Hive.openBox<ViewModuleEntity>(key);
+  Future<List<ViewModule>> getViewModules(String key, int page) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
 
-    return localStorage.values.toList();
-  }
+    final ViewModuleListEntity? result = await localStorage.get(page);
+    if (result == null) return [];
 
-  Future<void> clearViewModules(String key) async {
-    final localStorage = await Hive.openBox<ViewModuleEntity>(key);
-
-    await localStorage.clear();
+    return result.viewModules.map((e) => e.toModel()).toList();
   }
 
   Future<void> insertViewModules(
     String key,
-    List<ViewModuleEntity> viewModules,
+    int page,
+    ViewModuleListEntity viewModules,
   ) async {
-    final localStorage = await Hive.openBox<ViewModuleEntity>(key);
-
-    await localStorage.addAll(viewModules);
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+    await localStorage.put(page, viewModules);
   }
 
-  /// 장바구니 담기
-  Future<void> insertCarts(CartEntity cart) async {
-    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
-    final productId = cart.product.productId;
-    if (localStorage.get(productId) != null) {
-      print('[test] 이미 존재하는 상품입니다. ::: ${cart.product.title}');
+  Future<void> clearViewModules(String key) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
 
-      return;
-    }
-
-    await localStorage.put(productId, cart);
-  }
-
-  Future<void> changeQtyCart(String productId, int qty) async {
-    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
-    final curCart = localStorage.get(productId);
-    if (curCart == null) return;
-    final nextCart = CartEntity(product: curCart.product, quantity: qty);
-    await localStorage.put(productId, nextCart);
-  }
-
-  // 장바구니에 담긴 상품 삭제 by productId
-  Future<void> deleteCart(List<String> productIds) async {
-    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
-    await localStorage.deleteAll(productIds);
-  }
-
-  Future<void> clearCarts() async {
-    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
     await localStorage.clear();
   }
 
-  Future<List<CartEntity>> getCartList() async {
+  Future<void> deleteViewModules(String key, int page) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+
+    await localStorage.delete(page);
+  }
+
+  /// 장바구니 담기
+  Future<ResponseWrapper> insertCarts(CartEntity cart) async {
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
+    final productId = cart.product.productId;
+    if (localStorage.get(productId) != null) {
+      final status = '이미 존재하는 상품입니다. ::: ${cart.product.title}';
+      final code = 'CART-0000';
+      final message = '이미 장바구니에 존재하는 상품입니다.';
+
+      return ResponseWrapper(
+        status: status,
+        code: code,
+        message: message,
+      );
+    }
+
+    await localStorage.put(productId, cart);
+
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 담기 성공',
+    );
+  }
+
+  Future<ResponseWrapper> changeQtyCart(String productId, int qty) async {
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
+    final curCart = localStorage.get(productId);
+    if (curCart == null) {
+      final status = '장바구니 인스턴스가 존재하지 않습니다.';
+      final code = 'CART-0001';
+      final message = '네트워크 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.';
+
+      return ResponseWrapper(
+        status: status,
+        code: code,
+        message: message,
+      );
+    }
+    ;
+    final nextCart = CartEntity(product: curCart.product, quantity: qty);
+    await localStorage.put(productId, nextCart);
+
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 갯수 변경 성공',
+    );
+  }
+
+  // 장바구니에 담긴 상품 삭제 by productId
+  Future<ResponseWrapper> deleteCart(List<String> productIds) async {
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
+    await localStorage.deleteAll(productIds);
+
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 $productIds 해당상품 삭제 성공',
+    );
+  }
+
+  Future<ResponseWrapper> clearCarts() async {
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
+    await localStorage.clear();
+
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 전체 삭제 성공',
+    );
+  }
+
+  Future<ResponseWrapper<List<CartEntity>>> getCartList() async {
     final localStorage = await Hive.openBox<CartEntity>(_cartDb);
 
-    return localStorage.values.toList();
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 리스트 불러오기 성공',
+      data: localStorage.values.toList(),
+    );
   }
 }

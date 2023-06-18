@@ -4,6 +4,7 @@ part of 'cart_bloc.dart';
 class CartState with _$CartState {
   factory CartState({
     @Default(CartStatus.close) CartStatus status,
+    @Default('') String errorMsg,
     @Default(ProductInfo(
       productId: '',
       title: '',

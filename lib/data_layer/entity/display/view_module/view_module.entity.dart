@@ -12,7 +12,7 @@ class ViewModuleEntity extends HiveObject {
   String title;
 
   @HiveField(2, defaultValue: '')
-  String subtitlt;
+  String subtitle;
 
   @HiveField(3, defaultValue: '')
   String imageUrl;
@@ -26,7 +26,7 @@ class ViewModuleEntity extends HiveObject {
   ViewModuleEntity({
     required this.type,
     required this.title,
-    required this.subtitlt,
+    required this.subtitle,
     required this.imageUrl,
     required this.products,
     required this.time,

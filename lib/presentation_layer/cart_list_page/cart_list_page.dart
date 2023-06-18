@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/component/cart_product_card/cart_product_card.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/common/constant.dart';
 
 import '../../common/dependency_injection/injection_injectable.dart';
 import '../common/bloc/payment_bloc/payment_bloc.dart';
@@ -93,14 +94,14 @@ class CartListPage extends StatelessWidget {
               BlocBuilder<CartListBloc, CartListState>(
                 builder: (context, state) {
                   switch (state.status) {
-                    case CartListStatus.initial:
+                    case Status.initial:
                       return Container(
                         height: 300,
                         child: const Center(
                           child: Text('init'),
                         ),
                       );
-                    case CartListStatus.success:
+                    case Status.success:
                       return Column(
                         children: [
                           ...state.cartList
@@ -109,9 +110,9 @@ class CartListPage extends StatelessWidget {
                           const CartTotalPrice(),
                         ],
                       );
-                    case CartListStatus.loading:
+                    case Status.loading:
                       return const Center(child: CircularProgressIndicator());
-                    case CartListStatus.failure:
+                    case Status.error:
                       return Container(
                         height: 300,
                         child: const Center(
@@ -140,7 +141,7 @@ class CartListPage extends StatelessWidget {
                 },
               );
 
-              return state.status == CartListStatus.success
+              return state.status.isSuccess
                   ? PaymentButton(
                       selectedCartList: selectedCartList,
                       totalPrice: state.totalPrice,

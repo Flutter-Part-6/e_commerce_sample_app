@@ -3,7 +3,8 @@ part of 'view_modules_bloc.dart';
 @freezed
 class ViewModulesState with _$ViewModulesState {
   factory ViewModulesState({
-    @Default(ViewModulesStatus.initial) ViewModulesStatus status,
+    @Default(Status.initial) Status status,
+    @Default('') String errorMsg,
     @Default(StoreType.market) StoreType storeType,
     @Default(0) int tabId,
     @Default(1) int currentPage,

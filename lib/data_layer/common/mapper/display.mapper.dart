@@ -1,6 +1,7 @@
 import '../../dto/display.dto.dart';
 import '../../../domain_layer/model/display.model.dart';
 import '../../entity/display/display.entity.dart';
+import '../../entity/display/view_module/view_module.entity.dart';
 
 extension CollectionEx on CollectionDto {
   Collection toModel() {
@@ -31,7 +32,7 @@ extension ViewModuleEntityEx on ViewModuleEntity {
     return ViewModule(
       type: type,
       title: title,
-      subtitle: subtitlt,
+      subtitle: subtitle,
       imageUrl: imageUrl,
       time: time,
       products: products.map((entity) => entity.toModel()).toList(),
@@ -45,7 +46,7 @@ extension ViewModuleEx on ViewModule {
     return ViewModuleEntity(
       type: type,
       title: title,
-      subtitlt: subtitle,
+      subtitle: subtitle,
       imageUrl: imageUrl,
       products: products.map((model) => model.toEntity()).toList(),
       time: time,

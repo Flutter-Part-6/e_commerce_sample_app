@@ -19,7 +19,7 @@ class ViewModuleEntityAdapter extends TypeAdapter<ViewModuleEntity> {
     return ViewModuleEntity(
       type: fields[0] == null ? '' : fields[0] as String,
       title: fields[1] == null ? '' : fields[1] as String,
-      subtitlt: fields[2] == null ? '' : fields[2] as String,
+      subtitle: fields[2] == null ? '' : fields[2] as String,
       imageUrl: fields[3] == null ? '' : fields[3] as String,
       products: fields[4] == null
           ? []
@@ -37,7 +37,7 @@ class ViewModuleEntityAdapter extends TypeAdapter<ViewModuleEntity> {
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.subtitlt)
+      ..write(obj.subtitle)
       ..writeByte(3)
       ..write(obj.imageUrl)
       ..writeByte(4)
