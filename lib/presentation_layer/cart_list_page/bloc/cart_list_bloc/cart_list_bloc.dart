@@ -10,14 +10,13 @@ import 'package:sample_app/domain_layer/usecase/display/cart/get_cart_list.useca
 import '../../../../domain_layer/model/display/cart/cart.model.dart';
 import '../../../../domain_layer/model/display/product_info/product_info.model.dart';
 import '../../../../domain_layer/usecase/display/cart/add_cart.usecase.dart';
+import '../../../home_page/bloc/common/constant.dart';
 
 part 'cart_list_event.dart';
 
 part 'cart_list_state.dart';
 
 part 'cart_list_bloc.freezed.dart';
-
-enum CartListStatus { initial, loading, success, failure }
 
 @injectable
 class CartListBloc extends Bloc<CartListEvent, CartListState> {
@@ -38,7 +37,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     CartListInitialized event,
     Emitter<CartListState> emit,
   ) async {
-    emit(state.copyWith(status: CartListStatus.loading));
+    emit(state.copyWith(status: Status.loading));
 
     try {
       final List<Cart> cartList = await _displayUsecase.fetch(GetCartList());
@@ -49,14 +48,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
 
       emit(
         state.copyWith(
-          status: CartListStatus.success,
+          status: Status.success,
           cartList: cartList,
           selectedProduct: selectedProducts,
           totalPrice: totalPrice,
         ),
       );
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
 
@@ -82,7 +81,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         totalPrice: totalPrice,
       ));
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
 
@@ -108,7 +107,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         totalPrice: totalPrice,
       ));
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
 
@@ -127,7 +126,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
 
       emit(state.copyWith(cartList: cartList, totalPrice: totalPrice));
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
 
@@ -147,7 +146,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
 
       emit(state.copyWith(cartList: cartList, totalPrice: totalPrice));
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
 
@@ -170,7 +169,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         totalPrice: totalPrice,
       ));
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
 
@@ -178,7 +177,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     CartListCleared event,
     Emitter<CartListState> emit,
   ) async {
-    emit(state.copyWith(status: CartListStatus.loading));
+    emit(state.copyWith(status: Status.loading));
 
     try {
       await _displayUsecase.fetch(ClearCartList());
@@ -187,13 +186,13 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
           cartList.map((e) => e.product.productId).toList();
 
       emit(state.copyWith(
-        status: CartListStatus.success,
+        status: Status.success,
         cartList: cartList,
         selectedProduct: selectedProducts,
         totalPrice: 0,
       ));
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
 
@@ -214,7 +213,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     CartListAdded event,
     Emitter<CartListState> emit,
   ) async {
-    emit(state.copyWith(status: CartListStatus.loading));
+    emit(state.copyWith(status: Status.loading));
 
     try {
       final cart = Cart(quantity: event.quantity, product: event.productInfo);
@@ -230,24 +229,14 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
 
       emit(
         state.copyWith(
-          status: CartListStatus.success,
+          status: Status.success,
           cartList: cartList,
           selectedProduct: selectedProducts,
           totalPrice: totalPrice,
         ),
       );
     } catch (error) {
-      emit(state.copyWith(status: CartListStatus.failure));
+      emit(state.copyWith(status: Status.error));
     }
   }
-}
-
-extension CartListStatusEx on CartListStatus {
-  bool get isInitialized => this == CartListStatus.initial;
-
-  bool get isLoading => this == CartListStatus.loading;
-
-  bool get isSuccess => this == CartListStatus.success;
-
-  bool get isFailure => this == CartListStatus.failure;
 }

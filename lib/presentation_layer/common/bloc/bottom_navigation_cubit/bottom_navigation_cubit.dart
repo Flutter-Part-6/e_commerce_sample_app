@@ -2,10 +2,10 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum BottomNavigation { A, B, C, user }
+enum BottomNavigation { home, category, search, user }
 
 class BottomNavigationCubit extends Cubit<BottomNavigation> {
-  BottomNavigationCubit() : super(BottomNavigation.A);
+  BottomNavigationCubit() : super(BottomNavigation.home);
 
   void changeBottomType(int index) => emit(BottomNavigation.values[index]);
 }

@@ -59,7 +59,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
   }
 
   @override
-  Future<List<ViewModule>> getViewModulesByStoreTypeAndTabId({
+  Future<Result<List<ViewModule>>> getViewModulesByStoreTypeAndTabId({
     required bool isRefresh,
     required String storeType,
     required int tabId,
@@ -77,7 +77,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
           await _displayDao.getViewModules(cacheKey, page);
 
       if (cachedViewModules.isNotEmpty) {
-        return cachedViewModules;
+        return Result.success(cachedViewModules);
       }
 
       final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
@@ -86,22 +86,33 @@ class DisplayRepositoryImpl implements DisplayRepository {
         page: page,
       );
 
-      final List<ViewModule> viewModules =
-          response.data?.map((dto) => dto.toModel()).toList() ?? [];
+      if (response.status.isSuccess) {
+        final List<ViewModule> viewModules =
+            response.data?.map((dto) => dto.toModel()).toList() ?? [];
 
-      // delete before data
-      await _displayDao.deleteViewModules(cacheKey, page);
+        // delete before data
+        await _displayDao.deleteViewModules(cacheKey, page);
 
-      // insert data
-      await _displayDao.insertViewModules(
-        cacheKey,
-        page,
-        ViewModuleListEntity(
-          viewModules: viewModules.map((e) => e.toEntity()).toList(),
-        ),
-      );
+        // insert data
+        await _displayDao.insertViewModules(
+          cacheKey,
+          page,
+          ViewModuleListEntity(
+            viewModules: viewModules.map((e) => e.toEntity()).toList(),
+          ),
+        );
 
-      return viewModules;
+        return Result.success(viewModules);
+      } else {
+        return Result.error(
+          ServiceException(
+            code: response.code,
+            status: response.status,
+            message: response.message,
+          ),
+          response.message,
+        );
+      }
     } catch (error) {
       throw BaseException.setException(error);
     }

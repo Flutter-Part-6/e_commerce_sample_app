@@ -1,4 +1,4 @@
-import 'package:sample_app/domain_layer/model/display.model.dart';
+ import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/domain_layer/repository/repository.dart';
 
 import '../../common/utils/result/result.dart';
@@ -11,7 +11,7 @@ abstract class DisplayRepository extends Repository {
   });
 
   // get viewModule list
-  Future<List<ViewModule>> getViewModulesByStoreTypeAndTabId({
+  Future<Result<List<ViewModule>>> getViewModulesByStoreTypeAndTabId({
     required bool isRefresh,
     required String storeType,
     required int tabId,

@@ -18,15 +18,15 @@ class BlocTestObserver extends BlocObserver {
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     if (bloc.runtimeType.toString() == 'CollectionsBloc') {
-      // final current = (change.currentState as CollectionsState).status;
-      // final next = (change.nextState as CollectionsState).status;
+      final current = (change.currentState as CollectionsState).status;
+      final next = (change.nextState as CollectionsState).status;
 
-      // log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      CustomLogger.logger.d('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     } else if (bloc.runtimeType.toString() == 'ViewModulesBloc') {
       final current = (change.currentState as ViewModulesState).status;
       final next = (change.nextState as ViewModulesState).status;
-      CustomLogger.logger.d(
-          'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      // CustomLogger.logger.d(
+      //     'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
       // log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     } else if (bloc.runtimeType.toString() == 'CartBloc') {
       final current = (change.currentState as CartState).status;

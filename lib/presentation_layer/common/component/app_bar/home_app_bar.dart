@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +34,14 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
       context.read<CollectionsBloc>().add(ToggledStoreTypes(tabIndex));
     }
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //
+  //   _tabController.index =
+  //       context.watch<CollectionsBloc>().state.storeType.index;
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {

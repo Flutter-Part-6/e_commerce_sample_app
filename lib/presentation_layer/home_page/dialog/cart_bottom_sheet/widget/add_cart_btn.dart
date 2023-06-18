@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/common/constant.dart';
 
 class AddCartBtn extends StatelessWidget {
   const AddCartBtn({required this.cartBloc, Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class AddCartBtn extends StatelessWidget {
               ),
               width: MediaQuery.of(context).size.width,
               height: 52,
-              child: (state.status == CartListStatus.loading)
+              child: (state.status.isLoading)
                   ? const CircularProgressIndicator(
                       color: Colors.white,
                       strokeWidth: 2,
