@@ -37,6 +37,7 @@
 		5995FD716CCF38C91CC79735 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		61181C2A932C487A14B02287 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F9BCB0B1B785D668BA4331 /* Pods-Runner.release-product.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-product.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-product.xcconfig"; sourceTree = "<group>"; };
+		664A9B079B9139495579CA5B /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 				97C146EF1CF9000F007C117D /* Products */,
 				0263ABA9F30898212DEC6B13 /* Pods */,
 				9D3402E062C95E6F4312E417 /* Frameworks */,
+				664A9B079B9139495579CA5B /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,6 +151,7 @@
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
+				C5520EF32A3EC40E00BB74FA /* [CP] firebase_app_id_file.json */,
 				C53EB7F02A3C485F00D72677 /* GoogleServiceInfo plist */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
@@ -298,6 +301,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "case \"${CONFIGURATION}\" in\n  \"Debug-development\"|\"Release-development\" )\n    cp -r \"${PROJECT_DIR}/Runner/config/development/GoogleService-Info.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n    ;;\n  \"Debug-product\"|\"Release-product\" )\n    cp -r \"${PROJECT_DIR}/Runner/config/product/GoogleService-Info.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n    ;;\n  *)\n;;\nesac\n";
+		};
+		C5520EF32A3EC40E00BB74FA /* [CP] firebase_app_id_file.json */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] firebase_app_id_file.json";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "environment=\"default\"\n \n # Regex to extract the scheme name from the Build Configuration\n # We have named our Build Configurations as Debug-dev, Debug-prod etc.\n # Here, dev and prod are the scheme names. This kind of naming is required by Flutter for flavors to work.\n # We are using the $CONFIGURATION variable available in the XCode build environment to extract \n # the environment (or flavor)\n # For eg.\n # If CONFIGURATION=\"Debug-prod\", then environment will get set to \"prod\".\n if [[ $CONFIGURATION =~ -([^-]*)$ ]]; then\n environment=${BASH_REMATCH[1]}\n fi\n \n echo $environment\n \n # Name and path of the resource we're copying\n FIREBASEPPID_INFO_PLIST=firebase_app_id_file.json\n FIREBASEPPID_INFO_FILE=${PROJECT_DIR}/Runner/config/${environment}/${FIREBASEPPID_INFO_PLIST}\n \n # Make sure firebase_app_id_file.json exists\n echo \"Looking for ${FIREBASEPPID_INFO_PLIST} in ${FIREBASEPPID_INFO_FILE}\"\n if [ ! -f $FIREBASEPPID_INFO_FILE ]\n then\n echo \"No firebase_app_id_file.json found. Please ensure it's in the proper directory.\"\n exit 1\n fi\n \n # Get a reference to the destination location for the firebase_app_id_file.json\n # This is the default location of firebase_app_id_file.json file\n PLIST_DESTINATION=${PROJECT_DIR}\n echo \"Will copy ${FIREBASEPPID_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n \n # Copy over the prod firebase_app_id_file.json for Release builds\n cp \"${FIREBASEPPID_INFO_FILE}\" \"${PLIST_DESTINATION}\"\n";
 		};
 		FB4125192D8FB36F73B310C9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
