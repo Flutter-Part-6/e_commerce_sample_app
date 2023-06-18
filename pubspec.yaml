@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.0+10
+version: 1.0.0+13
 
 environment:
   sdk: '>= 3.0.0'
@@ -66,7 +66,12 @@ dependencies:
   # 결제
   bootpay:
   shimmer:
+
   logger: ^1.4.0
+  firebase_crashlytics: ^3.3.3
+  volume_controller: ^2.0.7
+  flutter_dotenv: ^5.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -88,5 +93,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/.env.dev
+    - assets/.env
 
  

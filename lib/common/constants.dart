@@ -26,3 +26,8 @@ extension StoreTypeX on StoreType {
 
   get isBeauty => this == StoreType.beauty;
 }
+
+enum DataSource {
+  REMOTE,
+  MOCK,
+}

@@ -63,7 +63,7 @@ class CartListPage extends StatelessWidget {
                                 color: (selectedProducts.length ==
                                             cartList.length &&
                                         cartList.length != 0)
-                                    ? Colors.purple
+                                    ? Theme.of(context).primaryColor
                                     : Colors.grey,
                               ),
                               onTap: () => context

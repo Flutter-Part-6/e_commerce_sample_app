@@ -11,14 +11,13 @@ class CustomTheme {
             const BottomNavigationBarThemeData(selectedItemColor: _primary),
         tabBarTheme: TabBarTheme(
           indicator: const UnderlineTabIndicator(
-            borderSide: BorderSide(
-              color: _primary,
-              width: 2,
-            ),
+            borderSide: BorderSide(color: _primary, width: 2),
           ),
           indicatorSize: TabBarIndicatorSize.tab,
           labelColor: _primary,
           unselectedLabelColor: Colors.grey[600],
+          overlayColor:
+              MaterialStatePropertyAll<Color>(Colors.grey[300] ?? Colors.grey),
         ),
       );
 }

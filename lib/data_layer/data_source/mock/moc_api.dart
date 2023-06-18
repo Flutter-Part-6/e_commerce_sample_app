@@ -66,7 +66,17 @@ class MockApi implements DisplayApi {
     required int tabId,
     required int page,
   }) {
-    CustomLogger.logger.d('API 호춣!!!');
+    if (page > 3) {
+      return Future(
+        () => ResponseWrapper(
+          status: '200',
+          code: '0000',
+          message: '성공',
+          data: [],
+        ),
+      );
+    }
+
     return storeType == StoreType.market.name
         ? Future.delayed(
             Duration(seconds: 2),

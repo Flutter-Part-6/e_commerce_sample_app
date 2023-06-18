@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/common/constant.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
 class AddCartBtn extends StatelessWidget {
   const AddCartBtn({required this.cartBloc, Key? key}) : super(key: key);
@@ -35,11 +36,13 @@ class AddCartBtn extends StatelessWidget {
                     )
                   : Text(
                       '${totalPrice.toWon()} 장바구니 담기',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.priceCopyWith()
+                          .copyWith(
+                            color: Colors.white,
+                          ),
                     ),
             ),
             onTap: () => context.read<CartListBloc>().add(

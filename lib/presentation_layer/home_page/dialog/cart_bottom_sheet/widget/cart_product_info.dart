@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
 import '../../../bloc/cart_bloc/cart_bloc.dart';
 
@@ -26,12 +27,16 @@ class CartProductInfo extends StatelessWidget {
               children: [
                 Text(
                   productInfo.title,
+                  style:
+                      Theme.of(context).textTheme.titleSmall?.titleCopyWith(),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   productInfo.subtitle,
-                  style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: Colors.grey,
+                      ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
@@ -12,21 +14,22 @@ import 'package:sample_app/presentation_layer/router.dart';
 import 'package:sample_app/theme.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
-import 'firebase_options.dart';
 
-void main() async {
+void main(name, options) async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // dependency set up
-  configureDependencies();
 
   // Hive 등록
   await Hive.initFlutter();
+  await Hive.openBox('settings');
+
   Hive.registerAdapter(ViewModuleEntityAdapter());
   Hive.registerAdapter(ViewModuleListEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());
   Hive.registerAdapter(ProductInfoEntityAdapter());
   Bloc.observer = BlocTestObserver();
+
+  // dependency set up
+  configureDependencies();
 
   // 카카오 로그인 init
   KakaoSdk.init(
@@ -34,7 +37,13 @@ void main() async {
   );
 
   // firebase initialize
-  Firebase.initializeApp();
+  await Firebase.initializeApp(
+    name: name,
+    options: options,
+  );
+
+  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
   runApp(const MyApp());
 }
@@ -62,7 +71,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: router,
         theme: CustomTheme.theme,
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: dotenv.env['FLAVOR'] == 'dev',
       ),
     );
   }

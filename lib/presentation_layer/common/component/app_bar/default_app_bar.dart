@@ -12,7 +12,7 @@ class DefaultAppBar extends StatelessWidget {
 
     return AppBar(
       title: Text(type == 'user' ? '마이페이지' : type),
-      actions: const [
+      actions: [
         // IconButton(
         //   color: Colors.white,
         //   onPressed: null,

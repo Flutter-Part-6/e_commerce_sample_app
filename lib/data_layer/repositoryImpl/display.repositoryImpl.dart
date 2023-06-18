@@ -1,6 +1,15 @@
 /// data_source
+
+import 'package:sample_app/common/utils/extensions.dart';
+
+import '../../common/utils/exceptions/base_exception.dart';
+import '../../common/utils/exceptions/service_exception.dart';
 import '../data_source/local_storage/display_dao.dart';
 import '../data_source/mock/moc_api.dart';
+
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
+import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 
 /// repository
 import 'package:sample_app/domain_layer/repository/display.repository.dart';
@@ -11,23 +20,19 @@ import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
 import '../../common/utils/result/result.dart';
 
-// Exceptions
-import 'package:sample_app/common/utils/exceptions/base_exception.dart';
-import 'package:sample_app/common/utils/exceptions/service_exception.dart';
-
-// Utils
-import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
-import 'package:sample_app/common/utils/extensions.dart';
-
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  // final DisplayApi _displayApi;
-
-  final MockApi _displayApi;
+  final DisplayApi _remoteApi;
+  final MockApi _mockApi;
+  late DisplayApi _displayApi;
   final DisplayDao _displayDao;
 
-  DisplayRepositoryImpl(this._displayApi, this._displayDao);
+  DisplayRepositoryImpl(this._remoteApi, this._mockApi, this._displayDao) {
+// DataSource source = Hive.box('settings').get('source') ?? DataSource.REMOTE;
+// _displayApi = source == DataSource.REMOTE ? _remoteApi : _mockApi;
+    int? source = Hive.box('settings').get('dataSource') ?? 0;
+    _displayApi = source == 0 ? _remoteApi : _mockApi;
+  }
 
   @override
   Future<Result<List<Collection>>> getCollectionsByStoreType({
@@ -69,7 +74,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
       final cacheKey = '${storeType}_${tabId}';
 
       if (isRefresh) {
-        // delete cache
+// delete cache
         await _displayDao.clearViewModules(cacheKey);
       }
 
@@ -90,10 +95,10 @@ class DisplayRepositoryImpl implements DisplayRepository {
         final List<ViewModule> viewModules =
             response.data?.map((dto) => dto.toModel()).toList() ?? [];
 
-        // delete before data
+// delete before data
         await _displayDao.deleteViewModules(cacheKey, page);
 
-        // insert data
+// insert data
         await _displayDao.insertViewModules(
           cacheKey,
           page,

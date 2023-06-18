@@ -74,6 +74,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i17.CartListBloc(gh<_i13.DisplayUsecase>()));
     gh.factory<_i18.CollectionsBloc>(
         () => _i18.CollectionsBloc(gh<_i13.DisplayUsecase>()));
+
     return this;
   }
 }

@@ -47,7 +47,8 @@ class LoginUsecase extends RemoteUsecase<UserRepository> {
       User user = await UserApi.instance.me();
       final token = await repository.getCustomToken(
         userId: user.id.toString(),
-        email: user.kakaoAccount?.email,
+        email:
+            user.kakaoAccount?.email ?? '${user.id.toString()}@facammarket.com',
       );
 
       await FirebaseAuth.instance.signInWithCustomToken(token);

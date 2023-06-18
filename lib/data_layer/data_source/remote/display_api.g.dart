@@ -12,9 +12,7 @@ class _DisplayApi implements DisplayApi {
   _DisplayApi(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'http://localhost:8080/';
-  }
+  });
 
   final Dio _dio;
 

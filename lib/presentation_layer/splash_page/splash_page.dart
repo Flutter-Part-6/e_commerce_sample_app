@@ -15,7 +15,12 @@ class SplashPage extends StatelessWidget {
           if (state.status == Status.success ||
               state.status == Status.error ||
               state.status == Status.initial) {
-            context.go('/home');
+            Future.delayed(
+              Duration(milliseconds: 1000),
+              () {
+                context.go('/home');
+              },
+            );
           }
         },
         child: Center(
