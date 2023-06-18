@@ -15,7 +15,7 @@ import 'package:sample_app/theme.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
 
-void main() async {
+void main(name, options) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Hive 등록
@@ -36,7 +36,10 @@ void main() async {
   );
 
   // firebase initialize
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    name: name,
+    options: options,
+  );
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
