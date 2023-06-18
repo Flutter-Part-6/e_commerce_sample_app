@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sample_app/common/utils/exceptions/network_exception.dart';
+import 'package:sample_app/common/utils/exceptions/service_exception.dart';
 import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/display/get_view_modules_by_store_type_and_tab_id.usecase.dart';
@@ -20,17 +22,17 @@ part 'view_modules_state.dart';
 
 part 'view_modules_bloc.freezed.dart';
 
+const String _currentPage = 'currentpage';
+
 const _throttleDuration = Duration(milliseconds: 300);
+
+enum ViewModulesStatus { initial, loading, success, failure }
 
 EventTransformer<E> _throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
     return droppable<E>().call(events.throttle(duration), mapper);
   };
 }
-
-enum ViewModulesStatus { initial, loading, success, failure }
-
-const String _currentPage = 'currentpage';
 
 @injectable
 class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
@@ -51,11 +53,9 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     try {
       final storeType = event.storeType;
       final tabId = event.tabId;
-      ViewModuleFactory viewModuleFactory = ViewModuleFactory();
+      final isRefresh = event.isRefresh;
 
-      emit(state.copyWith(status: ViewModulesStatus.loading));
-
-      if (event.isRefresh) {
+      if (isRefresh) {
         emit(state.copyWith(
           status: ViewModulesStatus.initial,
           currentPage: 1,
@@ -64,19 +64,32 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
         ));
       }
 
+      emit(state.copyWith(status: ViewModulesStatus.loading));
 
-      final List<ViewModule> response = await _fetch(storeType, tabId);
+      final List<ViewModule> response =
+          await _fetch(storeType, tabId, isRefresh: isRefresh);
+
+      ViewModuleFactory viewModuleFactory = ViewModuleFactory();
       final List<Widget> viewModules =
           response.map((e) => viewModuleFactory.textToWidget(e)).toList();
+
+      //TODO 디바이더 삭제해야됌 테스트용
+      viewModules.add(Divider(thickness: 10));
+
       emit(state.copyWith(
         status: ViewModulesStatus.success,
         storeType: storeType,
         tabId: tabId,
         viewModules: viewModules,
       ));
-    } catch (error) {
+    } on NetworkException catch (error) {
+      CustomLogger.logger.e(error);
       emit(state.copyWith(status: ViewModulesStatus.failure));
-      log('[error] $error');
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(status: ViewModulesStatus.failure));
+    } catch (error) {
+      CustomLogger.logger.e(error.toString());
     }
   }
 
@@ -91,11 +104,11 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
 
     // 끝 page 에 도달한 경우 return
     if (endOfPage) return;
-    print('[test] fetch!');
+
     final nextPage = currentPage + 1;
     final Map<String, String> queryParams = {_currentPage: '$nextPage'};
     emit(state.copyWith(status: ViewModulesStatus.loading));
-    // return;
+
     try {
       ViewModuleFactory viewModuleFactory = ViewModuleFactory();
 
@@ -107,6 +120,9 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       viewModules.addAll(
         response.map((e) => viewModuleFactory.textToWidget(e)).toList(),
       );
+
+      //TODO 디바이더 삭제해야됌 테스트용
+      viewModules.add(Divider(thickness: 10));
 
       if (response.isEmpty) {
         emit(state.copyWith(
@@ -136,20 +152,16 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     bool isRefresh = false,
     Map<String, String>? queryParams,
   }) async {
-    // try {
-    final response = _displayUsecase.fetch(GetViewModulesByStoreTypeAndTabId(
-      storeType: storeType,
-      tabId: tabId,
-      isRefresh: isRefresh,
-      params: queryParams,
-    ));
+    final response = _displayUsecase.fetch(
+      GetViewModulesByStoreTypeAndTabId(
+        storeType: storeType,
+        tabId: tabId,
+        isRefresh: isRefresh,
+        params: queryParams,
+      ),
+    );
 
     return await response;
-    // } catch (error) {
-    //   print('[test] 쨔스!!!!!!!!!!!!!!!');
-    //   CustomLogger.logger.e(error);
-    //   rethrow;
-    // }
   }
 }
 

@@ -23,21 +23,18 @@ class DisplayDao {
   ) async {
     final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
     await localStorage.put(page, viewModules);
-    CustomLogger.logger.d('data insert');
   }
 
   Future<void> clearViewModules(String key) async {
     final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
 
     await localStorage.clear();
-    CustomLogger.logger.d('data clear');
   }
 
   Future<void> deleteViewModules(String key, int page) async {
     final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
 
     await localStorage.delete(page);
-    CustomLogger.logger.d('delete before data');
   }
 
   /// 장바구니 담기
