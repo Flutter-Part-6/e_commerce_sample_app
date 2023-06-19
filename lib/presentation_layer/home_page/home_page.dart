@@ -7,12 +7,11 @@ import 'package:sample_app/presentation_layer/common/component/server_selector.d
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
-import 'package:sample_app/presentation_layer/home_page/component/collections_bar/collections_bar.dart';
 import 'package:volume_controller/volume_controller.dart';
 
 import '../../common/constants.dart';
 import '../common/component/home_place_holder.dart';
-import 'bloc/common/constant.dart';
+import 'component/home_view/home_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -83,13 +82,13 @@ class _BuildHomePage extends StatelessWidget {
           case Status.initial:
             return const HomePlaceholder();
           case Status.loading:
-            return CollectionsBar(
+            return HomeView(
               storeType: state.storeType,
               collections: collections,
               key: ValueKey<StoreType>(state.storeType),
             );
           case Status.success:
-            return CollectionsBar(
+            return HomeView(
               storeType: state.storeType,
               collections: collections,
             );

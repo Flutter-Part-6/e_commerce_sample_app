@@ -7,12 +7,12 @@ import 'package:sample_app/domain_layer/usecase/display/cart/clear_cart_list.use
 import 'package:sample_app/domain_layer/usecase/display/cart/delete_cart_by_product_id.dart';
 import 'package:sample_app/domain_layer/usecase/display/cart/get_cart_list.usecase.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../common/utils/exceptions/service_exception.dart';
 import '../../../../common/utils/logger.dart';
 import '../../../../domain_layer/model/display/cart/cart.model.dart';
 import '../../../../domain_layer/model/display/product_info/product_info.model.dart';
 import '../../../../domain_layer/usecase/display/cart/add_cart.usecase.dart';
-import '../../../home_page/bloc/common/constant.dart';
 
 part 'cart_list_event.dart';
 

@@ -8,9 +8,26 @@ class Constants {
       const EdgeInsets.symmetric(vertical: 16);
 }
 
-//TODO 스토어타입 위치 확인 해야 됌
 // storeType
 enum StoreType { market, beauty }
+
+//bloc status
+enum Status { initial, loading, success, error }
+
+enum DataSource {
+  REMOTE,
+  MOCK,
+}
+
+extension StatusX on Status {
+  bool get isInitial => this == Status.initial;
+
+  bool get isLoading => this == Status.loading;
+
+  bool get isSuccess => this == Status.success;
+
+  bool get isError => this == Status.error;
+}
 
 extension StoreTypeX on StoreType {
   String get toName {
@@ -25,9 +42,4 @@ extension StoreTypeX on StoreType {
   get isMarket => this == StoreType.market;
 
   get isBeauty => this == StoreType.beauty;
-}
-
-enum DataSource {
-  REMOTE,
-  MOCK,
 }

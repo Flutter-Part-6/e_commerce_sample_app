@@ -8,6 +8,6 @@ FirebaseOptions _firebaseOptions = DefaultFirebaseOptions.currentPlatform;
 
 main() async {
   await dotenv.load(fileName: "assets/.env");
-  print(dotenv.env["FLAVOR"]);
-  entry.main("prod", _firebaseOptions);
+
+  entry.main(dotenv.env["FLAVOR"], _firebaseOptions);
 }

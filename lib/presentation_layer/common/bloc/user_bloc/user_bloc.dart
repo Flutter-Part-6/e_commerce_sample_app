@@ -7,6 +7,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:sample_app/domain_layer/usecase/user.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/user/login_with_token.usecase.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../domain_layer/usecase/user/user.usecase.dart';
 
 part 'user_event.dart';

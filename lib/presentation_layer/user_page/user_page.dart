@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 
+import '../../common/constants.dart';
+
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
 
@@ -15,9 +17,7 @@ class UserPage extends StatelessWidget {
               child: SizedBox(
                 width: 300,
                 child: TextButton(
-                  onPressed: () {
-                    context.read<UserBloc>().add(UserLogin());
-                  },
+                  onPressed: () => context.read<UserBloc>().add(UserLogin()),
                   style: const ButtonStyle(
                     padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(
                       EdgeInsets.zero,
