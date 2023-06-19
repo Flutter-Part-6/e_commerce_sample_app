@@ -22,17 +22,10 @@ import '../../common/utils/result/result.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  final DisplayApi _remoteApi;
-  final MockApi _mockApi;
   late DisplayApi _displayApi;
   final DisplayDao _displayDao;
 
-  DisplayRepositoryImpl(this._remoteApi, this._mockApi, this._displayDao) {
-// DataSource source = Hive.box('settings').get('source') ?? DataSource.REMOTE;
-// _displayApi = source == DataSource.REMOTE ? _remoteApi : _mockApi;
-    int? source = Hive.box('settings').get('dataSource') ?? 0;
-    _displayApi = source == 0 ? _remoteApi : _mockApi;
-  }
+  DisplayRepositoryImpl(this._displayApi, this._displayDao);
 
   @override
   Future<Result<List<Collection>>> getCollectionsByStoreType({

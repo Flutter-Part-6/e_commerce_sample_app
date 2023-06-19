@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:sample_app/common/constants.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';
+import 'package:sample_app/data_layer/entity/display/target_api/target_api.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 
 import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
@@ -20,13 +22,15 @@ void main(name, options) async {
 
   // Hive 등록
   await Hive.initFlutter();
-  await Hive.openBox('settings');
 
+  Hive.registerAdapter(TargetApiAdapter());
   Hive.registerAdapter(ViewModuleEntityAdapter());
   Hive.registerAdapter(ViewModuleListEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());
   Hive.registerAdapter(ProductInfoEntityAdapter());
   Bloc.observer = BlocTestObserver();
+
+  await TargetApiValue().setTargetApi();
 
   // dependency set up
   configureDependencies();
@@ -73,6 +77,26 @@ class MyApp extends StatelessWidget {
         theme: CustomTheme.theme,
         debugShowCheckedModeBanner: dotenv.env['FLAVOR'] == 'dev',
       ),
+    );
+  }
+}
+
+class TargetApiValue {
+  TargetApi? targetApi = TargetApi.REMOTE;
+
+  static final TargetApiValue _instance = TargetApiValue._internal();
+
+  bool get isRemoteApi => targetApi == TargetApi.REMOTE;
+
+  factory TargetApiValue() => _instance;
+  TargetApiValue._internal();
+
+  Future<void> setTargetApi() async {
+    var localStorage = await Hive.openBox<TargetApi>(Constants.targetApiKey);
+
+    targetApi = localStorage.get(
+      Constants.targetApiKey,
+      defaultValue: TargetApi.REMOTE,
     );
   }
 }
