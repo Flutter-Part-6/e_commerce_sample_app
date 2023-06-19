@@ -38,6 +38,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
     final user = event.context.read<UserBloc>().state.user;
 
+    // 로그인 정보가 없으면 권한 없음 상태로 변경
     if (user == null) {
       emit(
         state.copyWith(

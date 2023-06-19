@@ -3,6 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:sample_app/data_layer/data_source/remote/user_api.dart';
 import 'package:sample_app/domain_layer/repository/user.repository.dart';
 
+import '../../common/utils/exceptions/base_exception.dart';
+
 @Singleton(as: UserRepository)
 class UserRepositoryImpl implements UserRepository {
   final UserApi _userApi;
@@ -18,9 +20,7 @@ class UserRepositoryImpl implements UserRepository {
       return await _userApi
           .getCustomToken(params: {'userId': userId, 'email': email});
     } catch (error) {
-      print(error);
-
-      return '';
+      throw BaseException.setException(error);
     }
   }
 }

@@ -7,9 +7,6 @@ import 'package:sample_app/data_layer/dto/display.dto.dart';
 
 part 'display_api.g.dart';
 
-// const String _baseUrl = 'http://localhost:8080/';
-// const String _baseUrl = 'https://f8a5f7112741bd.lhr.life';
-
 @RestApi()
 abstract class DisplayApi {
   factory DisplayApi(Dio dio, {String? baseUrl}) = _DisplayApi;
