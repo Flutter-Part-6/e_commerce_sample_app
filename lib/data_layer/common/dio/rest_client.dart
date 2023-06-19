@@ -12,10 +12,10 @@ class RestClient {
 
   RestClient._internal() {
     _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
-        CustomLogger.logger.d('[request] ${options.uri}');
-        handler.next(options);
-      },
+      // onRequest: (options, handler) {
+      //   CustomLogger.logger.d('[request] ${options.uri}');
+      //   handler.next(options);
+      // },
       // onResponse: (options, handler) {
       //   CustomLogger.logger.d('[response] ${options}');
       //
