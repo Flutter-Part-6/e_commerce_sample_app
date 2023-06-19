@@ -7,18 +7,27 @@ import 'package:sample_app/data_layer/data_source/local_storage/display_dao.dart
 import 'package:sample_app/data_layer/data_source/mock/moc_api.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 import 'package:sample_app/data_layer/data_source/remote/user_api.dart';
+import 'package:sample_app/main.dart';
+
+import '../entity/display/target_api/target_api.dart';
 
 @module
 abstract class ApiModule {
   final Dio _dio = RestClient().getDio;
 
   @singleton
-  DisplayApi get displayApi => DisplayApi(
-        _dio
-          ..options.baseUrl = Platform.isAndroid
-              ? 'http://10.0.2.2:8080'
-              : 'http://localhost:8080',
-      );
+  DisplayApi get displayApi {
+    String baseUrl =
+        Platform.isAndroid ? 'http://10.0.2.2:8080' : 'http://localhost:8080';
+
+    _dio.options.baseUrl = baseUrl;
+
+    return TargetApiValue().isRemoteApi
+        ? DisplayApi(
+            _dio,
+          )
+        : MockApi();
+  }
 
   @singleton
   MockApi get mockApi => MockApi();
