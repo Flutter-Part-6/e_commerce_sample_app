@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sample_app/presentation_layer/home_page/component/collections_bar/widget/collections_tab_bar.dart';
-import 'package:sample_app/presentation_layer/home_page/component/collections_bar/widget/collections_tab_bar_view.dart';
 
 import '../../../../common/constants.dart';
 import '../../../../domain_layer/model/display/collection/collection.model.dart';
+import 'widget/collections_tab_bar.dart';
+import 'widget/collections_tab_bar_view.dart';
 
-class CollectionsBar extends StatefulWidget {
-  const CollectionsBar({
+class HomeView extends StatefulWidget {
+  const HomeView({
     required this.storeType,
     required this.collections,
     super.key,
@@ -16,11 +16,10 @@ class CollectionsBar extends StatefulWidget {
   final List<Collection> collections;
 
   @override
-  State<CollectionsBar> createState() => _CollectionsBarState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _CollectionsBarState extends State<CollectionsBar>
-    with TickerProviderStateMixin {
+class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -50,19 +49,6 @@ class _CollectionsBarState extends State<CollectionsBar>
           collections: widget.collections,
         ),
       ],
-    );
-  }
-}
-
-class LoadingCollectionsBar extends StatelessWidget {
-  const LoadingCollectionsBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 80,
-      child: const Center(child: CircularProgressIndicator()),
     );
   }
 }

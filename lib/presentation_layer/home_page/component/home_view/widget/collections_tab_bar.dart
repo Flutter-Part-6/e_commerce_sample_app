@@ -21,33 +21,17 @@ class CollectionsTabBar extends StatelessWidget {
       ),
       height: 50,
       child: TabBar(
-        tabs: collections.map((e) => GnbTab(e.title)).toList(),
+        tabs: collections
+            .map(
+              (e) => Tab(
+                text: e.title,
+              ),
+            )
+            .toList(),
         controller: tabController,
         isScrollable: true,
         indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
-        onTap: (index) {},
       ),
-    );
-  }
-}
-
-class GnbTab extends StatelessWidget {
-  const GnbTab(this.text, {super.key});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Tab(
-      text: text,
-      // child: Text(
-      //   text,
-      //   style: const TextStyle(
-      //     fontSize: 18,
-      //     fontWeight: FontWeight.bold,
-      //     color: Colors.black,
-      //   ),
-      // ),
     );
   }
 }

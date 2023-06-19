@@ -42,7 +42,7 @@ void main(name, options) async {
     options: options,
   );
 
-  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  // firebase Crashlystics 초기화
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
   runApp(const MyApp());

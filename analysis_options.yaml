@@ -31,3 +31,4 @@ dart_code_metrics:
           - (.*)configure(.*)
           - (.*)BottomSheet
     - avoid-late-keyword: false
+    - avoid-passing-async-when-sync-expected: false

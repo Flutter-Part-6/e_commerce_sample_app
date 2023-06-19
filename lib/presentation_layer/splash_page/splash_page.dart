@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 
+import '../../common/constants.dart';
+
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -11,10 +13,9 @@ class SplashPage extends StatelessWidget {
     return Scaffold(
       body: BlocListener<UserBloc, UserState>(
         listener: (context, state) {
-          print('========== ${state.status == Status.error}');
-          if (state.status == Status.success ||
-              state.status == Status.error ||
-              state.status == Status.initial) {
+          if (state.status.isSuccess ||
+              state.status.isError ||
+              state.status.isInitial) {
             Future.delayed(
               Duration(milliseconds: 1000),
               () {

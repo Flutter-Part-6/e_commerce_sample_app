@@ -7,13 +7,8 @@ import 'package:sample_app/presentation_layer/home_page/component/view_modules/c
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/category_product.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/scroll.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/special_price.view_module.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/view_module_A/view_module_A.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_NONE.dart';
 
-import '../view_module_B/view_module_B.dart';
-import '../view_module_C/view_module_C.dart';
-import '../view_module_D/view_module_D.dart';
-import '../view_module_E/view_module_E.dart';
 import 'view_module_widget.dart';
 
 enum Modules {
@@ -23,11 +18,6 @@ enum Modules {
   bannerViewModule,
   brandProductViewModule,
   scrollViewModule,
-  viewModuleA,
-  viewModuleB,
-  viewModuleC,
-  viewModuleD,
-  viewModuleE,
 }
 
 class ViewModuleFactory {
@@ -59,16 +49,6 @@ extension ModulesEx on Modules {
         return BrandProductViewModule(info);
       case Modules.scrollViewModule:
         return ScrollViewModule(info);
-      case Modules.viewModuleA:
-        return ViewModuleA(info);
-      case Modules.viewModuleB:
-        return ViewModuleB(info);
-      case Modules.viewModuleC:
-        return ViewModuleC(info);
-      case Modules.viewModuleD:
-        return ViewModuleD(info);
-      case Modules.viewModuleE:
-        return ViewModuleE(info);
     }
   }
 }
