@@ -7,10 +7,12 @@ dart_code_metrics:
     - package:dart_code_metrics_presets/all.yaml
   rules-exclude:
     - lib/**/injection_injectable.config.dart
-    - lib/*.g.dart
-    - lib/*.freezed.dart
+    - lib/**/*.g.dart
+    - lib/**/*.freezed.dart
     - lib/firebase_options.dart
+    - lib/firebase_options_dev.dart
     - test/**
+    - lib/**/bloc_test_observer.dart
   rules:
     - prefer-match-file-name: false
     - avoid-non-ascii-symbols: false
@@ -32,3 +34,4 @@ dart_code_metrics:
           - (.*)BottomSheet
     - avoid-late-keyword: false
     - avoid-passing-async-when-sync-expected: false
+    - avoid-throw-in-catch-block: false

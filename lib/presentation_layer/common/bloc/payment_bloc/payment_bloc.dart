@@ -37,6 +37,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     emit(state.copyWith(status: PaymentStatus.initial));
 
     final user = event.context.read<UserBloc>().state.user;
+
     if (user == null) {
       emit(
         state.copyWith(

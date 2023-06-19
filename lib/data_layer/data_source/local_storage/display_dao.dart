@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
 import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
 import 'package:sample_app/data_layer/entity/display/display.entity.dart';

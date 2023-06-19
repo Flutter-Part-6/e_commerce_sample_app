@@ -8,7 +8,7 @@ import 'package:sample_app/common/utils/exceptions/unknown_exception.dart';
 class BaseException implements Exception {
   BaseException();
 
-  static setException(error) {
+  static Exception setException(error) {
     if (error is Exception) {
       switch (error.runtimeType) {
         case SocketException:

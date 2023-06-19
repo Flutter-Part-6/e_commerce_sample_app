@@ -8,7 +8,6 @@ import '../../component/view_modules/core/view_module_factory.dart';
 
 // utils
 import '../../../../common/constants.dart';
-import '../common/constant.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';

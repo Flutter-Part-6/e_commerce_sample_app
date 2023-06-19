@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 
 import '../../../../common/utils/exceptions/network_exception.dart';
 import '../../../../common/utils/exceptions/service_exception.dart';
@@ -21,9 +18,7 @@ enum CartStatus { close, open, error }
 
 @injectable
 class CartBloc extends Bloc<CartEvent, CartState> {
-  final DisplayUsecase _displayUsecase;
-
-  CartBloc(this._displayUsecase) : super(CartState()) {
+  CartBloc() : super(CartState()) {
     on<CartInitialized>(_onCartInitialized);
     on<CartOpened>(_onCartOpened);
     on<CartClosed>(_onCartClosed);

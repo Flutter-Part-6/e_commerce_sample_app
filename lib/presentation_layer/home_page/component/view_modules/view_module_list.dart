@@ -4,7 +4,6 @@ import 'package:sample_app/presentation_layer/common/component/home_place_holder
 
 import '../../../../common/constants.dart';
 import '../../../../common/dependency_injection/injection_injectable.dart';
-import '../../bloc/common/constant.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';
 import 'common/bottom_loader.dart';
@@ -34,7 +33,7 @@ class _BuildViewModules extends StatefulWidget {
 }
 
 class _BuildViewModulesState extends State<_BuildViewModules> {
-  Future<void> _onRefresh(StoreType storeType, int tabId) async {
+  void _onRefresh(StoreType storeType, int tabId) {
     context.read<ViewModulesBloc>().add(
           ViewModulesInitialized(
             storeType: storeType,

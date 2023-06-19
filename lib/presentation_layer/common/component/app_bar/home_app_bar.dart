@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'package:sample_app/presentation_layer/common/component/app_bar/widget/icon_box.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';

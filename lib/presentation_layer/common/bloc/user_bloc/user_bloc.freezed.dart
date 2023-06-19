@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$UserState {
   Status get status => throw _privateConstructorUsedError;
+  String get errorMsg => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,7 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
-  $Res call({Status status, User? user});
+  $Res call({Status status, String errorMsg, User? user});
 }
 
 /// @nodoc
@@ -46,6 +47,7 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -53,6 +55,10 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -68,7 +74,7 @@ abstract class _$$_UserStateCopyWith<$Res> implements $UserStateCopyWith<$Res> {
       __$$_UserStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, User? user});
+  $Res call({Status status, String errorMsg, User? user});
 }
 
 /// @nodoc
@@ -83,6 +89,7 @@ class __$$_UserStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? errorMsg = null,
     Object? user = freezed,
   }) {
     return _then(_$_UserState(
@@ -90,6 +97,10 @@ class __$$_UserStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      errorMsg: null == errorMsg
+          ? _value.errorMsg
+          : errorMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -101,17 +112,20 @@ class __$$_UserStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserState implements _UserState {
-  _$_UserState({this.status = Status.initial, this.user});
+  _$_UserState({this.status = Status.initial, this.errorMsg = '', this.user});
 
   @override
   @JsonKey()
   final Status status;
   @override
+  @JsonKey()
+  final String errorMsg;
+  @override
   final User? user;
 
   @override
   String toString() {
-    return 'UserState(status: $status, user: $user)';
+    return 'UserState(status: $status, errorMsg: $errorMsg, user: $user)';
   }
 
   @override
@@ -120,11 +134,13 @@ class _$_UserState implements _UserState {
         (other.runtimeType == runtimeType &&
             other is _$_UserState &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, user);
+  int get hashCode => Object.hash(runtimeType, status, errorMsg, user);
 
   @JsonKey(ignore: true)
   @override
@@ -134,10 +150,15 @@ class _$_UserState implements _UserState {
 }
 
 abstract class _UserState implements UserState {
-  factory _UserState({final Status status, final User? user}) = _$_UserState;
+  factory _UserState(
+      {final Status status,
+      final String errorMsg,
+      final User? user}) = _$_UserState;
 
   @override
   Status get status;
+  @override
+  String get errorMsg;
   @override
   User? get user;
   @override

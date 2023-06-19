@@ -1,4 +1,4 @@
-class UnexpectedException {
+class UnexpectedException implements Exception {
   final Exception error;
 
   UnexpectedException(this.error);

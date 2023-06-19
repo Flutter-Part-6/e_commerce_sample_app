@@ -5,9 +5,7 @@ import 'package:sample_app/common/utils/extensions.dart';
 import '../../common/utils/exceptions/base_exception.dart';
 import '../../common/utils/exceptions/service_exception.dart';
 import '../data_source/local_storage/display_dao.dart';
-import '../data_source/mock/moc_api.dart';
 
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
 

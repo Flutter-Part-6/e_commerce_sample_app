@@ -8,6 +8,9 @@ import 'package:sample_app/domain_layer/usecase/user.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/user/login_with_token.usecase.dart';
 
 import '../../../../common/constants.dart';
+import '../../../../common/utils/exceptions/network_exception.dart';
+import '../../../../common/utils/exceptions/service_exception.dart';
+import '../../../../common/utils/logger.dart';
 import '../../../../domain_layer/usecase/user/user.usecase.dart';
 
 part 'user_event.dart';
@@ -39,6 +42,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       } else {
         emit(state.copyWith(status: Status.success, user: user));
       }
+    } on NetworkException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(status: Status.error));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
       emit(state.copyWith(status: Status.error));
       log('[error] $error');
@@ -62,6 +74,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       else {
         emit(state.copyWith(status: Status.success, user: user));
       }
+    } on NetworkException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(status: Status.error));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
       // 유저가 수동으로 로그인 재시도 하는 상태를 만들어 주기 위해 initial로 세팅
       emit(state.copyWith(status: Status.initial));
@@ -77,6 +98,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       await _userUsecase.fetch(LogoutUsecase());
       emit(state.copyWith(status: Status.initial, user: null));
+    } on NetworkException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(status: Status.error));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
       emit(state.copyWith(status: Status.error));
       log('[error] $error');

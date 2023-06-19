@@ -10,7 +10,6 @@ import 'package:sample_app/domain_layer/model/display/collection/collection.mode
 import 'package:sample_app/domain_layer/usecase/display/collections/get_collections_by_store_type.usecase.dart';
 
 import '../../../../common/constants.dart';
-import '../common/constant.dart';
 
 part 'collections_event.dart';
 
