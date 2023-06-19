@@ -1,7 +1,5 @@
 part of 'user_bloc.dart';
 
-enum Status { initial, loading, success, error }
-
 @freezed
 class UserState with _$UserState {
   factory UserState({

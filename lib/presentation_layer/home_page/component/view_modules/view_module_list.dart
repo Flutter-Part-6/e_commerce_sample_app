@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/common/component/home_place_holder.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../common/dependency_injection/injection_injectable.dart';
+import '../../bloc/common/constant.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';
 import 'common/bottom_loader.dart';
@@ -32,15 +33,19 @@ class _BuildViewModules extends StatefulWidget {
   State<_BuildViewModules> createState() => _BuildViewModulesState();
 }
 
-class _BuildViewModulesState extends State<_BuildViewModules>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _BuildViewModulesState extends State<_BuildViewModules> {
+  Future<void> _onRefresh(StoreType storeType, int tabId) async {
+    context.read<ViewModulesBloc>().add(
+          ViewModulesInitialized(
+            storeType: storeType,
+            tabId: tabId,
+            isRefresh: true,
+          ),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     final state = context.read<ViewModulesBloc>().state;
 
     return RefreshIndicator(
@@ -50,7 +55,7 @@ class _BuildViewModulesState extends State<_BuildViewModules>
             builder: (context, state) {
               final status = state.status;
               final viewModules = state.viewModules;
-              if (status.isFailure) {
+              if (status.isError) {
                 return const HomePlaceholder();
               }
 
@@ -75,13 +80,7 @@ class _BuildViewModulesState extends State<_BuildViewModules>
           return false;
         },
       ),
-      onRefresh: () async => context.read<ViewModulesBloc>().add(
-            ViewModulesInitialized(
-              storeType: state.storeType,
-              tabId: state.tabId,
-              isRefresh: true,
-            ),
-          ),
+      onRefresh: () async => _onRefresh(state.storeType, state.tabId),
     );
   }
 }

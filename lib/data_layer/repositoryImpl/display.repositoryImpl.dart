@@ -1,5 +1,12 @@
 /// data_source
-import 'package:flutter/cupertino.dart';
+
+import 'package:sample_app/common/utils/extensions.dart';
+
+import '../../common/utils/exceptions/base_exception.dart';
+import '../../common/utils/exceptions/service_exception.dart';
+import '../data_source/local_storage/display_dao.dart';
+import '../data_source/mock/moc_api.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
@@ -10,112 +17,207 @@ import 'package:sample_app/domain_layer/repository/display.repository.dart';
 /// Model & Mapper
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
-
-import '../../common/constants.dart';
-import '../data_source/local_storage/display_dao.dart';
-import '../data_source/mock/moc_api.dart';
+import 'package:sample_app/data_layer/entity/display/display.entity.dart';
+import '../../common/utils/result/result.dart';
 
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
-  final DisplayApi _remoteApi;
-  final MockApi _mockApi;
   late DisplayApi _displayApi;
+  final DisplayDao _displayDao;
 
-  DisplayRepositoryImpl(this._remoteApi, this._mockApi) {
-    // DataSource source = Hive.box('settings').get('source') ?? DataSource.REMOTE;
-    // _displayApi = source == DataSource.REMOTE ? _remoteApi : _mockApi;
-    int? source = Hive.box('settings').get('dataSource') ?? 0;
-    _displayApi = source == 0 ? _remoteApi : _mockApi;
-  }
+  DisplayRepositoryImpl(this._displayApi, this._displayDao);
 
   @override
-  Future<List<Collection>> getCollectionsByStoreType({
+  Future<Result<List<Collection>>> getCollectionsByStoreType({
     required String storeType,
     Map<String, String>? queries,
   }) async {
-    final response =
-        await _displayApi.getCollectionsByStoreType(storeType: storeType);
+    try {
+      final response =
+          await _displayApi.getCollectionsByStoreType(storeType: storeType);
 
-    return response.map((collectionDto) => collectionDto.toModel()).toList();
+      if (response.status.isSuccess) {
+        final List<Collection> collections =
+            response.data?.map((dto) => dto.toModel()).toList() ?? [];
+
+        return Result.success(collections);
+      } else {
+        return Result.error(
+          ServiceException(
+            code: response.code,
+            status: response.status,
+            message: response.message,
+          ),
+          response.message,
+        );
+      }
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 
   @override
-  Future<List<ViewModule>> getViewModulesByStoreTypeAndTabId({
+  Future<Result<List<ViewModule>>> getViewModulesByStoreTypeAndTabId({
     required bool isRefresh,
     required String storeType,
     required int tabId,
     required int page,
   }) async {
-    // final displayDao = DisplayDao();
+    try {
+      final cacheKey = '${storeType}_${tabId}';
 
-    // final cacheKey = '${storeType}_${tabId}_$page';
-    // final List<ViewModuleEntity> cachedViewModules =
-    //     await displayDao.getViewModules(cacheKey);
+      if (isRefresh) {
+// delete cache
+        await _displayDao.clearViewModules(cacheKey);
+      }
 
-    //TODO refresh인 경우 개발해야 됌
-    // if (cachedViewModules.isNotEmpty) {
-    //   final viewModules = cachedViewModules
-    //       .map((viewModuleEntity) => viewModuleEntity.toModel())
-    //       .toList();
-    //   print('[test] test cache');
-    //   return viewModules;
-    // }
+      final List<ViewModule> cachedViewModules =
+          await _displayDao.getViewModules(cacheKey, page);
 
-    final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
-      storeType: storeType,
-      tabId: tabId,
-      page: page,
-    );
+      if (cachedViewModules.isNotEmpty) {
+        return Result.success(cachedViewModules);
+      }
 
-    final List<ViewModule> viewModules =
-        response.map((viewModuleDto) => viewModuleDto.toModel()).toList();
+      final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
+        storeType: storeType,
+        tabId: tabId,
+        page: page,
+      );
 
-    // // delete cache
-    // await displayDao.clearViewModules(cacheKey);
-    //
-    // // insert local_storage
-    // await displayDao.insertViewModules(
-    //     cacheKey, viewModules.map((e) => e.toEntity()).toList());
+      if (response.status.isSuccess) {
+        final List<ViewModule> viewModules =
+            response.data?.map((dto) => dto.toModel()).toList() ?? [];
 
-    return viewModules;
+// delete before data
+        await _displayDao.deleteViewModules(cacheKey, page);
+
+// insert data
+        await _displayDao.insertViewModules(
+          cacheKey,
+          page,
+          ViewModuleListEntity(
+            viewModules: viewModules.map((e) => e.toEntity()).toList(),
+          ),
+        );
+
+        return Result.success(viewModules);
+      } else {
+        return Result.error(
+          ServiceException(
+            code: response.code,
+            status: response.status,
+            message: response.message,
+          ),
+          response.message,
+        );
+      }
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 
   @override
-  Future<void> addCart({required Cart cart}) async {
-    final displayDao = DisplayDao();
+  Future<Result<bool>> addCart({required Cart cart}) async {
+    try {
+      final response = await _displayDao.insertCarts(cart.toEntity());
 
-    await displayDao.insertCarts(cart.toEntity());
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 
   @override
-  Future<List<Cart>> getCartList() async {
-    final displayDao = DisplayDao();
+  Future<Result<List<Cart>>> getCartList() async {
+    try {
+      final response = await _displayDao.getCartList();
 
-    final response = await displayDao.getCartList();
-
-    return response.map((e) => e.toModel()).toList();
+      return response.status.isSuccess
+          ? Result.success(
+              response.data?.map((e) => e.toModel()).toList() ?? [],
+            )
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 
   @override
-  Future<void> clearCartList() async {
-    final displayDao = DisplayDao();
+  Future<Result<bool>> clearCartList() async {
+    try {
+      final response = await _displayDao.clearCarts();
 
-    await displayDao.clearCarts();
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 
   @override
-  Future<void> deleteCart(List<String> productIds) async {
-    final displayDao = DisplayDao();
+  Future<Result<bool>> deleteCart(List<String> productIds) async {
+    try {
+      final response = await _displayDao.deleteCart(productIds);
 
-    await displayDao.deleteCart(productIds);
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 
   @override
-  Future<void> changeCartQuantity({
+  Future<Result<bool>> changeCartQuantity({
     required String productId,
     required int qty,
   }) async {
-    final displayDao = DisplayDao();
-    await displayDao.changeQtyCart(productId, qty);
+    try {
+      final response = await _displayDao.changeQtyCart(productId, qty);
+
+      return response.status.isSuccess
+          ? Result.success(true)
+          : Result.error(
+              ServiceException(
+                code: response.code,
+                status: response.status,
+                message: response.message,
+              ),
+              response.message,
+            );
+    } catch (error) {
+      throw BaseException.setException(error);
+    }
   }
 }

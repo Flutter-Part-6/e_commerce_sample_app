@@ -7,13 +7,17 @@ import 'package:intl/intl.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 
+import '../../../../common/utils/exceptions/network_exception.dart';
+import '../../../../common/utils/exceptions/service_exception.dart';
+import '../../../../common/utils/logger.dart';
+
 part 'cart_event.dart';
 
 part 'cart_state.dart';
 
 part 'cart_bloc.freezed.dart';
 
-enum CartStatus { close, open, failure }
+enum CartStatus { close, open, error }
 
 @injectable
 class CartBloc extends Bloc<CartEvent, CartState> {
@@ -27,16 +31,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartQuantityDecreased>(_onCartQuantityDecreased);
   }
 
-
   void _onCartInitialized(
     CartInitialized event,
     Emitter<CartState> emit,
   ) {}
 
-
   Future<void> _onCartOpened(CartOpened event, Emitter<CartState> emit) async {
     if (state.status.isOpen) return;
-
 
     final productInfo = event.productInfo;
     final quantity = event.quantity;
@@ -49,9 +50,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         quantity: quantity,
         totalPrice: totalPrice,
       ));
+    } on NetworkException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(status: CartStatus.error));
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: CartStatus.error,
+        errorMsg: error.message,
+      ));
     } catch (error) {
-      log('[error] $error');
-      emit(state.copyWith(status: CartStatus.failure));
+      CustomLogger.logger.e('${error.toString()}');
     }
   }
 
@@ -60,8 +69,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       if (state.status.isClose) return;
       emit(state.copyWith(status: CartStatus.close));
     } catch (error) {
-      log('[error] $error');
-      emit(state.copyWith(status: CartStatus.failure));
+      CustomLogger.logger.e('${error.toString()}');
+      emit(state.copyWith(status: CartStatus.error));
     }
   }
 
@@ -69,20 +78,30 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     CartQuantityIncreased event,
     Emitter<CartState> emit,
   ) {
-    final quantity = state.quantity + 1;
-    if (quantity > 999) return;
-    final totalPrice = state.productInfo.price * quantity;
-    emit(state.copyWith(quantity: quantity, totalPrice: totalPrice));
+    try {
+      final quantity = state.quantity + 1;
+      if (quantity > 999) return;
+      final totalPrice = state.productInfo.price * quantity;
+      emit(state.copyWith(quantity: quantity, totalPrice: totalPrice));
+    } catch (error) {
+      CustomLogger.logger.e('${error.toString()}');
+      emit(state.copyWith(status: CartStatus.error));
+    }
   }
 
   Future<void> _onCartQuantityDecreased(
     CartQuantityDecreased event,
     Emitter<CartState> emit,
   ) async {
-    final quantity = state.quantity - 1;
-    if (quantity <= 0) return;
-    final totalPrice = state.productInfo.price * quantity;
-    emit(state.copyWith(quantity: quantity, totalPrice: totalPrice));
+    try {
+      final quantity = state.quantity - 1;
+      if (quantity <= 0) return;
+      final totalPrice = state.productInfo.price * quantity;
+      emit(state.copyWith(quantity: quantity, totalPrice: totalPrice));
+    } catch (error) {
+      CustomLogger.logger.e('${error.toString()}');
+      emit(state.copyWith(status: CartStatus.error));
+    }
   }
 }
 
@@ -104,5 +123,5 @@ extension CartStatusEx on CartStatus {
 
   bool get isOpen => this == CartStatus.open;
 
-  bool get isFailure => this == CartStatus.failure;
+  bool get isError => this == CartStatus.error;
 }

@@ -7,10 +7,11 @@ import 'package:sample_app/presentation_layer/common/component/server_selector.d
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
-import 'package:sample_app/presentation_layer/home_page/component/collections_bar/collections_bar.dart';
 import 'package:volume_controller/volume_controller.dart';
 
+import '../../common/constants.dart';
 import '../common/component/home_place_holder.dart';
+import 'component/home_view/home_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -74,27 +75,53 @@ class _BuildHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CollectionsBloc, CollectionsState>(
+    return BlocConsumer<CollectionsBloc, CollectionsState>(
       builder: (context, state) {
         final collections = state.collections;
         switch (state.status) {
-          case CollectionsStatus.initial:
+          case Status.initial:
             return const HomePlaceholder();
-          case CollectionsStatus.loading:
-            return CollectionsBar(
+          case Status.loading:
+            return HomeView(
               storeType: state.storeType,
               collections: collections,
               key: ValueKey<StoreType>(state.storeType),
             );
-          case CollectionsStatus.success:
-            return CollectionsBar(
+          case Status.success:
+            return HomeView(
               storeType: state.storeType,
               collections: collections,
             );
-          case CollectionsStatus.failure:
+          case Status.error:
             return const HomePlaceholder();
         }
       },
+      listener: (context, state) {
+        if (state.status.isError) {
+          showDialog(
+            context: context,
+            builder: (BuildContext ctx) {
+              return AlertDialog(
+                content: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  child: Text('네트워크 에러가 발생했습니다 \n 잠시후에 다시 사용해주세요'),
+                ),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('확인'),
+                  ),
+                ],
+                actionsPadding: EdgeInsets.zero,
+                actionsAlignment: MainAxisAlignment.center,
+                alignment: Alignment.center,
+              );
+            },
+          );
+        }
+      },
+      listenWhen: (prev, cur) => prev.status != cur.status,
     );
   }
 }

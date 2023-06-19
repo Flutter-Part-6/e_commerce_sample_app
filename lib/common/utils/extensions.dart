@@ -4,4 +4,6 @@ extension StringEx on String {
 
     return replaceAllMapped(exp, (Match m) => ('_${m.group(0)}')).toLowerCase();
   }
+
+  bool get isSuccess => this == 'SUCCESS';
 }

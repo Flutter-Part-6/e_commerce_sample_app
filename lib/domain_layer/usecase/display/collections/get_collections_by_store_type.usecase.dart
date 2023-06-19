@@ -1,5 +1,5 @@
-import '../../../presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
-import '../base_usecase/remote.usecase.dart';
+import '../../../../common/constants.dart';
+import '../../base_usecase/remote.usecase.dart';
 
 import 'package:sample_app/domain_layer/model/display/collection/collection.model.dart';
 import 'package:sample_app/domain_layer/repository/display.repository.dart';
@@ -12,8 +12,13 @@ class GetCollectionsByStoreType extends RemoteUsecase<DisplayRepository> {
 
   @override
   Future<List<Collection>> execute(DisplayRepository repository) async {
-    return await repository.getCollectionsByStoreType(
+    final result = await repository.getCollectionsByStoreType(
       storeType: storeType.name,
+    );
+
+    return result.when(
+      success: (result) => result,
+      error: (error, msg) => throw error,
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:sample_app/domain_layer/model/display/view_module/view_module.model.dart';
 
-import '../../../presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
-import '../base_usecase/remote.usecase.dart';
+import '../../../../common/constants.dart';
+import '../../base_usecase/remote.usecase.dart';
 
 import 'package:sample_app/domain_layer/repository/display.repository.dart';
 
@@ -22,12 +22,16 @@ class GetViewModulesByStoreTypeAndTabId
   @override
   Future<List<ViewModule>> execute(DisplayRepository repository) async {
     final int page = int.parse(params?['currentpage'] ?? '1');
-
-    return await repository.getViewModulesByStoreTypeAndTabId(
+    final result = await repository.getViewModulesByStoreTypeAndTabId(
       isRefresh: isRefresh,
       storeType: storeType.name,
       tabId: tabId,
       page: page,
+    );
+
+    return result.when(
+      success: (result) => result,
+      error: (error, msg) => throw error,
     );
   }
 }

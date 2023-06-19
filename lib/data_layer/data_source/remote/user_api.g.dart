@@ -21,7 +21,7 @@ class _UserApi implements UserApi {
   String? baseUrl;
 
   @override
-  Future<String> getCustomToken({required params}) async {
+  Future<String> getCustomToken({required Map<String, dynamic> params}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
