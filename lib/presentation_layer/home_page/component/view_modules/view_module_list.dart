@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/presentation_layer/common/component/home_place_holder.dart';
 
 import '../../../../common/constants.dart';
@@ -35,6 +34,16 @@ class _BuildViewModules extends StatefulWidget {
 }
 
 class _BuildViewModulesState extends State<_BuildViewModules> {
+  Future<void> _onRefresh(StoreType storeType, int tabId) async {
+    context.read<ViewModulesBloc>().add(
+          ViewModulesInitialized(
+            storeType: storeType,
+            tabId: tabId,
+            isRefresh: true,
+          ),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = context.read<ViewModulesBloc>().state;
@@ -71,16 +80,7 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
           return false;
         },
       ),
-      onRefresh: () async {
-        CustomLogger.logger.d('리프레쉬!');
-        context.read<ViewModulesBloc>().add(
-              ViewModulesInitialized(
-                storeType: state.storeType,
-                tabId: state.tabId,
-                isRefresh: true,
-              ),
-            );
-      },
+      onRefresh: () async => _onRefresh(state.storeType, state.tabId),
     );
   }
 }

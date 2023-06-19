@@ -69,7 +69,7 @@ class MockApi implements DisplayApi {
     if (page > 3) {
       return Future(
         () => ResponseWrapper(
-          status: '200',
+          status: 'SUCCESS',
           code: '0000',
           message: '성공',
           data: [],
@@ -82,7 +82,7 @@ class MockApi implements DisplayApi {
             Duration(seconds: 2),
             () {
               return ResponseWrapper(
-                status: '200',
+                status: 'SUCCESS',
                 code: '0000',
                 message: '성공',
                 data: <ViewModuleDto>[
@@ -204,7 +204,7 @@ class MockApi implements DisplayApi {
             Duration(seconds: 2),
             () {
               return ResponseWrapper(
-                status: '200',
+                status: 'SUCCESS',
                 code: '0000',
                 message: '성공',
                 data: <ViewModuleDto>[

@@ -72,6 +72,8 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
   ) async {
     if (!state.status.isSuccess) return;
 
+    if (state.storeType.index == event.tabIndex) return;
+
     emit(state.copyWith(status: Status.loading));
 
     //입력 받은 storeType

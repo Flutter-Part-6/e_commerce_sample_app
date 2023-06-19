@@ -61,6 +61,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i8.UserRepository>(_i9.UserRepositoryImpl(gh<_i7.UserApi>()));
     gh.singleton<_i10.UserUsecase>(_i10.UserUsecase(gh<_i8.UserRepository>()));
     gh.singleton<_i11.DisplayRepository>(_i12.DisplayRepositoryImpl(
+      gh<_i3.DisplayApi>(),
       gh<_i5.MockApi>(),
       gh<_i4.DisplayDao>(),
     ));
@@ -74,7 +75,6 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i17.CartListBloc(gh<_i13.DisplayUsecase>()));
     gh.factory<_i18.CollectionsBloc>(
         () => _i18.CollectionsBloc(gh<_i13.DisplayUsecase>()));
-
     return this;
   }
 }
