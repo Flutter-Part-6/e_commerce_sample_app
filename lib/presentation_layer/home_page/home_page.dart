@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/presentation_layer/common/component/server_selector.dart';
 import 'package:sample_app/presentation_layer/common/utils/dialog/common_dialog.dart';
 
@@ -77,21 +78,13 @@ class _BuildHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<CollectionsBloc, CollectionsState>(
       builder: (context, state) {
-        final collections = state.collections;
         switch (state.status) {
           case Status.initial:
             return const HomePlaceholder();
           case Status.loading:
-            return HomeView(
-              storeType: state.storeType,
-              collections: collections,
-              key: ValueKey<StoreType>(state.storeType),
-            );
+            return HomeView(key: ValueKey<StoreType>(state.storeType));
           case Status.success:
-            return HomeView(
-              storeType: state.storeType,
-              collections: collections,
-            );
+            return const HomeView();
           case Status.error:
             return const HomePlaceholder();
         }

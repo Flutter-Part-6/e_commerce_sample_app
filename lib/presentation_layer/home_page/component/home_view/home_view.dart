@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
-import '../../../../common/constants.dart';
-import '../../../../domain_layer/model/display/collection/collection.model.dart';
-import 'widget/collections_tab_bar.dart';
-import 'widget/collections_tab_bar_view.dart';
+import '../view_modules/view_module_list.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({
-    required this.storeType,
-    required this.collections,
-    super.key,
-  });
-
-  final StoreType storeType;
-  final List<Collection> collections;
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -23,10 +15,10 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
-  void initState() {
-    super.initState();
-    _tabController =
-        TabController(length: widget.collections.length, vsync: this);
+  void didChangeDependencies() {
+    final collections = context.watch<CollectionsBloc>().state.collections;
+    _tabController = TabController(length: collections.length, vsync: this);
+    super.didChangeDependencies();
   }
 
   @override
@@ -37,16 +29,35 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final storeType = context.watch<CollectionsBloc>().state.storeType;
+    final collections = context.watch<CollectionsBloc>().state.collections;
+
     return Column(
       children: [
-        CollectionsTabBar(
-          tabController: _tabController,
-          collections: widget.collections,
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(color: Colors.grey[300] ?? Colors.grey),
+            ),
+          ),
+          height: 50,
+          child: TabBar(
+            tabs: collections.map((e) => Tab(text: e.title)).toList(),
+            controller: _tabController,
+            isScrollable: true,
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+            onTap: (index) {},
+          ),
         ),
-        CollectionsTabBarView(
-          tabController: _tabController,
-          storeType: widget.storeType,
-          collections: widget.collections,
+        Expanded(
+          child: TabBarView(
+            children: collections
+                .map(
+                  (e) => ViewModuleList(tabId: e.tabId, storeType: storeType),
+                )
+                .toList(),
+            controller: _tabController,
+          ),
         ),
       ],
     );
