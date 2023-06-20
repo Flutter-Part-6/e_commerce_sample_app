@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/common/component/home_place_holder.dart';
 
 import '../../../../common/constants.dart';
-import '../../../../common/dependency_injection/injection_injectable.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';
 import 'common/bottom_loader.dart';
@@ -17,9 +16,11 @@ class ViewModuleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<ViewModulesBloc>()
-        ..add(ViewModulesInitialized(storeType: storeType, tabId: tabId)),
+    return BlocProvider.value(
+      value: BlocProvider.of<ViewModulesBloc>(context)
+        ..add(
+          ViewModulesInitialized(storeType: storeType, tabId: tabId),
+        ),
       child: const _BuildViewModules(),
     );
   }
