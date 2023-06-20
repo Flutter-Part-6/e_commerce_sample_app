@@ -1,5 +1,8 @@
 /// API
 import 'package:injectable/injectable.dart';
+import 'package:sample_app/common/utils/exceptions/service_exception.dart';
+import 'package:sample_app/common/utils/extensions.dart';
+import 'package:sample_app/common/utils/result/result.dart';
 import 'package:sample_app/data_layer/data_source/remote/user_api.dart';
 import 'package:sample_app/domain_layer/repository/user.repository.dart';
 
@@ -12,13 +15,26 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this._userApi);
 
   @override
-  Future<String> getCustomToken({
+  Future<Result<String>> getCustomToken({
     required String userId,
     String? email,
   }) async {
     try {
-      return await _userApi
+      final response = await _userApi
           .getCustomToken(params: {'userId': userId, 'email': email});
+
+      if ((response.data?.isEmpty ?? true) || !response.status.isSuccess) {
+        return Result.error(
+          ServiceException(
+            code: response.code,
+            status: response.status,
+            message: response.message,
+          ),
+          response.message,
+        );
+      }
+
+      return Result.success(response.data ?? '');
     } catch (error) {
       throw BaseException.setException(error);
     }

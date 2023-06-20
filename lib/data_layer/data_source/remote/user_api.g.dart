@@ -13,7 +13,7 @@ class _UserApi implements UserApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://us-central1-deer-app-dev.cloudfunctions.net/';
+    baseUrl ??= 'https://us-central1-designer-app-a6145.cloudfunctions.net/';
   }
 
   final Dio _dio;
@@ -21,25 +21,30 @@ class _UserApi implements UserApi {
   String? baseUrl;
 
   @override
-  Future<String> getCustomToken({required Map<String, dynamic> params}) async {
+  Future<ResponseWrapper<String>> getCustomToken(
+      {required Map<String, dynamic> params}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(params);
-    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseWrapper<String>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/createCustomToken',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+            .compose(
+              _dio.options,
+              '/createCustomToken',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ResponseWrapper<String>.fromJson(
+      _result.data!,
+      (json) => json as String,
+    );
     return value;
   }
 
