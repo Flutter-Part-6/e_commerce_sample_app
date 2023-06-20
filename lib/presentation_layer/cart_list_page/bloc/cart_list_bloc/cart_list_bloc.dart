@@ -26,6 +26,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
 
   CartListBloc(this._displayUsecase) : super(CartListState()) {
     on<CartListInitialized>(_onCartListInitialized);
+    on<CartListGetList>(_onCartListGetList);
     on<CartListAdded>(_onCartListAdded);
     on<CartListDeleted>(_onCartDeleted);
     on<CartListCleared>(_onCartListCleared);
@@ -67,12 +68,39 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     }
   }
 
+  Future<void> _onCartListGetList(
+    CartListGetList event,
+    Emitter<CartListState> emit,
+  ) async {
+    emit(state.copyWith(status: Status.loading));
+
+    try {
+      final List<Cart> cartList = await _displayUsecase.fetch(GetCartList());
+
+      emit(
+        state.copyWith(
+          status: Status.success,
+          cartList: cartList,
+        ),
+      );
+    } on ServiceException catch (error) {
+      CustomLogger.logger.e(error);
+      emit(state.copyWith(
+        status: Status.error,
+        errorMsg: error.message,
+      ));
+    } catch (error) {
+      CustomLogger.logger.e('${error.toString()}');
+    }
+  }
+
   Future<void> _onCartSelectedAll(
     CartListSelectedAll event,
     Emitter<CartListState> emit,
   ) async {
     try {
       // 이미 전체 선택이 되어있는 경우 -> 모두 지움
+
       if (state.selectedProduct.length == state.cartList.length) {
         final totalPrice = _calTotalPrice([], state.cartList);
         emit(state.copyWith(selectedProduct: [], totalPrice: totalPrice));

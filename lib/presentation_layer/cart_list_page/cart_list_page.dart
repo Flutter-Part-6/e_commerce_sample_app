@@ -17,6 +17,18 @@ class CartListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: BlocProvider.of<CartListBloc>(context)..add(CartListGetList()),
+      child: const CartListView(),
+    );
+  }
+}
+
+class CartListView extends StatelessWidget {
+  const CartListView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     var cartListBloc = context.read<CartListBloc>();
 
     return BlocProvider(

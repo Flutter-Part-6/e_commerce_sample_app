@@ -6,6 +6,7 @@ import 'package:sample_app/presentation_layer/common/component/app_bar/widget/ic
 import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
 import '../../../../common/constants.dart';
+import '../../../routes.dart';
 
 class HomeAppBar extends StatefulWidget {
   const HomeAppBar({super.key});
@@ -106,8 +107,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
             Stack(alignment: Alignment.center, children: [
               IconBox(
                 icon: Icons.shopping_cart_outlined,
-                onPressed: () => context.push('/cart-list').whenComplete(() =>
-                    context.read<CartListBloc>().add(CartListSelectedAll())),
+                onPressed: () => context.push(Routes.cartPath),
                 color: storeType.isMarket ? Colors.white : primaryColor,
               ),
               Positioned(

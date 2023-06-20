@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
@@ -21,8 +19,8 @@ class BlocTestObserver extends BlocObserver {
       final current = (change.currentState as CollectionsState).status;
       final next = (change.nextState as CollectionsState).status;
 
-      CustomLogger.logger.d(
-          'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      // CustomLogger.logger.d(
+      //     'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     } else if (bloc.runtimeType.toString() == 'ViewModulesBloc') {
       final current = (change.currentState as ViewModulesState).status;
       final next = (change.nextState as ViewModulesState).status;
@@ -32,24 +30,24 @@ class BlocTestObserver extends BlocObserver {
     } else if (bloc.runtimeType.toString() == 'CartBloc') {
       final current = (change.currentState as CartState).status;
       final next = (change.nextState as CartState).status;
-      log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      // log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     } else if (bloc.runtimeType.toString() == 'CartListBloc') {
       final current = (change.currentState as CartListState).status;
       final next = (change.nextState as CartListState).status;
-      CustomLogger.logger.d(
-          'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      // CustomLogger.logger.d(
+      //     'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     }
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    log('onError -- ${bloc.runtimeType}, $error');
+    // log('onError -- ${bloc.runtimeType}, $error');
     super.onError(bloc, error, stackTrace);
   }
 
   @override
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
-    log('onClose -- ${bloc.runtimeType},###${bloc.hashCode},');
+    // log('onClose -- ${bloc.runtimeType},###${bloc.hashCode},');
   }
 }
