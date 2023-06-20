@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sample_app/common/constants.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
+import 'package:sample_app/presentation_layer/common/utils/snack_bar/common_snack_bar.dart';
 
 import 'widget/cart_bottom_sheet.widget.dart';
 
@@ -14,20 +15,10 @@ Future<bool?> cartBottomSheet(BuildContext context) {
         child: BlocListener<CartListBloc, CartListState>(
           listener: (_, state) {
             if (state.status.isError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.errorMsg),
-                  behavior: SnackBarBehavior.floating,
-                  duration: Duration(seconds: 2),
-                ),
-              );
-              if (context.canPop()) {
-                Navigator.pop(context, false);
-              }
-            } else {
-              if (context.canPop()) {
-                Navigator.pop(context, true);
-              }
+              CommonSnackBar.errorSnackBar(context, msg: state.errorMsg);
+            }
+            if (context.canPop()) {
+              Navigator.pop(context, !state.status.isError);
             }
           },
           listenWhen: (prev, cur) =>

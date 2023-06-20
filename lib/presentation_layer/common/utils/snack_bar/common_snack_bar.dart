@@ -6,6 +6,16 @@ import '../../../routes.dart';
 class CommonSnackBar {
   CommonSnackBar();
 
+  static errorSnackBar(BuildContext context, {required String msg}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   static addCartSnackBar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
