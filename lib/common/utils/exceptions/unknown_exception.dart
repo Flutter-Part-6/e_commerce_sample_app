@@ -1,4 +1,4 @@
-class UnknownException implements Exception {
+class UnknownException {
   final String errorMsg;
 
   UnknownException({required this.errorMsg});
