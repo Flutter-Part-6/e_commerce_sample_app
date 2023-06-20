@@ -16,6 +16,7 @@ import 'package:sample_app/presentation_layer/router.dart';
 import 'package:sample_app/theme.dart';
 
 import 'common/dependency_injection/injection_injectable.dart';
+import 'presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
 void main(name, options) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,6 +67,12 @@ class MyApp extends StatelessWidget {
             ),
         ),
         BlocProvider(
+          create: (_) => getIt<CartBloc>()
+            ..add(
+              CartInitialized(),
+            ),
+        ),
+        BlocProvider(
           create: (_) => getIt<CartListBloc>()
             ..add(
               CartListInitialized(),
@@ -89,6 +96,7 @@ class TargetApiValue {
   bool get isRemoteApi => targetApi == TargetApi.REMOTE;
 
   factory TargetApiValue() => _instance;
+
   TargetApiValue._internal();
 
   Future<void> setTargetApi() async {

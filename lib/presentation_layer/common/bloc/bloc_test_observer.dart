@@ -21,7 +21,8 @@ class BlocTestObserver extends BlocObserver {
       final current = (change.currentState as CollectionsState).status;
       final next = (change.nextState as CollectionsState).status;
 
-      CustomLogger.logger.d('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      CustomLogger.logger.d(
+          'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     } else if (bloc.runtimeType.toString() == 'ViewModulesBloc') {
       final current = (change.currentState as ViewModulesState).status;
       final next = (change.nextState as ViewModulesState).status;
@@ -31,11 +32,12 @@ class BlocTestObserver extends BlocObserver {
     } else if (bloc.runtimeType.toString() == 'CartBloc') {
       final current = (change.currentState as CartState).status;
       final next = (change.nextState as CartState).status;
-      // log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     } else if (bloc.runtimeType.toString() == 'CartListBloc') {
       final current = (change.currentState as CartListState).status;
       final next = (change.nextState as CartListState).status;
-      // log('onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
+      CustomLogger.logger.d(
+          'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');
     }
   }
 

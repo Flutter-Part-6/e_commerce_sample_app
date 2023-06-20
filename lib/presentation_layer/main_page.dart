@@ -8,6 +8,9 @@ import 'package:sample_app/presentation_layer/home_page/home_page.dart';
 import '../common/constants.dart';
 import '../common/dependency_injection/injection_injectable.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+import 'common/utils/common_snack_bar.dart';
+import 'home_page/bloc/cart_bloc/cart_bloc.dart';
+import 'home_page/dialog/cart_bottom_sheet/cart_bottom_sheet.dart';
 import 'user_page/user_page.dart';
 
 class MainPage extends StatelessWidget {
@@ -35,19 +38,31 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopAppBar(AppBar()),
-      body: BlocBuilder<BottomNavigationCubit, BottomNavigation>(
-        builder: (context, state) {
-          switch (state) {
-            case BottomNavigation.home:
-              return const HomePage();
-            case BottomNavigation.category:
-              return const SamplePage();
-            case BottomNavigation.search:
-              return const SamplePage();
-            case BottomNavigation.user:
-              return const UserPage();
+      body: BlocListener<CartBloc, CartState>(
+        listener: (context, state) async {
+          final bottomSheet = cartBottomSheet(context)
+              .whenComplete(() => context.read<CartBloc>().add(CartClosed()));
+          final isSuccess = await bottomSheet ?? false;
+
+          if (isSuccess) {
+            CommonSnackBar.addCartSnackBar(context);
           }
         },
+        listenWhen: (pre, cur) => pre.status.isClose && cur.status.isOpen,
+        child: BlocBuilder<BottomNavigationCubit, BottomNavigation>(
+          builder: (context, state) {
+            switch (state) {
+              case BottomNavigation.home:
+                return const HomePage();
+              case BottomNavigation.category:
+                return const SamplePage();
+              case BottomNavigation.search:
+                return const SamplePage();
+              case BottomNavigation.user:
+                return const UserPage();
+            }
+          },
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
