@@ -55,7 +55,7 @@ class LoginUsecase extends RemoteUsecase<UserRepository> {
           user.kakaoAccount?.email ?? '${user.id.toString()}@facammarket.com',
     );
 
-    result.when(
+    return result.when(
       success: (token) async {
         await FirebaseAuth.instance.signInWithCustomToken(token);
 
