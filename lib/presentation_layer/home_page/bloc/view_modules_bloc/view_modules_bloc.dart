@@ -59,6 +59,7 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       final tabId = event.tabId;
       final isRefresh = event.isRefresh;
 
+      CustomLogger.logger.d('bloc ! storeType:$storeType , tabId: $tabId');
       if (isRefresh) {
         emit(state.copyWith(
           status: Status.initial,

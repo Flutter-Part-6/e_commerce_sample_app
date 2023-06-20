@@ -11,8 +11,8 @@ class ViewModuleList extends StatelessWidget {
   const ViewModuleList({required this.tabId, required this.storeType, Key? key})
       : super(key: key);
 
-  final int tabId;
   final StoreType storeType;
+  final int tabId;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +21,16 @@ class ViewModuleList extends StatelessWidget {
         ..add(
           ViewModulesInitialized(storeType: storeType, tabId: tabId),
         ),
-      child: const _BuildViewModules(),
+      child: _BuildViewModules(storeType, tabId),
     );
   }
 }
 
 class _BuildViewModules extends StatefulWidget {
-  const _BuildViewModules();
+  const _BuildViewModules(this.storeType, this.tabId);
+
+  final int tabId;
+  final StoreType storeType;
 
   @override
   State<_BuildViewModules> createState() => _BuildViewModulesState();
@@ -46,8 +49,6 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<ViewModulesBloc>().state;
-
     return RefreshIndicator(
       child: NotificationListener(
         child: SingleChildScrollView(
@@ -80,7 +81,7 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
           return false;
         },
       ),
-      onRefresh: () async => _onRefresh(state.storeType, state.tabId),
+      onRefresh: () async => _onRefresh(widget.storeType, widget.tabId),
     );
   }
 }
