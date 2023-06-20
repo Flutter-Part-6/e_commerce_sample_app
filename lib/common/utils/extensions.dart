@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 extension StringEx on String {
   String toSnakeCase() {
@@ -48,5 +49,18 @@ extension TextStyleEx on TextStyle {
       fontWeight: FontWeight.w600,
       height: 1.15,
     );
+  }
+}
+
+// extensions
+extension IntEx on int {
+  String toWon() {
+    final priceFormat = NumberFormat('###,###,###,###원');
+
+    return priceFormat.format(this);
+  }
+
+  String toReview() {
+    return this > 9999 ? '9999+' : toString();
   }
 }

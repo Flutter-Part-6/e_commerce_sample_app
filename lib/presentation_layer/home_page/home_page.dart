@@ -9,7 +9,7 @@ import 'package:volume_controller/volume_controller.dart';
 
 import '../../common/constants.dart';
 import '../../common/dependency_injection/injection_injectable.dart';
-import '../common/component/home_place_holder.dart';
+import 'component/home_placeholder.dart';
 import 'bloc/home_page_bloc.dart';
 import 'component/home_view/home_view.dart';
 

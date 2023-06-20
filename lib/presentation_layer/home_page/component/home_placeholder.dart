@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../common/placeholders.dart';
+import '../../common/component/placeholders.dart';
 
 class HomePlaceholder extends StatelessWidget {
   const HomePlaceholder({Key? key}) : super(key: key);
