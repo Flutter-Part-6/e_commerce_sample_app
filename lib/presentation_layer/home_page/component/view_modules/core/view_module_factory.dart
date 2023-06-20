@@ -7,8 +7,8 @@ import 'package:sample_app/presentation_layer/home_page/component/view_modules/c
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/category_product.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/scroll.view_module.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/special_price.view_module.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_NONE.dart';
 
+import '../widget/view_module_NONE.dart';
 import 'view_module_widget.dart';
 
 enum Modules {

@@ -5,7 +5,7 @@ import 'package:sample_app/presentation_layer/common/component/home_place_holder
 import '../../../../common/constants.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';
-import 'common/bottom_loader.dart';
+import 'widget/bottom_loader.dart';
 
 class ViewModuleList extends StatelessWidget {
   const ViewModuleList({required this.tabId, required this.storeType, Key? key})

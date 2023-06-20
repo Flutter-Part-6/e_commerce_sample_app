@@ -9,7 +9,7 @@ import '../../common/constants.dart';
 import '../../common/dependency_injection/injection_injectable.dart';
 import '../common/bloc/payment_bloc/payment_bloc.dart';
 import '../common/component/app_bar/widget/icon_box.dart';
-import '../common/component/paymeny_button.dart';
+import '../common/component/paymoney_button.dart';
 import 'component/cart_total_price/cart_total_price.dart';
 
 class CartListPage extends StatelessWidget {

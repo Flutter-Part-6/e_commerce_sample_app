@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_padding.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_subtitle.dart';
+import 'package:sample_app/common/utils/extensions.dart';
 
-import 'common/add_cart_button.dart';
-import 'common/view_module_title.dart';
 import 'core/view_module_widget.dart';
+import 'widget/add_cart_button.dart';
+import 'widget/view_module_padding.dart';
+import 'widget/view_module_subtitle.dart';
+import 'widget/view_module_title.dart';
 
 class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
   const SpecialPriceViewModule(this.info, {Key? key}) : super(key: key);

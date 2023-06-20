@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/display/cart/change_cart_qty_by_product_id.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/display/cart/clear_cart_list.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/display/cart/delete_cart_by_product_id.dart';
+import 'package:sample_app/domain_layer/usecase/display/cart/delete_cart_by_product_id.usecase.dart';
 import 'package:sample_app/domain_layer/usecase/display/cart/get_cart_list.usecase.dart';
 
 import '../../../../common/constants.dart';
