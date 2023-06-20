@@ -6,7 +6,7 @@ import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc
 import 'package:sample_app/presentation_layer/cart_list_page/component/cart_product_card/cart_product_card.dart';
 
 import '../../common/constants.dart';
-import '../../common/dependency_injection/injection_injectable.dart';
+import '../../common/dependency_injection/dependency_injection.dart';
 import '../common/bloc/payment_bloc/payment_bloc.dart';
 import '../common/component/app_bar/widget/icon_box.dart';
 import '../common/component/paymoney_button.dart';

@@ -8,7 +8,7 @@ import 'package:sample_app/presentation_layer/common/utils/dialog/common_dialog.
 import 'package:volume_controller/volume_controller.dart';
 
 import '../../common/constants.dart';
-import '../../common/dependency_injection/injection_injectable.dart';
+import '../../common/dependency_injection/dependency_injection.dart';
 import 'component/home_placeholder.dart';
 import 'bloc/home_page_bloc.dart';
 import 'component/home_view/home_view.dart';

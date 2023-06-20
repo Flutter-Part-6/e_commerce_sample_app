@@ -59,15 +59,12 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       final tabId = event.tabId;
       final isRefresh = event.isRefresh;
 
-      CustomLogger.logger.d('bloc ! storeType:$storeType , tabId: $tabId');
-      if (isRefresh) {
-        emit(state.copyWith(
-          status: Status.initial,
-          currentPage: 1,
-          endOfPage: false,
-          viewModules: [],
-        ));
-      }
+      emit(state.copyWith(
+        status: Status.initial,
+        currentPage: 1,
+        endOfPage: false,
+        viewModules: [],
+      ));
 
       emit(state.copyWith(status: Status.loading));
 
@@ -77,9 +74,6 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       ViewModuleFactory viewModuleFactory = ViewModuleFactory();
       final List<Widget> viewModules =
           response.map((e) => viewModuleFactory.textToWidget(e)).toList();
-
-      //TODO 디바이더 삭제해야됌 테스트용
-      viewModules.add(Divider(thickness: 10));
 
       emit(state.copyWith(
         status: Status.success,
@@ -116,7 +110,8 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
         state.tabId,
         params: {_currentPage: '$nextPage'},
       );
-
+      print(
+          '[test] storeType : ${state.storeType}, tabId : ${state.tabId} page : $nextPage');
       // 다음 페이지를 호출했을 때 empty라면 endOfPage -> true
       final List<Widget> viewModules = [...state.viewModules];
       viewModules.addAll(
