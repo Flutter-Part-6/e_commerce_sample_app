@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/view_module_title.dart';
 
 import '../../../../common/constants.dart';
 import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
 import 'core/view_module_widget.dart';
+import 'widget/product_card.component.dart';
+import 'widget/view_module_title.dart';
 
 var _tempData = [
   {

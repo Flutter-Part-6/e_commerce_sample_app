@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
 
 import '../../../../common/utils/exceptions/network_exception.dart';
@@ -97,19 +96,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       CustomLogger.logger.e('${error.toString()}');
       emit(state.copyWith(status: CartStatus.error));
     }
-  }
-}
-
-// extensions
-extension IntEx on int {
-  String toWon() {
-    final priceFormat = NumberFormat('###,###,###,###원');
-
-    return priceFormat.format(this);
-  }
-
-  String toReview() {
-    return this > 9999 ? '9999+' : toString();
   }
 }
 

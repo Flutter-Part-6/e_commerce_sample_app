@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card_widget.dart';
+
+import 'product_card_widget.dart';
 
 class SmallProductCard extends ProductCardWidget {
   final BuildContext context;
@@ -33,45 +34,4 @@ class LargeProductCard extends ProductCardWidget {
           priceStyle: Theme.of(context).textTheme.titleSmall,
           additionalStyle: Theme.of(context).textTheme.labelMedium,
         );
-}
-
-extension TextStyleEx on TextStyle {
-  TextStyle titleCopyWith() {
-    return copyWith(
-      fontWeight: FontWeight.w300,
-      height: 1.35,
-    );
-  }
-
-  TextStyle discountRageCopyWith() {
-    return copyWith(
-      color: Colors.deepOrange,
-      fontWeight: FontWeight.bold,
-      height: 1.15,
-    );
-  }
-
-  TextStyle priceCopyWith() {
-    return copyWith(
-      fontWeight: FontWeight.bold,
-      height: 1.25,
-    );
-  }
-
-  TextStyle originalPriceCopyWith() {
-    return copyWith(
-      fontWeight: FontWeight.w300,
-      color: Colors.grey,
-      decoration: TextDecoration.lineThrough,
-      height: 1.15,
-    );
-  }
-
-  TextStyle reviewCountCopyWith() {
-    return copyWith(
-      color: Colors.grey,
-      fontWeight: FontWeight.w600,
-      height: 1.15,
-    );
-  }
 }

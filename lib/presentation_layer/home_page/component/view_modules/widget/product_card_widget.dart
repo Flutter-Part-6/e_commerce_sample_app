@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
+import 'package:sample_app/common/utils/extensions.dart';
 
 import 'add_cart_button.dart';
 
