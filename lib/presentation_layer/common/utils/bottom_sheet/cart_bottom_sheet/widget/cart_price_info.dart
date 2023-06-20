@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
-import '../../../../common/component/app_bar/widget/icon_box.dart';
+import '../../../../component/app_bar/widget/icon_box.dart';
 
 class CartPriceInfo extends StatelessWidget {
   const CartPriceInfo({Key? key}) : super(key: key);

@@ -8,9 +8,9 @@ import 'package:sample_app/presentation_layer/home_page/home_page.dart';
 import '../common/constants.dart';
 import '../common/dependency_injection/injection_injectable.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
-import 'common/utils/common_snack_bar.dart';
+import 'common/utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
+import 'common/utils/snack_bar/common_snack_bar.dart';
 import 'home_page/bloc/cart_bloc/cart_bloc.dart';
-import 'home_page/dialog/cart_bottom_sheet/cart_bottom_sheet.dart';
 import 'user_page/user_page.dart';
 
 class MainPage extends StatelessWidget {
