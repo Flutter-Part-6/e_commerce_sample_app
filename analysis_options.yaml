@@ -6,7 +6,7 @@ dart_code_metrics:
   extends:
     - package:dart_code_metrics_presets/all.yaml
   rules-exclude:
-    - lib/**/injection_injectable.config.dart
+    - lib/**/dependency_injection.config.dart
     - lib/**/*.g.dart
     - lib/**/*.freezed.dart
     - lib/firebase_options.dart

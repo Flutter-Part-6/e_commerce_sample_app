@@ -6,7 +6,7 @@ import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/co
 import 'package:sample_app/presentation_layer/home_page/home_page.dart';
 
 import '../common/constants.dart';
-import '../common/dependency_injection/injection_injectable.dart';
+import '../common/dependency_injection/dependency_injection.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 import 'common/utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
 import 'common/utils/snack_bar/common_snack_bar.dart';

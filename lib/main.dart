@@ -15,7 +15,7 @@ import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.da
 import 'package:sample_app/presentation_layer/router.dart';
 import 'package:sample_app/theme.dart';
 
-import 'common/dependency_injection/injection_injectable.dart';
+import 'common/dependency_injection/dependency_injection.dart';
 import 'presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 
 void main(name, options) async {
