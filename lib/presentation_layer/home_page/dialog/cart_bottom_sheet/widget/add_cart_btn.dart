@@ -6,18 +6,14 @@ import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
 class AddCartBtn extends StatelessWidget {
-  const AddCartBtn({required this.cartBloc, Key? key}) : super(key: key);
-
-  final CartBloc cartBloc;
+  const AddCartBtn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final quantity = cartBloc.state.quantity;
-    final productInfo = cartBloc.state.productInfo;
-    final totalPrice = cartBloc.state.totalPrice;
+    final cartBlocState = context.watch<CartBloc>().state;
 
     return BlocBuilder<CartListBloc, CartListState>(
-      builder: (context, state) {
+      builder: (_, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GestureDetector(
@@ -35,7 +31,7 @@ class AddCartBtn extends StatelessWidget {
                       strokeWidth: 2,
                     )
                   : Text(
-                      '${totalPrice.toWon()} 장바구니 담기',
+                      '${cartBlocState.totalPrice.toWon()} 장바구니 담기',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -46,7 +42,10 @@ class AddCartBtn extends StatelessWidget {
                     ),
             ),
             onTap: () => context.read<CartListBloc>().add(
-                  CartListAdded(quantity: quantity, productInfo: productInfo),
+                  CartListAdded(
+                    quantity: cartBlocState.quantity,
+                    productInfo: cartBlocState.productInfo,
+                  ),
                 ),
           ),
         );

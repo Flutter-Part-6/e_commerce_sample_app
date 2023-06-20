@@ -9,16 +9,14 @@ import 'widget/cart_bottom_sheet.widget.dart';
 
 //TODO 왜 안에 빌더한번 더 넣었는지 알려줄수 있도록 공부해야함
 Future<bool?> cartBottomSheet(BuildContext context) {
-  final cartBloc = context.read<CartBloc>();
-
   return showModalBottomSheet<bool>(
     context: context,
     builder: (_) {
       return SafeArea(
         child: BlocListener<CartListBloc, CartListState>(
-          listener: (listCxt, state) {
+          listener: (_, state) {
             if (state.status.isError) {
-              ScaffoldMessenger.of(listCxt).showSnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.errorMsg),
                   behavior: SnackBarBehavior.floating,
@@ -37,23 +35,23 @@ Future<bool?> cartBottomSheet(BuildContext context) {
           listenWhen: (prev, cur) =>
               (prev.status != cur.status) && !cur.status.isLoading,
           child: BlocBuilder<CartBloc, CartState>(
-            builder: (ctx, state) {
+            builder: (_, state) {
               return SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CartProductInfo(cartBloc: cartBloc),
-                    const Divider(thickness: 1, color: Colors.grey),
-                    CartPriceInfo(cartBloc: cartBloc),
+                    const CartProductInfo(),
+                    const Divider(thickness: 1),
+                    const CartPriceInfo(),
                     const CartBenefit(),
                     const SizedBox(height: 12),
-                    AddCartBtn(cartBloc: cartBloc),
+                    const AddCartBtn(),
                   ],
                 ),
               );
             },
-            bloc: cartBloc,
+            // bloc: cartBloc,
           ),
         ),
       );

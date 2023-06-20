@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
 import '../../../../common/component/app_bar/widget/icon_box.dart';
 
 class CartPriceInfo extends StatelessWidget {
-  const CartPriceInfo({required this.cartBloc, Key? key}) : super(key: key);
-  final CartBloc cartBloc;
+  const CartPriceInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productInfo = cartBloc.state.productInfo;
-    final quantity = cartBloc.state.quantity;
+    final cartBloc = context.read<CartBloc>();
+    final state = context.watch<CartBloc>().state;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -22,7 +22,7 @@ class CartPriceInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            productInfo.title,
+            state.productInfo.title,
             style: Theme.of(context).textTheme.titleSmall,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
@@ -34,7 +34,7 @@ class CartPriceInfo extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    productInfo.price.toWon(),
+                    state.productInfo.price.toWon(),
                     style:
                         Theme.of(context).textTheme.titleSmall?.priceCopyWith(),
                   ),
@@ -57,12 +57,10 @@ class CartPriceInfo extends StatelessWidget {
                       onPressed: () => cartBloc.add(CartQuantityDecreased()),
                       color: Colors.black,
                     ),
-                    Text(quantity.toString()),
+                    Text('${state.quantity}'),
                     IconBox(
                       icon: Icons.add,
-                      onPressed: () => cartBloc.add(
-                        CartQuantityIncreased(),
-                      ),
+                      onPressed: () => cartBloc.add(CartQuantityIncreased()),
                       color: Colors.black,
                     ),
                   ],
@@ -71,10 +69,7 @@ class CartPriceInfo extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Container(
-            color: Colors.grey,
-            height: 1,
-          ),
+          const Divider(thickness: 1),
         ],
       ),
     );

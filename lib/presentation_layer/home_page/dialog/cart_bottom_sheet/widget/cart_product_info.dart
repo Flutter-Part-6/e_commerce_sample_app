@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/component/view_modules/common/product_card.component.dart';
 
 import '../../../bloc/cart_bloc/cart_bloc.dart';
 
 class CartProductInfo extends StatelessWidget {
-  const CartProductInfo({required this.cartBloc, Key? key}) : super(key: key);
-  final CartBloc cartBloc;
+  const CartProductInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productInfo = cartBloc.state.productInfo;
+    final productInfo = context.watch<CartBloc>().state.productInfo;
 
     return Padding(
       padding: const EdgeInsets.all(20),
