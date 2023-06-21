@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
-import '../../dto/api_response/response_wrapper.dart';
+import '../../dto/response_wrapper/response_wrapper.dart';
 
 part 'user_api.g.dart';
 

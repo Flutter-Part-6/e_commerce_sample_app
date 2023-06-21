@@ -40,11 +40,7 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
     // 로그인 정보가 없으면 권한 없음 상태로 변경
     if (user == null) {
-      emit(
-        state.copyWith(
-          status: PaymentStatus.notAuthorized,
-        ),
-      );
+      emit(state.copyWith(status: PaymentStatus.notAuthorized));
 
       return;
     }

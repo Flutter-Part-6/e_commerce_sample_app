@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../dto/api_response/response_wrapper.dart';
 import '../../dto/display.dto.dart';
+import '../../dto/response_wrapper/response_wrapper.dart';
 
 part 'display_api.g.dart';
 

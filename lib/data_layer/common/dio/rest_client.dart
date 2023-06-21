@@ -9,21 +9,5 @@ class RestClient {
 
   factory RestClient() => _instance;
 
-  RestClient._internal() {
-    _dio.interceptors.add(InterceptorsWrapper(
-        // onRequest: (options, handler) {
-        //   CustomLogger.logger.d('[request] ${options.uri}');
-        //   handler.next(options);
-        // },
-        // onResponse: (options, handler) {
-        //   CustomLogger.logger.d('[response] ${options}');
-        //
-        //   // log('[test] data : ${e.data}');
-        //   // log('[test] response : ${e.statusMessage}');
-        // },
-        // onError: (e, handler) {
-        //   log('[test] error : $e');
-        // },
-        ));
-  }
+  RestClient._internal();
 }

@@ -1,5 +1,5 @@
+import '../../dto/response_wrapper/response_wrapper.dart';
 import '../remote/display_api.dart';
-import '../../dto/api_response/response_wrapper.dart';
 import '../../dto/display.dto.dart';
 import '../../../common/constants.dart';
 
