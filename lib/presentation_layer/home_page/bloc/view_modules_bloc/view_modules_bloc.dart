@@ -1,24 +1,18 @@
-//usecase
-import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
-import '../../../../domain_layer/usecase/display/view_modules/view_modules.usecase.dart';
-
-//model
-import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
-import '../../component/view_modules/core/view_module_factory.dart';
-
-// utils
-import '../../../../common/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:sample_app/common/utils/logger.dart';
 
-// exceptions
-import 'package:sample_app/common/utils/exceptions/network_exception.dart';
-import 'package:sample_app/common/utils/exceptions/service_exception.dart';
+import '../../../../domain_layer/usecase/display.usecase.dart';
+import '../../../../domain_layer/usecase/display/view_modules/view_modules.usecase.dart';
+import '../../../../domain_layer/model/display/view_module/view_module.model.dart';
+import '../../component/view_modules/core/view_module_factory.dart';
+import '../../../../common/constants.dart';
+import '../../../../common/utils/logger.dart';
+import '../../../../common/utils/exceptions/network_exception.dart';
+import '../../../../common/utils/exceptions/service_exception.dart';
 
 part 'view_modules_event.dart';
 
@@ -111,7 +105,8 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
         params: {_currentPage: '$nextPage'},
       );
       print(
-          '[test] storeType : ${state.storeType}, tabId : ${state.tabId} page : $nextPage');
+        '[test] storeType : ${state.storeType}, tabId : ${state.tabId} page : $nextPage',
+      );
       // 다음 페이지를 호출했을 때 empty라면 endOfPage -> true
       final List<Widget> viewModules = [...state.viewModules];
       viewModules.addAll(

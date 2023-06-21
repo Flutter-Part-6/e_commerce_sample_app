@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
-import 'package:sample_app/presentation_layer/cart_list_page/component/cart_product_card/cart_product_card.dart';
 
 import '../../common/constants.dart';
 import '../../common/dependency_injection/dependency_injection.dart';
 import '../common/bloc/payment_bloc/payment_bloc.dart';
 import '../common/component/app_bar/widget/icon_box.dart';
 import '../common/component/paymoney_button.dart';
+import '../../domain_layer/model/display.model.dart';
+import 'bloc/cart_list_bloc/cart_list_bloc.dart';
+import 'component/cart_product_card/cart_product_card.dart';
 import 'component/cart_total_price/cart_total_price.dart';
 
 class CartListPage extends StatelessWidget {

@@ -1,5 +1,4 @@
-import 'package:sample_app/domain_layer/model/display.model.dart';
-
+import '../../../model/display.model.dart';
 import '../../../repository/display.repository.dart';
 import '../../base_usecase/remote.usecase.dart';
 

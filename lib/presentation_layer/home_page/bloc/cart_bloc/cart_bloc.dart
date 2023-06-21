@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
 
+import '../../../../domain_layer/model/display.model.dart';
 import '../../../../common/utils/exceptions/network_exception.dart';
 import '../../../../common/utils/exceptions/service_exception.dart';
 import '../../../../common/utils/logger.dart';

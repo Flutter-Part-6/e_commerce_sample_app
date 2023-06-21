@@ -1,7 +1,11 @@
 analyzer:
   plugins:
     - dart_code_metrics
-  exclude: [ lib/**.g.dart, lib/**_test_**.dart ]
+  exclude: [ lib/**.g.dart, lib/**_test_**.dart, lib/**.config.dart ]
+
+linter:
+  rules:
+    - prefer_relative_imports
 
 dart_code_metrics:
   extends:
@@ -13,7 +17,6 @@ dart_code_metrics:
     - lib/firebase_options.dart
     - lib/firebase_options_dev.dart
     - test/**
-#    - lib/presentation_layer/common/bloc/bloc_test_observer.dart
   rules:
     - prefer-match-file-name: false
     - avoid-non-ascii-symbols: false

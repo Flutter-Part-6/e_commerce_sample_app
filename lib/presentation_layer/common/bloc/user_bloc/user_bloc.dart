@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:sample_app/domain_layer/usecase/user.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/user/login_with_token.usecase.dart';
 
+import '../../../../domain_layer/usecase/user/login_with_token.usecase.dart';
+import '../../../../domain_layer/usecase/user.usecase.dart';
 import '../../../../common/constants.dart';
 import '../../../../common/utils/exceptions/network_exception.dart';
 import '../../../../common/utils/exceptions/service_exception.dart';

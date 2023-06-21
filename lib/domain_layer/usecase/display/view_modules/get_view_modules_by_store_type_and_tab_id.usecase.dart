@@ -1,9 +1,7 @@
-import 'package:sample_app/domain_layer/model/display/view_module/view_module.model.dart';
-
+import '../../../model/display/view_module/view_module.model.dart';
 import '../../../../common/constants.dart';
 import '../../base_usecase/remote.usecase.dart';
-
-import 'package:sample_app/domain_layer/repository/display.repository.dart';
+import '../../../repository/display.repository.dart';
 
 class GetViewModulesByStoreTypeAndTabId
     extends RemoteUsecase<DisplayRepository> {

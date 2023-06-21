@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sample_app/common/constants.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../data_layer/entity/display/target_api/target_api.dart';
 
 class ServerSelector extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 
+import '../common/bloc/user_bloc/user_bloc.dart';
 import '../../common/constants.dart';
 
 class UserPage extends StatelessWidget {

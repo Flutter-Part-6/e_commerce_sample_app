@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/common/utils/extensions.dart';
 
+import '../../../../../../common/utils/extensions.dart';
 import '../../../../../home_page/bloc/cart_bloc/cart_bloc.dart';
 
 class CartProductInfo extends StatelessWidget {

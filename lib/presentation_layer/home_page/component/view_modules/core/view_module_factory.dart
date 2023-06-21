@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sample_app/common/utils/extensions.dart';
-import 'package:sample_app/domain_layer/model/display/view_module/view_module.model.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/banner.view_module.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/brand_product.view_module.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/carousel.view_module.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/category_product.view_module.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/scroll.view_module.dart';
-import 'package:sample_app/presentation_layer/home_page/component/view_modules/special_price.view_module.dart';
 
+import '../../../../../common/utils/extensions.dart';
+import '../../../../../domain_layer/model/display/view_module/view_module.model.dart';
+import '../banner.view_module.dart';
+import '../brand_product.view_module.dart';
+import '../carousel.view_module.dart';
+import '../category_product.view_module.dart';
+import '../scroll.view_module.dart';
+import '../special_price.view_module.dart';
 import '../widget/view_module_NONE.dart';
 import 'view_module_widget.dart';
 

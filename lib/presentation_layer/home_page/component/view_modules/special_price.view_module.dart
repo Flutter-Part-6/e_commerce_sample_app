@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/common/utils/extensions.dart';
 
+import '../../../../domain_layer/model/display.model.dart';
+import '../../../../common/utils/extensions.dart';
 import 'core/view_module_widget.dart';
 import 'widget/add_cart_button.dart';
 import 'widget/view_module_padding.dart';

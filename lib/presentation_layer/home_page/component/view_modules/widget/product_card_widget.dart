@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/common/utils/extensions.dart';
 
+import '../../../../../domain_layer/model/display.model.dart';
+import '../../../../../common/utils/extensions.dart';
 import 'add_cart_button.dart';
 
 class ProductCardWidget extends StatelessWidget {

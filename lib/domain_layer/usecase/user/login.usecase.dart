@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
-import 'package:sample_app/domain_layer/repository/user.repository.dart';
 
+import '../../repository/user.repository.dart';
 import '../../../common/utils/exceptions/base_exception.dart';
 import '../base_usecase/remote.usecase.dart';
 

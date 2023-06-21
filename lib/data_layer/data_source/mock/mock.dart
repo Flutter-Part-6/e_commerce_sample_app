@@ -1,7 +1,6 @@
-import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
-import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
-import 'package:sample_app/data_layer/dto/display.dto.dart';
-
+import '../remote/display_api.dart';
+import '../../dto/api_response/response_wrapper.dart';
+import '../../dto/display.dto.dart';
 import '../../../common/constants.dart';
 
 class MockApi implements DisplayApi {

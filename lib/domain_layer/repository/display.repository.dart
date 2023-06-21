@@ -1,7 +1,6 @@
-import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/domain_layer/repository/repository.dart';
-
 import '../../common/utils/result/result.dart';
+import '../model/display.model.dart';
+import 'repository.dart';
 
 abstract class DisplayRepository extends Repository {
   // get collection list

@@ -1,11 +1,11 @@
 /// API
 import 'package:injectable/injectable.dart';
-import 'package:sample_app/common/utils/exceptions/service_exception.dart';
-import 'package:sample_app/common/utils/extensions.dart';
-import 'package:sample_app/common/utils/result/result.dart';
-import 'package:sample_app/data_layer/data_source/remote/user_api.dart';
-import 'package:sample_app/domain_layer/repository/user.repository.dart';
 
+import '../../common/utils/exceptions/service_exception.dart';
+import '../../common/utils/extensions.dart';
+import '../../common/utils/result/result.dart';
+import '../data_source/remote/user_api.dart';
+import '../../domain_layer/repository/user.repository.dart';
 import '../../common/utils/exceptions/base_exception.dart';
 
 @Singleton(as: UserRepository)

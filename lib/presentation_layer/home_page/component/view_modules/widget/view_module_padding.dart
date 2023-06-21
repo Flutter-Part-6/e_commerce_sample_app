@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sample_app/common/constants.dart';
+
+import '../../../../../common/constants.dart';
 
 class ViewModulePadding extends StatelessWidget {
   final Widget child;

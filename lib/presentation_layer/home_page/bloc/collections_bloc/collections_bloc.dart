@@ -1,14 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sample_app/common/utils/exceptions/network_exception.dart';
-import 'package:sample_app/common/utils/exceptions/service_exception.dart';
-import 'package:sample_app/common/utils/logger.dart';
-import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
 
-import 'package:sample_app/domain_layer/model/display/collection/collection.model.dart';
-import 'package:sample_app/domain_layer/usecase/display/collections/get_collections_by_store_type.usecase.dart';
-
+import '../../../../common/utils/exceptions/network_exception.dart';
+import '../../../../common/utils/exceptions/service_exception.dart';
+import '../../../../common/utils/logger.dart';
+import '../../../../domain_layer/usecase/display.usecase.dart';
+import '../../../../domain_layer/model/display/collection/collection.model.dart';
+import '../../../../domain_layer/usecase/display/collections/get_collections_by_store_type.usecase.dart';
 import '../../../../common/constants.dart';
 
 part 'collections_event.dart';

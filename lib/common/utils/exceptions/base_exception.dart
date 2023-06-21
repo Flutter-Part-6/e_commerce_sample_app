@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:sample_app/common/utils/exceptions/network_exception.dart';
-import 'package:sample_app/common/utils/exceptions/unexpected_exception.dart';
-import 'package:sample_app/common/utils/exceptions/unknown_exception.dart';
+import 'network_exception.dart';
+import 'unexpected_exception.dart';
+import 'unknown_exception.dart';
 
 class BaseException implements Exception {
   BaseException();

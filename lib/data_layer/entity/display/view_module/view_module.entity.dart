@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sample_app/data_layer/entity/display/product_info/product_info.entity.dart';
+
+import '../product_info/product_info.entity.dart';
 
 part 'view_module.entity.g.dart';
 

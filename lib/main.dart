@@ -5,16 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:sample_app/common/constants.dart';
-import 'package:sample_app/data_layer/entity/display/display.entity.dart';
-import 'package:sample_app/data_layer/entity/display/target_api/target_api.dart';
-import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 
-import 'package:sample_app/presentation_layer/common/bloc/bloc_test_observer.dart';
-import 'package:sample_app/presentation_layer/common/bloc/user_bloc/user_bloc.dart';
-import 'package:sample_app/presentation_layer/router.dart';
-import 'package:sample_app/theme.dart';
-
+import 'common/constants.dart';
+import 'data_layer/entity/display/display.entity.dart';
+import 'data_layer/entity/display/target_api/target_api.dart';
+import 'presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
+import 'presentation_layer/common/bloc/bloc_test_observer.dart';
+import 'presentation_layer/common/bloc/user_bloc/user_bloc.dart';
+import 'presentation_layer/router.dart';
+import 'theme.dart';
 import 'common/dependency_injection/dependency_injection.dart';
 import 'presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/component/home_placeholder.dart';
 
+import '../home_placeholder.dart';
 import '../../../../common/constants.dart';
 import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';

@@ -1,21 +1,14 @@
-/// data_source
+import 'package:injectable/injectable.dart';
 
-import 'package:sample_app/common/utils/extensions.dart';
-
+import '../../common/utils/extensions.dart';
 import '../../common/utils/exceptions/base_exception.dart';
 import '../../common/utils/exceptions/service_exception.dart';
 import '../data_source/local_storage/display_dao.dart';
-
-import 'package:injectable/injectable.dart';
-import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
-
-/// repository
-import 'package:sample_app/domain_layer/repository/display.repository.dart';
-
-/// Model & Mapper
-import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
-import 'package:sample_app/data_layer/entity/display/display.entity.dart';
+import '../data_source/remote/display_api.dart';
+import '../../domain_layer/repository/display.repository.dart';
+import '../../domain_layer/model/display.model.dart';
+import '../common/mapper/display.mapper.dart';
+import '../entity/display/display.entity.dart';
 import '../../common/utils/result/result.dart';
 
 @Singleton(as: DisplayRepository)

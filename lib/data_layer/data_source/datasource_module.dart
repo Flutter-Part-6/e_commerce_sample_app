@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sample_app/data_layer/common/dio/rest_client.dart';
-import 'package:sample_app/data_layer/data_source/local_storage/display_dao.dart';
-import 'package:sample_app/data_layer/data_source/mock/mock.dart';
-import 'package:sample_app/data_layer/data_source/remote/display_api.dart';
-import 'package:sample_app/data_layer/data_source/remote/user_api.dart';
-import 'package:sample_app/main.dart';
+
+import '../common/dio/rest_client.dart';
+import '../../main.dart';
+import 'local_storage/display_dao.dart';
+import 'mock/mock.dart';
+import 'remote/display_api.dart';
+import 'remote/user_api.dart';
 
 @module
 abstract class ApiModule {

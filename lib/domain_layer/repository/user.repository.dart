@@ -1,6 +1,5 @@
-import 'package:sample_app/domain_layer/repository/repository.dart';
-
 import '../../common/utils/result/result.dart';
+import 'repository.dart';
 
 abstract class UserRepository extends Repository {
   // get collection list

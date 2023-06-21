@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
 
+import '../../../../domain_layer/model/display.model.dart';
 import 'core/view_module_widget.dart';
 
 class CarouselViewModule extends StatefulWidget with ViewModuleWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
 
+import '../../bloc/collections_bloc/collections_bloc.dart';
 import '../view_modules/view_module_list.dart';
 
 class HomeView extends StatefulWidget {

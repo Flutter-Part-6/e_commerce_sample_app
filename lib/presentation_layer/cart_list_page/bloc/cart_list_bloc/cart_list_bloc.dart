@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sample_app/domain_layer/usecase/display.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/display/cart/change_cart_qty_by_product_id.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/display/cart/clear_cart_list.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/display/cart/delete_cart_by_product_id.usecase.dart';
-import 'package:sample_app/domain_layer/usecase/display/cart/get_cart_list.usecase.dart';
 
+import '../../../../domain_layer/usecase/display.usecase.dart';
+import '../../../../domain_layer/usecase/display/cart/change_cart_qty_by_product_id.usecase.dart';
+import '../../../../domain_layer/usecase/display/cart/clear_cart_list.usecase.dart';
+import '../../../../domain_layer/usecase/display/cart/delete_cart_by_product_id.usecase.dart';
+import '../../../../domain_layer/usecase/display/cart/get_cart_list.usecase.dart';
 import '../../../../common/constants.dart';
 import '../../../../common/utils/exceptions/service_exception.dart';
 import '../../../../common/utils/logger.dart';

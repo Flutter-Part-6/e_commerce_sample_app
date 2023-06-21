@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
-import 'package:sample_app/common/utils/extensions.dart';
 
+import '../../../../domain_layer/model/display.model.dart';
+import '../../bloc/cart_bloc/cart_bloc.dart';
+import '../../../../common/utils/extensions.dart';
 import '../../../../common/constants.dart';
 import 'core/view_module_widget.dart';
 import 'widget/view_module_padding.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
-import 'package:sample_app/common/utils/extensions.dart';
 
+import '../../../../../home_page/bloc/cart_bloc/cart_bloc.dart';
+import '../../../../../../common/utils/extensions.dart';
 import '../../../../component/app_bar/widget/icon_box.dart';
 
 class CartPriceInfo extends StatelessWidget {

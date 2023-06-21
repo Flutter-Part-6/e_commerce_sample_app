@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
+
+import '../../display.model.dart';
 
 part 'cart.model.freezed.dart';
 

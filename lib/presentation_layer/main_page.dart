@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:sample_app/presentation_layer/common/component/app_bar/top_app_bar.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/collections_bloc/collections_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/home_page.dart';
-
 import '../common/constants.dart';
 import '../common/dependency_injection/dependency_injection.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
@@ -12,6 +8,9 @@ import 'common/utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
 import 'common/utils/snack_bar/common_snack_bar.dart';
 import 'home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'user_page/user_page.dart';
+import 'common/component/app_bar/top_app_bar.dart';
+import 'home_page/bloc/collections_bloc/collections_bloc.dart';
+import 'home_page/home_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

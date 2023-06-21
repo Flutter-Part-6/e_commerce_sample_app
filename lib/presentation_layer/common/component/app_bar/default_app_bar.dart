@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/presentation_layer/common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+
+import '../../bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar({super.key});

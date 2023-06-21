@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/common/utils/extensions.dart';
-import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
+
+import '../../../../common/utils/extensions.dart';
+import '../../bloc/cart_list_bloc/cart_list_bloc.dart';
 
 class CartTotalPrice extends StatelessWidget {
   const CartTotalPrice({Key? key}) : super(key: key);

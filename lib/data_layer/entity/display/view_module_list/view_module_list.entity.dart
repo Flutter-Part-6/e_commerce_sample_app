@@ -1,6 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sample_app/data_layer/entity/display/view_module/view_module.entity.dart';
 
+import '../view_module/view_module.entity.dart';
 part 'view_module_list.entity.g.dart';
 
 @HiveType(typeId: 1)

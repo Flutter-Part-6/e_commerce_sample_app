@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
 
-// dto
-import 'package:sample_app/data_layer/dto/display.dto.dart';
+import '../../dto/api_response/response_wrapper.dart';
+import '../../dto/display.dto.dart';
 
 part 'display_api.g.dart';
 

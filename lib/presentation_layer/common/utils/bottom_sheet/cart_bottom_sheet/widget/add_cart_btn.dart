@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_app/common/constants.dart';
-import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
-import 'package:sample_app/presentation_layer/home_page/bloc/cart_bloc/cart_bloc.dart';
-import 'package:sample_app/common/utils/extensions.dart';
+
+import '../../../../../../common/constants.dart';
+import '../../../../../cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
+import '../../../../../home_page/bloc/cart_bloc/cart_bloc.dart';
+import '../../../../../../common/utils/extensions.dart';
 
 class AddCartBtn extends StatelessWidget {
   const AddCartBtn({Key? key}) : super(key: key);

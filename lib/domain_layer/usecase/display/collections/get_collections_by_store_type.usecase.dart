@@ -1,8 +1,7 @@
 import '../../../../common/constants.dart';
 import '../../base_usecase/remote.usecase.dart';
-
-import 'package:sample_app/domain_layer/model/display/collection/collection.model.dart';
-import 'package:sample_app/domain_layer/repository/display.repository.dart';
+import '../../../model/display/collection/collection.model.dart';
+import '../../../repository/display.repository.dart';
 
 class GetCollectionsByStoreType extends RemoteUsecase<DisplayRepository> {
   final Map<String, String>? params;

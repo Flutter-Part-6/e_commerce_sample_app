@@ -1,8 +1,9 @@
 import 'package:hive/hive.dart';
-import 'package:sample_app/data_layer/common/mapper/display.mapper.dart';
-import 'package:sample_app/data_layer/dto/api_response/response_wrapper.dart';
-import 'package:sample_app/data_layer/entity/display/display.entity.dart';
-import 'package:sample_app/domain_layer/model/display.model.dart';
+
+import '../../common/mapper/display.mapper.dart';
+import '../../dto/api_response/response_wrapper.dart';
+import '../../entity/display/display.entity.dart';
+import '../../../domain_layer/model/display.model.dart';
 
 const String _cartDb = 'CART_DB';
 
