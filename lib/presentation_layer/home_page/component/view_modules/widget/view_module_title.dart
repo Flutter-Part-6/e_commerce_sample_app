@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../theme/typography.dart';
+
 class ViewModuleTitle extends StatelessWidget {
   final String title;
 
@@ -12,9 +14,7 @@ class ViewModuleTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
+      style: Theme.of(context).textTheme.titleLarge.semiBold,
     );
   }
 }
