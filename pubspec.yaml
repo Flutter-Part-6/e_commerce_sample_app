@@ -71,6 +71,7 @@ dependencies:
   firebase_crashlytics: ^3.3.3
   volume_controller: ^2.0.7
   flutter_dotenv: ^5.1.0
+  flutter_svg: ^2.0.7
 
 
 dev_dependencies:
@@ -95,5 +96,6 @@ flutter:
     - assets/
     - assets/.env.dev
     - assets/.env
+    - assets/svg/
 
  
