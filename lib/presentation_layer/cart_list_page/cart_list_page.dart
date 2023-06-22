@@ -138,7 +138,11 @@ class CartListView extends StatelessWidget {
                   ],
                 ),
               ),
-              const Divider(thickness: 10),
+              Divider(
+                height: 8,
+                thickness: 8,
+                color: Theme.of(context).colorScheme.surface,
+              ),
               BlocBuilder<CartListBloc, CartListState>(
                 builder: (context, state) {
                   switch (state.status) {

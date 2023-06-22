@@ -139,7 +139,6 @@ Payload _getPayload(List<Cart> cartList, User? loginUser) {
   payUser.User user = payUser.User();
   user.id = loginUser?.id.toString();
   user.username = loginUser?.kakaoAccount?.profile?.nickname;
-  user.email = loginUser?.kakaoAccount?.email;
 
   Extra extra = Extra(); // 결제 옵션
   extra.appScheme = 'com.example.sampleApp';

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../common/constants.dart';
 import '../../../../common/utils/extensions.dart';
+import '../../../../theme/app_colors.dart';
+import '../../../../theme/app_icons.dart';
+import '../../../../theme/custom_theme.dart';
+import '../../../../theme/typography.dart';
 import '../../bloc/cart_list_bloc/cart_list_bloc.dart';
 
 class CartTotalPrice extends StatelessWidget {
@@ -9,6 +16,9 @@ class CartTotalPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BlocBuilder<CartListBloc, CartListState>(
       builder: (context, state) {
         if (state.cartList.isEmpty) {
@@ -22,40 +32,152 @@ class CartTotalPrice extends StatelessWidget {
 
         return Column(
           children: [
-            const Divider(height: 10),
+            Divider(
+              height: 8,
+              thickness: 8,
+              color: Theme.of(context).colorScheme.surface,
+            ),
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('상품금액'),
-                      Text(state.totalPrice.toWon()),
+                      Text(
+                        '상품금액',
+                        style: textTheme.titleSmall
+                            ?.copyWith(
+                              color: colorScheme.contentPrimary,
+                            )
+                            .regular,
+                      ),
+                      Text(
+                        state.totalPrice.toWon(),
+                        style: textTheme.titleLarge
+                            ?.copyWith(
+                              color: colorScheme.contentPrimary,
+                            )
+                            .regular,
+                      ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('상품할인금액'), Text('0 원')],
+                    children: [
+                      Text(
+                        '상품할인금액',
+                        style: textTheme.titleSmall
+                            ?.copyWith(color: colorScheme.contentPrimary)
+                            .regular,
+                      ),
+                      Text(
+                        '0원',
+                        style: textTheme.titleLarge
+                            ?.copyWith(
+                              color: colorScheme.contentPrimary,
+                            )
+                            .regular,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 6),
+                  SizedBox(height: 8),
                   Text(
                     '로그인 후 할인 금액 적용',
-                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                    style: textTheme.labelMedium
+                        ?.copyWith(
+                          color: colorScheme.contentSecondary,
+                        )
+                        .regular,
                   ),
-                  SizedBox(height: 10),
-                  Divider(thickness: 1),
-                  SizedBox(height: 10),
+                  SizedBox(height: 8),
+                  Divider(
+                    thickness: 1,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('결제예정금액'), Text(state.totalPrice.toWon())],
+                    children: [
+                      Text(
+                        '결제예정금액',
+                        style: textTheme.titleSmall
+                            ?.copyWith(color: colorScheme.contentPrimary)
+                            .regular,
+                      ),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            WidgetSpan(
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 4),
+                                child: Text(
+                                  NumberFormat('###,###,###,###')
+                                      .format(state.totalPrice),
+                                  style: textTheme.titleLarge
+                                      ?.copyWith(
+                                        color: colorScheme.contentPrimary,
+                                      )
+                                      .bold,
+                                ),
+                              ),
+                            ),
+                            TextSpan(
+                              text: '원',
+                              style: textTheme.titleMedium
+                                  ?.copyWith(color: colorScheme.contentPrimary)
+                                  .regular,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 6),
+                  SizedBox(height: 8),
                   Text(
                     '쿠폰/적립금은 주문서에서 사용 가능합니다',
-                    style: TextStyle(color: Colors.grey, fontSize: 10),
+                    style: textTheme.labelMedium
+                        ?.copyWith(
+                          color: colorScheme.contentSecondary,
+                        )
+                        .regular,
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 12,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            AppIcons.badge,
+                            width: 31,
+                            height: 17,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            '로그인 후, 할인 및 적립 혜택 제공',
+                            style: textTheme.labelMedium
+                                ?.copyWith(
+                                  color: colorScheme.contentSecondary,
+                                )
+                                .regular,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

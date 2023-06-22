@@ -50,6 +50,7 @@ class CartProductCard extends StatelessWidget {
             child: Column(
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // 상품 정보
                     Expanded(
@@ -145,7 +146,8 @@ class CartProductCard extends StatelessWidget {
                                             onPressed: () => context
                                                 .read<CartListBloc>()
                                                 .add(CartListQtyIncreased(
-                                                    cart: cart)),
+                                                  cart: cart,
+                                                )),
                                           ),
                                         ],
                                       ),
@@ -188,127 +190,10 @@ class CartProductCard extends StatelessWidget {
                   ),
                   child: Divider(
                     height: 1,
+                    thickness: 1,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      child: SvgPicture.asset(
-                        (isSelected)
-                            ? AppIcons.checkMarkCircleFill
-                            : AppIcons.checkMarkCircle,
-                        width: 28,
-                        height: 28,
-                        colorFilter: ColorFilter.mode(
-                          (isSelected)
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.contentFourth,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      onTap: () => context
-                          .read<CartListBloc>()
-                          .add(CartListSelected(cart: cart)),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        cart.product.title,
-                        style: textStyle.titleSmall?.titleCopyWith().regular,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 20),
-              GestureDetector(
-                child: const Icon(Icons.close, size: 20),
-                onTap: () => context
-                    .read<CartListBloc>()
-                    .add(CartListDeleted(productIds: [cart.product.productId])),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 75,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        cart.product.imageUrl,
-                        width: 50,
-                        height: 75,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(width: 10),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            cart.product.price.toWon(),
-                            style: textStyle.titleSmall?.priceCopyWith(),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: const Border.fromBorderSide(
-                                BorderSide(color: Colors.grey),
-                              ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(6)),
-                            ),
-                            width: 100,
-                            height: 30,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconBox(
-                                  icon: AppIcons.subtract,
-                                  color: Colors.black,
-                                  onPressed: () => context
-                                      .read<CartListBloc>()
-                                      .add(CartListQtyDecreased(cart: cart)),
-                                ),
-                                Text(cart.quantity.toString()),
-                                IconBox(
-                                  icon: AppIcons.add,
-                                  color: Colors.black,
-                                  onPressed: () => context
-                                      .read<CartListBloc>()
-                                      .add(CartListQtyIncreased(cart: cart)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Divider(thickness: 1),
               ],
             ),
           ),
