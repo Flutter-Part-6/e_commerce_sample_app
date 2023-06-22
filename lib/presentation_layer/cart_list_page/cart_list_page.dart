@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../common/constants.dart';
 import '../../common/dependency_injection/dependency_injection.dart';
+import '../../theme/app_icons.dart';
 import '../common/bloc/payment_bloc/payment_bloc.dart';
 import '../common/component/app_bar/widget/icon_box.dart';
 import '../common/component/paymoney_button.dart';
@@ -36,7 +37,7 @@ class CartListView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconBox(
-            icon: Icons.close,
+            icon: AppIcons.close,
             onPressed: () {
               if (context.canPop()) {
                 context.pop();

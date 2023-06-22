@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../theme/app_icons.dart';
 import '../../bloc/cart_list_bloc/cart_list_bloc.dart';
 import '../../../../common/utils/extensions.dart';
 import '../../../../domain_layer/model/display/cart/cart.model.dart';
@@ -100,7 +101,7 @@ class CartProductCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 IconBox(
-                                  icon: Icons.remove,
+                                  icon: AppIcons.subtract,
                                   onPressed: () => context
                                       .read<CartListBloc>()
                                       .add(CartListQtyDecreased(cart: cart)),
@@ -108,7 +109,7 @@ class CartProductCard extends StatelessWidget {
                                 ),
                                 Text(cart.quantity.toString()),
                                 IconBox(
-                                  icon: Icons.add,
+                                  icon: AppIcons.add,
                                   onPressed: () => context
                                       .read<CartListBloc>()
                                       .add(CartListQtyIncreased(cart: cart)),
