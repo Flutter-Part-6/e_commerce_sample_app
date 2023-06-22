@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../theme/app_colors.dart';
+import '../../../../theme/app_icons.dart';
 import '../../../routes.dart';
 
 class CommonSnackBar {
@@ -9,8 +12,40 @@ class CommonSnackBar {
   static errorSnackBar(BuildContext context, {required String msg}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(msg),
-        behavior: SnackBarBehavior.floating,
+        content: Row(
+          children: [
+            SvgPicture.asset(
+              AppIcons.closeCircleFill,
+              colorFilter: ColorFilter.mode(
+                AppColors.error,
+                BlendMode.srcIn,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(msg),
+          ],
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  static successSnackBar(BuildContext context, {required String msg}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            SvgPicture.asset(
+              AppIcons.checkMark,
+              colorFilter: ColorFilter.mode(
+                AppColors.positive,
+                BlendMode.srcIn,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(msg),
+          ],
+        ),
         duration: Duration(seconds: 2),
       ),
     );
@@ -20,26 +55,45 @@ class CommonSnackBar {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.add_shopping_cart, color: Colors.white),
-            const SizedBox(width: 8),
-            Text(
-              '상품을 장바구니에 담았습니다.',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                SvgPicture.asset(
+                  AppIcons.cart,
+                  colorFilter: ColorFilter.mode(
+                    AppColors.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text('상품을 장바구니에 담았습니다.'),
+              ],
+            ),
+            InkWell(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  borderRadius: const BorderRadius.all(Radius.circular(6)),
+                ),
+                width: 93,
+                height: 34,
+                child: Center(
+                  child: Text(
+                    '장바구니 보기',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                  ),
+                ),
+              ),
+              onTap: () {
+                context.push(Routes.cartPath);
+                ScaffoldMessenger.of(context)
+                    .hideCurrentSnackBar(reason: SnackBarClosedReason.action);
+              },
             ),
           ],
-        ),
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-        padding: EdgeInsets.only(left: 16, top: 10, right: 14, bottom: 10),
-        shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
-        ),
-        behavior: SnackBarBehavior.floating,
-        action: SnackBarAction(
-          textColor: Colors.white,
-          backgroundColor: Theme.of(context).primaryColor,
-          label: '장바구니 보기',
-          onPressed: () => context.push(Routes.cartPath),
         ),
         duration: Duration(seconds: 2),
       ),

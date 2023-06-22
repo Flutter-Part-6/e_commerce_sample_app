@@ -6,6 +6,7 @@ import '../../../common/utils/extensions.dart';
 import '../bloc/payment_bloc/payment_bloc.dart';
 import '../../../domain_layer/model/display/cart/cart.model.dart';
 import '../../cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
+import '../utils/snack_bar/common_snack_bar.dart';
 
 class PaymentButton extends StatelessWidget {
   final List<Cart> selectedCartList;
@@ -51,23 +52,17 @@ class PaymentButton extends StatelessWidget {
                   context
                       .read<CartListBloc>()
                       .add(CartListDeleted(productIds: state.productIds ?? []));
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('결제가 성공적으로 진행됐습니다.'),
-                    backgroundColor: Colors.lightGreen,
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  CommonSnackBar.successSnackBar(
+                    context,
+                    msg: '결제가 성공적으로 진행됐습니다.',
+                  );
                 } else if (state.status == PaymentStatus.error) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(state.message ?? ''),
-                    backgroundColor: Theme.of(context).highlightColor,
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  CommonSnackBar.errorSnackBar(
+                    context,
+                    msg: state.message ?? '',
+                  );
                 } else if (state.status == PaymentStatus.notAuthorized) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: const Text('로그인이 필요합니다.'),
-                    backgroundColor: Theme.of(context).highlightColor,
-                    behavior: SnackBarBehavior.floating,
-                  ));
+                  CommonSnackBar.errorSnackBar(context, msg: '로그인이 필요합니다.');
                 }
               },
               child: Text(
