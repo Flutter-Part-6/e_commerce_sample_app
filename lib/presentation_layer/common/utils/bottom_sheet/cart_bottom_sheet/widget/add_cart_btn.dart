@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../common/constants.dart';
+import '../../../../../../theme/typography.dart';
 import '../../../../../cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import '../../../../../home_page/bloc/cart_bloc/cart_bloc.dart';
 import '../../../../../../common/utils/extensions.dart';
@@ -31,15 +32,32 @@ class AddCartBtn extends StatelessWidget {
                       color: Colors.white,
                       strokeWidth: 2,
                     )
-                  : Text(
-                      '${cartBlocState.totalPrice.toWon()} 장바구니 담기',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.priceCopyWith()
-                          ?.copyWith(
-                            color: Colors.white,
+                  : RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '${cartBlocState.totalPrice.toWon()}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                .semiBold
+                                ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
                           ),
+                          TextSpan(
+                            text: ' 장바구니 담기',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
             ),
             onTap: () => context.read<CartListBloc>().add(
