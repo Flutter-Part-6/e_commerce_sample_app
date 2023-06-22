@@ -1,137 +1,118 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
-const String pretendard = 'Pretendard';
-
-extension fontWeight on FontWeight {
+class CustomFontWeight {
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight semiBold = FontWeight.w600;
   static const FontWeight bold = FontWeight.w700;
 }
 
 extension TextStyleX on TextStyle? {
-  TextStyle? get semiBold => this?.copyWith(fontWeight: fontWeight.semiBold);
+  TextStyle? get semiBold =>
+      this?.copyWith(fontWeight: CustomFontWeight.regular);
 
-  TextStyle? get bold => this?.copyWith(fontWeight: fontWeight.semiBold);
+  TextStyle? get bold => this?.copyWith(fontWeight: CustomFontWeight.semiBold);
 }
 
 const customTextTheme = TextTheme(
-  // display
   displayLarge: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 57,
-    height: 68 / 57,
-    fontWeight: fontWeight.regular,
     color: AppColors.black,
+    fontSize: 57,
+    fontWeight: CustomFontWeight.regular,
+    height: 68 / 57,
   ),
   displayMedium: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 45,
-    height: 54 / 45,
-    fontWeight: fontWeight.regular,
     color: AppColors.black,
+    fontSize: 45,
+    fontWeight: CustomFontWeight.regular,
+    height: 54 / 45,
   ),
   displaySmall: TextStyle(
-    fontFamily: 'Pretendard',
+    color: AppColors.black,
     fontSize: 36,
-    height: 45 / 36,
+    fontWeight: CustomFontWeight.regular,
     letterSpacing: -0.35,
-    fontWeight: fontWeight.regular,
-    color: AppColors.black,
+    height: 45 / 36,
   ),
-  //head_line
   headlineLarge: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 32,
-    height: 40 / 32,
-    fontWeight: fontWeight.semiBold,
     color: AppColors.black,
+    fontSize: 32,
+    fontWeight: CustomFontWeight.semiBold,
+    height: 40 / 32,
   ),
   headlineMedium: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 22,
-    height: 28 / 22,
-    fontWeight: fontWeight.semiBold,
     color: AppColors.black,
+    fontSize: 22,
+    fontWeight: CustomFontWeight.semiBold,
+    height: 28 / 22,
   ),
   headlineSmall: TextStyle(
-    fontFamily: 'Pretendard',
+    color: AppColors.black,
     fontSize: 20,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: -0.35,
     height: 25 / 20,
-    letterSpacing: -0.35,
-    fontWeight: fontWeight.regular,
-    color: AppColors.black,
   ),
-  //title --> title_semibold => copywith
   titleLarge: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 18,
-    height: 23 / 18,
-    letterSpacing: -0.35,
-    fontWeight: fontWeight.regular,
     color: AppColors.black,
+    fontSize: 18,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: -0.35,
+    height: 23 / 18,
   ),
   titleMedium: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 16,
-    height: 20 / 16,
-    letterSpacing: 0.1,
-    fontWeight: fontWeight.regular,
     color: AppColors.black,
+    fontSize: 16,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: 0.1,
+    height: 20 / 16,
   ),
   titleSmall: TextStyle(
-    fontFamily: 'Pretendard',
+    color: AppColors.black,
     fontSize: 14,
-    height: 18 / 14,
+    fontWeight: CustomFontWeight.regular,
     letterSpacing: 0.12,
-    fontWeight: fontWeight.regular,
-    color: AppColors.black,
-  ),
-  labelLarge: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 13,
-    height: 16 / 13,
-    letterSpacing: 0.5,
-    fontWeight: fontWeight.regular,
-    color: AppColors.black,
-  ),
-  labelMedium: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 12,
-    height: 15 / 12,
-    letterSpacing: 0.25,
-    fontWeight: fontWeight.regular,
-    color: AppColors.black,
-  ),
-  labelSmall: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 11,
-    height: 15 / 11,
-    fontWeight: fontWeight.regular,
-    color: AppColors.black,
+    height: 18 / 14,
   ),
   bodyLarge: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 16,
-    height: 24 / 16,
-    letterSpacing: 0.5,
-    fontWeight: fontWeight.regular,
     color: AppColors.black,
+    fontSize: 16,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: 0.5,
+    height: 24 / 16,
   ),
   bodyMedium: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 14,
-    height: 21 / 14,
-    letterSpacing: 0.25,
-    fontWeight: fontWeight.regular,
     color: AppColors.black,
+    fontSize: 14,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: 0.25,
+    height: 21 / 14,
   ),
   bodySmall: TextStyle(
-    fontFamily: 'Pretendard',
-    fontSize: 12,
-    height: 18 / 12,
-    fontWeight: fontWeight.regular,
-    letterSpacing: 0.4,
     color: AppColors.black,
+    fontSize: 12,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: 0.4,
+    height: 18 / 12,
+  ),
+  labelLarge: TextStyle(
+    color: AppColors.black,
+    fontSize: 13,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: 0.5,
+    height: 16 / 13,
+  ),
+  labelMedium: TextStyle(
+    color: AppColors.black,
+    fontSize: 12,
+    fontWeight: CustomFontWeight.regular,
+    letterSpacing: 0.25,
+    height: 15 / 12,
+  ),
+  labelSmall: TextStyle(
+    color: AppColors.black,
+    fontSize: 11,
+    fontWeight: CustomFontWeight.regular,
+    height: 15 / 11,
   ),
 );

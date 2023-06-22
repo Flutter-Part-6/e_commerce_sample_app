@@ -10,6 +10,7 @@ class CustomTheme {
         useMaterial3: true,
         colorScheme: colorScheme,
         highlightColor: const Color(0xffae48d3),
+        fontFamily: 'Pretendard',
         textTheme: customTextTheme,
         appBarTheme: const AppBarTheme(backgroundColor: _primary),
         bottomNavigationBarTheme:
