@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../common/constants.dart';
 import '../../../../../domain_layer/model/display/view_module/view_module.model.dart';
 import 'core/view_module_widget.dart';
 import 'widget/img_slide_sample.dart';

@@ -9,7 +9,6 @@ import '../../../../theme/custom_theme.dart';
 import '../../../../theme/typography.dart';
 import '../../bloc/cart_bloc/cart_bloc.dart';
 import '../../../../common/utils/extensions.dart';
-import '../../../../common/constants.dart';
 import 'core/view_module_widget.dart';
 import 'widget/view_module_padding.dart';
 import 'widget/view_module_title.dart';

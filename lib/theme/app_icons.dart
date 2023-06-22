@@ -32,4 +32,7 @@ class AppIcons {
   static const String instagram = 'assets/icon/ico_instagram.png';
   static const String naverpost = 'assets/icon/ico_naverpost.png';
   static const String youtube = 'assets/icon/ico_youtube.png';
+
+  //image
+  static const String kakaoLogin = 'assets/image/kakao_login_btn.png';
 }
