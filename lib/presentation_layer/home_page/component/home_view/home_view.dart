@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../theme/custom_theme.dart';
+import '../../../../theme/typography.dart';
 import '../../bloc/collections_bloc/collections_bloc.dart';
 import '../view_modules/view_module_list.dart';
 
@@ -31,21 +33,23 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final storeType = context.watch<CollectionsBloc>().state.storeType;
     final collections = context.watch<CollectionsBloc>().state.collections;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Column(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: Colors.grey[300] ?? Colors.grey),
-            ),
-          ),
-          height: 50,
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
           child: TabBar(
             tabs: collections.map((e) => Tab(text: e.title)).toList(),
             controller: _tabController,
-            isScrollable: true,
-            indicatorPadding: const EdgeInsets.symmetric(horizontal: 10),
+            // isScrollable: true,
+            indicatorSize: TabBarIndicatorSize.label,
+            labelColor: colorScheme.primary,
+            labelStyle: textTheme.titleSmall.semiBold,
+            labelPadding: EdgeInsets.symmetric(horizontal: 8),
+            unselectedLabelColor: colorScheme.contentSecondary,
+            unselectedLabelStyle: textTheme.titleSmall,
             onTap: (index) {},
           ),
         ),
