@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain_layer/model/display.model.dart';
+import '../../../../theme/app_colors.dart';
 import 'core/view_module_widget.dart';
 
 class CarouselViewModule extends StatefulWidget with ViewModuleWidget {
@@ -54,7 +56,7 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
 
     return RawGestureDetector(
       child: AspectRatio(
-        aspectRatio: 390 / 354,
+        aspectRatio: 375 / 340,
         child: Stack(children: [
           PageView.builder(
             scrollDirection: Axis.horizontal,
@@ -140,16 +142,19 @@ class PageCountWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.74),
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
         child: Text(
           '$currentPage / $totalPage',
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge
+              ?.copyWith(color: AppColors.white, fontFeatures: [
+            FontFeature.tabularFigures(),
+          ]),
         ),
       ),
     );
