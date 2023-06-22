@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../common/constants.dart';
 import '../common/dependency_injection/dependency_injection.dart';
+import '../theme/app_icons.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 import 'common/utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
 import 'common/utils/snack_bar/common_snack_bar.dart';
@@ -66,20 +68,24 @@ class MainView extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
+            icon: SvgPicture.asset(AppIcons.navHome),
             label: BottomNavigation.home.name,
+            activeIcon: SvgPicture.asset(AppIcons.navHomeOn),
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.menu_outlined),
+            icon: SvgPicture.asset(AppIcons.navCategory),
             label: BottomNavigation.category.name,
+            activeIcon: SvgPicture.asset(AppIcons.navCategoryOn),
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.search_outlined),
+            icon: SvgPicture.asset(AppIcons.navSearch),
             label: BottomNavigation.search.name,
+            activeIcon: SvgPicture.asset(AppIcons.navSearchOn),
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person_outline_outlined),
+            icon: SvgPicture.asset(AppIcons.navUser),
             label: BottomNavigation.user.name,
+            activeIcon: SvgPicture.asset(AppIcons.navUserOn),
           ),
         ],
         onTap: context.read<BottomNavigationCubit>().changeBottomType,
