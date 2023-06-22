@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/constants.dart';
 import '../../common/dependency_injection/dependency_injection.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_icons.dart';
+import '../../theme/custom_theme.dart';
+import '../../theme/typography.dart';
 import '../common/bloc/payment_bloc/payment_bloc.dart';
 import '../common/component/app_bar/widget/icon_box.dart';
 import '../common/component/paymoney_button.dart';
@@ -36,21 +40,27 @@ class CartListView extends StatelessWidget {
       create: (_) => getIt<PaymentBloc>(),
       child: Scaffold(
         appBar: AppBar(
-          leading: IconBox(
-            icon: AppIcons.close,
-            onPressed: () {
-              if (context.canPop()) {
-                context.pop();
-              }
-            },
+          leading: Align(
+            alignment: Alignment.center,
+            child: IconBox(
+              icon: AppIcons.close,
+              iconSize: 24,
+              color: Theme.of(context).colorScheme.contentPrimary,
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                }
+              },
+            ),
           ),
           title: const Text('장바구니'),
           elevation: 0,
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          backgroundColor: AppColors.white,
+          titleTextStyle: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: Theme.of(context).colorScheme.contentPrimary)
+              .semiBold,
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -70,16 +80,21 @@ class CartListView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              child: Icon(
+                              child: SvgPicture.asset(
                                 (selectedProducts.length == cartList.length)
-                                    ? Icons.check_circle
-                                    : Icons.check_circle_outline_rounded,
-                                size: 20,
-                                color: (selectedProducts.length ==
-                                            cartList.length &&
-                                        cartList.length != 0)
-                                    ? Theme.of(context).primaryColor
-                                    : Colors.grey,
+                                    ? AppIcons.checkMarkCircleFill
+                                    : AppIcons.checkMarkCircle,
+                                width: 28,
+                                height: 28,
+                                colorFilter: ColorFilter.mode(
+                                  (selectedProducts.length == cartList.length &&
+                                          cartList.length != 0)
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .contentFourth,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                               onTap: () =>
                                   cartListBloc.add(CartListSelectedAll()),
@@ -87,6 +102,15 @@ class CartListView extends StatelessWidget {
                             const SizedBox(width: 10),
                             Text(
                               '전체 선택 (${selectedProducts.length}/${cartList.length})',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .contentPrimary,
+                                  )
+                                  .regular,
                             ),
                           ],
                         );
@@ -96,7 +120,18 @@ class CartListView extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.centerLeft,
                         height: 40,
-                        child: Text('전체 삭제'),
+                        child: Text(
+                          '전체 삭제',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .contentSecondary,
+                              )
+                              .semiBold,
+                        ),
                       ),
                       onTap: () => cartListBloc.add(CartListCleared()),
                     ),
