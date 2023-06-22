@@ -19,6 +19,18 @@ class CustomTheme {
           selectedItemColor: AppColors.primary,
         ),
         dividerTheme: DividerThemeData(color: AppColors.outline),
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: AppColors.inverseSurface,
+          actionTextColor: AppColors.white,
+          contentTextStyle:
+              customTextTheme.titleSmall?.copyWith(color: AppColors.white),
+          shape: RoundedRectangleBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+          ),
+          behavior: SnackBarBehavior.floating,
+          insetPadding: const EdgeInsets.all(18),
+          actionBackgroundColor: AppColors.inversePrimary,
+        ),
         tabBarTheme: TabBarTheme(
           indicator: const UnderlineTabIndicator(
             borderSide: BorderSide(color: AppColors.primary, width: 2),
