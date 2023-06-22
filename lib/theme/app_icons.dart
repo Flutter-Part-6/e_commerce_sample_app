@@ -17,4 +17,11 @@ class AppIcons {
   static const String navCategory = 'assets/svg/nav-category.svg';
   static const String navSearch = 'assets/svg/nav-search.svg';
   static const String navUser = 'assets/svg/nav-user.svg';
+
+  //icon
+  static const String blog = 'assets/icon/ico_blog.png';
+  static const String fb = 'assets/icon/ico_fb.png';
+  static const String instagram = 'assets/icon/ico_instagram.png';
+  static const String naverpost = 'assets/icon/ico_naverpost.png';
+  static const String youtube = 'assets/icon/ico_youtube.png';
 }

@@ -97,5 +97,6 @@ flutter:
     - assets/.env.dev
     - assets/.env
     - assets/svg/
+    - assets/icon/
 
  

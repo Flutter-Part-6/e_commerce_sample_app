@@ -18,17 +18,17 @@ class CustomTheme {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: AppColors.primary,
         ),
-        // tabBarTheme: TabBarTheme(
-        //   indicator: const UnderlineTabIndicator(
-        //     borderSide: BorderSide(color: AppColors.primary, width: 2),
-        //   ),
-        //   indicatorSize: TabBarIndicatorSize.tab,
-        //   labelColor: colorScheme.primary,
-        //   labelStyle: customTextTheme.titleSmall.semiBold,
-        //   unselectedLabelColor: colorScheme.contentSecondary,
-        //   unselectedLabelStyle: customTextTheme.titleSmall,
-        //   overlayColor:
-        //       MaterialStatePropertyAll<Color>(Colors.grey[300] ?? Colors.grey),
-        // ),
+        tabBarTheme: TabBarTheme(
+          indicator: const UnderlineTabIndicator(
+            borderSide: BorderSide(color: AppColors.primary, width: 2),
+          ),
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelColor: colorScheme.primary,
+          labelStyle: customTextTheme.titleSmall.semiBold,
+          unselectedLabelColor: colorScheme.contentSecondary,
+          unselectedLabelStyle: customTextTheme.titleSmall,
+          overlayColor:
+              MaterialStatePropertyAll<Color>(Colors.grey[300] ?? Colors.grey),
+        ),
       );
 }
