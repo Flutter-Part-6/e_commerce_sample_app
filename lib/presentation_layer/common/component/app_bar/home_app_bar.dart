@@ -139,21 +139,22 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
                 ),
                 //TODO 장바구니 뱃지 디자인 수정
                 Positioned(
-                  top: 0,
+                  top: 2,
                   right: 0,
                   child: Container(
                     decoration: BoxDecoration(
                       color: onPrimary(storeType),
                       shape: BoxShape.circle,
                     ),
-                    width: 16,
-                    height: 16,
+                    width: 13,
+                    height: 13,
                     child: Center(
                       child: Text(
                         '$cartCount',
                         style: TextStyle(
                           color: primary(storeType),
                           fontSize: 9,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
