@@ -7,6 +7,7 @@ import 'home_app_bar.dart';
 
 class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TopAppBar(this.appBar, {super.key});
+
   final AppBar appBar;
 
   @override
@@ -18,5 +19,5 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
+  Size get preferredSize => Size.fromHeight(44);
 }
