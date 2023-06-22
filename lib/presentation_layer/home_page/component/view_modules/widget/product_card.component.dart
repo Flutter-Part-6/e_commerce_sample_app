@@ -15,7 +15,8 @@ class SmallProductCard extends ProductCardWidget {
           needShowReviewCount: false,
           titleStyle: Theme.of(context).textTheme.labelMedium,
           priceStyle: Theme.of(context).textTheme.labelMedium,
-          additionalStyle: Theme.of(context).textTheme.labelSmall,
+          originalPriceStyle: Theme.of(context).textTheme.labelMedium,
+          reviewStyle: Theme.of(context).textTheme.labelSmall,
         );
 }
 
@@ -28,10 +29,11 @@ class LargeProductCard extends ProductCardWidget {
     required super.productInfo,
     // required super.imageAspect,
   }) : super(
-          imageAspect: 156 / 203,
+          imageAspect: 150 / 195,
           needShowReviewCount: true,
           titleStyle: Theme.of(context).textTheme.titleSmall,
           priceStyle: Theme.of(context).textTheme.titleSmall,
-          additionalStyle: Theme.of(context).textTheme.labelMedium,
+          originalPriceStyle: Theme.of(context).textTheme.labelMedium,
+          reviewStyle: Theme.of(context).textTheme.labelSmall,
         );
 }

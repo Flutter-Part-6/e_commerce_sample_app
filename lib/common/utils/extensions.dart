@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../theme/custom_theme.dart';
+import '../../theme/typography.dart';
+
 extension StringEx on String {
   String toSnakeCase() {
     RegExp exp = RegExp(r'(?<=[a-z])[A-Z]');
@@ -12,43 +15,35 @@ extension StringEx on String {
 }
 
 extension TextStyleEx on TextStyle {
-  TextStyle titleCopyWith() {
+  TextStyle? titleCopyWith() {
     return copyWith(
-      fontWeight: FontWeight.w300,
-      height: 1.35,
-    );
+      color: colorScheme.contentPrimary,
+    ).regular;
   }
 
-  TextStyle discountRageCopyWith() {
+  TextStyle? discountRageCopyWith() {
     return copyWith(
-      color: Colors.deepOrange,
-      fontWeight: FontWeight.bold,
-      height: 1.15,
-    );
+      color: colorScheme.secondary,
+    ).bold;
   }
 
-  TextStyle priceCopyWith() {
+  TextStyle? priceCopyWith() {
     return copyWith(
-      fontWeight: FontWeight.bold,
-      height: 1.25,
-    );
+      color: colorScheme.contentPrimary,
+    ).bold;
   }
 
-  TextStyle originalPriceCopyWith() {
+  TextStyle? originalPriceCopyWith() {
     return copyWith(
-      fontWeight: FontWeight.w300,
-      color: Colors.grey,
+      color: colorScheme.contentFourth,
       decoration: TextDecoration.lineThrough,
-      height: 1.15,
-    );
+    ).regular;
   }
 
-  TextStyle reviewCountCopyWith() {
+  TextStyle? reviewCountCopyWith() {
     return copyWith(
-      color: Colors.grey,
-      fontWeight: FontWeight.w600,
-      height: 1.15,
-    );
+      color: colorScheme.contentTertiary,
+    ).regular;
   }
 }
 

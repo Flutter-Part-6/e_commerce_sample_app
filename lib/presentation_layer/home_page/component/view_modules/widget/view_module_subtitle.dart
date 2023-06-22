@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../theme/custom_theme.dart';
+import '../../../../../theme/typography.dart';
+
 class ViewModuleSubtitle extends StatelessWidget {
   final String subtitle;
 
@@ -10,11 +13,18 @@ class ViewModuleSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      subtitle,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: Colors.grey,
-          ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Text(
+        subtitle,
+        style: Theme.of(context)
+            .textTheme
+            .titleSmall
+            ?.copyWith(
+              color: colorScheme.contentTertiary,
+            )
+            .regular,
+      ),
     );
   }
 }

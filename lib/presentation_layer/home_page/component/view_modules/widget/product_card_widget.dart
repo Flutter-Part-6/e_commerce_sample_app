@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../domain_layer/model/display.model.dart';
 import '../../../../../common/utils/extensions.dart';
+import '../../../../../theme/app_icons.dart';
+import '../../../../../theme/custom_theme.dart';
 import 'add_cart_button.dart';
 
 class ProductCardWidget extends StatelessWidget {
@@ -10,7 +13,8 @@ class ProductCardWidget extends StatelessWidget {
   final bool needShowReviewCount;
   final TextStyle? titleStyle;
   final TextStyle? priceStyle;
-  final TextStyle? additionalStyle;
+  final TextStyle? originalPriceStyle;
+  final TextStyle? reviewStyle;
 
   const ProductCardWidget({
     Key? key,
@@ -19,7 +23,8 @@ class ProductCardWidget extends StatelessWidget {
     required this.needShowReviewCount,
     required this.titleStyle,
     required this.priceStyle,
-    required this.additionalStyle,
+    required this.originalPriceStyle,
+    required this.reviewStyle,
   }) : super(key: key);
 
   @override
@@ -42,7 +47,7 @@ class ProductCardWidget extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 8,
+          height: 9,
         ),
         Text(
           productInfo.title,
@@ -68,26 +73,33 @@ class ProductCardWidget extends StatelessWidget {
             ),
           ],
         ),
+        SizedBox(
+          height: 3,
+        ),
         Text(
           productInfo.originalPrice.toWon(),
-          style: additionalStyle?.originalPriceCopyWith(),
+          style: originalPriceStyle?.originalPriceCopyWith(),
         ),
         if (needShowReviewCount)
           Padding(
-            padding: const EdgeInsets.only(top: 6.0),
+            padding: const EdgeInsets.only(top: 8.0),
             child: Row(
               children: [
-                const Icon(
-                  Icons.comment_outlined,
-                  size: 15,
-                  color: Colors.grey,
+                SvgPicture.asset(
+                  AppIcons.chat,
+                  width: 13,
+                  height: 13,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.contentTertiary,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 const SizedBox(
                   width: 4,
                 ),
                 Text(
                   '후기 ${productInfo.reviewCount.toReview()}',
-                  style: additionalStyle?.reviewCountCopyWith(),
+                  style: reviewStyle?.reviewCountCopyWith(),
                 ),
               ],
             ),

@@ -14,26 +14,29 @@ class ScrollViewModule extends StatelessWidget with ViewModuleWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: Constants.verticalPadding,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ViewModulePadding(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ViewModuleTitle(title: info.title),
-                  if (info.subtitle.isNotEmpty)
-                    ViewModuleSubtitle(subtitle: info.subtitle),
-                ],
-              ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ViewModulePadding(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ViewModuleTitle(title: info.title),
+                if (info.subtitle.isNotEmpty)
+                  ViewModuleSubtitle(subtitle: info.subtitle),
+              ],
             ),
-            ImgSlide(info.products),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+              bottom: 50,
+            ),
+            child: ImgSlide(info.products),
+          ),
+        ],
       ),
     );
   }

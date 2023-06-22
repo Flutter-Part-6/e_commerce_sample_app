@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../theme/custom_theme.dart';
 import '../../../../../theme/typography.dart';
 
 class ViewModuleTitle extends StatelessWidget {
@@ -12,9 +13,17 @@ class ViewModuleTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: Theme.of(context).textTheme.titleLarge.semiBold,
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 24,
+        bottom: 8,
+      ),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleLarge.semiBold?.copyWith(
+              color: colorScheme.contentPrimary,
+            ),
+      ),
     );
   }
 }

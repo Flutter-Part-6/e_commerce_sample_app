@@ -12,14 +12,11 @@ class BannerViewModule extends StatelessWidget with ViewModuleWidget {
   @override
   Widget build(BuildContext context) {
     return info.imageUrl.isNotEmpty
-        ? Padding(
-            padding: Constants.verticalPadding,
-            child: AspectRatio(
-              aspectRatio: 390 / 82,
-              child: Image.network(
-                info.imageUrl,
-                fit: BoxFit.fitWidth,
-              ),
+        ? AspectRatio(
+            aspectRatio: 375 / 79,
+            child: Image.network(
+              info.imageUrl,
+              fit: BoxFit.fitWidth,
             ),
           )
         : const SizedBox.shrink();

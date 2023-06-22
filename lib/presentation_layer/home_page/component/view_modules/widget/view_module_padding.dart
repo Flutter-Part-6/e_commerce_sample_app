@@ -13,7 +13,7 @@ class ViewModulePadding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: Constants.horizontalPadding.add(Constants.verticalPadding),
+      padding: Constants.horizontalPadding,
       child: child,
     );
   }

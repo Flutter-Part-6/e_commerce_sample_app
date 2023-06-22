@@ -78,7 +78,7 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(16.0),
               child: PageCountWidget(
                 currentPage: currentPage,
                 totalPage: products.length,
@@ -146,7 +146,7 @@ class PageCountWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
         child: Text(
           '$currentPage / $totalPage',
           style: Theme.of(context)

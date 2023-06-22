@@ -37,7 +37,7 @@ class AddCartBtn extends StatelessWidget {
                           .textTheme
                           .titleMedium
                           ?.priceCopyWith()
-                          .copyWith(
+                          ?.copyWith(
                             color: Colors.white,
                           ),
                     ),

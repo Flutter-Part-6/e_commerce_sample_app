@@ -5,6 +5,8 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../domain_layer/model/display.model.dart';
 import '../../../../common/utils/extensions.dart';
+import '../../../../theme/custom_theme.dart';
+import '../../../../theme/typography.dart';
 import 'core/view_module_widget.dart';
 import 'widget/add_cart_button.dart';
 import 'widget/view_module_padding.dart';
@@ -18,69 +20,66 @@ class SpecialPriceViewModule extends StatelessWidget with ViewModuleWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModulePadding(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: ViewModuleTitle(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: ViewModulePadding(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ViewModuleTitle(
               title: info.title,
             ),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          ViewModuleSubtitle(
-            subtitle: info.subtitle,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          if (info.time > 0)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Row(
-                children: [
-                  Lottie.network(
-                    'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
-                    width: 20,
-                    delegates: LottieDelegates(
-                      values: [
-                        ValueDelegate.color(
-                          const ['Oval', 'Oval', 'Fill 1'],
-                          value: Theme.of(context).highlightColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  TimerWidget(
-                    endTime: DateTime.fromMillisecondsSinceEpoch(
-                      info.time,
-                    ),
-                  ),
-                ],
-              ),
+            ViewModuleSubtitle(
+              subtitle: info.subtitle,
             ),
-          ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return SpecialPriceProduct(
-                productInfo: info.products[index],
-              );
-            },
-            separatorBuilder: (_, __) {
-              return const SizedBox(
-                height: 24,
-              );
-            },
-            itemCount: info.products.length,
-          ),
-        ],
+            if (info.time > 0)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: Row(
+                  children: [
+                    Lottie.network(
+                      'https://assets9.lottiefiles.com/packages/lf20_4htoEB.json',
+                      width: 20,
+                      delegates: LottieDelegates(
+                        values: [
+                          ValueDelegate.color(
+                            const ['Oval', 'Oval', 'Fill 1'],
+                            value: Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    TimerWidget(
+                      endTime: DateTime.fromMillisecondsSinceEpoch(
+                        info.time,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: SpecialPriceProduct(
+                    productInfo: info.products[index],
+                  ),
+                );
+              },
+              separatorBuilder: (_, __) {
+                return const SizedBox(
+                  height: 16,
+                );
+              },
+              itemCount: info.products.length,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -147,7 +146,13 @@ class _TimerWidgetState extends State<TimerWidget> {
   Widget build(BuildContext context) {
     return Text(
       _printDuration(remainTime),
-      style: Theme.of(context).textTheme.titleLarge,
+      style: Theme.of(context)
+          .textTheme
+          .headlineMedium
+          ?.copyWith(
+            color: Theme.of(context).colorScheme.contentPrimary,
+          )
+          .semiBold,
     );
   }
 }
@@ -170,7 +175,7 @@ class SpecialPriceProduct extends StatelessWidget {
         Stack(
           children: [
             AspectRatio(
-              aspectRatio: 2 / 1,
+              aspectRatio: 343 / 174,
               child: Image.network(
                 productInfo.imageUrl,
                 fit: BoxFit.cover,
@@ -182,16 +187,18 @@ class SpecialPriceProduct extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 4,
+          height: 9,
         ),
         Text(
           productInfo.subtitle,
-          style: textTheme.labelLarge?.copyWith(
-            color: Colors.grey,
-          ),
+          style: textTheme.labelLarge
+              ?.copyWith(
+                color: Theme.of(context).colorScheme.contentTertiary,
+              )
+              .regular,
         ),
         const SizedBox(
-          height: 4,
+          height: 7,
         ),
         Text(
           productInfo.title,
@@ -206,26 +213,26 @@ class SpecialPriceProduct extends StatelessWidget {
           children: [
             Text(
               '${productInfo.discountRate}%',
-              style: textTheme.titleMedium?.discountRageCopyWith(),
+              style: textTheme.titleLarge?.discountRageCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.price.toWon(),
-              style: textTheme.titleMedium?.priceCopyWith(),
+              style: textTheme.titleLarge?.priceCopyWith(),
             ),
             const SizedBox(
               width: 4,
             ),
             Text(
               productInfo.originalPrice.toWon(),
-              style: textTheme.titleMedium?.originalPriceCopyWith(),
+              style: textTheme.titleSmall?.originalPriceCopyWith(),
             ),
           ],
         ),
         const SizedBox(
-          height: 4,
+          height: 8,
         ),
         Row(
           children: [
