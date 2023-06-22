@@ -18,6 +18,7 @@ class CustomTheme {
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: AppColors.primary,
         ),
+        dividerTheme: DividerThemeData(color: AppColors.outline),
         tabBarTheme: TabBarTheme(
           indicator: const UnderlineTabIndicator(
             borderSide: BorderSide(color: AppColors.primary, width: 2),
@@ -27,8 +28,9 @@ class CustomTheme {
           labelStyle: customTextTheme.titleSmall.semiBold,
           unselectedLabelColor: colorScheme.contentSecondary,
           unselectedLabelStyle: customTextTheme.titleSmall,
-          overlayColor:
-              MaterialStatePropertyAll<Color>(Colors.grey[300] ?? Colors.grey),
+          overlayColor: MaterialStatePropertyAll<Color>(
+            Colors.grey[300] ?? Colors.grey,
+          ),
         ),
       );
 }
