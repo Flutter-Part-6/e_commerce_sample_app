@@ -13,10 +13,18 @@ class AppIcons {
   static const String checkMarkCircleFill =
       'assets/svg/icon-checkmark_circle_fill.svg';
   static const String chatKakaotalk = 'assets/svg/icon-kakaotalk_simple.svg';
+
   static const String navHome = 'assets/svg/nav-home.svg';
+  static const String navHomeOn = 'assets/svg/nav-home_on.svg';
+
   static const String navCategory = 'assets/svg/nav-category.svg';
+  static const String navCategoryOn = 'assets/svg/nav-category_on.svg';
+
   static const String navSearch = 'assets/svg/nav-search.svg';
+  static const String navSearchOn = 'assets/svg/nav-search_on.svg';
+
   static const String navUser = 'assets/svg/nav-user.svg';
+  static const String navUserOn = 'assets/svg/nav-user_on.svg';
 
   //icon
   static const String blog = 'assets/icon/ico_blog.png';
