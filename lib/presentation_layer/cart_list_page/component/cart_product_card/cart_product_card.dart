@@ -19,7 +19,8 @@ class CartProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedList = context.watch<CartListBloc>().state.selectedProduct;
     final bool isSelected = selectedList.contains(cart.product.productId);
-    var textStyle = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16)
@@ -36,9 +37,7 @@ class CartProductCard extends StatelessWidget {
               width: 28,
               height: 28,
               colorFilter: ColorFilter.mode(
-                (isSelected)
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.contentFourth,
+                (isSelected) ? colorScheme.primary : colorScheme.contentFourth,
                 BlendMode.srcIn,
               ),
             ),
@@ -64,7 +63,7 @@ class CartProductCard extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 cart.product.title,
-                                style: textStyle.titleSmall
+                                style: textTheme.titleSmall
                                     ?.titleCopyWith()
                                     .regular,
                                 overflow: TextOverflow.ellipsis,
@@ -94,7 +93,7 @@ class CartProductCard extends StatelessWidget {
                                     // 가격
                                     Text(
                                       cart.product.price.toWon(),
-                                      style: textStyle.titleMedium
+                                      style: textTheme.titleMedium
                                           ?.priceCopyWith(),
                                     ),
 
@@ -119,9 +118,7 @@ class CartProductCard extends StatelessWidget {
                                           IconBox(
                                             icon: AppIcons.subtract,
                                             iconSize: 16,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .contentFourth,
+                                            color: colorScheme.contentFourth,
                                             onPressed: () => context
                                                 .read<CartListBloc>()
                                                 .add(CartListQtyDecreased(
@@ -129,10 +126,9 @@ class CartProductCard extends StatelessWidget {
                                           ),
                                           Text(
                                             cart.quantity.toString(),
-                                            style: textStyle.labelLarge
+                                            style: textTheme.labelLarge
                                                 ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
+                                                  color: colorScheme
                                                       .contentPrimary,
                                                 )
                                                 .semiBold,
@@ -140,9 +136,7 @@ class CartProductCard extends StatelessWidget {
                                           IconBox(
                                             icon: AppIcons.add,
                                             iconSize: 16,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .contentPrimary,
+                                            color: colorScheme.contentPrimary,
                                             onPressed: () => context
                                                 .read<CartListBloc>()
                                                 .add(CartListQtyIncreased(
@@ -168,7 +162,7 @@ class CartProductCard extends StatelessWidget {
                           width: 28,
                           height: 28,
                           colorFilter: ColorFilter.mode(
-                            Theme.of(context).colorScheme.contentTertiary,
+                            colorScheme.contentTertiary,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -191,7 +185,7 @@ class CartProductCard extends StatelessWidget {
                   child: Divider(
                     height: 1,
                     thickness: 1,
-                    color: Theme.of(context).colorScheme.outline,
+                    color: colorScheme.outline,
                   ),
                 ),
               ],

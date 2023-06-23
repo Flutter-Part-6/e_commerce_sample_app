@@ -20,6 +20,8 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return ViewModulePadding(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +54,7 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
                     .textTheme
                     .titleSmall
                     ?.copyWith(
-                      color: Theme.of(context).colorScheme.contentSecondary,
+                      color: colorScheme.contentSecondary,
                     )
                     .regular,
               ),
@@ -84,7 +86,7 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
+              color: colorScheme.surface,
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -102,7 +104,7 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
                         .textTheme
                         .titleSmall
                         ?.copyWith(
-                          color: Theme.of(context).colorScheme.contentPrimary,
+                          color: colorScheme.contentPrimary,
                         )
                         .regular,
                   ),
@@ -111,7 +113,7 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
                     width: 16,
                     height: 16,
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.contentPrimary,
+                      colorScheme.contentPrimary,
                       BlendMode.srcIn,
                     ),
                   ),

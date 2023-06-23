@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../theme/app_icons.dart';
 import '../common/bloc/user_bloc/user_bloc.dart';
 import '../../common/constants.dart';
 
@@ -25,12 +27,8 @@ class SplashPage extends StatelessWidget {
           }
         },
         child: Center(
-          child: Text(
-            'FLUTTER',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(color: Colors.white),
+          child: SvgPicture.asset(
+            AppIcons.mainLogo,
           ),
         ),
       ),

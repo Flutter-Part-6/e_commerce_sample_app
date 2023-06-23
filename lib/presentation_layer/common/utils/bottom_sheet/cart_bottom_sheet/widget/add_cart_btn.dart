@@ -13,6 +13,8 @@ class AddCartBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartBlocState = context.watch<CartBloc>().state;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return BlocBuilder<CartListBloc, CartListState>(
       builder: (_, state) {
@@ -37,24 +39,15 @@ class AddCartBtn extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: '${cartBlocState.totalPrice.toWon()}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                .semiBold
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                ),
+                            style: textTheme.titleSmall.semiBold?.copyWith(
+                              color: colorScheme.onPrimary,
+                            ),
                           ),
                           TextSpan(
                             text: ' 장바구니 담기',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                ),
+                            style: textTheme.titleSmall?.copyWith(
+                              color: colorScheme.onPrimary,
+                            ),
                           ),
                         ],
                       ),

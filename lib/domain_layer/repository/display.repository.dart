@@ -18,16 +18,12 @@ abstract class DisplayRepository extends Repository {
     // Map<String, String>? queries,
   });
 
-  //TODO response 만들어야 함
   Future<Result<bool>> addCart({required Cart cart});
 
-  //TODO response 만들어야 함
   Future<Result<bool>> deleteCart(List<String> productIds);
 
-  //TODO response 만들어야 함
   Future<Result<bool>> clearCartList();
 
-  //TODO response 만들어야 함
   Future<Result<bool>> changeCartQuantity({
     required String productId,
     required int qty,

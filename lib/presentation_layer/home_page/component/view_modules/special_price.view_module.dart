@@ -167,7 +167,8 @@ class SpecialPriceProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,7 +194,7 @@ class SpecialPriceProduct extends StatelessWidget {
           productInfo.subtitle,
           style: textTheme.labelLarge
               ?.copyWith(
-                color: Theme.of(context).colorScheme.contentTertiary,
+                color: colorScheme.contentTertiary,
               )
               .regular,
         ),

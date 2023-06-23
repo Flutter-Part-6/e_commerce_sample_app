@@ -11,21 +11,6 @@ import 'widget/product_card.component.dart';
 import 'widget/view_module_padding.dart';
 import 'widget/view_module_title.dart';
 
-var _tempData = [
-  {
-    "title": "가전,가구 특가",
-  },
-  {
-    "title": "프리미엄 주방 특가",
-  },
-  {
-    "title": "뷰티 특가",
-  },
-  {
-    "title": "프리미엄 식품 특가",
-  },
-];
-
 class CategoryProductViewModule extends StatefulWidget with ViewModuleWidget {
   const CategoryProductViewModule(this.info, {Key? key}) : super(key: key);
 
@@ -44,7 +29,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: _tempData.length,
+      length: widget.info.tabs.length,
       vsync: this,
     )..addListener(() {
         setState(() {});
@@ -60,6 +45,8 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -72,8 +59,8 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
           height: 12,
         ),
         TabBar(
-          tabs: List.generate(_tempData.length, (index) {
-            return Tab(text: _tempData[index]['title'] ?? '');
+          tabs: List.generate(widget.info.tabs.length, (index) {
+            return Tab(text: widget.info.tabs[index] ?? '');
           }),
           controller: _tabController,
           isScrollable: true,
@@ -89,7 +76,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
             aspectRatio: 343 / 452,
             child: TabBarView(
               children: List.generate(
-                _tempData.length,
+                widget.info.tabs.length,
                 (index) {
                   return GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -118,7 +105,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
         ),
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
+            color: colorScheme.surface,
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
@@ -132,12 +119,12 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${_tempData[_tabController.index]['title']} 전체보기',
+                  '${widget.info.tabs[_tabController.index]} 전체보기',
                   style: Theme.of(context)
                       .textTheme
                       .titleSmall
                       ?.copyWith(
-                        color: Theme.of(context).colorScheme.contentPrimary,
+                        color: colorScheme.contentPrimary,
                       )
                       .regular,
                 ),
@@ -146,7 +133,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
                   width: 16,
                   height: 16,
                   colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.contentPrimary,
+                    colorScheme.contentPrimary,
                     BlendMode.srcIn,
                   ),
                 ),

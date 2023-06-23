@@ -24,6 +24,9 @@ class ViewModuleEntity extends HiveObject {
   @HiveField(5, defaultValue: -1)
   int time;
 
+  @HiveField(6, defaultValue: [])
+  List<String> tabs;
+
   ViewModuleEntity({
     required this.type,
     required this.title,
@@ -31,5 +34,6 @@ class ViewModuleEntity extends HiveObject {
     required this.imageUrl,
     required this.products,
     required this.time,
+    required this.tabs,
   });
 }

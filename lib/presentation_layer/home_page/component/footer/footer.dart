@@ -9,6 +9,8 @@ class HomeFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       color: Colors.grey[200],
       margin: const EdgeInsets.only(top: 40.0),
@@ -30,7 +32,7 @@ class HomeFooter extends StatelessWidget {
               Container(
                 height: 10,
                 child: VerticalDivider(
-                  color: Theme.of(context).colorScheme.contentTertiary,
+                  color: colorScheme.contentTertiary,
                 ),
               ),
               GreyInfo('대표자 : 김플러터'),
@@ -74,7 +76,7 @@ class HomeFooter extends StatelessWidget {
               Container(
                 height: 10,
                 child: VerticalDivider(
-                  color: Theme.of(context).colorScheme.contentTertiary,
+                  color: colorScheme.contentTertiary,
                 ),
               ),
               Row(children: [

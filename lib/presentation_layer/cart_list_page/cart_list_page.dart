@@ -35,6 +35,8 @@ class CartListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartListBloc = context.read<CartListBloc>();
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return BlocProvider(
       create: (_) => getIt<PaymentBloc>(),
@@ -45,7 +47,7 @@ class CartListView extends StatelessWidget {
             child: IconBox(
               icon: AppIcons.close,
               iconSize: 24,
-              color: Theme.of(context).colorScheme.contentPrimary,
+              color: colorScheme.contentPrimary,
               onPressed: () {
                 if (context.canPop()) {
                   context.pop();
@@ -56,10 +58,8 @@ class CartListView extends StatelessWidget {
           title: const Text('장바구니'),
           elevation: 0,
           backgroundColor: AppColors.white,
-          titleTextStyle: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(color: Theme.of(context).colorScheme.contentPrimary)
+          titleTextStyle: textTheme.titleMedium
+              ?.copyWith(color: colorScheme.contentPrimary)
               .semiBold,
         ),
         body: SingleChildScrollView(
@@ -89,10 +89,8 @@ class CartListView extends StatelessWidget {
                                 colorFilter: ColorFilter.mode(
                                   (selectedProducts.length == cartList.length &&
                                           cartList.length != 0)
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .contentFourth,
+                                      ? colorScheme.primary
+                                      : colorScheme.contentFourth,
                                   BlendMode.srcIn,
                                 ),
                               ),
@@ -102,13 +100,9 @@ class CartListView extends StatelessWidget {
                             const SizedBox(width: 10),
                             Text(
                               '전체 선택 (${selectedProducts.length}/${cartList.length})',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
+                              style: textTheme.titleSmall
                                   ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .contentPrimary,
+                                    color: colorScheme.contentPrimary,
                                   )
                                   .regular,
                             ),
@@ -122,13 +116,9 @@ class CartListView extends StatelessWidget {
                         height: 40,
                         child: Text(
                           '전체 삭제',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
+                          style: textTheme.titleSmall
                               ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .contentSecondary,
+                                color: colorScheme.contentSecondary,
                               )
                               .semiBold,
                         ),
@@ -141,7 +131,7 @@ class CartListView extends StatelessWidget {
               Divider(
                 height: 8,
                 thickness: 8,
-                color: Theme.of(context).colorScheme.surface,
+                color: colorScheme.surface,
               ),
               BlocBuilder<CartListBloc, CartListState>(
                 builder: (context, state) {

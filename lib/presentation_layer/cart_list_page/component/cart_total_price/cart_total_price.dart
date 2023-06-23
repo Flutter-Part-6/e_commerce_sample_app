@@ -35,7 +35,7 @@ class CartTotalPrice extends StatelessWidget {
             Divider(
               height: 8,
               thickness: 8,
-              color: Theme.of(context).colorScheme.surface,
+              color: colorScheme.surface,
             ),
             Container(
               padding: const EdgeInsets.all(20),

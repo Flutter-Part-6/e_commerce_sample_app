@@ -35,9 +35,9 @@ extension StoreTypeX on StoreType {
   String get toName {
     switch (this) {
       case StoreType.market:
-        return '마켓다트';
+        return '마켓패캠';
       case StoreType.beauty:
-        return '뷰티다트';
+        return '뷰티패캠';
     }
   }
 

@@ -21,6 +21,7 @@ extension ViewModuleDtoEx on ViewModuleDto {
       imageUrl: imageUrl ?? '',
       time: time ?? -1,
       products: products?.map((dto) => dto.toModel()).toList() ?? [],
+      tabs: tabs ?? [],
     );
   }
 }
@@ -35,6 +36,7 @@ extension ViewModuleEntityEx on ViewModuleEntity {
       imageUrl: imageUrl,
       time: time,
       products: products.map((entity) => entity.toModel()).toList(),
+      tabs: tabs,
     );
   }
 }
@@ -49,6 +51,7 @@ extension ViewModuleEx on ViewModule {
       imageUrl: imageUrl,
       products: products.map((model) => model.toEntity()).toList(),
       time: time,
+      tabs: tabs,
     );
   }
 }
