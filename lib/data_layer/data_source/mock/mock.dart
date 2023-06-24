@@ -19,7 +19,7 @@ class MockApi implements DisplayApi {
       );
 
   @override
-  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByMallType({
+  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType({
     required String mallType,
   }) {
     print('[test] mallType : $mallType');
@@ -31,12 +31,12 @@ class MockApi implements DisplayApi {
               status: 'SUCCESS',
               code: '7777',
               message: '갱신에 실패했습니다.',
-              data: <CollectionDto>[
-                const CollectionDto(tabId: 10001, title: "컬리추천"),
-                const CollectionDto(tabId: 10002, title: "신상품"),
-                const CollectionDto(tabId: 10003, title: "베스트"),
-                const CollectionDto(tabId: 10004, title: "알뜰쇼핑"),
-                const CollectionDto(tabId: 10005, title: "특가/혜택"),
+              data: <MenuDto>[
+                const MenuDto(tabId: 10001, title: "컬리추천"),
+                const MenuDto(tabId: 10002, title: "신상품"),
+                const MenuDto(tabId: 10003, title: "베스트"),
+                const MenuDto(tabId: 10004, title: "알뜰쇼핑"),
+                const MenuDto(tabId: 10005, title: "특가/혜택"),
               ],
             ),
           )
@@ -45,13 +45,13 @@ class MockApi implements DisplayApi {
               status: 'SUCCESS',
               code: '0000',
               message: '성공입니다.',
-              data: <CollectionDto>[
-                const CollectionDto(tabId: 20001, title: "컬리추천"),
-                const CollectionDto(tabId: 20002, title: "LUXURY"),
-                const CollectionDto(tabId: 20003, title: "신상품"),
-                const CollectionDto(tabId: 20004, title: "베스트"),
-                const CollectionDto(tabId: 20005, title: "특가/혜택"),
-                const CollectionDto(tabId: 20005, title: "브랜드"),
+              data: <MenuDto>[
+                const MenuDto(tabId: 20001, title: "컬리추천"),
+                const MenuDto(tabId: 20002, title: "LUXURY"),
+                const MenuDto(tabId: 20003, title: "신상품"),
+                const MenuDto(tabId: 20004, title: "베스트"),
+                const MenuDto(tabId: 20005, title: "특가/혜택"),
+                const MenuDto(tabId: 20005, title: "브랜드"),
               ],
             ),
           );

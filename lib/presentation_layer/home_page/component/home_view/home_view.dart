@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../theme/custom_theme.dart';
 import '../../../../theme/typography.dart';
-import '../../bloc/collections_bloc/collections_bloc.dart';
+import '../../bloc/home_page_bloc.dart';
 import '../view_modules/view_module_list.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,8 +18,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   void didChangeDependencies() {
-    final collections = context.watch<CollectionsBloc>().state.collections;
-    _tabController = TabController(length: collections.length, vsync: this);
+    final menus = context.watch<MenuBloc>().state.menus;
+    _tabController = TabController(length: menus.length, vsync: this);
     super.didChangeDependencies();
   }
 
@@ -31,8 +31,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final mallType = context.watch<CollectionsBloc>().state.mallType;
-    final collections = context.watch<CollectionsBloc>().state.collections;
+    final mallType = context.watch<MenuBloc>().state.mallType;
+    final menus = context.watch<MenuBloc>().state.menus;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
@@ -41,7 +41,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         SizedBox(
           width: MediaQuery.of(context).size.width,
           child: TabBar(
-            tabs: collections.map((e) => Tab(text: e.title)).toList(),
+            tabs: menus.map((e) => Tab(text: e.title)).toList(),
             controller: _tabController,
             // isScrollable: true,
             indicatorSize: TabBarIndicatorSize.label,
@@ -55,7 +55,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ),
         Expanded(
           child: TabBarView(
-            children: collections
+            children: menus
                 .map(
                   (e) => ViewModuleList(tabId: e.tabId, mallType: mallType),
                 )

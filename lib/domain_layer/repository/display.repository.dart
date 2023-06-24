@@ -3,8 +3,8 @@ import '../model/display.model.dart';
 import 'repository.dart';
 
 abstract class DisplayRepository extends Repository {
-  // get collection list
-  Future<Result<List<Collection>>> getCollectionsByMallType({
+  // get menu list
+  Future<Result<List<Menu>>> getMenusByMallType({
     required String mallType,
     Map<String, String>? queries,
   });

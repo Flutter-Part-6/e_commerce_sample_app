@@ -19,14 +19,14 @@ class _DisplayApi implements DisplayApi {
   String? baseUrl;
 
   @override
-  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByMallType(
+  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(
       {required String mallType}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ResponseWrapper<List<CollectionDto>>>(Options(
+        _setStreamType<ResponseWrapper<List<MenuDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -38,12 +38,11 @@ class _DisplayApi implements DisplayApi {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ResponseWrapper<List<CollectionDto>>.fromJson(
+    final value = ResponseWrapper<List<MenuDto>>.fromJson(
       _result.data!,
       (json) => json is List<dynamic>
           ? json
-              .map<CollectionDto>(
-                  (i) => CollectionDto.fromJson(i as Map<String, dynamic>))
+              .map<MenuDto>((i) => MenuDto.fromJson(i as Map<String, dynamic>))
               .toList()
           : List.empty(),
     );

@@ -2,9 +2,9 @@ import '../../dto/display.dto.dart';
 import '../../../domain_layer/model/display.model.dart';
 import '../../entity/display/display.entity.dart';
 
-extension CollectionEx on CollectionDto {
-  Collection toModel() {
-    return Collection(
+extension MenuEx on MenuDto {
+  Menu toModel() {
+    return Menu(
       tabId: tabId ?? 0,
       title: title ?? '',
     );

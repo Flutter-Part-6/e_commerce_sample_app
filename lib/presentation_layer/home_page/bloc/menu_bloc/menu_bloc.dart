@@ -5,30 +5,30 @@ import 'package:injectable/injectable.dart';
 import '../../../../common/utils/exceptions/network_exception.dart';
 import '../../../../common/utils/exceptions/service_exception.dart';
 import '../../../../common/utils/logger.dart';
+import '../../../../domain_layer/model/display/menu/menu.model.dart';
 import '../../../../domain_layer/usecase/display.usecase.dart';
-import '../../../../domain_layer/model/display/collection/collection.model.dart';
-import '../../../../domain_layer/usecase/display/collections/get_collections_by_store_type.usecase.dart';
 import '../../../../common/constants.dart';
+import '../../../../domain_layer/usecase/display/menu/menu.usecase.dart';
 
-part 'collections_event.dart';
+part 'menu_event.dart';
 
-part 'collections_state.dart';
+part 'menu_state.dart';
 
-part 'collections_bloc.freezed.dart';
+part 'menu_bloc.freezed.dart';
 
 @injectable
-class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
+class MenuBloc extends Bloc<MenuEvent, MenuState> {
   final DisplayUsecase _displayUsecase;
 
-  CollectionsBloc(this._displayUsecase) : super(CollectionsState()) {
-    on<CollectionsInitialized>(_onCollectionsInitialized);
+  MenuBloc(this._displayUsecase) : super(MenuState()) {
+    on<MenuInitialized>(_onMenusInitialized);
     on<ToggledMallTypes>(_onToggledMallTypes);
   }
 
   /// GNB bar(collections bar) 초기화
-  Future<void> _onCollectionsInitialized(
-    CollectionsInitialized event,
-    Emitter<CollectionsState> emit,
+  Future<void> _onMenusInitialized(
+    MenuInitialized event,
+    Emitter<MenuState> emit,
   ) async {
     final mallType = event.mallType ?? MallType.market;
 
@@ -38,16 +38,16 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     ));
 
     try {
-      final List<Collection> collections = await _fetch(mallType: mallType);
-      final int currentTabId = collections.first.tabId;
+      final List<Menu> menus = await _fetch(mallType: mallType);
+      final int currentTabId = menus.first.tabId;
 
-      _validateCollections(collections);
+      _validateMenus(menus);
 
       emit(
         state.copyWith(
           status: Status.success,
           currentTabId: currentTabId,
-          collections: collections,
+          menus: menus,
         ),
       );
     } on NetworkException catch (error) {
@@ -66,7 +66,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
 
   Future<void> _onToggledMallTypes(
     ToggledMallTypes event,
-    Emitter<CollectionsState> emit,
+    Emitter<MenuState> emit,
   ) async {
     if (!state.status.isSuccess) return;
 
@@ -78,15 +78,15 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     final mallType = MallType.values[event.tabIndex];
 
     try {
-      final List<Collection> collections = await _fetch(mallType: mallType);
+      final List<Menu> menus = await _fetch(mallType: mallType);
 
-      _validateCollections(collections);
+      _validateMenus(menus);
 
       emit(
         state.copyWith(
           status: Status.success,
           mallType: mallType,
-          collections: collections,
+          menus: menus,
         ),
       );
     } on NetworkException catch (error) {
@@ -103,13 +103,12 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     }
   }
 
-  Future<List<Collection>> _fetch({required MallType mallType}) async {
-    return await _displayUsecase
-        .fetch(GetCollectionsByMallType(mallType: mallType));
+  Future<List<Menu>> _fetch({required MallType mallType}) async {
+    return await _displayUsecase.fetch(GetMenus(mallType: mallType));
   }
 }
 
-void _validateCollections(List<Collection> collections) {
+void _validateMenus(List<Menu> collections) {
   // collections bar의 데이터가 없는 경우
   if (collections.isEmpty) {
     final code = 'GNB-0000';

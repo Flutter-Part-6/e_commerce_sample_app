@@ -19,16 +19,16 @@ class DisplayRepositoryImpl implements DisplayRepository {
   DisplayRepositoryImpl(this._displayApi, this._displayDao);
 
   @override
-  Future<Result<List<Collection>>> getCollectionsByMallType({
+  Future<Result<List<Menu>>> getMenusByMallType({
     required String mallType,
     Map<String, String>? queries,
   }) async {
     try {
       final response =
-          await _displayApi.getCollectionsByMallType(mallType: mallType);
+          await _displayApi.getMenusByMallType(mallType: mallType);
 
       if (response.status.isSuccess) {
-        final List<Collection> collections =
+        final List<Menu> collections =
             response.data?.map((dto) => dto.toModel()).toList() ?? [];
 
         return Result.success(collections);

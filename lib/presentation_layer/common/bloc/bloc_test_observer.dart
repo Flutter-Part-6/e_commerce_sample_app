@@ -5,7 +5,9 @@ import 'package:sample_app/common/utils/logger.dart';
 import 'package:sample_app/presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'package:sample_app/presentation_layer/home_page/bloc/home_page_bloc.dart';
 
+
 import '../../home_page/bloc/cart_bloc/cart_bloc.dart';
+import '../../home_page/bloc/menu_bloc/menu_bloc.dart';
 
 class BlocTestObserver extends BlocObserver {
   @override
@@ -17,9 +19,9 @@ class BlocTestObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    if (bloc.runtimeType.toString() == 'CollectionsBloc') {
-      final current = (change.currentState as CollectionsState).status;
-      final next = (change.nextState as CollectionsState).status;
+    if (bloc.runtimeType.toString() == 'MenusBloc') {
+      final current = (change.currentState as MenuState).status;
+      final next = (change.nextState as MenuState).status;
 
       // CustomLogger.logger.d(
       //     'onChange -- ${bloc.runtimeType},###${bloc.hashCode},$current -> $next');

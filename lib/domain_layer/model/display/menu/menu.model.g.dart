@@ -1,19 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'collection.model.dart';
+part of 'menu.model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Collection _$$_CollectionFromJson(Map<String, dynamic> json) =>
-    _$_Collection(
+_$_Menu _$$_MenuFromJson(Map<String, dynamic> json) => _$_Menu(
       tabId: json['tabId'] as int,
       title: json['title'] as String,
     );
 
-Map<String, dynamic> _$$_CollectionToJson(_$_Collection instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$_MenuToJson(_$_Menu instance) => <String, dynamic>{
       'tabId': instance.tabId,
       'title': instance.title,
     };

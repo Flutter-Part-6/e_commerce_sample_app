@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'collections_bloc.dart';
+part of 'menu_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,36 +15,35 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$CollectionsState {
+mixin _$MenuState {
   Status get status => throw _privateConstructorUsedError;
   String get errorMsg => throw _privateConstructorUsedError;
   MallType get mallType => throw _privateConstructorUsedError;
   int get currentTabId => throw _privateConstructorUsedError;
-  List<Collection> get collections => throw _privateConstructorUsedError;
+  List<Menu> get menus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $CollectionsStateCopyWith<CollectionsState> get copyWith =>
+  $MenuStateCopyWith<MenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CollectionsStateCopyWith<$Res> {
-  factory $CollectionsStateCopyWith(
-          CollectionsState value, $Res Function(CollectionsState) then) =
-      _$CollectionsStateCopyWithImpl<$Res, CollectionsState>;
+abstract class $MenuStateCopyWith<$Res> {
+  factory $MenuStateCopyWith(MenuState value, $Res Function(MenuState) then) =
+      _$MenuStateCopyWithImpl<$Res, MenuState>;
   @useResult
   $Res call(
       {Status status,
       String errorMsg,
       MallType mallType,
       int currentTabId,
-      List<Collection> collections});
+      List<Menu> menus});
 }
 
 /// @nodoc
-class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
-    implements $CollectionsStateCopyWith<$Res> {
-  _$CollectionsStateCopyWithImpl(this._value, this._then);
+class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
+    implements $MenuStateCopyWith<$Res> {
+  _$MenuStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -58,7 +57,7 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
     Object? errorMsg = null,
     Object? mallType = null,
     Object? currentTabId = null,
-    Object? collections = null,
+    Object? menus = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -77,20 +76,19 @@ class _$CollectionsStateCopyWithImpl<$Res, $Val extends CollectionsState>
           ? _value.currentTabId
           : currentTabId // ignore: cast_nullable_to_non_nullable
               as int,
-      collections: null == collections
-          ? _value.collections
-          : collections // ignore: cast_nullable_to_non_nullable
-              as List<Collection>,
+      menus: null == menus
+          ? _value.menus
+          : menus // ignore: cast_nullable_to_non_nullable
+              as List<Menu>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_CollectionsStateCopyWith<$Res>
-    implements $CollectionsStateCopyWith<$Res> {
-  factory _$$_CollectionsStateCopyWith(
-          _$_CollectionsState value, $Res Function(_$_CollectionsState) then) =
-      __$$_CollectionsStateCopyWithImpl<$Res>;
+abstract class _$$_MenuStateCopyWith<$Res> implements $MenuStateCopyWith<$Res> {
+  factory _$$_MenuStateCopyWith(
+          _$_MenuState value, $Res Function(_$_MenuState) then) =
+      __$$_MenuStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -98,15 +96,15 @@ abstract class _$$_CollectionsStateCopyWith<$Res>
       String errorMsg,
       MallType mallType,
       int currentTabId,
-      List<Collection> collections});
+      List<Menu> menus});
 }
 
 /// @nodoc
-class __$$_CollectionsStateCopyWithImpl<$Res>
-    extends _$CollectionsStateCopyWithImpl<$Res, _$_CollectionsState>
-    implements _$$_CollectionsStateCopyWith<$Res> {
-  __$$_CollectionsStateCopyWithImpl(
-      _$_CollectionsState _value, $Res Function(_$_CollectionsState) _then)
+class __$$_MenuStateCopyWithImpl<$Res>
+    extends _$MenuStateCopyWithImpl<$Res, _$_MenuState>
+    implements _$$_MenuStateCopyWith<$Res> {
+  __$$_MenuStateCopyWithImpl(
+      _$_MenuState _value, $Res Function(_$_MenuState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -116,9 +114,9 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
     Object? errorMsg = null,
     Object? mallType = null,
     Object? currentTabId = null,
-    Object? collections = null,
+    Object? menus = null,
   }) {
-    return _then(_$_CollectionsState(
+    return _then(_$_MenuState(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -135,24 +133,24 @@ class __$$_CollectionsStateCopyWithImpl<$Res>
           ? _value.currentTabId
           : currentTabId // ignore: cast_nullable_to_non_nullable
               as int,
-      collections: null == collections
-          ? _value._collections
-          : collections // ignore: cast_nullable_to_non_nullable
-              as List<Collection>,
+      menus: null == menus
+          ? _value._menus
+          : menus // ignore: cast_nullable_to_non_nullable
+              as List<Menu>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_CollectionsState implements _CollectionsState {
-  _$_CollectionsState(
+class _$_MenuState implements _MenuState {
+  _$_MenuState(
       {this.status = Status.initial,
       this.errorMsg = '',
       this.mallType = MallType.market,
       this.currentTabId = 0,
-      final List<Collection> collections = const <Collection>[]})
-      : _collections = collections;
+      final List<Menu> menus = const <Menu>[]})
+      : _menus = menus;
 
   @override
   @JsonKey()
@@ -166,25 +164,25 @@ class _$_CollectionsState implements _CollectionsState {
   @override
   @JsonKey()
   final int currentTabId;
-  final List<Collection> _collections;
+  final List<Menu> _menus;
   @override
   @JsonKey()
-  List<Collection> get collections {
-    if (_collections is EqualUnmodifiableListView) return _collections;
+  List<Menu> get menus {
+    if (_menus is EqualUnmodifiableListView) return _menus;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_collections);
+    return EqualUnmodifiableListView(_menus);
   }
 
   @override
   String toString() {
-    return 'CollectionsState(status: $status, errorMsg: $errorMsg, mallType: $mallType, currentTabId: $currentTabId, collections: $collections)';
+    return 'MenuState(status: $status, errorMsg: $errorMsg, mallType: $mallType, currentTabId: $currentTabId, menus: $menus)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CollectionsState &&
+            other is _$_MenuState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMsg, errorMsg) ||
                 other.errorMsg == errorMsg) &&
@@ -192,28 +190,27 @@ class _$_CollectionsState implements _CollectionsState {
                 other.mallType == mallType) &&
             (identical(other.currentTabId, currentTabId) ||
                 other.currentTabId == currentTabId) &&
-            const DeepCollectionEquality()
-                .equals(other._collections, _collections));
+            const DeepCollectionEquality().equals(other._menus, _menus));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, status, errorMsg, mallType,
-      currentTabId, const DeepCollectionEquality().hash(_collections));
+      currentTabId, const DeepCollectionEquality().hash(_menus));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CollectionsStateCopyWith<_$_CollectionsState> get copyWith =>
-      __$$_CollectionsStateCopyWithImpl<_$_CollectionsState>(this, _$identity);
+  _$$_MenuStateCopyWith<_$_MenuState> get copyWith =>
+      __$$_MenuStateCopyWithImpl<_$_MenuState>(this, _$identity);
 }
 
-abstract class _CollectionsState implements CollectionsState {
-  factory _CollectionsState(
+abstract class _MenuState implements MenuState {
+  factory _MenuState(
       {final Status status,
       final String errorMsg,
       final MallType mallType,
       final int currentTabId,
-      final List<Collection> collections}) = _$_CollectionsState;
+      final List<Menu> menus}) = _$_MenuState;
 
   @override
   Status get status;
@@ -224,9 +221,9 @@ abstract class _CollectionsState implements CollectionsState {
   @override
   int get currentTabId;
   @override
-  List<Collection> get collections;
+  List<Menu> get menus;
   @override
   @JsonKey(ignore: true)
-  _$$_CollectionsStateCopyWith<_$_CollectionsState> get copyWith =>
+  _$$_MenuStateCopyWith<_$_MenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,7 @@ abstract class DisplayApi {
 
   // about collections
   @GET('/stores/{mallType}')
-  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByMallType({
+  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType({
     @Path('mallType') required String mallType,
   });
 

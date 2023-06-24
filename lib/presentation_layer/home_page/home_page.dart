@@ -74,7 +74,7 @@ class _BuildHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CollectionsBloc, CollectionsState>(
+    return BlocConsumer<MenuBloc, MenuState>(
       builder: (context, state) {
         switch (state.status) {
           case Status.initial:

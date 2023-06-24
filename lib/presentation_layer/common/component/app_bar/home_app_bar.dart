@@ -7,8 +7,8 @@ import '../../../../theme/app_icons.dart';
 import '../../../../theme/custom_theme.dart';
 import '../../../../theme/typography.dart';
 import '../../../cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
-import '../../../home_page/bloc/collections_bloc/collections_bloc.dart';
 import '../../../../common/constants.dart';
+import '../../../home_page/bloc/menu_bloc/menu_bloc.dart';
 import '../../../routes.dart';
 import 'widget/icon_box.dart';
 
@@ -33,12 +33,12 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
   }
 
   void _onTap(int tabIndex) {
-    context.read<CollectionsBloc>().add(ToggledMallTypes(tabIndex));
+    context.read<MenuBloc>().add(ToggledMallTypes(tabIndex));
   }
 
   @override
   void didChangeDependencies() {
-    final currentIndex = context.watch<CollectionsBloc>().state.mallType.index;
+    final currentIndex = context.watch<MenuBloc>().state.mallType.index;
     if (_tabController.index == currentIndex) return;
     _tabController.index = currentIndex;
     super.didChangeDependencies();
@@ -65,7 +65,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final cartCount = context.watch<CartListBloc>().state.cartList.length;
-    final mallType = context.watch<CollectionsBloc>().state.mallType;
+    final mallType = context.watch<MenuBloc>().state.mallType;
     final textTheme = Theme.of(context).textTheme;
 
     return AnimatedContainer(
