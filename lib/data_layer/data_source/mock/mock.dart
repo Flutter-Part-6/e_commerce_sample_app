@@ -19,13 +19,13 @@ class MockApi implements DisplayApi {
       );
 
   @override
-  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByStoreType({
-    required String storeType,
+  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByMallType({
+    required String mallType,
   }) {
-    print('[test] storeType : $storeType');
+    print('[test] mallType : $mallType');
     // throw SocketException('no internet');
 
-    return storeType == StoreType.market.name
+    return mallType == MallType.market.name
         ? Future(
             () => ResponseWrapper(
               status: 'SUCCESS',
@@ -59,8 +59,8 @@ class MockApi implements DisplayApi {
 
   @override
   Future<ResponseWrapper<List<ViewModuleDto>>>
-      getViewModulesByStoreTypeAndTabId({
-    required String storeType,
+      getViewModulesByMallTypeAndTabId({
+    required String mallType,
     required int tabId,
     required int page,
   }) {
@@ -75,7 +75,7 @@ class MockApi implements DisplayApi {
       );
     }
 
-    return storeType == StoreType.market.name
+    return mallType == MallType.market.name
         ? Future.delayed(
             Duration(seconds: 2),
             () {

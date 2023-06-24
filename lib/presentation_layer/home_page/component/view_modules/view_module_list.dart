@@ -8,10 +8,10 @@ import '../footer/footer.dart';
 import 'widget/bottom_loader.dart';
 
 class ViewModuleList extends StatelessWidget {
-  const ViewModuleList({required this.tabId, required this.storeType, Key? key})
+  const ViewModuleList({required this.tabId, required this.mallType, Key? key})
       : super(key: key);
 
-  final StoreType storeType;
+  final MallType mallType;
   final int tabId;
 
   @override
@@ -19,28 +19,28 @@ class ViewModuleList extends StatelessWidget {
     return BlocProvider.value(
       value: BlocProvider.of<ViewModulesBloc>(context)
         ..add(
-          ViewModulesInitialized(storeType: storeType, tabId: tabId),
+          ViewModulesInitialized(mallType: mallType, tabId: tabId),
         ),
-      child: _BuildViewModules(storeType, tabId),
+      child: _BuildViewModules(mallType, tabId),
     );
   }
 }
 
 class _BuildViewModules extends StatefulWidget {
-  const _BuildViewModules(this.storeType, this.tabId);
+  const _BuildViewModules(this.mallType, this.tabId);
 
   final int tabId;
-  final StoreType storeType;
+  final MallType mallType;
 
   @override
   State<_BuildViewModules> createState() => _BuildViewModulesState();
 }
 
 class _BuildViewModulesState extends State<_BuildViewModules> {
-  void _onRefresh(StoreType storeType, int tabId) {
+  void _onRefresh(MallType mallType, int tabId) {
     context.read<ViewModulesBloc>().add(
           ViewModulesInitialized(
-            storeType: storeType,
+            mallType: mallType,
             tabId: tabId,
             isRefresh: true,
           ),
@@ -81,7 +81,7 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
           return false;
         },
       ),
-      onRefresh: () async => _onRefresh(widget.storeType, widget.tabId),
+      onRefresh: () async => _onRefresh(widget.mallType, widget.tabId),
     );
   }
 }

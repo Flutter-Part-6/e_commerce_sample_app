@@ -19,8 +19,8 @@ class _DisplayApi implements DisplayApi {
   String? baseUrl;
 
   @override
-  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByStoreType(
-      {required String storeType}) async {
+  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByMallType(
+      {required String mallType}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -33,7 +33,7 @@ class _DisplayApi implements DisplayApi {
     )
             .compose(
               _dio.options,
-              '/stores/${storeType}',
+              '/stores/${mallType}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -52,8 +52,8 @@ class _DisplayApi implements DisplayApi {
 
   @override
   Future<ResponseWrapper<List<ViewModuleDto>>>
-      getViewModulesByStoreTypeAndTabId({
-    required String storeType,
+      getViewModulesByMallTypeAndTabId({
+    required String mallType,
     required int tabId,
     required int page,
   }) async {
@@ -69,7 +69,7 @@ class _DisplayApi implements DisplayApi {
     )
             .compose(
               _dio.options,
-              '/view_modules/${storeType}/${tabId}',
+              '/view_modules/${mallType}/${tabId}',
               queryParameters: queryParameters,
               data: _data,
             )

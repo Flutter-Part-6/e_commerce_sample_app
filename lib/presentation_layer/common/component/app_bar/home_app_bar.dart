@@ -33,43 +33,43 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
   }
 
   void _onTap(int tabIndex) {
-    context.read<CollectionsBloc>().add(ToggledStoreTypes(tabIndex));
+    context.read<CollectionsBloc>().add(ToggledMallTypes(tabIndex));
   }
 
   @override
   void didChangeDependencies() {
-    final currentIndex = context.watch<CollectionsBloc>().state.storeType.index;
+    final currentIndex = context.watch<CollectionsBloc>().state.mallType.index;
     if (_tabController.index == currentIndex) return;
     _tabController.index = currentIndex;
     super.didChangeDependencies();
   }
 
-  Color primary(StoreType storeType, {bool isContainer = false}) {
+  Color primary(MallType mallType, {bool isContainer = false}) {
     final colorScheme = Theme.of(context).colorScheme;
 
     if (isContainer) {
-      return storeType.isMarket
+      return mallType.isMarket
           ? colorScheme.primaryContainer
           : colorScheme.surface;
     }
 
-    return storeType.isMarket ? colorScheme.primary : colorScheme.onPrimary;
+    return mallType.isMarket ? colorScheme.primary : colorScheme.onPrimary;
   }
 
-  Color onPrimary(StoreType storeType) {
+  Color onPrimary(MallType mallType) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return storeType.isMarket ? colorScheme.onPrimary : colorScheme.primary;
+    return mallType.isMarket ? colorScheme.onPrimary : colorScheme.primary;
   }
 
   @override
   Widget build(BuildContext context) {
     final cartCount = context.watch<CartListBloc>().state.cartList.length;
-    final storeType = context.watch<CollectionsBloc>().state.storeType;
+    final mallType = context.watch<CollectionsBloc>().state.mallType;
     final textTheme = Theme.of(context).textTheme;
 
     return AnimatedContainer(
-      color: storeType.isMarket ? colorScheme.primary : colorScheme.onPrimary,
+      color: mallType.isMarket ? colorScheme.primary : colorScheme.onPrimary,
       child: SafeArea(
         child: AppBar(
           leading: Container(
@@ -77,12 +77,12 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
             margin: EdgeInsets.only(left: 8),
             child: SvgPicture.asset(
               AppIcons.mainLogo,
-              color: onPrimary(storeType),
+              color: onPrimary(mallType),
             ),
           ),
           title: AnimatedContainer(
             decoration: BoxDecoration(
-              color: primary(storeType, isContainer: true),
+              color: primary(mallType, isContainer: true),
               borderRadius: const BorderRadius.all(
                 Radius.circular(16),
               ),
@@ -90,24 +90,24 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
             height: 28,
             child: TabBar(
               tabs: [
-                Tab(text: StoreType.market.toName),
-                Tab(text: StoreType.beauty.toName),
+                Tab(text: MallType.market.toName),
+                Tab(text: MallType.beauty.toName),
               ],
               controller: _tabController,
               isScrollable: true,
               indicatorWeight: 0,
               indicator: BoxDecoration(
-                color: onPrimary(storeType),
+                color: onPrimary(mallType),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(16),
                 ),
               ),
               indicatorSize: TabBarIndicatorSize.tab,
               dividerColor: Colors.transparent,
-              labelColor: primary(storeType),
+              labelColor: primary(mallType),
               labelStyle: textTheme.labelLarge.bold,
               labelPadding: EdgeInsets.symmetric(horizontal: 12.5),
-              unselectedLabelColor: (storeType.isMarket)
+              unselectedLabelColor: (mallType.isMarket)
                   ? Theme.of(context).colorScheme.onPrimary
                   : Theme.of(context).colorScheme.contentPrimary,
               unselectedLabelStyle: textTheme.labelLarge,
@@ -121,7 +121,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           actions: [
             IconBox(
               icon: AppIcons.location,
-              color: storeType.isMarket
+              color: mallType.isMarket
                   ? Theme.of(context).colorScheme.onPrimary
                   : Theme.of(context).colorScheme.contentPrimary,
               onPressed: null,
@@ -132,7 +132,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
               children: [
                 IconBox(
                   icon: AppIcons.cart,
-                  color: storeType.isMarket
+                  color: mallType.isMarket
                       ? Theme.of(context).colorScheme.onPrimary
                       : Theme.of(context).colorScheme.contentPrimary,
                   onPressed: () => context.push(Routes.cartPath),
@@ -143,7 +143,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
                   right: 0,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: onPrimary(storeType),
+                      color: onPrimary(mallType),
                       shape: BoxShape.circle,
                     ),
                     width: 13,
@@ -152,7 +152,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
                       child: Text(
                         '$cartCount',
                         style: TextStyle(
-                          color: primary(storeType),
+                          color: primary(mallType),
                           fontSize: 9,
                           fontWeight: FontWeight.w600,
                         ),

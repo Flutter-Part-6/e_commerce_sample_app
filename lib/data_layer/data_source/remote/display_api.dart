@@ -11,16 +11,16 @@ abstract class DisplayApi {
   factory DisplayApi(Dio dio, {String? baseUrl}) = _DisplayApi;
 
   // about collections
-  @GET('/stores/{storeType}')
-  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByStoreType({
-    @Path('storeType') required String storeType,
+  @GET('/stores/{mallType}')
+  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByMallType({
+    @Path('mallType') required String mallType,
   });
 
   // about view_modules
-  @GET('/view_modules/{storeType}/{tabId}')
+  @GET('/view_modules/{mallType}/{tabId}')
   Future<ResponseWrapper<List<ViewModuleDto>>>
-      getViewModulesByStoreTypeAndTabId({
-    @Path('storeType') required String storeType,
+      getViewModulesByMallTypeAndTabId({
+    @Path('mallType') required String mallType,
     @Path('tabId') required int tabId,
     @Query('page') required int page,
   });

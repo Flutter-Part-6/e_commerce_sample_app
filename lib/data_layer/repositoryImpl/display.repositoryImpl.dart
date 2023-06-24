@@ -19,13 +19,13 @@ class DisplayRepositoryImpl implements DisplayRepository {
   DisplayRepositoryImpl(this._displayApi, this._displayDao);
 
   @override
-  Future<Result<List<Collection>>> getCollectionsByStoreType({
-    required String storeType,
+  Future<Result<List<Collection>>> getCollectionsByMallType({
+    required String mallType,
     Map<String, String>? queries,
   }) async {
     try {
       final response =
-          await _displayApi.getCollectionsByStoreType(storeType: storeType);
+          await _displayApi.getCollectionsByMallType(mallType: mallType);
 
       if (response.status.isSuccess) {
         final List<Collection> collections =
@@ -48,14 +48,14 @@ class DisplayRepositoryImpl implements DisplayRepository {
   }
 
   @override
-  Future<Result<List<ViewModule>>> getViewModulesByStoreTypeAndTabId({
+  Future<Result<List<ViewModule>>> getViewModulesByMallTypeAndTabId({
     required bool isRefresh,
-    required String storeType,
+    required String mallType,
     required int tabId,
     required int page,
   }) async {
     try {
-      final cacheKey = '${storeType}_${tabId}';
+      final cacheKey = '${mallType}_${tabId}';
 
       if (isRefresh) {
 // delete cache
@@ -69,8 +69,8 @@ class DisplayRepositoryImpl implements DisplayRepository {
         return Result.success(cachedViewModules);
       }
 
-      final response = await _displayApi.getViewModulesByStoreTypeAndTabId(
-        storeType: storeType,
+      final response = await _displayApi.getViewModulesByMallTypeAndTabId(
+        mallType: mallType,
         tabId: tabId,
         page: page,
       );

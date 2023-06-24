@@ -22,7 +22,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
 
   CollectionsBloc(this._displayUsecase) : super(CollectionsState()) {
     on<CollectionsInitialized>(_onCollectionsInitialized);
-    on<ToggledStoreTypes>(_onToggledStoreTypes);
+    on<ToggledMallTypes>(_onToggledMallTypes);
   }
 
   /// GNB bar(collections bar) 초기화
@@ -30,15 +30,15 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     CollectionsInitialized event,
     Emitter<CollectionsState> emit,
   ) async {
-    final storeType = event.storeType ?? StoreType.market;
+    final mallType = event.mallType ?? MallType.market;
 
     emit(state.copyWith(
       status: Status.loading,
-      storeType: storeType,
+      mallType: mallType,
     ));
 
     try {
-      final List<Collection> collections = await _fetch(storeType: storeType);
+      final List<Collection> collections = await _fetch(mallType: mallType);
       final int currentTabId = collections.first.tabId;
 
       _validateCollections(collections);
@@ -64,28 +64,28 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     }
   }
 
-  Future<void> _onToggledStoreTypes(
-    ToggledStoreTypes event,
+  Future<void> _onToggledMallTypes(
+    ToggledMallTypes event,
     Emitter<CollectionsState> emit,
   ) async {
     if (!state.status.isSuccess) return;
 
-    if (state.storeType.index == event.tabIndex) return;
+    if (state.mallType.index == event.tabIndex) return;
 
     emit(state.copyWith(status: Status.loading));
 
-    //입력 받은 storeType
-    final storeType = StoreType.values[event.tabIndex];
+    //입력 받은 mallType
+    final mallType = MallType.values[event.tabIndex];
 
     try {
-      final List<Collection> collections = await _fetch(storeType: storeType);
+      final List<Collection> collections = await _fetch(mallType: mallType);
 
       _validateCollections(collections);
 
       emit(
         state.copyWith(
           status: Status.success,
-          storeType: storeType,
+          mallType: mallType,
           collections: collections,
         ),
       );
@@ -103,9 +103,9 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     }
   }
 
-  Future<List<Collection>> _fetch({required StoreType storeType}) async {
+  Future<List<Collection>> _fetch({required MallType mallType}) async {
     return await _displayUsecase
-        .fetch(GetCollectionsByStoreType(storeType: storeType));
+        .fetch(GetCollectionsByMallType(mallType: mallType));
   }
 }
 

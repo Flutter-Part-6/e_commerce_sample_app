@@ -31,7 +31,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final storeType = context.watch<CollectionsBloc>().state.storeType;
+    final mallType = context.watch<CollectionsBloc>().state.mallType;
     final collections = context.watch<CollectionsBloc>().state.collections;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           child: TabBarView(
             children: collections
                 .map(
-                  (e) => ViewModuleList(tabId: e.tabId, storeType: storeType),
+                  (e) => ViewModuleList(tabId: e.tabId, mallType: mallType),
                 )
                 .toList(),
             controller: _tabController,

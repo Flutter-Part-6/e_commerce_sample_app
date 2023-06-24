@@ -24,7 +24,7 @@ class MainPage extends StatelessWidget {
         BlocProvider(create: (_) => BottomNavigationCubit()),
         BlocProvider(
           create: (_) => getIt<CollectionsBloc>()
-            ..add(CollectionsInitialized(storeType: StoreType.market)),
+            ..add(CollectionsInitialized(mallType: MallType.market)),
         ),
       ],
       child: const MainView(),
@@ -106,7 +106,7 @@ class SamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final storeType = context.watch<CollectionsBloc>().state.storeType;
+    final mallType = context.watch<CollectionsBloc>().state.mallType;
     final name = context.watch<BottomNavigationCubit>().state.name;
 
     return Center(
@@ -116,7 +116,7 @@ class SamplePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(storeType.name),
+                Text(mallType.name),
                 Text(name),
               ],
             ),

@@ -3,15 +3,15 @@ import '../../../../common/constants.dart';
 import '../../base_usecase/remote.usecase.dart';
 import '../../../repository/display.repository.dart';
 
-class GetViewModulesByStoreTypeAndTabId
+class GetViewModulesByMallTypeAndTabId
     extends RemoteUsecase<DisplayRepository> {
-  final StoreType storeType;
+  final MallType mallType;
   final int tabId;
   final bool isRefresh;
   final Map<String, String>? params;
 
-  GetViewModulesByStoreTypeAndTabId({
-    required this.storeType,
+  GetViewModulesByMallTypeAndTabId({
+    required this.mallType,
     required this.tabId,
     this.isRefresh = false,
     this.params,
@@ -20,9 +20,9 @@ class GetViewModulesByStoreTypeAndTabId
   @override
   Future<List<ViewModule>> execute(DisplayRepository repository) async {
     final int page = int.parse(params?['currentpage'] ?? '1');
-    final result = await repository.getViewModulesByStoreTypeAndTabId(
+    final result = await repository.getViewModulesByMallTypeAndTabId(
       isRefresh: isRefresh,
-      storeType: storeType.name,
+      mallType: mallType.name,
       tabId: tabId,
       page: page,
     );

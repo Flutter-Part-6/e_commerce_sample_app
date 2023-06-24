@@ -5,12 +5,12 @@ abstract class ViewModulesEvent {
 }
 
 class ViewModulesInitialized extends ViewModulesEvent {
-  final StoreType storeType;
+  final MallType mallType;
   final int tabId;
   final bool isRefresh;
 
   ViewModulesInitialized({
-    required this.storeType,
+    required this.mallType,
     required this.tabId,
     this.isRefresh = false,
   });

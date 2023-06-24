@@ -5,15 +5,15 @@ abstract class CollectionsEvent {
 }
 
 class CollectionsInitialized extends CollectionsEvent {
-  final StoreType? storeType;
+  final MallType? mallType;
 
-  CollectionsInitialized({this.storeType});
+  CollectionsInitialized({this.mallType});
 }
 
-class ToggledStoreTypes extends CollectionsEvent {
+class ToggledMallTypes extends CollectionsEvent {
   final int tabIndex;
 
-  ToggledStoreTypes(this.tabIndex);
+  ToggledMallTypes(this.tabIndex);
 }
 
 class ChangedTab extends CollectionsEvent {

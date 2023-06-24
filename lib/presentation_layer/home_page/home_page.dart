@@ -80,7 +80,7 @@ class _BuildHomePage extends StatelessWidget {
           case Status.initial:
             return const HomePlaceholder();
           case Status.loading:
-            return HomeView(key: ValueKey<StoreType>(state.storeType));
+            return HomeView(key: ValueKey<MallType>(state.mallType));
           case Status.success:
             return const HomeView();
           case Status.error:

@@ -10,8 +10,8 @@ class Constants {
       const EdgeInsets.symmetric(vertical: 16);
 }
 
-// storeType
-enum StoreType { market, beauty }
+// mallType
+enum MallType { market, beauty }
 
 //bloc status
 enum Status { initial, loading, success, error }
@@ -31,17 +31,17 @@ extension StatusX on Status {
   bool get isError => this == Status.error;
 }
 
-extension StoreTypeX on StoreType {
+extension MallTypeX on MallType {
   String get toName {
     switch (this) {
-      case StoreType.market:
+      case MallType.market:
         return '마켓패캠';
-      case StoreType.beauty:
+      case MallType.beauty:
         return '뷰티패캠';
     }
   }
 
-  get isMarket => this == StoreType.market;
+  get isMarket => this == MallType.market;
 
-  get isBeauty => this == StoreType.beauty;
+  get isBeauty => this == MallType.beauty;
 }
