@@ -6,6 +6,7 @@ import '../common/constants.dart';
 import '../common/dependency_injection/dependency_injection.dart';
 import '../theme/app_icons.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+import 'common/bloc/mall_type_cubit/mall_type_cubit.dart';
 import 'common/utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
 import 'common/utils/snack_bar/common_snack_bar.dart';
 import 'home_page/bloc/cart_bloc/cart_bloc.dart';
@@ -22,6 +23,7 @@ class MainPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BottomNavigationCubit()),
+        BlocProvider(create: (_) => MallTypeCubit()),
         BlocProvider(
           create: (_) => getIt<MenuBloc>()
             ..add(MenuInitialized(mallType: MallType.market)),

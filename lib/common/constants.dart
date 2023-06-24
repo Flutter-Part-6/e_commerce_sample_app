@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_bar_theme.dart';
+
 class Constants {
   static const String targetApiKey = 'TARGET';
 
@@ -38,6 +40,15 @@ extension MallTypeX on MallType {
         return '마켓패캠';
       case MallType.beauty:
         return '뷰티패캠';
+    }
+  }
+
+  CustomAppBarTheme get theme {
+    switch (this) {
+      case MallType.market:
+        return CustomAppBarTheme.market;
+      case MallType.beauty:
+        return CustomAppBarTheme.beauty;
     }
   }
 
