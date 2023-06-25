@@ -53,10 +53,10 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    final apiModule = _$ApiModule();
+    final dataSourceModule = _$DataSourceModule();
     gh.factory<_i3.CartBloc>(() => _i3.CartBloc());
-    gh.singleton<_i4.DisplayApi>(apiModule.displayApi);
-    gh.singleton<_i5.DisplayDao>(apiModule.displayDao);
+    gh.singleton<_i4.DisplayApi>(dataSourceModule.displayApi);
+    gh.singleton<_i5.DisplayDao>(dataSourceModule.displayDao);
     gh.singleton<_i6.DisplayRepository>(_i7.DisplayRepositoryImpl(
       gh<_i4.DisplayApi>(),
       gh<_i5.DisplayDao>(),
@@ -64,9 +64,9 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i8.DisplayUsecase>(
         _i8.DisplayUsecase(gh<_i6.DisplayRepository>()));
     gh.factory<_i9.MenuBloc>(() => _i9.MenuBloc(gh<_i8.DisplayUsecase>()));
-    gh.singleton<_i10.MockApi>(apiModule.mockApi);
+    gh.singleton<_i10.MockApi>(dataSourceModule.mockApi);
     gh.factory<_i11.PaymentBloc>(() => _i11.PaymentBloc());
-    gh.singleton<_i12.UserApi>(apiModule.userApi);
+    gh.singleton<_i12.UserApi>(dataSourceModule.userApi);
     gh.singleton<_i13.UserRepository>(
         _i14.UserRepositoryImpl(gh<_i12.UserApi>()));
     gh.singleton<_i15.UserUsecase>(_i15.UserUsecase(gh<_i13.UserRepository>()));
@@ -79,4 +79,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$ApiModule extends _i19.ApiModule {}
+class _$DataSourceModule extends _i19.DataSourceModule {}
