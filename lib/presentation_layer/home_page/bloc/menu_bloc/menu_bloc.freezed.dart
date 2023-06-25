@@ -19,7 +19,6 @@ mixin _$MenuState {
   Status get status => throw _privateConstructorUsedError;
   String get errorMsg => throw _privateConstructorUsedError;
   MallType get mallType => throw _privateConstructorUsedError;
-  int get currentTabId => throw _privateConstructorUsedError;
   List<Menu> get menus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -33,11 +32,7 @@ abstract class $MenuStateCopyWith<$Res> {
       _$MenuStateCopyWithImpl<$Res, MenuState>;
   @useResult
   $Res call(
-      {Status status,
-      String errorMsg,
-      MallType mallType,
-      int currentTabId,
-      List<Menu> menus});
+      {Status status, String errorMsg, MallType mallType, List<Menu> menus});
 }
 
 /// @nodoc
@@ -56,7 +51,6 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
     Object? status = null,
     Object? errorMsg = null,
     Object? mallType = null,
-    Object? currentTabId = null,
     Object? menus = null,
   }) {
     return _then(_value.copyWith(
@@ -72,10 +66,6 @@ class _$MenuStateCopyWithImpl<$Res, $Val extends MenuState>
           ? _value.mallType
           : mallType // ignore: cast_nullable_to_non_nullable
               as MallType,
-      currentTabId: null == currentTabId
-          ? _value.currentTabId
-          : currentTabId // ignore: cast_nullable_to_non_nullable
-              as int,
       menus: null == menus
           ? _value.menus
           : menus // ignore: cast_nullable_to_non_nullable
@@ -92,11 +82,7 @@ abstract class _$$_MenuStateCopyWith<$Res> implements $MenuStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {Status status,
-      String errorMsg,
-      MallType mallType,
-      int currentTabId,
-      List<Menu> menus});
+      {Status status, String errorMsg, MallType mallType, List<Menu> menus});
 }
 
 /// @nodoc
@@ -113,7 +99,6 @@ class __$$_MenuStateCopyWithImpl<$Res>
     Object? status = null,
     Object? errorMsg = null,
     Object? mallType = null,
-    Object? currentTabId = null,
     Object? menus = null,
   }) {
     return _then(_$_MenuState(
@@ -129,10 +114,6 @@ class __$$_MenuStateCopyWithImpl<$Res>
           ? _value.mallType
           : mallType // ignore: cast_nullable_to_non_nullable
               as MallType,
-      currentTabId: null == currentTabId
-          ? _value.currentTabId
-          : currentTabId // ignore: cast_nullable_to_non_nullable
-              as int,
       menus: null == menus
           ? _value._menus
           : menus // ignore: cast_nullable_to_non_nullable
@@ -148,7 +129,6 @@ class _$_MenuState implements _MenuState {
       {this.status = Status.initial,
       this.errorMsg = '',
       this.mallType = MallType.market,
-      this.currentTabId = 0,
       final List<Menu> menus = const <Menu>[]})
       : _menus = menus;
 
@@ -161,9 +141,6 @@ class _$_MenuState implements _MenuState {
   @override
   @JsonKey()
   final MallType mallType;
-  @override
-  @JsonKey()
-  final int currentTabId;
   final List<Menu> _menus;
   @override
   @JsonKey()
@@ -175,7 +152,7 @@ class _$_MenuState implements _MenuState {
 
   @override
   String toString() {
-    return 'MenuState(status: $status, errorMsg: $errorMsg, mallType: $mallType, currentTabId: $currentTabId, menus: $menus)';
+    return 'MenuState(status: $status, errorMsg: $errorMsg, mallType: $mallType, menus: $menus)';
   }
 
   @override
@@ -188,14 +165,12 @@ class _$_MenuState implements _MenuState {
                 other.errorMsg == errorMsg) &&
             (identical(other.mallType, mallType) ||
                 other.mallType == mallType) &&
-            (identical(other.currentTabId, currentTabId) ||
-                other.currentTabId == currentTabId) &&
             const DeepCollectionEquality().equals(other._menus, _menus));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, status, errorMsg, mallType,
-      currentTabId, const DeepCollectionEquality().hash(_menus));
+      const DeepCollectionEquality().hash(_menus));
 
   @JsonKey(ignore: true)
   @override
@@ -209,7 +184,6 @@ abstract class _MenuState implements MenuState {
       {final Status status,
       final String errorMsg,
       final MallType mallType,
-      final int currentTabId,
       final List<Menu> menus}) = _$_MenuState;
 
   @override
@@ -218,8 +192,6 @@ abstract class _MenuState implements MenuState {
   String get errorMsg;
   @override
   MallType get mallType;
-  @override
-  int get currentTabId;
   @override
   List<Menu> get menus;
   @override

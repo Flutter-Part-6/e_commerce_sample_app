@@ -64,8 +64,8 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
 
       final List<ViewModule> response =
           await _fetch(mallType, tabId, isRefresh: isRefresh);
-
       ViewModuleFactory viewModuleFactory = ViewModuleFactory();
+
       final List<Widget> viewModules =
           response.map((e) => viewModuleFactory.textToWidget(e)).toList();
 

@@ -22,71 +22,26 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
 
   MenuBloc(this._displayUsecase) : super(MenuState()) {
     on<MenuInitialized>(_onMenusInitialized);
-    on<ToggledMallTypes>(_onToggledMallTypes);
   }
 
-  /// GNB bar(collections bar) 초기화
+  /// GNB bar 초기화
   Future<void> _onMenusInitialized(
     MenuInitialized event,
     Emitter<MenuState> emit,
   ) async {
     final mallType = event.mallType ?? MallType.market;
 
-    emit(state.copyWith(
-      status: Status.loading,
-      mallType: mallType,
-    ));
-
-    try {
-      final List<Menu> menus = await _fetch(mallType: mallType);
-      final int currentTabId = menus.first.tabId;
-
-      _validateMenus(menus);
-
-      emit(
-        state.copyWith(
-          status: Status.success,
-          currentTabId: currentTabId,
-          menus: menus,
-        ),
-      );
-    } on NetworkException catch (error) {
-      CustomLogger.logger.e(error);
-      emit(state.copyWith(status: Status.error));
-    } on ServiceException catch (error) {
-      CustomLogger.logger.e(error);
-      emit(state.copyWith(
-        status: Status.error,
-        errorMsg: error.message,
-      ));
-    } catch (error) {
-      CustomLogger.logger.e('${error.toString()}');
-    }
-  }
-
-  Future<void> _onToggledMallTypes(
-    ToggledMallTypes event,
-    Emitter<MenuState> emit,
-  ) async {
-    if (!state.status.isSuccess) return;
-
-    if (state.mallType.index == event.tabIndex) return;
-
     emit(state.copyWith(status: Status.loading));
 
-    //입력 받은 mallType
-    final mallType = MallType.values[event.tabIndex];
-
     try {
       final List<Menu> menus = await _fetch(mallType: mallType);
-
       _validateMenus(menus);
 
       emit(
         state.copyWith(
           status: Status.success,
-          mallType: mallType,
           menus: menus,
+          mallType: mallType,
         ),
       );
     } on NetworkException catch (error) {

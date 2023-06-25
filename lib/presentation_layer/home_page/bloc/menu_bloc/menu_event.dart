@@ -9,15 +9,3 @@ class MenuInitialized extends MenuEvent {
 
   MenuInitialized({this.mallType});
 }
-
-class ToggledMallTypes extends MenuEvent {
-  final int tabIndex;
-
-  ToggledMallTypes(this.tabIndex);
-}
-
-class ChangedTab extends MenuEvent {
-  final int tabId;
-
-  ChangedTab(this.tabId);
-}

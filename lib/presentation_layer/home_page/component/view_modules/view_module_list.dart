@@ -1,42 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/home_page_bloc.dart';
 import '../home_placeholder.dart';
 import '../../../../common/constants.dart';
-import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';
 import 'widget/bottom_loader.dart';
 
-class ViewModuleList extends StatelessWidget {
-  const ViewModuleList({required this.tabId, required this.mallType, Key? key})
-      : super(key: key);
-
-  final MallType mallType;
-  final int tabId;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: BlocProvider.of<ViewModulesBloc>(context)
-        ..add(
-          ViewModulesInitialized(mallType: mallType, tabId: tabId),
-        ),
-      child: _BuildViewModules(mallType, tabId),
-    );
-  }
-}
-
-class _BuildViewModules extends StatefulWidget {
-  const _BuildViewModules(this.mallType, this.tabId);
+class ViewModuleList extends StatefulWidget {
+  const ViewModuleList({required this.mallType, required this.tabId});
 
   final int tabId;
   final MallType mallType;
 
   @override
-  State<_BuildViewModules> createState() => _BuildViewModulesState();
+  State<ViewModuleList> createState() => _ViewModuleListState();
 }
 
-class _BuildViewModulesState extends State<_BuildViewModules> {
+class _ViewModuleListState extends State<ViewModuleList> with AutomaticKeepAliveClientMixin{
   void _onRefresh(MallType mallType, int tabId) {
     context.read<ViewModulesBloc>().add(
           ViewModulesInitialized(
@@ -49,6 +30,8 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return RefreshIndicator(
       child: NotificationListener(
         child: SingleChildScrollView(
@@ -84,4 +67,7 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
       onRefresh: () async => _onRefresh(widget.mallType, widget.tabId),
     );
   }
+
+@override
+bool get wantKeepAlive => true;
 }

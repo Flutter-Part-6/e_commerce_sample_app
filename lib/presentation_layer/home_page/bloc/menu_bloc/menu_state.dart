@@ -6,7 +6,6 @@ class MenuState with _$MenuState {
     @Default(Status.initial) Status status,
     @Default('') String errorMsg,
     @Default(MallType.market) MallType mallType,
-    @Default(0) int currentTabId,
     @Default(<Menu>[]) List<Menu> menus,
   }) = _MenuState;
 }
