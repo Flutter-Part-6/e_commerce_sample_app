@@ -85,7 +85,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
                       crossAxisCount: 3,
                       mainAxisSpacing: 12,
                       crossAxisSpacing: 8,
-                      childAspectRatio: (343 / 3) / (452 / 2),
+                      childAspectRatio: ((343 - 16) / 3) / ((452 - 12) / 2),
                     ),
                     itemBuilder: (context, index) {
                       final productInfo = widget.info.products[index];

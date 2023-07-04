@@ -56,7 +56,7 @@ class ProductCardWidget extends StatelessWidget {
           maxLines: 2,
         ),
         const SizedBox(
-          height: 4,
+          height: 1,
         ),
         Row(
           children: [
@@ -74,7 +74,7 @@ class ProductCardWidget extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 3,
+          height: 2,
         ),
         Text(
           productInfo.originalPrice.toWon(),
