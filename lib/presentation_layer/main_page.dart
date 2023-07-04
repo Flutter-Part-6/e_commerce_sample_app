@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../common/constants.dart';
-import '../common/dependency_injection/dependency_injection.dart';
 import '../theme/app_icons.dart';
 import 'common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+import 'common/bloc/mall_type_cubit/mall_type_cubit.dart';
 import 'common/utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
 import 'common/utils/snack_bar/common_snack_bar.dart';
 import 'home_page/bloc/cart_bloc/cart_bloc.dart';
 import 'user_page/user_page.dart';
 import 'common/component/app_bar/top_app_bar.dart';
-import 'home_page/bloc/collections_bloc/collections_bloc.dart';
 import 'home_page/home_page.dart';
 
 class MainPage extends StatelessWidget {
@@ -22,10 +20,7 @@ class MainPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BottomNavigationCubit()),
-        BlocProvider(
-          create: (_) => getIt<CollectionsBloc>()
-            ..add(CollectionsInitialized(storeType: StoreType.market)),
-        ),
+        BlocProvider(create: (_) => MallTypeCubit()),
       ],
       child: const MainView(),
     );
@@ -65,37 +60,41 @@ class MainView extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navHome),
-            label: BottomNavigation.home.name,
-            activeIcon: SvgPicture.asset(AppIcons.navHomeOn),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navCategory),
-            label: BottomNavigation.category.name,
-            activeIcon: SvgPicture.asset(AppIcons.navCategoryOn),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navSearch),
-            label: BottomNavigation.search.name,
-            activeIcon: SvgPicture.asset(AppIcons.navSearchOn),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navUser),
-            label: BottomNavigation.user.name,
-            activeIcon: SvgPicture.asset(AppIcons.navUserOn),
-          ),
-        ],
-        onTap: context.read<BottomNavigationCubit>().changeBottomType,
-        currentIndex: context.watch<BottomNavigationCubit>().state.index,
-        type: BottomNavigationBarType.fixed,
-        iconSize: 36,
-        selectedFontSize: 0,
-        unselectedFontSize: 0,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+      bottomNavigationBar: BlocBuilder<BottomNavigationCubit, BottomNavigation>(
+        builder: (_, state) {
+          return BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navHome),
+                label: BottomNavigation.home.name,
+                activeIcon: SvgPicture.asset(AppIcons.navHomeOn),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navCategory),
+                label: BottomNavigation.category.name,
+                activeIcon: SvgPicture.asset(AppIcons.navCategoryOn),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navSearch),
+                label: BottomNavigation.search.name,
+                activeIcon: SvgPicture.asset(AppIcons.navSearchOn),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navUser),
+                label: BottomNavigation.user.name,
+                activeIcon: SvgPicture.asset(AppIcons.navUserOn),
+              ),
+            ],
+            onTap: context.read<BottomNavigationCubit>().changeBottomType,
+            currentIndex: state.index,
+            type: BottomNavigationBarType.fixed,
+            iconSize: 36,
+            selectedFontSize: 0,
+            unselectedFontSize: 0,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+          );
+        },
       ),
     );
   }
@@ -106,7 +105,7 @@ class SamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final storeType = context.watch<CollectionsBloc>().state.storeType;
+    final mallType = context.watch<MallTypeCubit>().state.mallType;
     final name = context.watch<BottomNavigationCubit>().state.name;
 
     return Center(
@@ -116,7 +115,7 @@ class SamplePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(storeType.name),
+                Text(mallType.name),
                 Text(name),
               ],
             ),

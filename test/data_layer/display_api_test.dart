@@ -26,8 +26,8 @@ void main() {
       });
     });
 
-    group('api 호출 테스트 이상한 storeType 넣은 경우', () async{
-      final response = await api.getCollectionsByStoreType(storeType: 'kkk');
+    group('api 호출 테스트 이상한 mallType 넣은 경우', () async{
+      final response = await api.getMenusByMallType(mallType: 'kkk');
       final expected = [{"tabId": 10001, "title": "박동진"}];
 
       expect(response, equals(expected));

@@ -49,7 +49,7 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
     Emitter<ViewModulesState> emit,
   ) async {
     try {
-      final storeType = event.storeType;
+      final mallType = event.mallType;
       final tabId = event.tabId;
       final isRefresh = event.isRefresh;
 
@@ -63,15 +63,15 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
       emit(state.copyWith(status: Status.loading));
 
       final List<ViewModule> response =
-          await _fetch(storeType, tabId, isRefresh: isRefresh);
-
+          await _fetch(mallType, tabId, isRefresh: isRefresh);
       ViewModuleFactory viewModuleFactory = ViewModuleFactory();
+
       final List<Widget> viewModules =
           response.map((e) => viewModuleFactory.textToWidget(e)).toList();
 
       emit(state.copyWith(
         status: Status.success,
-        storeType: storeType,
+        mallType: mallType,
         tabId: tabId,
         viewModules: viewModules,
       ));
@@ -100,12 +100,12 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
 
       final nextPage = state.currentPage + 1;
       final List<ViewModule> response = await _fetch(
-        state.storeType,
+        state.mallType,
         state.tabId,
         params: {_currentPage: '$nextPage'},
       );
       print(
-        '[test] storeType : ${state.storeType}, tabId : ${state.tabId} page : $nextPage',
+        '[test] mallType : ${state.mallType}, tabId : ${state.tabId} page : $nextPage',
       );
       // 다음 페이지를 호출했을 때 empty라면 endOfPage -> true
       final List<Widget> viewModules = [...state.viewModules];
@@ -145,14 +145,14 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
   }
 
   Future<List<ViewModule>> _fetch(
-    StoreType storeType,
+    MallType mallType,
     int tabId, {
     bool isRefresh = false,
     Map<String, String>? params,
   }) async {
     final response = _displayUsecase.fetch(
-      GetViewModulesByStoreTypeAndTabId(
-        storeType: storeType,
+      GetViewModulesByMallTypeAndTabId(
+        mallType: mallType,
         tabId: tabId,
         isRefresh: isRefresh,
         params: params,

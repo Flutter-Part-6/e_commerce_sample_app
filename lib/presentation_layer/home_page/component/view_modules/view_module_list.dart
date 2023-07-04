@@ -1,46 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/home_page_bloc.dart';
 import '../home_placeholder.dart';
 import '../../../../common/constants.dart';
-import '../../bloc/view_modules_bloc/view_modules_bloc.dart';
 import '../footer/footer.dart';
 import 'widget/bottom_loader.dart';
 
-class ViewModuleList extends StatelessWidget {
-  const ViewModuleList({required this.tabId, required this.storeType, Key? key})
-      : super(key: key);
-
-  final StoreType storeType;
-  final int tabId;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: BlocProvider.of<ViewModulesBloc>(context)
-        ..add(
-          ViewModulesInitialized(storeType: storeType, tabId: tabId),
-        ),
-      child: _BuildViewModules(storeType, tabId),
-    );
-  }
-}
-
-class _BuildViewModules extends StatefulWidget {
-  const _BuildViewModules(this.storeType, this.tabId);
+class ViewModuleList extends StatefulWidget {
+  const ViewModuleList({required this.mallType, required this.tabId});
 
   final int tabId;
-  final StoreType storeType;
+  final MallType mallType;
 
   @override
-  State<_BuildViewModules> createState() => _BuildViewModulesState();
+  State<ViewModuleList> createState() => _ViewModuleListState();
 }
 
-class _BuildViewModulesState extends State<_BuildViewModules> {
-  void _onRefresh(StoreType storeType, int tabId) {
+class _ViewModuleListState extends State<ViewModuleList> with AutomaticKeepAliveClientMixin{
+  void _onRefresh(MallType mallType, int tabId) {
     context.read<ViewModulesBloc>().add(
           ViewModulesInitialized(
-            storeType: storeType,
+            mallType: mallType,
             tabId: tabId,
             isRefresh: true,
           ),
@@ -49,6 +30,8 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return RefreshIndicator(
       child: NotificationListener(
         child: SingleChildScrollView(
@@ -81,7 +64,10 @@ class _BuildViewModulesState extends State<_BuildViewModules> {
           return false;
         },
       ),
-      onRefresh: () async => _onRefresh(widget.storeType, widget.tabId),
+      onRefresh: () async => _onRefresh(widget.mallType, widget.tabId),
     );
   }
+
+@override
+bool get wantKeepAlive => true;
 }

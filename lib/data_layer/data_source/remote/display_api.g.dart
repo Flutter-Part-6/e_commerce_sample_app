@@ -19,31 +19,30 @@ class _DisplayApi implements DisplayApi {
   String? baseUrl;
 
   @override
-  Future<ResponseWrapper<List<CollectionDto>>> getCollectionsByStoreType(
-      {required String storeType}) async {
+  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(
+      {required String mallType}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ResponseWrapper<List<CollectionDto>>>(Options(
+        _setStreamType<ResponseWrapper<List<MenuDto>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/stores/${storeType}',
+              '/stores/${mallType}',
               queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ResponseWrapper<List<CollectionDto>>.fromJson(
+    final value = ResponseWrapper<List<MenuDto>>.fromJson(
       _result.data!,
       (json) => json is List<dynamic>
           ? json
-              .map<CollectionDto>(
-                  (i) => CollectionDto.fromJson(i as Map<String, dynamic>))
+              .map<MenuDto>((i) => MenuDto.fromJson(i as Map<String, dynamic>))
               .toList()
           : List.empty(),
     );
@@ -52,8 +51,8 @@ class _DisplayApi implements DisplayApi {
 
   @override
   Future<ResponseWrapper<List<ViewModuleDto>>>
-      getViewModulesByStoreTypeAndTabId({
-    required String storeType,
+      getViewModulesByMallTypeAndTabId({
+    required String mallType,
     required int tabId,
     required int page,
   }) async {
@@ -69,7 +68,7 @@ class _DisplayApi implements DisplayApi {
     )
             .compose(
               _dio.options,
-              '/view_modules/${storeType}/${tabId}',
+              '/view_modules/${mallType}/${tabId}',
               queryParameters: queryParameters,
               data: _data,
             )

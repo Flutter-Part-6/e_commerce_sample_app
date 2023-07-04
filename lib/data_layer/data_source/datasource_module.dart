@@ -11,7 +11,7 @@ import 'remote/display_api.dart';
 import 'remote/user_api.dart';
 
 @module
-abstract class ApiModule {
+abstract class DataSourceModule {
   final Dio _dio = RestClient().getDio;
 
   @singleton

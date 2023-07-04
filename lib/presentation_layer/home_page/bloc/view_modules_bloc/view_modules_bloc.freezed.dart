@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ViewModulesState {
   Status get status => throw _privateConstructorUsedError;
   String get errorMsg => throw _privateConstructorUsedError;
-  StoreType get storeType => throw _privateConstructorUsedError;
+  MallType get mallType => throw _privateConstructorUsedError;
   int get tabId => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
   bool get endOfPage => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $ViewModulesStateCopyWith<$Res> {
   $Res call(
       {Status status,
       String errorMsg,
-      StoreType storeType,
+      MallType mallType,
       int tabId,
       int currentPage,
       bool endOfPage,
@@ -60,7 +60,7 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
   $Res call({
     Object? status = null,
     Object? errorMsg = null,
-    Object? storeType = null,
+    Object? mallType = null,
     Object? tabId = null,
     Object? currentPage = null,
     Object? endOfPage = null,
@@ -75,10 +75,10 @@ class _$ViewModulesStateCopyWithImpl<$Res, $Val extends ViewModulesState>
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String,
-      storeType: null == storeType
-          ? _value.storeType
-          : storeType // ignore: cast_nullable_to_non_nullable
-              as StoreType,
+      mallType: null == mallType
+          ? _value.mallType
+          : mallType // ignore: cast_nullable_to_non_nullable
+              as MallType,
       tabId: null == tabId
           ? _value.tabId
           : tabId // ignore: cast_nullable_to_non_nullable
@@ -110,7 +110,7 @@ abstract class _$$_ViewModulesStateCopyWith<$Res>
   $Res call(
       {Status status,
       String errorMsg,
-      StoreType storeType,
+      MallType mallType,
       int tabId,
       int currentPage,
       bool endOfPage,
@@ -130,7 +130,7 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? errorMsg = null,
-    Object? storeType = null,
+    Object? mallType = null,
     Object? tabId = null,
     Object? currentPage = null,
     Object? endOfPage = null,
@@ -145,10 +145,10 @@ class __$$_ViewModulesStateCopyWithImpl<$Res>
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String,
-      storeType: null == storeType
-          ? _value.storeType
-          : storeType // ignore: cast_nullable_to_non_nullable
-              as StoreType,
+      mallType: null == mallType
+          ? _value.mallType
+          : mallType // ignore: cast_nullable_to_non_nullable
+              as MallType,
       tabId: null == tabId
           ? _value.tabId
           : tabId // ignore: cast_nullable_to_non_nullable
@@ -175,7 +175,7 @@ class _$_ViewModulesState implements _ViewModulesState {
   _$_ViewModulesState(
       {this.status = Status.initial,
       this.errorMsg = '',
-      this.storeType = StoreType.market,
+      this.mallType = MallType.market,
       this.tabId = 0,
       this.currentPage = 1,
       this.endOfPage = false,
@@ -190,7 +190,7 @@ class _$_ViewModulesState implements _ViewModulesState {
   final String errorMsg;
   @override
   @JsonKey()
-  final StoreType storeType;
+  final MallType mallType;
   @override
   @JsonKey()
   final int tabId;
@@ -211,7 +211,7 @@ class _$_ViewModulesState implements _ViewModulesState {
 
   @override
   String toString() {
-    return 'ViewModulesState(status: $status, errorMsg: $errorMsg, storeType: $storeType, tabId: $tabId, currentPage: $currentPage, endOfPage: $endOfPage, viewModules: $viewModules)';
+    return 'ViewModulesState(status: $status, errorMsg: $errorMsg, mallType: $mallType, tabId: $tabId, currentPage: $currentPage, endOfPage: $endOfPage, viewModules: $viewModules)';
   }
 
   @override
@@ -222,8 +222,8 @@ class _$_ViewModulesState implements _ViewModulesState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMsg, errorMsg) ||
                 other.errorMsg == errorMsg) &&
-            (identical(other.storeType, storeType) ||
-                other.storeType == storeType) &&
+            (identical(other.mallType, mallType) ||
+                other.mallType == mallType) &&
             (identical(other.tabId, tabId) || other.tabId == tabId) &&
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
@@ -238,7 +238,7 @@ class _$_ViewModulesState implements _ViewModulesState {
       runtimeType,
       status,
       errorMsg,
-      storeType,
+      mallType,
       tabId,
       currentPage,
       endOfPage,
@@ -255,7 +255,7 @@ abstract class _ViewModulesState implements ViewModulesState {
   factory _ViewModulesState(
       {final Status status,
       final String errorMsg,
-      final StoreType storeType,
+      final MallType mallType,
       final int tabId,
       final int currentPage,
       final bool endOfPage,
@@ -266,7 +266,7 @@ abstract class _ViewModulesState implements ViewModulesState {
   @override
   String get errorMsg;
   @override
-  StoreType get storeType;
+  MallType get mallType;
   @override
   int get tabId;
   @override

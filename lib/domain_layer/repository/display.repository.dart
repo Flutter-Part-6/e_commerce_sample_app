@@ -3,16 +3,16 @@ import '../model/display.model.dart';
 import 'repository.dart';
 
 abstract class DisplayRepository extends Repository {
-  // get collection list
-  Future<Result<List<Collection>>> getCollectionsByStoreType({
-    required String storeType,
+  // get menu list
+  Future<Result<List<Menu>>> getMenusByMallType({
+    required String mallType,
     Map<String, String>? queries,
   });
 
   // get viewModule list
-  Future<Result<List<ViewModule>>> getViewModulesByStoreTypeAndTabId({
+  Future<Result<List<ViewModule>>> getViewModulesByMallTypeAndTabId({
     required bool isRefresh,
-    required String storeType,
+    required String mallType,
     required int tabId,
     required int page,
     // Map<String, String>? queries,

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'collection.model.dart';
+part of 'menu.model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,32 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Collection _$CollectionFromJson(Map<String, dynamic> json) {
-  return _Collection.fromJson(json);
+Menu _$MenuFromJson(Map<String, dynamic> json) {
+  return _Menu.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Collection {
+mixin _$Menu {
   int get tabId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CollectionCopyWith<Collection> get copyWith =>
-      throw _privateConstructorUsedError;
+  $MenuCopyWith<Menu> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CollectionCopyWith<$Res> {
-  factory $CollectionCopyWith(
-          Collection value, $Res Function(Collection) then) =
-      _$CollectionCopyWithImpl<$Res, Collection>;
+abstract class $MenuCopyWith<$Res> {
+  factory $MenuCopyWith(Menu value, $Res Function(Menu) then) =
+      _$MenuCopyWithImpl<$Res, Menu>;
   @useResult
   $Res call({int tabId, String title});
 }
 
 /// @nodoc
-class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
-    implements $CollectionCopyWith<$Res> {
-  _$CollectionCopyWithImpl(this._value, this._then);
+class _$MenuCopyWithImpl<$Res, $Val extends Menu>
+    implements $MenuCopyWith<$Res> {
+  _$MenuCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -68,22 +66,18 @@ class _$CollectionCopyWithImpl<$Res, $Val extends Collection>
 }
 
 /// @nodoc
-abstract class _$$_CollectionCopyWith<$Res>
-    implements $CollectionCopyWith<$Res> {
-  factory _$$_CollectionCopyWith(
-          _$_Collection value, $Res Function(_$_Collection) then) =
-      __$$_CollectionCopyWithImpl<$Res>;
+abstract class _$$_MenuCopyWith<$Res> implements $MenuCopyWith<$Res> {
+  factory _$$_MenuCopyWith(_$_Menu value, $Res Function(_$_Menu) then) =
+      __$$_MenuCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int tabId, String title});
 }
 
 /// @nodoc
-class __$$_CollectionCopyWithImpl<$Res>
-    extends _$CollectionCopyWithImpl<$Res, _$_Collection>
-    implements _$$_CollectionCopyWith<$Res> {
-  __$$_CollectionCopyWithImpl(
-      _$_Collection _value, $Res Function(_$_Collection) _then)
+class __$$_MenuCopyWithImpl<$Res> extends _$MenuCopyWithImpl<$Res, _$_Menu>
+    implements _$$_MenuCopyWith<$Res> {
+  __$$_MenuCopyWithImpl(_$_Menu _value, $Res Function(_$_Menu) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +86,7 @@ class __$$_CollectionCopyWithImpl<$Res>
     Object? tabId = null,
     Object? title = null,
   }) {
-    return _then(_$_Collection(
+    return _then(_$_Menu(
       tabId: null == tabId
           ? _value.tabId
           : tabId // ignore: cast_nullable_to_non_nullable
@@ -107,11 +101,10 @@ class __$$_CollectionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Collection implements _Collection {
-  const _$_Collection({required this.tabId, required this.title});
+class _$_Menu implements _Menu {
+  const _$_Menu({required this.tabId, required this.title});
 
-  factory _$_Collection.fromJson(Map<String, dynamic> json) =>
-      _$$_CollectionFromJson(json);
+  factory _$_Menu.fromJson(Map<String, dynamic> json) => _$$_MenuFromJson(json);
 
   @override
   final int tabId;
@@ -120,14 +113,14 @@ class _$_Collection implements _Collection {
 
   @override
   String toString() {
-    return 'Collection(tabId: $tabId, title: $title)';
+    return 'Menu(tabId: $tabId, title: $title)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Collection &&
+            other is _$_Menu &&
             (identical(other.tabId, tabId) || other.tabId == tabId) &&
             (identical(other.title, title) || other.title == title));
   }
@@ -139,23 +132,22 @@ class _$_Collection implements _Collection {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CollectionCopyWith<_$_Collection> get copyWith =>
-      __$$_CollectionCopyWithImpl<_$_Collection>(this, _$identity);
+  _$$_MenuCopyWith<_$_Menu> get copyWith =>
+      __$$_MenuCopyWithImpl<_$_Menu>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CollectionToJson(
+    return _$$_MenuToJson(
       this,
     );
   }
 }
 
-abstract class _Collection implements Collection {
-  const factory _Collection(
-      {required final int tabId, required final String title}) = _$_Collection;
+abstract class _Menu implements Menu {
+  const factory _Menu({required final int tabId, required final String title}) =
+      _$_Menu;
 
-  factory _Collection.fromJson(Map<String, dynamic> json) =
-      _$_Collection.fromJson;
+  factory _Menu.fromJson(Map<String, dynamic> json) = _$_Menu.fromJson;
 
   @override
   int get tabId;
@@ -163,6 +155,5 @@ abstract class _Collection implements Collection {
   String get title;
   @override
   @JsonKey(ignore: true)
-  _$$_CollectionCopyWith<_$_Collection> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_MenuCopyWith<_$_Menu> get copyWith => throw _privateConstructorUsedError;
 }

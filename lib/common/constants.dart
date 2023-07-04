@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_bar_theme.dart';
+
 class Constants {
   static const String targetApiKey = 'TARGET';
 
@@ -10,8 +12,8 @@ class Constants {
       const EdgeInsets.symmetric(vertical: 16);
 }
 
-// storeType
-enum StoreType { market, beauty }
+// mallType
+enum MallType { market, beauty }
 
 //bloc status
 enum Status { initial, loading, success, error }
@@ -31,17 +33,26 @@ extension StatusX on Status {
   bool get isError => this == Status.error;
 }
 
-extension StoreTypeX on StoreType {
+extension MallTypeX on MallType {
   String get toName {
     switch (this) {
-      case StoreType.market:
+      case MallType.market:
         return '마켓패캠';
-      case StoreType.beauty:
+      case MallType.beauty:
         return '뷰티패캠';
     }
   }
 
-  get isMarket => this == StoreType.market;
+  CustomAppBarTheme get theme {
+    switch (this) {
+      case MallType.market:
+        return CustomAppBarTheme.market;
+      case MallType.beauty:
+        return CustomAppBarTheme.beauty;
+    }
+  }
 
-  get isBeauty => this == StoreType.beauty;
+  get isMarket => this == MallType.market;
+
+  get isBeauty => this == MallType.beauty;
 }

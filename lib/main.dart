@@ -11,6 +11,7 @@ import 'data_layer/entity/display/display.entity.dart';
 import 'data_layer/entity/display/target_api/target_api.dart';
 import 'presentation_layer/cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'presentation_layer/common/bloc/bloc_test_observer.dart';
+import 'presentation_layer/common/bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 import 'presentation_layer/common/bloc/user_bloc/user_bloc.dart';
 import 'presentation_layer/router.dart';
 import 'theme.dart';

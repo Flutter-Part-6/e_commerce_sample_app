@@ -32,7 +32,10 @@ class IconBox extends StatelessWidget {
           icon,
           width: iconSize,
           height: iconSize,
-          color: color,
+          colorFilter: ColorFilter.mode(
+            color,
+            BlendMode.srcIn,
+          ),
         ),
       ),
       onTap: onPressed,

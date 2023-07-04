@@ -6,7 +6,7 @@ import 'theme/typography.dart';
 
 class CustomTheme {
   /// 44
-  static double appBarHeight = 44;
+  static final double appBarHeight = 44;
 
   static ThemeData get theme => ThemeData(
         useMaterial3: true,
