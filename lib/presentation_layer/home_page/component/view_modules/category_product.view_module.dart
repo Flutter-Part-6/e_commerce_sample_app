@@ -118,16 +118,16 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Text(
-                //   '${widget.info.tabs[_tabController.index]} 전체보기',
-                //   style: Theme.of(context)
-                //       .textTheme
-                //       .titleSmall
-                //       ?.copyWith(
-                //         color: colorScheme.contentPrimary,
-                //       )
-                //       .regular,
-                // ),
+                Text(
+                  '${widget.info.tabs[_tabController.index]} 전체보기',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleSmall
+                      ?.copyWith(
+                        color: colorScheme.contentPrimary,
+                      )
+                      .regular,
+                ),
                 SvgPicture.asset(
                   AppIcons.chevronRight,
                   width: 16,

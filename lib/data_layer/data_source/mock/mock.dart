@@ -158,6 +158,12 @@ class MockApi implements DisplayApi {
                       sampleProduct,
                       sampleProduct,
                     ],
+                    tabs: [
+                      '가전, 가구 특가',
+                      '프리미엄 주방 특가',
+                      '뷰티 특가',
+                      '프리미엄 식품 특가',
+                    ],
                   ),
                   ViewModuleDto(
                     type: 'brand_product_view_module',
