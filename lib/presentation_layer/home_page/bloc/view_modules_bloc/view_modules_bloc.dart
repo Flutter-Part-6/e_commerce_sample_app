@@ -104,17 +104,12 @@ class ViewModulesBloc extends Bloc<ViewModulesEvent, ViewModulesState> {
         state.tabId,
         params: {_currentPage: '$nextPage'},
       );
-      print(
-        '[test] mallType : ${state.mallType}, tabId : ${state.tabId} page : $nextPage',
-      );
+
       // 다음 페이지를 호출했을 때 empty라면 endOfPage -> true
       final List<Widget> viewModules = [...state.viewModules];
       viewModules.addAll(
         response.map((e) => viewModuleFactory.textToWidget(e)).toList(),
       );
-
-      //TODO 디바이더 삭제해야됌 테스트용
-      viewModules.add(Divider(thickness: 10));
 
       // 다음 페이지가 비어있는 경우 endOfPage
       if (response.isEmpty) {
