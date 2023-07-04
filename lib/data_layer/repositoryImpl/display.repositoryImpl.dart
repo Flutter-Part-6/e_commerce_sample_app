@@ -24,8 +24,7 @@ class DisplayRepositoryImpl implements DisplayRepository {
     Map<String, String>? queries,
   }) async {
     try {
-      final response =
-          await _displayApi.getMenusByMallType(mallType: mallType);
+      final response = await _displayApi.getMenusByMallType(mallType: mallType);
 
       if (response.status.isSuccess) {
         final List<Menu> collections =

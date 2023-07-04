@@ -64,15 +64,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => getIt<MenuBloc>()
-            ..add(MenuInitialized(mallType: MallType.market)),
-        ),
-      ],
-      child: const _BuildHomePage(),
-    );
+    return BlocBuilder<MallTypeCubit, MallTypeState>(builder: (_, state) {
+      return BlocProvider(
+        create: (_) =>
+            getIt<MenuBloc>()..add(MenuInitialized(mallType: state.mallType)),
+        child: const _BuildHomePage(),
+      );
+    });
   }
 }
 
@@ -106,7 +104,7 @@ class _BuildHomePage extends StatelessWidget {
               );
             case Status.success:
               return DefaultTabController(
-                key: ValueKey<MallType>(mallType),
+                key: ValueKey<String>('${state.mallType}'),
                 length: menus.length,
                 child: Column(
                   children: [

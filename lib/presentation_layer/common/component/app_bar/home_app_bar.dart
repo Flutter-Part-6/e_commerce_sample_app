@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../common/utils/logger.dart';
 import '../../../../theme.dart';
 import '../../../../theme/app_bar_theme.dart';
 import '../../../../theme/app_icons.dart';
@@ -10,6 +11,8 @@ import '../../../../theme/typography.dart';
 import '../../../cart_list_page/bloc/cart_list_bloc/cart_list_bloc.dart';
 import '../../../../common/constants.dart';
 import '../../../routes.dart';
+import '../../bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
+import '../../bloc/bottom_navigation_cubit/bottom_navigation_cubit.dart';
 import '../../bloc/mall_type_cubit/mall_type_cubit.dart';
 import 'widget/icon_box.dart';
 
@@ -18,113 +21,128 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MallTypeCubit, MallTypeState>(
-      builder: (context, state) {
-        final colorTheme = state.mallType.theme;
-        final textTheme = Theme.of(context).textTheme;
-        final cartCount = context.watch<CartListBloc>().state.cartList.length;
+    return BlocListener<BottomNavigationCubit, BottomNavigation>(
+      listener: (context, state) =>
+          context.read<MallTypeCubit>().changeMallType(0),
+      listenWhen: (prev, cur) {
+        CustomLogger.logger.d('prev : ${prev.index}, cur : ${cur.index}');
 
-        return AnimatedContainer(
-          color: colorTheme.backgroundColor,
-          child: AppBar(
-            leading: Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.only(left: 8),
-              child: SvgPicture.asset(
-                AppIcons.mainLogo,
-                colorFilter: ColorFilter.mode(
-                  colorTheme.logoColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
-            title: AnimatedContainer(
-              decoration: BoxDecoration(
-                color: colorTheme.containerColor,
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-              ),
-              child: SizedBox(
-                height: 28,
-                child: DefaultTabController(
-                  length: 2,
-                  child: TabBar(
-                    tabs: [
-                      Tab(text: MallType.market.toName),
-                      Tab(text: MallType.beauty.toName),
-                    ],
-                    isScrollable: true,
-                    indicatorWeight: 0,
-                    indicator: BoxDecoration(
-                      color: colorTheme.logoColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                    ),
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    dividerColor: Colors.transparent,
-                    labelColor: colorTheme.labelColor,
-                    labelStyle: textTheme.labelLarge.bold,
-                    labelPadding: const EdgeInsets.symmetric(horizontal: 12.5),
-                    unselectedLabelColor: colorTheme.unselectedLabelColor,
-                    unselectedLabelStyle: textTheme.labelLarge,
-                    onTap: context.read<MallTypeCubit>().changeMallType,
-                    splashBorderRadius:
-                        const BorderRadius.all(Radius.circular(16)),
+        return false;
+        // return prev.index != 0 && cur.index == 0;
+      },
+      child: BlocBuilder<MallTypeCubit, MallTypeState>(
+        builder: (context, state) {
+          final colorTheme = state.mallType.theme;
+          final textTheme = Theme.of(context).textTheme;
+          final cartCount = context.watch<CartListBloc>().state.cartList.length;
+
+          return AnimatedContainer(
+            // key: ValueKey<MallType>(state.mallType),
+            color: colorTheme.backgroundColor,
+            child: AppBar(
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(left: 8),
+                child: SvgPicture.asset(
+                  AppIcons.mainLogo,
+                  colorFilter: ColorFilter.mode(
+                    colorTheme.logoColor,
+                    BlendMode.srcIn,
                   ),
                 ),
               ),
-              duration:
-                  Duration(milliseconds: CustomAppBarTheme.animationDuration),
-            ),
-            actions: [
-              IconBox(
-                icon: AppIcons.location,
-                color: colorTheme.iconColor,
-                onPressed: null,
-              ),
-              const SizedBox(width: 8),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  IconBox(
-                    icon: AppIcons.cart,
-                    color: colorTheme.iconColor,
-                    onPressed: () => context.push(Routes.cartPath),
-                  ),
-                  //TODO 장바구니 뱃지 디자인 수정
-                  Positioned(
-                    top: 2,
-                    right: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: colorTheme.badgeBgColor,
-                        shape: BoxShape.circle,
+              title: AnimatedContainer(
+                decoration: BoxDecoration(
+                  color: colorTheme.containerColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                ),
+                child: SizedBox(
+                  height: 28,
+                  child: DefaultTabController(
+                    initialIndex: state.mallType.index,
+                    length: 2,
+                    child: TabBar(
+                      tabs: [
+                        Tab(text: MallType.market.toName),
+                        Tab(text: MallType.beauty.toName),
+                      ],
+                      isScrollable: true,
+                      indicatorWeight: 0,
+                      indicator: BoxDecoration(
+                        color: colorTheme.logoColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
                       ),
-                      width: 13,
-                      height: 13,
-                      child: Center(
-                        child: Text(
-                          '$cartCount',
-                          style: TextStyle(
-                            color: colorTheme.badgeNumColor,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w600,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      dividerColor: Colors.transparent,
+                      labelColor: colorTheme.labelColor,
+                      labelStyle: textTheme.labelLarge.bold,
+                      labelPadding:
+                          const EdgeInsets.symmetric(horizontal: 12.5),
+                      unselectedLabelColor: colorTheme.unselectedLabelColor,
+                      unselectedLabelStyle: textTheme.labelLarge,
+                      onTap: context.read<MallTypeCubit>().changeMallType,
+                      splashBorderRadius:
+                          const BorderRadius.all(Radius.circular(16)),
+                    ),
+                  ),
+                ),
+                duration:
+                    Duration(milliseconds: CustomAppBarTheme.animationDuration),
+              ),
+              actions: [
+                IconBox(
+                  icon: AppIcons.location,
+                  color: colorTheme.iconColor,
+                  onPressed: null,
+                ),
+                const SizedBox(width: 8),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    IconBox(
+                      icon: AppIcons.cart,
+                      color: colorTheme.iconColor,
+                      onPressed: () => context.push(Routes.cartPath),
+                    ),
+                    //TODO 장바구니 뱃지 디자인 수정
+                    Positioned(
+                      top: 2,
+                      right: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: colorTheme.badgeBgColor,
+                          shape: BoxShape.circle,
+                        ),
+                        width: 13,
+                        height: 13,
+                        child: Center(
+                          child: Text(
+                            '$cartCount',
+                            style: TextStyle(
+                              color: colorTheme.badgeNumColor,
+                              fontSize: 9,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 8),
-            ],
-            backgroundColor: Colors.transparent,
-            centerTitle: true,
-            toolbarHeight: CustomTheme.appBarHeight,
-            leadingWidth: 86,
-            systemOverlayStyle: colorTheme.systemUiOverlayStyle,
-          ),
-          duration: Duration(milliseconds: CustomAppBarTheme.animationDuration),
-        );
-      },
+                  ],
+                ),
+                const SizedBox(width: 8),
+              ],
+              backgroundColor: Colors.transparent,
+              centerTitle: true,
+              toolbarHeight: CustomTheme.appBarHeight,
+              leadingWidth: 86,
+              systemOverlayStyle: colorTheme.systemUiOverlayStyle,
+            ),
+            duration:
+                Duration(milliseconds: CustomAppBarTheme.animationDuration),
+          );
+        },
+      ),
     );
   }
 }

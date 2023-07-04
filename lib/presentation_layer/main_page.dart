@@ -60,37 +60,41 @@ class MainView extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navHome),
-            label: BottomNavigation.home.name,
-            activeIcon: SvgPicture.asset(AppIcons.navHomeOn),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navCategory),
-            label: BottomNavigation.category.name,
-            activeIcon: SvgPicture.asset(AppIcons.navCategoryOn),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navSearch),
-            label: BottomNavigation.search.name,
-            activeIcon: SvgPicture.asset(AppIcons.navSearchOn),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(AppIcons.navUser),
-            label: BottomNavigation.user.name,
-            activeIcon: SvgPicture.asset(AppIcons.navUserOn),
-          ),
-        ],
-        onTap: context.read<BottomNavigationCubit>().changeBottomType,
-        currentIndex: context.watch<BottomNavigationCubit>().state.index,
-        type: BottomNavigationBarType.fixed,
-        iconSize: 36,
-        selectedFontSize: 0,
-        unselectedFontSize: 0,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+      bottomNavigationBar: BlocBuilder<BottomNavigationCubit, BottomNavigation>(
+        builder: (_, state) {
+          return BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navHome),
+                label: BottomNavigation.home.name,
+                activeIcon: SvgPicture.asset(AppIcons.navHomeOn),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navCategory),
+                label: BottomNavigation.category.name,
+                activeIcon: SvgPicture.asset(AppIcons.navCategoryOn),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navSearch),
+                label: BottomNavigation.search.name,
+                activeIcon: SvgPicture.asset(AppIcons.navSearchOn),
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AppIcons.navUser),
+                label: BottomNavigation.user.name,
+                activeIcon: SvgPicture.asset(AppIcons.navUserOn),
+              ),
+            ],
+            onTap: context.read<BottomNavigationCubit>().changeBottomType,
+            currentIndex: state.index,
+            type: BottomNavigationBarType.fixed,
+            iconSize: 36,
+            selectedFontSize: 0,
+            unselectedFontSize: 0,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+          );
+        },
       ),
     );
   }
