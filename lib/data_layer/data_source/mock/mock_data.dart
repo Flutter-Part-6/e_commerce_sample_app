@@ -154,4 +154,44 @@ class MockData {
     imageUrl:
         'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1380&q=80',
   );
+
+
+  static final serum = ProductInfoDto(
+    productId: DateTime.now().microsecondsSinceEpoch.toString(),
+    title: '비타민 한가득 세럼',
+    subtitle:
+    'This is sample product info. it has a long long subtitle text. plz check this!',
+    price: 22400,
+    originalPrice: 32000,
+    discountRate: 30,
+    reviewCount: 10000000,
+    imageUrl:
+    'https://images.unsplash.com/photo-1615354650192-e5a5bd9aa169?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1305&q=80',
+  );
+
+  static final lotion = ProductInfoDto(
+    productId: DateTime.now().microsecondsSinceEpoch.toString(),
+    title: '건조한 당신의 손의 축복을 핸드크림',
+    subtitle:
+    'This is sample product info. it has a long long subtitle text. plz check this!',
+    price: 16000,
+    originalPrice: 20000,
+    discountRate: 20,
+    reviewCount: 10000000,
+    imageUrl:
+    'https://images.unsplash.com/photo-1617030557331-75cb865d9d20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1335&q=80',
+  );
+
+  static final bodyCare = ProductInfoDto(
+    productId: DateTime.now().microsecondsSinceEpoch.toString(),
+    title: '바디 케어 세트',
+    subtitle:
+    'This is sample product info. it has a long long subtitle text. plz check this!',
+    price: 48000,
+    originalPrice: 60000,
+    discountRate: 20,
+    reviewCount: 10000000,
+    imageUrl:
+    'https://images.unsplash.com/photo-1631390179406-0bfe17e9f89d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1296&q=80',
+  );
 }

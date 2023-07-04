@@ -33,7 +33,7 @@ class MockApi implements DisplayApi {
               code: '7777',
               message: '갱신에 실패했습니다.',
               data: <MenuDto>[
-                const MenuDto(tabId: 10001, title: "컬리추천"),
+                const MenuDto(tabId: 10001, title: "F-추천"),
                 const MenuDto(tabId: 10002, title: "신상품"),
                 const MenuDto(tabId: 10003, title: "베스트"),
                 const MenuDto(tabId: 10004, title: "알뜰쇼핑"),
@@ -47,7 +47,7 @@ class MockApi implements DisplayApi {
               code: '0000',
               message: '성공입니다.',
               data: <MenuDto>[
-                const MenuDto(tabId: 20001, title: "컬리추천"),
+                const MenuDto(tabId: 20001, title: "F-추천"),
                 const MenuDto(tabId: 20002, title: "LUXURY"),
                 const MenuDto(tabId: 20003, title: "신상품"),
                 const MenuDto(tabId: 20004, title: "베스트"),
@@ -164,7 +164,7 @@ class MockApi implements DisplayApi {
     ViewModuleDto(
       type: 'banner_view_module',
       imageUrl:
-          'https://images.unsplash.com/photo-1464692805480-a69dfaafdb0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+          'https://images.unsplash.com/photo-1637488875853-871f85500fa6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80',
     ),
   ];
 
@@ -251,14 +251,12 @@ class MockApi implements DisplayApi {
     ),
     ViewModuleDto(
       type: 'scroll_view_module',
-      title: '이 상품 어때요?',
+      title: '오늘의 한정특가!',
+      subtitle: '어디에서도 볼 수없는 혜택을 누려보세요.🍀',
       products: [
-        MockData.apple,
-        MockData.lemon,
-        MockData.pineApple,
-        MockData.tuna,
-        MockData.pasta1,
-        MockData.pasta2,
+        MockData.serum,
+        MockData.lotion,
+        MockData.bodyCare,
       ],
     ),
     ViewModuleDto(
