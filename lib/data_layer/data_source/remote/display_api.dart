@@ -17,11 +17,19 @@ abstract class DisplayApi {
   });
 
   // about view_modules
-  @GET('/view_modules/{mallType}/{tabId}')
+  @GET('/view_modules/{mallType}/{tabId}/{page}')
   Future<ResponseWrapper<List<ViewModuleDto>>>
       getViewModulesByMallTypeAndTabId({
     @Path('mallType') required String mallType,
     @Path('tabId') required int tabId,
     @Query('page') required int page,
   });
+
+  // TODO 실제 강의에선 이렇게 나갈거임
+  // @GET('/view_modules/{tabId}/{page}')
+  // Future<ResponseWrapper<List<ViewModuleDto>>>
+  // getViewModulesByMallTypeAndTabId({
+  //   @Path('tabId') required int tabId,
+  //   @Path('page') required int page,
+  // });
 }

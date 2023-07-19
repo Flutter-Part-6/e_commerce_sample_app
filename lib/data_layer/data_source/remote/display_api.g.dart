@@ -68,7 +68,7 @@ class _DisplayApi implements DisplayApi {
     )
             .compose(
               _dio.options,
-              '/view_modules/${mallType}/${tabId}',
+              '/view_modules/${mallType}/${tabId}/{page}',
               queryParameters: queryParameters,
               data: _data,
             )
